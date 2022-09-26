@@ -1,0 +1,33 @@
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat');
+
+    * {
+    font-family: 'Montserrat', sans-serif;
+    }
+
+    .gradient-custom {
+    background-image: url('https://cloudfront-us-east-1.images.arcpublishing.com/infobae/IDESGY5PMFHL3CRYMTSLFYT7WU.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    }
+    
+    .card-registration .select-input.form-control[readonly]:not([disabled]) {
+    font-size: 1rem;
+    line-height: 2.15;
+    padding-left: .75em;
+    padding-right: .75em;
+    }
+
+    .hola{
+        background-color: rgba(0,0,0,0.5) !important;
+    }
+
+    label, h3, h6{
+        color: white;
+    }
+
+    .card-registration .select-arrow {
+    top: 13px;
+    }
+
+
+   

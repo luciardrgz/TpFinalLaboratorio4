@@ -1,13 +1,11 @@
-/* Made with love by Mutiullah Samim*/
-
-@import url('https://fonts.googleapis.com/css?family=Numans');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat');
 
 html,body{
 background-image: url('https://cloudfront-us-east-1.images.arcpublishing.com/infobae/IDESGY5PMFHL3CRYMTSLFYT7WU.jpg');
 background-size: cover;
 background-repeat: no-repeat;
 height: 100%;
-font-family: 'Numans', sans-serif;
+font-family: 'Montserrat', sans-serif;
 }
 
 .container{
