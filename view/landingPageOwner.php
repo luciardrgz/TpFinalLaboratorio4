@@ -1,7 +1,7 @@
 <?php
  namespace view;
 
- include ("../nav.php");
+ include ("../navOwner.php");
 ?>
 <!DOCTYPE html>
 <html>

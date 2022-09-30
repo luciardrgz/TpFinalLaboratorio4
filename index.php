@@ -21,7 +21,7 @@
 				<h3>Sign In </h3>
 			</div>
 			<div class="card-body">
-				<form action="view/landingPage.php" method="POST">
+				<form action="view/landingPageGuardian.php" method="POST">
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -39,6 +39,7 @@
 					</div>
 					<div class="form-group">
 						<input type="submit" value="Login" class="btn float-right login_btn">
+						
 					</div>
 				</form>
 			</div>
