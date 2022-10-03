@@ -1,23 +1,106 @@
-html,
+@import url("https://fonts.googleapis.com/css2?family=Montserrat");
+
+* {
+  font-family: "Montserrat", sans-serif;
+}
 body {
   background-image: url("https://cdn.discordapp.com/attachments/1022513613375807644/1025462786010120343/10780029.jpg");
   background-repeat: no-repeat;
+  background-size: cover;
 }
 
+.emp-profile {
+  padding: 3%;
+  margin-top: 3%;
+  margin-bottom: 3%;
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.753);
+}
+.profile-img {
+  text-align: center;
+}
+.profile-img img {
+  width: 70%;
+  height: 100%;
+}
+.profile-img .file {
+  position: relative;
+  overflow: hidden;
+  margin-top: -20%;
+  width: 70%;
+  border: none;
+  border-radius: 0;
+  font-size: 15px;
+  background: #212529b8;
+}
+.profile-img .file input {
+  position: absolute;
+  opacity: 0;
+  right: 0;
+  top: 0;
+}
+.profile-head h5 {
+  color: #333;
+}
+.profile-head h6 {
+  color: #0062cc;
+}
+.profile-edit-btn {
+  border: none;
+  border-radius: 1.5rem;
+  width: 70%;
+  padding: 2%;
+  font-weight: 600;
+  background-color: #ffc312;
+  color: #000000;
+  cursor: pointer;
+}
+.profile-head .nav-tabs {
+  margin-bottom: 5%;
+}
+.profile-head .nav-tabs .nav-link {
+  font-weight: 600;
+  border: none;
+}
+.profile-head .nav-tabs .nav-link.active {
+  border: none;
+  border-bottom: 2px solid #0062cc;
+}
+.profile-work {
+  padding: 14%;
+  margin-top: -15%;
+}
+.profile-work p {
+  font-size: 12px;
+  color: #818182;
+  font-weight: 600;
+  margin-top: 10%;
+}
+.profile-work a {
+  text-decoration: none;
+  color: #495057;
+  font-weight: 600;
+  font-size: 14px;
+}
+.profile-work ul {
+  list-style: none;
+}
+.profile-rating {
+  color: black;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+}
 
+span {
+  color: rgb(115, 255, 0);
+}
 
-.gradient-custom {
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: -webkit-linear-gradient(
-    to right bottom,
-    rgba(246, 211, 101, 1),
-    rgba(253, 160, 133, 1)
-  );
-
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background: linear-gradient(
-    to right bottom,
-    rgba(246, 211, 101, 1),
-    rgba(253, 160, 133, 1)
-  );
+.profile-tab label {
+  font-weight: 600;
+}
+.profile-tab p {
+  margin-top: 50px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  color: #cc0000;
 }
