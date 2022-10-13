@@ -4,13 +4,14 @@ namespace Models;
 class Guardian extends User
 {
    private $puntuacion;
-    
-    function __construct($firstName, $lastName, $email,$phoneNumber, $nickName, $password,$puntuacion){
+   private $petsize;
+   private $availability;
+   
+   /*
+    function __construct($firstName, $lastName, $email,$phoneNumber, $nickName, $password){
         parent::__construct($firstName, $lastName, $email,$phoneNumber, $nickName, $password);
-        $this->puntuacion=$puntuacion;
-        $this->setType("guardian");
-    }
+        $this->puntuacion=0;
+        $this->setType("G");
+    }*/
 
 }
-
-?>

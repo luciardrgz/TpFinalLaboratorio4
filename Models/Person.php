@@ -7,13 +7,16 @@
         private $lastName;
         private $email;
         private $phoneNumber;
+        private $birthDate;
         
-        function __construct($firstName, $lastName, $email,$phoneNumber){
+        /*
+        function __construct($firstName, $lastName, $email,$phoneNumber,$birthDate){
             $this->firstName=$firstName;
             $this->lastName=$lastName;
             $this->email=$email;
             $this->phoneNumber=$phoneNumber;
-        }
+            $this->birthDate=$birthDate;
+        }*/
 
         public function getFirstName()
         {
@@ -54,6 +57,16 @@
         public function setPhoneNumber($phoneNumber)
         {
                 $this->phoneNumber = $phoneNumber;
+        }
+
+        public function getBirthDate()
+        {
+                return $this->birthDate;
+        }
+
+        public function setBirthDate($birthDate)
+        {
+                $this->birthDate = $birthDate;
         }
     }
 

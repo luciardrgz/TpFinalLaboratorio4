@@ -6,7 +6,7 @@ if ($_SESSION['guardian']guardian){
 }else{
   include("../navOwner.php");  
 }*/
-include("../navGuardian.php");
+include("/navGuardian.php");
 
 ?>
 
@@ -17,10 +17,8 @@ include("../navGuardian.php");
     <title></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="../css/BookingHistory.css">
+    <link rel="stylesheet" type="text/css" href="css/BookingHistory.css">
 </head>
-
-
 
 <body>
     <link rel="stylesheet"

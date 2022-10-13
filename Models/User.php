@@ -8,11 +8,12 @@ class User extends Person
     private $type;
     //private $id;
     
+    /*
     function __construct($firstName, $lastName, $email,$phoneNumber,$nickName, $password){
         parent::__construct($firstName, $lastName, $email,$phoneNumber);
         $this->nickName=$nickName;
         $this->password=$password;
-    }
+    }*/
 
     public function getNickName()
     {
