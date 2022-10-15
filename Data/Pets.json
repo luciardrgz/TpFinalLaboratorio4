@@ -1,0 +1,12 @@
+[
+    {
+        "id": 1,
+        "petName": "Manchita",
+        "ownerEmail": "alberto@ramirez.com",
+        "pictureURL": "google.com",
+        "breed": "Golden",
+        "video": "google.com",
+        "vaccination": "google.com",
+        "type": "D"
+    }
+]

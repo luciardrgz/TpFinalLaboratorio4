@@ -25,28 +25,33 @@ class AuthController
             require_once(VIEWS_PATH."login.php");  
         } else {
 
-            $user = new User();
+
+
             $guardianDAO = new GuardianDAO();
-            $guardianDAO = $this->guardianDAO->getByEmail($email);
+            $guardian = new Guardian();
+            $guardian = $this->guardianDAO->getByEmail($email);
 
             $ownerDAO = new OwnerDAO();
-            $ownerDAO = $this->ownerDAO->getByEmail($email);
+            $owner = new Owner();
+            $owner = $this->ownerDAO->getByEmail($email);
 
-            if ($guardianDAO != null){
-                if ($guardianDAO->getPassword() == $password) {
-                    $_SESSION['loggeduser'] = $guardianDAO;
-                    $_SESSION['type'] = $user->getType();
-                    $this->showLandingPage('G');
+            if ($guardian != null){
+                if ($guardian->getPassword() == $password) {
+                    $_SESSION['loggeduser'] = $guardian;
+                    $_SESSION['email'] = $guardian->getEmail();
+                    $_SESSION['type'] = $guardian->getType();
+                    $this->showLandingPage($guardian->getType());
                 } else {
                     require_once(VIEWS_PATH . "login.php");
                 }
             } else {
-                if ($ownerDAO !=null) {
-                    if ($ownerDAO->getPassword() == $password) {
+                if ($owner != null) {
+                    if ($owner->getPassword() == $password) {
 
-                        $_SESSION['loggeduser'] = $ownerDAO;
-                        $_SESSION['type'] = $user->getType();
-                        $this->showLandingPage('O');
+                        $_SESSION['loggeduser'] = $owner;
+                        $_SESSION['email'] = $owner->getEmail();
+                        $_SESSION['type'] = $owner->getType();
+                        $this->showLandingPage($owner->getType());
                     }
                 } else {
                     require_once(VIEWS_PATH . "login.php");

@@ -40,13 +40,20 @@ class OwnerDAO{
     {
         $this->loadData();
 
-        $owners = array_filter($this->ownerList, function ($owner) use ($email) {
-            return $owner->getEmail() == $email;
-        });
+        $flag=false;
+        $found = new Owner();
 
-        $owners = array_values($owners);
-
-        return (count($owners) > 0) ? $owners[0] : null;
+        foreach($this->ownerList as $owner){
+            if($owner->getEmail() == $email){
+                $found = $owner;
+                $flag=true;
+            }
+        }
+        if($flag==false){
+            return null;
+        }else{
+            return $found;
+        }  
     }
 
     /*

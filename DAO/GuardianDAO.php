@@ -43,13 +43,20 @@ class GuardianDAO /*implements IGuardianDAO*/
     {
         $this->loadData();
 
-        $guardians = array_filter($this->guardianList, function ($guardian) use ($email) {
-            return $guardian->getEmail() == $email;
-        });
+        $flag=false;
+        $found = new Guardian();
 
-        $guardians = array_values($guardians);
-
-        return (count($guardians) > 0) ? $guardians[0] : null;
+        foreach($this->guardianList as $guardian){
+            if($guardian->getEmail() == $email){
+                $found = $guardian;
+                $flag=true;
+            }
+        }
+        if($flag==false){
+            return null;
+        }else{
+            return $found;
+        }  
     }
 
     /*

@@ -6,6 +6,8 @@ use DAO\GuardianDAO as GuardianDAO;
 use DAO\OwnerDAO as OwnerDAO;
 use Models\Guardian as Guardian;
 use Models\Owner as Owner;
+use Models\Pet as Pet;
+use DAO\PetDAO as PetDAO;
 use Controllers\AuthController as AuthController;
 
 class UserController
@@ -29,7 +31,6 @@ class UserController
 
     public function add($firstName=" ", $lastName=" ", $birthdate=" ", $email=" ", $phoneNumber=" ", $nickName=" ", $password=" ", $type=" ")
     {
-        echo "HOLAAAA";
         if($firstName!=" " || $lastName!=" " || $birthdate!=" " || $email!=" " || $phoneNumber!=" " || $nickName!=" " || $password!=" " || $type!=" ")
         {
             if ($type == 'G') {
@@ -68,5 +69,38 @@ class UserController
             require_once(VIEWS_PATH . "login.php");
         }
     }
+
+    public function addPet($petName=" ", $pictureURL =" ", $breed=" ", $video=" ", $vaccination=" ", $type=" ")
+    {
+        if(isset($_SESSION['loggeduser'])){
+          if($_SESSION['type'] == 'O')
+          {
+            if($petName!=" " || $picture!=" " || $breed!=" " || $video!=" " || $vaccination!=" " || $type!=" ")
+            { 
+                $pet = new Pet(); // new Dog
+                $petDAO = new PetDAO();
+
+                $pet->setName($petName);
+                $pet->setPicture($pictureURL);
+                $pet->setBreed($breed);
+                $pet->setVideo($video);
+                $pet->setVaccination($vaccination);
+                $pet->setType($type);
+                $pet->setOwnerEmail($_SESSION['email']);
+                
+                $petDAO->add($pet);
+                $this->showLandingPage($_SESSION['type']); //enviar a lista de mascotas
+            }else {
+                     $this->showLandingPage($_SESSION['type']);
+                  }
+          }else{
+            $this->showLandingPage($_SESSION['type']);
+          }   
+        }
+        else{
+            require_once(VIEWS_PATH . "login.php");
+        }
+    
+   }
 }
 ?>

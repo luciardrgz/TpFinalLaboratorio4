@@ -2,21 +2,21 @@
 
 namespace Models;
 
-abstract class Pet
+ class Pet
 {
+    private $ownerEmail;
     private $name;
     private $picture;
     private $breed;
     private $video;
     private $vaccination; // Image
+    private $type;
+    private $id;
     
-    function __construct($name, $picture, $breed, $video, $vaccination){
-        $this->name=$name;
-        $this->picture=$picture;
-        $this->breed=$breed;
-        $this->video=$video;
-        $this->vaccination=$vaccination;
-    }
+    /*
+    function __construct(){
+        
+    }*/
 
     public function getName()
     {
@@ -67,7 +67,42 @@ abstract class Pet
     {
         $this->vaccination = $vaccination;
     }
-    
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    public function getOwnerEmail()
+    {
+        return $this->ownerEmail;
+    }
+
+    public function setOwnerEmail($ownerEmail)
+    {
+        $this->ownerEmail = $ownerEmail;
+
+        return $this;
+    }
 }
 
 ?>
