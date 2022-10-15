@@ -1,5 +1,6 @@
 <?php
-include("../navGuardian.php");
+namespace Views;
+include("navGuardian.php");
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +11,7 @@ include("../navGuardian.php");
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../css/Profile.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo "/Lab4/TpFinalLaboratorio4/Views/css/Profile.css" ?>">
 </head>
 
 <body>

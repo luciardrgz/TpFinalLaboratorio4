@@ -1,0 +1,12 @@
+[
+    {
+        "firstname": "Pedro",
+        "lastname": "Picapiedra",
+        "email": "alberto@ramirez.com",
+        "phonenumber": "00000",
+        "birthdate": "2022-10-02",
+        "nickname": "Pedrito",
+        "password": "1234",
+        "type": "O"
+    }
+]

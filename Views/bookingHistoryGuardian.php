@@ -1,4 +1,5 @@
 <?php
+namespace Views;
 /*
 session_start();
 if ($_SESSION['guardian']guardian){

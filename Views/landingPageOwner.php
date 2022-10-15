@@ -2,7 +2,8 @@
 
 namespace Views;
 
-include("/navOwner.php");
+include("navOwner.php");
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -11,7 +12,7 @@ include("/navOwner.php");
     <title>Owner Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/landingPage.css">
+    <link rel="stylesheet" type="text/css" href="/Lab4/TpFinalLaboratorio4/Views/css/landingPage.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -29,14 +30,14 @@ include("/navOwner.php");
                     aria-label="Slide 3"></button>
             </div>
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="img/bannerImage1.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-item active">
+                    <img src="<?php echo "/Lab4/TpFinalLaboratorio4/Views/img/bannerImage1.jpg"?>" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="img/bannerImage2.jpg" class="d-block w-100" alt="...">
+                    <img src="<?php echo "/Lab4/TpFinalLaboratorio4/Views/img/bannerImage2.jpg"?>" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="img/bannerImage3.jpg" class="d-block w-100" alt="...">
+                    <img src="<?php echo "/Lab4/TpFinalLaboratorio4/Views/img/bannerImage3.jpg"?>" class="d-block w-100" alt="...">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"

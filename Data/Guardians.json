@@ -1,0 +1,12 @@
+[
+    {
+        "firstname": "Jorge",
+        "lastname": "Paris",
+        "email": "juan@marin.com",
+        "nickname": "JP",
+        "phonenumber": "1234",
+        "birthdate": "2022-10-03",
+        "password": "1234",
+        "type": "G"
+    }
+]

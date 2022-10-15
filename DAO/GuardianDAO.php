@@ -76,7 +76,7 @@ class GuardianDAO /*implements IGuardianDAO*/
 
             foreach ($contentArray as $content) {
                 $guardian = new Guardian();
-                $guardian->setFirstName($content("firstname"));
+                $guardian->setFirstName($content["firstname"]);
                 $guardian->setLastName($content["lastname"]);
                 $guardian->setEmail($content["email"]);
                 $guardian->setPhoneNumber($content["phonenumber"]);
@@ -100,6 +100,7 @@ class GuardianDAO /*implements IGuardianDAO*/
             $valuesArray["firstname"] = $guardian->getFirstName();
             $valuesArray["lastname"] = $guardian->getLastName();
             $valuesArray["email"] = $guardian->getEmail();
+            $valuesArray["nickname"] = $guardian->getNickName();
             $valuesArray["phonenumber"] = $guardian->getPhoneNumber();
             $valuesArray["birthdate"] = $guardian->getBirthDate();
             $valuesArray["password"] = $guardian->getPassword();

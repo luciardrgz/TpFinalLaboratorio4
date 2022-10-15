@@ -73,7 +73,7 @@ class OwnerDAO{
 
             foreach ($contentArray as $content) {
                 $owner = new Owner();
-                $owner->setFirstName($content("firstname"));
+                $owner->setFirstName($content["firstname"]);
                 $owner->setLastName($content["lastname"]);
                 $owner->setEmail($content["email"]);
                 $owner->setPhoneNumber($content["phonenumber"]);
@@ -91,13 +91,14 @@ class OwnerDAO{
     {
         $arrayToEncode = array();
 
-        foreach ($this->guardianList as $owner) {
+        foreach ($this->ownerList as $owner) {
             $valuesArray = array();
             $valuesArray["firstname"] = $owner->getFirstName();
             $valuesArray["lastname"] = $owner->getLastName();
             $valuesArray["email"] = $owner->getEmail();
             $valuesArray["phonenumber"] = $owner->getPhoneNumber();
             $valuesArray["birthdate"] = $owner->getBirthDate();
+            $valuesArray["nickname"] = $owner->getNickName();
             $valuesArray["password"] = $owner->getPassword();
             $valuesArray["type"] = $owner->getType();
 

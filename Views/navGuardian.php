@@ -1,3 +1,7 @@
+<?php
+ namespace Views;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,10 +11,11 @@
 
 <body>
     <nav>
-        <a href="../Views/landingPageGuardian.php">Home</a>
-        <a href="../Views/profile.php">Profile</a>
-        <a href="../Views/bookingHistoryGuardian.php">Booking&nbsp;history</a>
+        <a href="<?php echo "/Lab4/TpFinalLaboratorio4/Views/landingPageGuardian.php"?>">Home</a>
+        <a href="<?php echo "/Lab4/TpFinalLaboratorio4/Views/profile"?>">Profile</a>
+        <a href="/Lab4/TpFinalLaboratorio4/Views/bookingHistoryGuardian.php">Booking&nbsp;history</a>
         <a href="#">Requests</a>
+        <a href="<?php echo "/Lab4/TpFinalLaboratorio4/Auth/logout"?>">Logout</a>
         <div class="animation start-home"></div>
     </nav>
 

@@ -6,6 +6,7 @@ use DAO\GuardianDAO as GuardianDAO;
 use DAO\OwnerDAO as OwnerDAO;
 use Models\Guardian as Guardian;
 use Models\Owner as Owner;
+use Controllers\AuthController as AuthController;
 
 class UserController
 {
@@ -14,8 +15,8 @@ class UserController
 
     public function __construct()
     {
-        $this->guardianDAO = new GuardianDAO;
-        $this->ownerDAO = new OwnerDAO;
+        $this->guardianDAO = new GuardianDAO();
+        $this->ownerDAO = new OwnerDAO();
     }
 
     function showLandingPage($type)
@@ -26,51 +27,46 @@ class UserController
             require_once(VIEWS_PATH . "landingPageOwner.php");
     }
 
-    function showListView()
-    {
-        $cellphoneList = $this->guardianDAO->getAll();
-        require_once(VIEWS_PATH . "cellphone-list.php");
-    }
-
-    function add($firstName, $lastName, $birthdate, $email, $phoneNumber, $nickName, $password, $type)
+    public function add($firstName=" ", $lastName=" ", $birthdate=" ", $email=" ", $phoneNumber=" ", $nickName=" ", $password=" ", $type=" ")
     {
         echo "HOLAAAA";
-        if ($type == 'G') {
+        if($firstName!=" " || $lastName!=" " || $birthdate!=" " || $email!=" " || $phoneNumber!=" " || $nickName!=" " || $password!=" " || $type!=" ")
+        {
+            if ($type == 'G') {
 
-            $guardian = new Guardian();
+                $guardian = new Guardian();
 
-            $guardian->setFirstName($firstName);
-            $guardian->setLastName($lastName);
-            $guardian->setEmail($email);
-            $guardian->setBirthDate($birthdate);
-            $guardian->setPhoneNumber($phoneNumber);
-            $guardian->setNickName($nickName);
-            $guardian->setPassword($password);
-            $guardian->setType($type);
+                $guardian->setFirstName($firstName);
+                $guardian->setLastName($lastName);
+                $guardian->setEmail($email);
+                $guardian->setBirthDate($birthdate);
+                $guardian->setPhoneNumber($phoneNumber);
+                $guardian->setNickName($nickName);
+                $guardian->setPassword($password);
+                $guardian->setType($type);
 
-            $this->guardianDAO->add($guardian);
-            $this->showLandingPage($type);
-        } else if ($type == 'O') {
+                $this->guardianDAO->add($guardian);
+                $this->showLandingPage($type);
+            } else if ($type == 'O') {
 
-            $owner = new Owner();
+                $owner = new Owner();
 
-            $owner->setFirstName($firstName);
-            $owner->setLastName($lastName);
-            $owner->setEmail($email);
-            $owner->setBirthDate($birthdate);
-            $owner->setPhoneNumber($phoneNumber);
-            $owner->setNickName($nickName);
-            $owner->setPassword($password);
-            $owner->setType($type);
+                $owner->setFirstName($firstName);
+                $owner->setLastName($lastName);
+                $owner->setEmail($email);
+                $owner->setBirthDate($birthdate);
+                $owner->setPhoneNumber($phoneNumber);
+                $owner->setNickName($nickName);
+                $owner->setPassword($password);
+                $owner->setType($type);
 
-            $this->ownerDAO->add($owner);
-            $this->showLandingPage($type);
+                $this->ownerDAO->add($owner);
+                $this->showLandingPage($type);
+            }
+        }else
+        {
+            require_once(VIEWS_PATH . "login.php");
         }
     }
-    /*
-    public function remove($id)
-    {
-        $this->guardianDAO->delete($id);
-        $this->showListView();
-    }*/
 }
+?>
