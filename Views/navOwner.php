@@ -12,7 +12,7 @@ namespace Views;
 <body>
     <nav>
         <a href="<?php echo "/Lab4/TpFinalLaboratorio4/Views/landingPageOwner.php"?>">Home</a>
-        <a href="<?php echo "/Lab4/TpFinalLaboratorio4/Views/profile"?>">Profile</a>
+        <a href="<?php echo "/Lab4/TpFinalLaboratorio4/User/showProfileInfo"?>">Profile</a>
         <a href="#">Booking&nbsp;history</a>
         <a href="#">Guardian&nbsp;list</a>
         <a href="<?php echo "/Lab4/TpFinalLaboratorio4/Views/addPet.php"?>">Add Pet</a>

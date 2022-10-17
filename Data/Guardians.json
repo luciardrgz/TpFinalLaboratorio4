@@ -1,12 +1,13 @@
 [
     {
-        "firstname": "Jorge",
-        "lastname": "Paris",
+        "firstname": "Roberto",
+        "lastname": "Hamilton",
         "email": "juan@marin.com",
-        "nickname": "JP",
-        "phonenumber": "1234",
-        "birthdate": "2022-10-03",
+        "nickname": "roberto",
+        "phonenumber": "45524452",
+        "birthdate": "2022-09-25",
         "password": "1234",
+        "petSize": "Small",
         "type": "G"
     }
 ]

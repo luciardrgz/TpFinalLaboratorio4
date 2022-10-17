@@ -8,5 +8,35 @@
         "video": "google.com",
         "vaccination": "google.com",
         "type": "D"
+    },
+    {
+        "id": 2,
+        "petName": "Cacique",
+        "ownerEmail": "alberto@ramirez.com",
+        "pictureURL": "foto1url",
+        "breed": "lassie",
+        "video": "video1url",
+        "vaccination": "certificadourl",
+        "type": "D"
+    },
+    {
+        "id": 3,
+        "petName": "Poroto",
+        "ownerEmail": "alberto@ramirez.com",
+        "pictureURL": "url2",
+        "breed": "chihuahua",
+        "video": "chihuahuavideo",
+        "vaccination": "chihuahuacertificado",
+        "type": "D"
+    },
+    {
+        "id": 1,
+        "petName": "Ruth",
+        "ownerEmail": "alberto@ramirez.com",
+        "pictureURL": "ruthurl",
+        "breed": "calle",
+        "video": "ruthvideo",
+        "vaccination": "certificado",
+        "type": "D"
     }
 ]

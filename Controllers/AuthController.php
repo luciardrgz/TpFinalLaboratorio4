@@ -25,8 +25,6 @@ class AuthController
             require_once(VIEWS_PATH."login.php");  
         } else {
 
-
-
             $guardianDAO = new GuardianDAO();
             $guardian = new Guardian();
             $guardian = $this->guardianDAO->getByEmail($email);

@@ -11,7 +11,7 @@ namespace Views;
 <html>
 
 <head>
-    <title>Sign up</title>
+    <title>Add your Pet!</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -34,7 +34,7 @@ namespace Views;
 
                         <div class="card-body p-4 p-md-5">
 
-                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Sign up</h3>
+                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Add your pet's information</h3>
 
                             <form action="<?php echo "/Lab4/TpFinalLaboratorio4/User/addPet/" ?>" method="POST">
                             

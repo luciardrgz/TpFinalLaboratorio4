@@ -36,7 +36,7 @@ include("navGuardian.php");
                     <img src="<?php echo "/Lab4/TpFinalLaboratorio4/Views/img/bannerImage2.jpg"?>" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="<?php echo "/Lab4/TpFinalLaboratorio4/Views/img/bannerImage3.jpg"?> class="d-block w-100" alt="...">
+                    <img src="<?php echo "/Lab4/TpFinalLaboratorio4/Views/img/bannerImage3.jpg"?>" class="d-block w-100" alt="...">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"

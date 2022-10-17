@@ -1,6 +1,12 @@
 <?php
 namespace Views;
-include("navGuardian.php");
+
+//session_start();
+if($_SESSION["type"] == "O"){
+    include("navOwner.php");
+}else if($_SESSION["type"]== "G"){
+    include("navGuardian.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -17,69 +23,87 @@ include("navGuardian.php");
 <body>
 
     <div class="container emp-profile">
-        <form method="post">
-            <div class="row">
+                    <div class="row">
                 <div class="col-md-4">
                     <div class="profile-img">
                         <img src="https://s.keepmeme.com/files/en_posts/20201223/delete-this-mark-zuckerberg-holding-gun-meme.jpg"
                             alt="" />
-                        <div class="file btn btn-lg btn-primary">
-                            Change Photo
-                            <input type="file" name="file" />
-                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="profile-head">
                         <h5>
-                            Mark Zuckerberg
+                            <?php echo $user->getFirstName() . " " . $user->getLastName()?>
                         </h5>
-                        <h6>
-                            World Admin
-                        </h6>
-                        <p class="profile-rating">RANKINGS: <span>8/10</span></p>
+                        <?php if($_SESSION['type'] == 'O'){?>
+                        <h6><?php echo "Owner";?></h6>
+                        <?php }else{?>
+                         <h6><?php echo "Guardian";?></h6>
+                         <p class="profile-rating">Your score: <span>8/10</span></p>
+                         <?php }?>
+                        
                     </div>
                 </div>
                 <div class=" col-md-2">
-                    <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile" />
+                    <input type="submit" class="profile-edit-btn" value="Edit Profile" />
+                    
+                    
                 </div>
             </div>
             <div class="row">
+                
                 <div class="col-md-4">
                     <div class="profile-work">
-                        <label>WORK LINK</label><br>
-                        <a href="">Website Link</a><br />
-                        <a href="">Bootsnipp Profile</a><br />
-                        <a href="">Bootply Profile</a><br><br>
-                        <label>SKILLS</label><br>
-                        <a href="">Web Designer</a><br />
-                        <a href="">Web Developer</a><br />
-                        <a href="">WordPress</a><br />
-                        <a href="">WooCommerce</a><br />
-                        <a href="">PHP, .Net</a><br />
+
+                    <?php if($_SESSION['type'] == 'G'){?>
+                    <form action="<?php echo "/Lab4/TpFinalLaboratorio4/User/updatePetSizePreference/" ?>" method="POST"> 
+                        <label><br> <b>Change pet size preference</b> </label><br>
+                        
+                        <select name="petSize">
+                            <option value="Big">Big</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Small">Small</option>
+                        </select>
+                        <br><br>
+
+                        <input type="submit" name="submit" class="profile-edit-btn" value="Save Changes" />
+                    </form>
+                    <?php }?>
+                       
+                        <a href=""></a><br />
+                        <a href=""></a><br />
+                        <a href=""></a><br><br>
+                        <label></label><br>
+                        <a href=""></a><br />
+                        <a href=""></a><br />
+                        <a href=""></a><br />
+                        <a href=""></a><br />
+                        <a href=""></a><br />
                     </div>
                 </div>
-
+                
+                    
                 <div class="col-md-8">
-
                     <div class="tab-content profile-tab" id="myTabContent">
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+                            <br>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label>User Id</label>
+                                    <label>First Name</label>
                                 </div>
                                 <div class="col-md-6">
-
-                                    <label>001</label>
+                                    <label><?php echo $user->getFirstName()?></label>
                                 </div>
                             </div>
                             <br>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label>Name</label>
+                                    <label>Last Name</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Mark Zuckerberg</label>
+
+                                    <label><?php echo $user->getLastName()?></label>
                                 </div>
                             </div>
                             <br>
@@ -88,86 +112,54 @@ include("navGuardian.php");
                                     <label>Email</label>
                                 </div>
                                 <div class="col-md-6">
-
-                                    <label>kshitighelani@gmail.com</label>
+                                    <label><?php echo $user->getEmail()?></label>
                                 </div>
                             </div>
                             <br>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label>Phone</label>
+                                    <label>Phonenumber</label>
                                 </div>
                                 <div class="col-md-6">
-
-                                    <label>123 456 7890</label>
+                                    <label><?php echo $user->getPhoneNumber()?></label>
                                 </div>
                             </div>
                             <br>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label>Profession</label>
+                                    <label>Birth Date</label>
                                 </div>
                                 <div class="col-md-6">
-
-                                    <label>
-                                        Web Developer and Designer
-                                    </label>
+                                    <label><?php echo $user->getBirthDate()?></label>
                                 </div>
                             </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Nickname</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label><?php echo $user->getNickName()?></label>
+                                </div>
+                            </div>
+                            <br>
+
+                            <?php if($_SESSION['type'] == 'G'){?>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Pet size preference</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label><?php echo $user->getPetsize()?></label>
+                                </div>
+                            </div>
+                            <?php }?>
                         </div>
-
-                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Experience</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>Expert</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Hourly Rate</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>10$/hr</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Total Projects</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>230</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>English Level</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>Expert</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Availability</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>6 months</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label>Your Bio</label><br />
-                                    <p>Your detail description</p>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </form>
+        
     </div>
 
 </body>

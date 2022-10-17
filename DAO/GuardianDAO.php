@@ -19,6 +19,40 @@ class GuardianDAO /*implements IGuardianDAO*/
         $this->SaveData();
     }
 
+    function update($email, $petSize){
+        $this->loadData();
+
+        foreach($this->guardianList as $guardian) 
+        {
+          if($guardian->getEmail() == $email)
+          {
+            $guardian->setPetsize($petSize);
+            
+            $this->SaveData();
+            
+            return true;
+          }
+        }
+        return false;
+    }
+
+    /*  public function UpdateEstado($id,$estado)
+      {
+        $this->loadData();
+        foreach($this->list as $item) 
+        {
+          if($item->getId() == $id)
+          {
+            $item->setEstado($estado);
+            
+            $this->SaveData();
+            
+            return true;
+          }
+        }
+        return false;
+      } */
+
     function getAll()
     {
         $this->loadData();
@@ -90,6 +124,7 @@ class GuardianDAO /*implements IGuardianDAO*/
                 $guardian->setBirthDate($content["birthdate"]);
                 $guardian->setNickName($content["nickname"]);
                 $guardian->setPassword($content["password"]);
+                $guardian->setPetsize($content["petSize"]);
                 $guardian->setType($content["type"]);
 
 
@@ -111,6 +146,7 @@ class GuardianDAO /*implements IGuardianDAO*/
             $valuesArray["phonenumber"] = $guardian->getPhoneNumber();
             $valuesArray["birthdate"] = $guardian->getBirthDate();
             $valuesArray["password"] = $guardian->getPassword();
+            $valuesArray["petSize"] = $guardian->getPetsize();
             $valuesArray["type"] = $guardian->getType();
 
             array_push($arrayToEncode, $valuesArray);

@@ -78,9 +78,8 @@ class UserController
         if(isset($_SESSION['loggeduser'])){
           if($_SESSION['type'] == 'O')
           {
-            if($petName!=" " || $picture!=" " || $breed!=" " || $video!=" " || $vaccination!=" " || $type!=" ")
+            if($petName!=" " || $pictureURL!=" " || $breed!=" " || $video!=" " || $vaccination!=" " || $type!=" ")
             { 
-                echo "HOLA IF";
                 $pet = new Pet(); // new Dog
                 $petDAO = new PetDAO();
 
@@ -107,25 +106,65 @@ class UserController
    }
 
 
-   public function listPets(){
+    public function listPets(){
 
-    if(isset($_SESSION['loggeduser'])){
-        if($_SESSION['type'] == 'O')
-        {
-            $petList = array();
-            $petDAO = new PetDAO();
+        if(isset($_SESSION['loggeduser'])){
+            if($_SESSION['type'] == 'O')
+            {
+                $petList = array();
+                $petDAO = new PetDAO();
 
-            $petList = $petDAO->getPetsByOwnerEmail($_SESSION['email']);
-            var_dump($petList);
+                $petList = $petDAO->getPetsByOwnerEmail($_SESSION['email']);
 
-            require_once(VIEWS_PATH . "petList.php");
-        }else{
-          $this->showLandingPage($_SESSION['type']);
+                require_once(VIEWS_PATH . "petList.php");
+            }else{
+            $this->showLandingPage($_SESSION['type']);
+            }   
+        }
+        else{
+            require_once(VIEWS_PATH . "login.php");
         }   
-      }
-      else{
-          require_once(VIEWS_PATH . "login.php");
-      }   
    }
+
+    public function showProfileInfo(){
+        if(isset($_SESSION['loggeduser'])){
+            if($_SESSION['type'] == 'O')
+            {
+                $user = new Owner();
+                $user = $this->ownerDAO->getByEmail($_SESSION['email']);
+                require_once(VIEWS_PATH . "profile.php");
+
+            }else if($_SESSION['type'] == 'G')
+            {
+                $user = new Guardian();
+                $user = $this->guardianDAO->getByEmail($_SESSION['email']);
+                require_once(VIEWS_PATH . "profile.php");
+            }
+        }
+        else{
+            require_once(VIEWS_PATH . "login.php");
+        }
+    }
+
+    public function updatePetSizePreference($petSize){
+        if(isset($_SESSION['loggeduser'])){
+            if($_SESSION['type'] == 'G')
+            {
+                    $user = new Guardian();
+                    $this->guardianDAO->update($_SESSION['email'], $petSize);
+                    $user=$this->guardianDAO->getByEmail($_SESSION['email']);
+                    require_once(VIEWS_PATH."profile.php");
+            }
+            else{
+                require_once(VIEWS_PATH."landingPageOwner");
+            }
+        }
+        else{
+            require_once(VIEWS_PATH . "login.php");
+        }
+    }
 }
+
+
+
 ?>

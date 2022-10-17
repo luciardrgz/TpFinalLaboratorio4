@@ -71,8 +71,7 @@ class PetDAO{
  
 
     
-
-    
+        /*    
         function remove($id)
         {
             $this->loadData();
@@ -84,7 +83,7 @@ class PetDAO{
             $this->saveData();
         }
         
-
+        */
     private function loadData()
     {
         $this->petList = array();

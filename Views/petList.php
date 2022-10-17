@@ -82,13 +82,16 @@ include("navOwner.php");
                         <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
                             <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
                                 <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
-                                    FD
+                                    FD <!-- foto según pettype-->
                                 </div>
                                 <div class="job-content">
-                                    <h5 class="text-center text-md-left"><?php echo "NOMBRE: " . $pet->getName();?></h5>
+                                    <h5 class="text-center text-md-left"><?php echo $pet->getName();?></h5>
                                     <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
                                         <li class="mr-md-4">
-                                            <?php echo "RAZA: " . $pet->getBreed();?>
+                                            <?php echo "<br>Raza: " . $pet->getBreed();?>
+                                            <?php echo "<br>Foto: " . $pet->getPicture();?>
+                                            <?php echo "<br>Video: " . $pet->getVideo();?>
+                                            <?php echo "<br>Vacunas: " . $pet->getVaccination();?>
                                         </li>
                                     </ul>
                                 </div>
