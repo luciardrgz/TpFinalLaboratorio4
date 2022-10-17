@@ -7,6 +7,7 @@ class OwnerDAO{
     private $ownerList = array();
     private $fileName = ROOT . "Data/Owners.json";
 
+
     function add(Owner $owner)
     {
         $this->loadData();
@@ -88,7 +89,6 @@ class OwnerDAO{
                 $owner->setNickName($content["nickname"]);
                 $owner->setPassword($content["password"]);
                 $owner->setType($content["type"]);
-
                 array_push($this->ownerList, $owner);
             }
         }

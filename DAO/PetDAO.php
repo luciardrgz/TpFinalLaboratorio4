@@ -40,6 +40,38 @@ class PetDAO{
         return (count($pets) > 0) ? $pets[0] : null;
     }
 
+    /*
+    function getPetsByOwnerEmail($email)
+    {
+        $this->loadData();
+        $pet= new Pet();
+
+        $pet = array_filter($this->petList, function ($pet) use ($email) {
+            return $pet->getOwnerEmail() == $email;
+        });
+
+        $pets = array_values($pets);
+
+        return (count($pets) > 0) ? $pets[0] : null;
+    }*/
+
+       public function getPetsByOwnerEmail($email) 
+      {
+        $this->loadData();
+        $pets = array();
+        foreach($this->petList as $pet) 
+        {
+          if($pet->getOwnerEmail() == $email)
+          {
+            array_push($pets,$pet); 
+          }
+        }
+       return $pets; 
+      }
+ 
+
+    
+
     
         function remove($id)
         {

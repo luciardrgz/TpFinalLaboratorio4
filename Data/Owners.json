@@ -1,10 +1,20 @@
 [
     {
-        "firstname": "Pedro",
-        "lastname": "Picapiedra",
+        "firstname": "Brian",
+        "lastname": "Lalli",
+        "email": "Brian@gmail.com",
+        "phonenumber": "1111111111",
+        "birthdate": "2022-09-26",
+        "nickname": "BL",
+        "password": "1234",
+        "type": "O"
+    },
+    {
+        "firstname": "Jorge",
+        "lastname": "Paris",
         "email": "alberto@ramirez.com",
-        "phonenumber": "00000",
-        "birthdate": "2022-10-02",
+        "phonenumber": "1234",
+        "birthdate": "2022-10-03",
         "nickname": "Pedrito",
         "password": "1234",
         "type": "O"

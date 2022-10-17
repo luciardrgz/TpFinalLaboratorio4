@@ -37,7 +37,7 @@ namespace Views;
                             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Sign up</h3>
 
                             <form action="<?php echo "/Lab4/TpFinalLaboratorio4/User/addPet/" ?>" method="POST">
-
+                            
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">

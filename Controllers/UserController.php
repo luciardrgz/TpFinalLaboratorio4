@@ -24,9 +24,12 @@ class UserController
     function showLandingPage($type)
     {
         if ($type == 'G')
+        {
             require_once(VIEWS_PATH . "landingPageGuardian.php");
-        else
-            require_once(VIEWS_PATH . "landingPageOwner.php");
+        }else
+        {
+           require_once(VIEWS_PATH . "landingPageOwner.php");
+        }
     }
 
     public function add($firstName=" ", $lastName=" ", $birthdate=" ", $email=" ", $phoneNumber=" ", $nickName=" ", $password=" ", $type=" ")
@@ -77,6 +80,7 @@ class UserController
           {
             if($petName!=" " || $picture!=" " || $breed!=" " || $video!=" " || $vaccination!=" " || $type!=" ")
             { 
+                echo "HOLA IF";
                 $pet = new Pet(); // new Dog
                 $petDAO = new PetDAO();
 
@@ -86,8 +90,8 @@ class UserController
                 $pet->setVideo($video);
                 $pet->setVaccination($vaccination);
                 $pet->setType($type);
-                $pet->setOwnerEmail($_SESSION['email']);
-                
+                $pet->setOwnerEmail($_SESSION['email']);      
+
                 $petDAO->add($pet);
                 $this->showLandingPage($_SESSION['type']); //enviar a lista de mascotas
             }else {
@@ -99,8 +103,29 @@ class UserController
         }
         else{
             require_once(VIEWS_PATH . "login.php");
-        }
-    
+        }   
+   }
+
+
+   public function listPets(){
+
+    if(isset($_SESSION['loggeduser'])){
+        if($_SESSION['type'] == 'O')
+        {
+            $petList = array();
+            $petDAO = new PetDAO();
+
+            $petList = $petDAO->getPetsByOwnerEmail($_SESSION['email']);
+            var_dump($petList);
+
+            require_once(VIEWS_PATH . "petList.php");
+        }else{
+          $this->showLandingPage($_SESSION['type']);
+        }   
+      }
+      else{
+          require_once(VIEWS_PATH . "login.php");
+      }   
    }
 }
 ?>
