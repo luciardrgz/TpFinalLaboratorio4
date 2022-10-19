@@ -69,21 +69,41 @@ nav .animation {
   border-radius: 8px;
 }
 
+/* Home */
 a:nth-child(1) {
   width: 100px;
 }
+
+/* Profile */
 a:nth-child(2) {
   width: 110px;
 }
+
+/* BookingH */
 a:nth-child(3) {
-  width: 130px;
+  width: 150px;
 }
+
+/* Guardian L */
 a:nth-child(4) {
   width: 160px;
 }
+
+/* Add Pet */
 a:nth-child(5) {
   width: 120px;
 }
+
+/* Pet L */
+a:nth-child(6) {
+  width: 100px;
+}
+
+/*Logout*/
+a:nth-child(7) {
+  width: 100px;
+}
+
 
 /*Home*/
 nav .start-home,
@@ -104,14 +124,39 @@ a:nth-child(2):hover ~ .animation {
 /*Booking History*/
 nav .start-blog,
 a:nth-child(3):hover ~ .animation {
-  width: 140px;
+  width: 160px;
   left: 205px;
   background-color: #3498db;
 }
+
 /*Guardian List*/
 nav .start-portefolio,
 a:nth-child(4):hover ~ .animation {
-  width: 130px;
-  left: 355px;
+  width: 140px;
+  left: 370px;
   background-color: #9b59b6;
+}
+
+/*Add Pet*/
+nav .start-portefolio,
+a:nth-child(5):hover ~ .animation {
+  width: 100px;
+  left: 530px;
+  background-color: #59b67a;
+}
+
+/*Pet List*/
+nav .start-portefolio,
+a:nth-child(6):hover ~ .animation {
+  width: 100px;
+  left: 640px;
+  background-color: #b65959;
+}
+
+/*Logout*/
+nav .start-portefolio,
+a:nth-child(7):hover ~ .animation {
+  width: 100px;
+  left: 740px;
+  background-color: #ababab;
 }

@@ -138,6 +138,7 @@ class UserController
             {
                 $user = new Guardian();
                 $user = $this->guardianDAO->getByEmail($_SESSION['email']);
+                $availability= $user->getAvailability();
                 require_once(VIEWS_PATH . "profile.php");
             }
         }
@@ -163,8 +164,25 @@ class UserController
             require_once(VIEWS_PATH . "login.php");
         }
     }
+
+    public function updateDate($availability){
+        if(isset($_SESSION['loggeduser'])){
+            if($_SESSION['type'] == 'G')
+            {
+                    $user = new Guardian();
+                    $this->guardianDAO->update($_SESSION['email'], $availability);
+                    $user=$this->guardianDAO->getByEmail($_SESSION['email']);
+
+                    require_once(VIEWS_PATH."profile.php");
+            }
+            else{
+                require_once(VIEWS_PATH."landingPageOwner");
+            }
+        }
+        else{
+            require_once(VIEWS_PATH . "login.php");
+        }
+    }
+    
 }
-
-
-
 ?>

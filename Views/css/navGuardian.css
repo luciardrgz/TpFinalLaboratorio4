@@ -82,6 +82,9 @@ a:nth-child(3) {
 a:nth-child(4) {
   width: 150px;
 }
+a:nth-child(5) {
+  width: 150px;
+}
 
 nav .start-home,
 a:nth-child(1):hover ~ .animation {
@@ -109,4 +112,11 @@ a:nth-child(4):hover ~ .animation {
   width: 150px;
   left: 360px;
   background-color: #9b59b6;
+}
+
+nav .start-logout,
+a:nth-child(5):hover ~ .animation {
+  width: 150px;
+  left: 510px;
+  background-color: #b65077;
 }

@@ -26,8 +26,11 @@ if($_SESSION["type"] == "O"){
                     <div class="row">
                 <div class="col-md-4">
                     <div class="profile-img">
-                        <img src="https://s.keepmeme.com/files/en_posts/20201223/delete-this-mark-zuckerberg-holding-gun-meme.jpg"
-                            alt="" />
+                        <?php if($_SESSION['type'] == 'O'){?>
+                        <img src="https://www.dogmagazine.net/wp-content/uploads/2014/12/The-dog-who-mimicks-their-owner.jpg"/>
+                        <?php }else{?>
+                            <img src="https://media.biobiochile.cl/wp-content/uploads/2021/09/cesarmillan.jpg"/>
+                            <?php }?>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -66,19 +69,26 @@ if($_SESSION["type"] == "O"){
                         </select>
                         <br><br>
 
-                        <input type="submit" name="submit" class="profile-edit-btn" value="Save Changes" />
+                        <input type="submit" name="submit" class="profile-edit-btn" value="Save preference" />
                     </form>
+                    
                     <?php }?>
-                       
-                        <a href=""></a><br />
-                        <a href=""></a><br />
-                        <a href=""></a><br><br>
-                        <label></label><br>
-                        <a href=""></a><br />
-                        <a href=""></a><br />
-                        <a href=""></a><br />
-                        <a href=""></a><br />
-                        <a href=""></a><br />
+                        <form action="<?php echo "/Lab4/TpFinalLaboratorio4/User/updateDate/" ?>" method="POST"></form>  
+                            <label><br> <b>My availability</b> </label><br>
+
+                             
+                            <input type="checkbox" <?php if(in_array("Mon",$availability){echo "checked";} ) ?>name="availability[]" value="Mon"> Monday <br>
+                            <input type="checkbox" <?php if(in_array("Tue",$availability){echo "checked";} ) ?>name="availability[]" value="Tue"> Tuesday <br>
+                            <input type="checkbox" <?php if(in_array("Wed",$availability){echo "checked";} ) ?>name="availability[]" value="Wed"> Wednesday <br>
+                            <input type="checkbox" <?php if(in_array("Thu",$availability){echo "checked";} ) ?>name="availability[]" value="Thu"> Thursday <br>
+                            <input type="checkbox" <?php if(in_array("Fri",$availability){echo "checked";} ) ?>name="availability[]" value="Fri"> Friday <br>
+                            <input type="checkbox" <?php if(in_array("Sat",$availability){echo "checked";} ) ?>name="availability[]" value="Sat"> Saturday <br> 
+                            <input type="checkbox" <?php if(in_array("Sun",$availability){echo "checked";} ) ?>name="availability[]" value="Sun"> Sunday 
+                            <br><br>
+                             
+                            <input type="submit" name="submit" class="profile-edit-btn" value="Save date" />
+
+                        </form>  
                     </div>
                 </div>
                 
@@ -163,5 +173,4 @@ if($_SESSION["type"] == "O"){
     </div>
 
 </body>
-
 </html>

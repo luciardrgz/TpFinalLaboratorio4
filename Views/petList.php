@@ -38,7 +38,7 @@ include("navOwner.php");
         <div class="row">
             <div class="col-lg-10 mx-auto">
                 <div class="career-search mb-60">
-
+                    <!-- Posible filtro de Mascotas      
                     <form action="#" class="career-form mb-60">
                         <div class="row">
                             <div class="col-md-6 col-lg-3 my-3">
@@ -74,7 +74,7 @@ include("navOwner.php");
                                 </button>
                             </div>
                         </div>
-                    </form>
+                    </form>  -->
                     <!-- desde aca      -->
                     <?php foreach($petList as $pet){?>
                     <div class="filter-result">
