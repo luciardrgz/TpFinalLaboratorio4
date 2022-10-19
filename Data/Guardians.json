@@ -8,7 +8,10 @@
         "birthdate": "2022-09-25",
         "password": "1234",
         "petSize": "Big",
-        "availability": null,
+        "availability": [
+            "Wed",
+            "Thu"
+        ],
         "type": "G"
     }
 ]
