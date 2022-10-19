@@ -73,17 +73,62 @@ if($_SESSION["type"] == "O"){
                     </form>
                     
                     <?php }?>
-                        <form action="<?php echo "/Lab4/TpFinalLaboratorio4/User/updateDate/" ?>" method="POST"></form>  
+                        <form action="<?php echo "/Lab4/TpFinalLaboratorio4/User/updateDate/" ?>" method="POST">
                             <label><br> <b>My availability</b> </label><br>
 
                              
-                            <input type="checkbox" <?php if(in_array("Mon",$availability){echo "checked";} ) ?>name="availability[]" value="Mon"> Monday <br>
-                            <input type="checkbox" <?php if(in_array("Tue",$availability){echo "checked";} ) ?>name="availability[]" value="Tue"> Tuesday <br>
-                            <input type="checkbox" <?php if(in_array("Wed",$availability){echo "checked";} ) ?>name="availability[]" value="Wed"> Wednesday <br>
-                            <input type="checkbox" <?php if(in_array("Thu",$availability){echo "checked";} ) ?>name="availability[]" value="Thu"> Thursday <br>
-                            <input type="checkbox" <?php if(in_array("Fri",$availability){echo "checked";} ) ?>name="availability[]" value="Fri"> Friday <br>
-                            <input type="checkbox" <?php if(in_array("Sat",$availability){echo "checked";} ) ?>name="availability[]" value="Sat"> Saturday <br> 
-                            <input type="checkbox" <?php if(in_array("Sun",$availability){echo "checked";} ) ?>name="availability[]" value="Sun"> Sunday 
+                            <input type="checkbox" <?php 
+                            if($user->getAvailability()!= null){
+                               if(in_array("Mon",$availability))
+                                echo "checked";
+                            }  
+                            ?>name="availability[]" value="Mon"> Monday <br>
+                            
+                            <input type="checkbox" <?php 
+                            if($user->getAvailability()!= null){
+                                if(in_array("Tue",$availability))
+                                 echo "checked";
+                             }  
+                                ?>name="availability[]" value="Tue"> Tuesday <br>
+                                
+                            <input type="checkbox" <?php 
+                            if($user->getAvailability()!= null){
+                                if(in_array("Wed",$availability))
+                                 echo "checked";
+                             }  
+                                ?>name="availability[]" value="Wed"> Wednesday <br>
+
+                                
+                            <input type="checkbox" <?php 
+                            if($user->getAvailability()!= null){
+                                if(in_array("Thu",$availability))
+                                 echo "checked";
+                             }  
+                                ?>name="availability[]" value="Thu"> Thursday <br>
+
+
+                            <input type="checkbox" <?php 
+                            if($user->getAvailability()!= null){
+                                if(in_array("Fri",$availability))
+                                 echo "checked";
+                             }
+                                ?>name="availability[]" value="Fri"> Friday <br>
+
+                            <input type="checkbox" <?php 
+                            if($user->getAvailability()!= null){
+                                if(in_array("Sat",$availability))
+                                 echo "checked";
+                             }
+                                ?>name="availability[]" value="Sat"> Saturday <br> 
+
+                                
+                            <input type="checkbox" <?php  
+                            if($user->getAvailability()!= null){
+                                if(in_array("Sun",$availability))
+                                 echo "checked";
+                             }  
+                                ?>name="availability[]" value="Sun"> Sunday 
+                                
                             <br><br>
                              
                             <input type="submit" name="submit" class="profile-edit-btn" value="Save date" />
@@ -161,6 +206,24 @@ if($_SESSION["type"] == "O"){
                                 </div>
                                 <div class="col-md-6">
                                     <label><?php echo $user->getPetsize()?></label>
+                                </div>
+                            </div>
+                            <br>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Availability</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <?php if($user->getAvailability()!=null) { ?>
+                                    <label><?php foreach($user->getAvailability() as $day)
+                                    {
+                                        echo $day . ", ";
+                                    }
+                                
+                                    ?></label>
+
+                                    <?php } ?>
                                 </div>
                             </div>
                             <?php }?>

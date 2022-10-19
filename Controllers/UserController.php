@@ -165,14 +165,14 @@ class UserController
         }
     }
 
-    public function updateDate($availability){
+    public function updateDate($availability=" "){
         if(isset($_SESSION['loggeduser'])){
             if($_SESSION['type'] == 'G')
             {
                     $user = new Guardian();
-                    $this->guardianDAO->update($_SESSION['email'], $availability);
+                    $this->guardianDAO->updateDate($_SESSION['email'], $availability);
                     $user=$this->guardianDAO->getByEmail($_SESSION['email']);
-
+                    $availability=$user->getAvailability();
                     require_once(VIEWS_PATH."profile.php");
             }
             else{
