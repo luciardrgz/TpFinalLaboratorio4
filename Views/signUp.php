@@ -19,7 +19,7 @@ namespace Views;
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
         integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="../Views/css/signUp.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH . "signUp.css" ?>">
 </head>
 
 <body>
@@ -36,21 +36,21 @@ namespace Views;
 
                             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Sign up</h3>
 
-                            <form action="<?php echo "/Lab4/TpFinalLaboratorio4/User/add/" ?>" method="POST">
+                            <form action="<?php echo FRONT_ROOT."User/add/" ?>" method="POST">
 
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
                                             <label class="form-label" for="firstName">First Name</label>
                                             <input type="text" name="firstName" id="firstName"
-                                                class="form-control form-control-lg" placeholder="George">
+                                                class="form-control form-control-lg" placeholder="George" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
                                             <label class="form-label" for="lastName">Last Name</label>
                                             <input type="text" name="lastName" class="form-control form-control-lg"
-                                                placeholder="Washington">
+                                                placeholder="Washington" required>
                                         </div>
                                     </div>
                                 </div>
@@ -59,7 +59,7 @@ namespace Views;
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline datepicker w-100">
                                             <label for="birthdate" class="form-label">Birthday</label>
-                                            <input type="date" name="birthdate" class="form-control form-control-lg">
+                                            <input type="date" name="birthdate" class="form-control form-control-lg" required>
                                         </div>
                                     </div>
 
@@ -67,7 +67,7 @@ namespace Views;
                                         <div class="form-outline">
                                             <label class="form-label" for="email">Email</label>
                                             <input type="email" name="email" id=" emailAddress"
-                                                class="form-control form-control-lg" placeholder="ejemplo@gmail.com">
+                                                class="form-control form-control-lg" placeholder="ejemplo@gmail.com" required>
                                         </div>
                                     </div>
                                 </div>
@@ -77,15 +77,15 @@ namespace Views;
                                         <div class="form-outline">
                                             <label class="form-label" for="phoneNumber">Phone Number</label>
                                             <input type="tel" name="phoneNumber" class="form-control form-control-lg"
-                                                placeholder="1234567890">
+                                                placeholder="1234567890"required>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
-                                            <label class="form-label" for="nickName">Nickname</label>
+                                            <label class="form-label" for="nickName">Nickname</labe>
                                             <input type="text" name="nickName" class="form-control form-control-lg"
-                                                placeholder="Nickname">
+                                                placeholder="Nickname"required>
                                         </div>
                                     </div>
                                 </div>
@@ -95,14 +95,14 @@ namespace Views;
                                         <div class="form-outline">
                                             <label class="form-label" for="password">Password</label>
                                             <input type="text" name="password" class="form-control form-control-lg"
-                                                placeholder="Password">
+                                                placeholder="Password" required>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6 mb-4">
                                         <label class="form-label select-label">Choose option</label> <br>
-                                        <select name="type" class="select form-control-lg">
-                                            <option value="G">Pet Guardian</option>
+                                        <select name="type" class="select form-control-lg" required>
+                                            <option value="G" selected>Pet Guardian</option>
                                             <option value="O">Pet Owner</option>
                                         </select>
                                     </div>

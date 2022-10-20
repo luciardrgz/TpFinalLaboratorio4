@@ -6,7 +6,7 @@ use Models\Pet as Pet;
 class PetDAO{
     private $petList = array();
     private $fileName = ROOT . "Data/Pets.json";
-    private $maxId = 0;
+    private $maxId;
 
     function add(Pet $pet)
     {
@@ -40,21 +40,6 @@ class PetDAO{
         return (count($pets) > 0) ? $pets[0] : null;
     }
 
-    /*
-    function getPetsByOwnerEmail($email)
-    {
-        $this->loadData();
-        $pet= new Pet();
-
-        $pet = array_filter($this->petList, function ($pet) use ($email) {
-            return $pet->getOwnerEmail() == $email;
-        });
-
-        $pets = array_values($pets);
-
-        return (count($pets) > 0) ? $pets[0] : null;
-    }*/
-
        public function getPetsByOwnerEmail($email) 
       {
         $this->loadData();
@@ -87,7 +72,7 @@ class PetDAO{
     private function loadData()
     {
         $this->petList = array();
-        $maxId=0;
+        $this->maxId=0;
 
         if (file_exists($this->fileName)) {
             $jsonToDecode = file_get_contents($this->fileName);
@@ -96,9 +81,9 @@ class PetDAO{
 
             foreach ($contentArray as $content) {
                 $pet = new Pet();
-                $maxId++;
+                $this->maxId++;
 
-                $pet->setId($maxId);
+                $pet->setId($this->maxId);
                 $pet->setName($content["petName"]);
                 $pet->setPicture($content["pictureURL"]);
                 $pet->setBreed($content["breed"]);

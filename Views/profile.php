@@ -1,7 +1,6 @@
 <?php
 namespace Views;
 
-//session_start();
 if($_SESSION["type"] == "O"){
     include("navOwner.php");
 }else if($_SESSION["type"]== "G"){
@@ -17,7 +16,7 @@ if($_SESSION["type"] == "O"){
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="<?php echo "/Lab4/TpFinalLaboratorio4/Views/css/Profile.css" ?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH ."Profile.css" ?>">
 </head>
 
 <body>
@@ -59,7 +58,7 @@ if($_SESSION["type"] == "O"){
                     <div class="profile-work">
 
                     <?php if($_SESSION['type'] == 'G'){?>
-                    <form action="<?php echo "/Lab4/TpFinalLaboratorio4/User/updatePetSizePreference/" ?>" method="POST"> 
+                    <form action="<?php echo FRONT_ROOT. "User/updatePetSizePreference/" ?>" method="POST"> 
                         <label><br> <b>Change pet size preference</b> </label><br>
                         
                         <select name="petSize">
@@ -71,29 +70,28 @@ if($_SESSION["type"] == "O"){
 
                         <input type="submit" name="submit" class="profile-edit-btn" value="Save preference" />
                     </form>
-                    
-                    <?php }?>
-                        <form action="<?php echo "/Lab4/TpFinalLaboratorio4/User/updateDate/" ?>" method="POST">
+
+                        <form action="<?php echo FRONT_ROOT. "User/updateDate/" ?>" method="POST">
                             <label><br> <b>My availability</b> </label><br>
 
                              
                             <input type="checkbox" <?php 
                             if($user->getAvailability()!= null){
-                               if(in_array("Mon",$availability)){?>
+                               if(in_array("Mon",$user->getAvailability())){?>
                                 checked
                             <?php } }?>
                             name="availability[]" value="Mon"> Monday <br>
                             
                             <input type="checkbox" <?php 
                             if($user->getAvailability()!= null){
-                                if(in_array("Tue",$availability)){?>
+                                if(in_array("Tue",$user->getAvailability())){?>
                                  checked
                              <?php } } ?>
                                 name="availability[]" value="Tue"> Tuesday <br>
                                 
                             <input type="checkbox" <?php 
                             if($user->getAvailability()!= null){
-                                if(in_array("Wed",$availability)){?>
+                                if(in_array("Wed",$user->getAvailability())){?>
                                  checked
                             <?php } } ?> 
                                 name="availability[]" value="Wed"> Wednesday <br>
@@ -101,7 +99,7 @@ if($_SESSION["type"] == "O"){
                                 
                             <input type="checkbox" <?php 
                             if($user->getAvailability()!= null){
-                                if(in_array("Thu",$availability)){?>
+                                if(in_array("Thu",$user->getAvailability())){?>
                                  checked
                             <?php } } ?> 
                                 name="availability[]" value="Thu"> Thursday <br>
@@ -109,14 +107,14 @@ if($_SESSION["type"] == "O"){
 
                             <input type="checkbox" <?php 
                             if($user->getAvailability()!= null){
-                                if(in_array("Fri",$availability)){?>
+                                if(in_array("Fri",$user->getAvailability())){?>
                                   checked
                             <?php } } ?> 
                                 name="availability[]" value="Fri"> Friday <br>
 
                             <input type="checkbox" <?php 
                             if($user->getAvailability()!= null){
-                                if(in_array("Sat",$availability)){?>
+                                if(in_array("Sat",$user->getAvailability())){?>
                                  checked
                             <?php } }  ?> 
                                 name="availability[]" value="Sat"> Saturday <br> 
@@ -124,7 +122,7 @@ if($_SESSION["type"] == "O"){
                                 
                             <input type="checkbox" <?php  
                             if($user->getAvailability()!= null){
-                                if(in_array("Sun",$availability)){?>
+                                if(in_array("Sun",$user->getAvailability())){?>
                                  checked
                             <?php } }  ?>  
                                 name="availability[]" value="Sun"> Sunday 
@@ -132,8 +130,9 @@ if($_SESSION["type"] == "O"){
                             <br><br>
                              
                             <input type="submit" name="submit" class="profile-edit-btn" value="Save date" />
-
                         </form>  
+
+                        <?php }?>
                     </div>
                 </div>
                 

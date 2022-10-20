@@ -6,13 +6,12 @@
 
 html,
 body, .gradient-custom {
-  background-image: url("https://cloudfront-us-east-1.images.arcpublishing.com/infobae/IDESGY5PMFHL3CRYMTSLFYT7WU.jpg");
+  background-image: url("https://cdn.shopify.com/s/files/1/0325/4524/3274/files/D-fCuGVX4AAKrCt.jpg?v=1616718362");
   background-size: cover;
   background-repeat: no-repeat;
   height: 100%;
   font-family: "Montserrat", sans-serif;
 }
-
 
 .card-registration .select-input.form-control[readonly]:not([disabled]) {
   font-size: 1rem;

@@ -2,6 +2,8 @@
 
 namespace Views;
 
+include("navOwner.php");
+
 ?>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -19,7 +21,7 @@ namespace Views;
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
         integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="../Views/css/signUp.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH . "addPet.css" ?>">
 </head>
 
 <body>
@@ -36,21 +38,21 @@ namespace Views;
 
                             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Add your pet's information</h3>
 
-                            <form action="<?php echo "/Lab4/TpFinalLaboratorio4/User/addPet/" ?>" method="POST">
+                            <form action="<?php echo FRONT_ROOT . "Pet/addPet" ?>" method="POST">
                             
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
                                             <label class="form-label" for="petName">Pet Name</label>
                                             <input type="text" name="petName" id="petName"
-                                                class="form-control form-control-lg" placeholder="Manchita">
+                                                class="form-control form-control-lg" placeholder="Manchita" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
                                             <label class="form-label" for="picture">Upload a picture</label>
                                             <input type="text" name="pictureURL" class="form-control form-control-lg"
-                                                placeholder="Picture URL goes here">
+                                                placeholder="Picture URL goes here" required>
                                         </div>
                                     </div>
                                 </div>
@@ -59,7 +61,7 @@ namespace Views;
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline datepicker w-100">
                                             <label for="breed" class="form-label">Breed</label>
-                                            <input type="text" name="breed" class="form-control form-control-lg">
+                                            <input type="text" name="breed" class="form-control form-control-lg" required>
                                         </div>
                                     </div>
 
@@ -67,7 +69,7 @@ namespace Views;
                                         <div class="form-outline">
                                             <label class="form-label" for="video">Video</label>
                                             <input type="text" name="video" id="video"
-                                                class="form-control form-control-lg" placeholder="Video URL goes here">
+                                                class="form-control form-control-lg" placeholder="Video URL goes here" required>
                                         </div>
                                     </div>
                                 </div>
@@ -77,7 +79,7 @@ namespace Views;
                                         <div class="form-outline">
                                             <label class="form-label" for="vacc">Vaccination Certificate</label>
                                             <input type="text" name="vaccination" class="form-control form-control-lg"
-                                                placeholder="Certificate URL goes here">
+                                                placeholder="Certificate URL goes here" required>
                                         </div>
                                     </div>
 
@@ -86,7 +88,7 @@ namespace Views;
                                         <select name="type" class="select form-control-lg">
                                             <option value="D">Dog</option>
                                             <option value="C">Cat</option>
-                                        </select>
+                                        </select required>
                                     </div>
                                 </div>
 

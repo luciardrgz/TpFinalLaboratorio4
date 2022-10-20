@@ -32,10 +32,22 @@ class UserController
         }
     }
 
+    function showBookingHistoryPage($type)
+    {
+        if ($type == 'G')
+        {
+            require_once(VIEWS_PATH . "bookingHistoryGuardian.php");
+        }else
+        {
+           require_once(VIEWS_PATH . "landingPageOwner.php");
+        }
+    }
+
     public function add($firstName=" ", $lastName=" ", $birthdate=" ", $email=" ", $phoneNumber=" ", $nickName=" ", $password=" ", $type=" ")
     {
         if($firstName!=" " || $lastName!=" " || $birthdate!=" " || $email!=" " || $phoneNumber!=" " || $nickName!=" " || $password!=" " || $type!=" ")
         {
+            $auth = new AuthController();
             if ($type == 'G') {
 
                 $guardian = new Guardian();
@@ -50,7 +62,7 @@ class UserController
                 $guardian->setType($type);
 
                 $this->guardianDAO->add($guardian);
-                $this->showLandingPage($type);
+                $auth->login($email,$password);
             } else if ($type == 'O') {
 
                 $owner = new Owner();
@@ -65,14 +77,14 @@ class UserController
                 $owner->setType($type);
 
                 $this->ownerDAO->add($owner);
-                $this->showLandingPage($type);
+                $auth->login($email,$password);
             }
         }else
         {
             require_once(VIEWS_PATH . "login.php");
         }
     }
-
+/*
     public function addPet($petName=" ", $pictureURL =" ", $breed=" ", $video=" ", $vaccination=" ", $type=" ")
     {
         if(isset($_SESSION['loggeduser'])){
@@ -94,7 +106,7 @@ class UserController
                 $petDAO->add($pet);
                 $this->showLandingPage($_SESSION['type']); //enviar a lista de mascotas
             }else {
-                     $this->showLandingPage($_SESSION['type']);
+                     require_once(VIEWS_PATH . "addPet.php");
                   }
           }else{
             $this->showLandingPage($_SESSION['type']);
@@ -124,7 +136,7 @@ class UserController
         else{
             require_once(VIEWS_PATH . "login.php");
         }   
-   }
+   }*/
 
     public function showProfileInfo(){
         if(isset($_SESSION['loggeduser'])){

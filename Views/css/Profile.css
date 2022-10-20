@@ -16,13 +16,21 @@ body {
   border-radius: 0.5rem;
   background: rgba(255, 255, 255, 0.753);
 }
+
+/*Contenedor de Imagen*/
 .profile-img {
-  text-align: center;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
 }
+
+/*Imagen*/
 .profile-img img {
-  width: 70%;
-  height: 100%;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
 }
+
 .profile-img .file {
   position: relative;
   overflow: hidden;
@@ -33,18 +41,21 @@ body {
   font-size: 15px;
   background: #212529b8;
 }
+
 .profile-img .file input {
   position: absolute;
   opacity: 0;
   right: 0;
   top: 0;
 }
+
 .profile-head h5 {
   color: #333;
 }
 .profile-head h6 {
-  color: #0062cc;
+  color: #816000;
 }
+
 .profile-edit-btn {
   border: none;
   border-radius: 1.5rem;
@@ -55,36 +66,7 @@ body {
   color: #000000;
   cursor: pointer;
 }
-.profile-head .nav-tabs {
-  margin-bottom: 5%;
-}
-.profile-head .nav-tabs .nav-link {
-  font-weight: 600;
-  border: none;
-}
-.profile-head .nav-tabs .nav-link.active {
-  border: none;
-  border-bottom: 2px solid #0062cc;
-}
-.profile-work {
-  padding: 14%;
-  margin-top: -15%;
-}
-.profile-work p {
-  font-size: 12px;
-  color: #818182;
-  font-weight: 600;
-  margin-top: 10%;
-}
-.profile-work a {
-  text-decoration: none;
-  color: #495057;
-  font-weight: 600;
-  font-size: 14px;
-}
-.profile-work ul {
-  list-style: none;
-}
+
 .profile-rating {
   color: black;
   font-family: "Montserrat", sans-serif;

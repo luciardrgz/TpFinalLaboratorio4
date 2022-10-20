@@ -18,7 +18,7 @@ include("navOwner.php");
     <title></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="<?php echo "/Lab4/TpFinalLaboratorio4/Views/css/BookingHistory.css"?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH."BookingHistory.css"?>">
 </head>
 
 <body>
@@ -30,7 +30,7 @@ include("navOwner.php");
         <div class="row">
             <div class="col-lg-10 mx-auto mb-4">
                 <div class="section-title text-center ">
-                    <h3 class="top-c-sep"><br>Pet List</h3>
+                    <h3 class="top-c-sep"><br>Your Pets</h3>
                 </div>
             </div>
         </div>
@@ -85,7 +85,9 @@ include("navOwner.php");
                                     FD <!-- foto según pettype-->
                                 </div>
                                 <div class="job-content">
-                                    <h5 class="text-center text-md-left"><?php echo $pet->getName();?></h5>
+
+                                    <h5 class="text-md-left"><?php echo $pet->getName();?></h5>
+
                                     <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
                                         <li class="mr-md-4">
                                             <?php echo "<br>Raza: " . $pet->getBreed();?>

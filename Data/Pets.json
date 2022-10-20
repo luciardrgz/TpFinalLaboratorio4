@@ -28,15 +28,5 @@
         "video": "chihuahuavideo",
         "vaccination": "chihuahuacertificado",
         "type": "D"
-    },
-    {
-        "id": 1,
-        "petName": "Ruth",
-        "ownerEmail": "alberto@ramirez.com",
-        "pictureURL": "ruthurl",
-        "breed": "calle",
-        "video": "ruthvideo",
-        "vaccination": "certificado",
-        "type": "D"
     }
 ]

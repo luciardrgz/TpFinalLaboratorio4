@@ -34,7 +34,6 @@ span {
 }
 
 nav {
-  margin: 27px auto 0;
   position: relative;
   width: auto;
   height: 50px;
@@ -58,6 +57,7 @@ nav a {
 
 nav a:hover {
   color: white;
+  text-decoration: none;
 }
 
 nav .animation {
@@ -71,7 +71,7 @@ nav .animation {
 
 /* Home */
 a:nth-child(1) {
-  width: 100px;
+  width: 90px;
 }
 
 /* Profile */
@@ -86,12 +86,12 @@ a:nth-child(3) {
 
 /* Guardian L */
 a:nth-child(4) {
-  width: 160px;
+  width: 150px;
 }
 
 /* Add Pet */
 a:nth-child(5) {
-  width: 120px;
+  width: 100px;
 }
 
 /* Pet L */
@@ -108,7 +108,7 @@ a:nth-child(7) {
 /*Home*/
 nav .start-home,
 a:nth-child(1):hover ~ .animation {
-  width: 100px;
+  width: 90px;
   left: 0;
   background-color: #1abc9c;
 }
@@ -117,23 +117,23 @@ a:nth-child(1):hover ~ .animation {
 nav .start-about,
 a:nth-child(2):hover ~ .animation {
   width: 110px;
-  left: 100px;
+  left: 90px;
   background-color: #e74c3c;
 }
 
 /*Booking History*/
 nav .start-blog,
 a:nth-child(3):hover ~ .animation {
-  width: 160px;
-  left: 205px;
+  width: 150px;
+  left: 200px;
   background-color: #3498db;
 }
 
 /*Guardian List*/
 nav .start-portefolio,
 a:nth-child(4):hover ~ .animation {
-  width: 140px;
-  left: 370px;
+  width: 150px;
+  left: 350px;
   background-color: #9b59b6;
 }
 
@@ -141,7 +141,7 @@ a:nth-child(4):hover ~ .animation {
 nav .start-portefolio,
 a:nth-child(5):hover ~ .animation {
   width: 100px;
-  left: 530px;
+  left: 500px;
   background-color: #59b67a;
 }
 
@@ -149,7 +149,7 @@ a:nth-child(5):hover ~ .animation {
 nav .start-portefolio,
 a:nth-child(6):hover ~ .animation {
   width: 100px;
-  left: 640px;
+  left: 600px;
   background-color: #b65959;
 }
 
@@ -157,6 +157,6 @@ a:nth-child(6):hover ~ .animation {
 nav .start-portefolio,
 a:nth-child(7):hover ~ .animation {
   width: 100px;
-  left: 740px;
+  left: 700px;
   background-color: #ababab;
 }

@@ -7,10 +7,27 @@
         "phonenumber": "45524452",
         "birthdate": "2022-09-25",
         "password": "1234",
-        "petSize": "Big",
+        "petSize": "Small",
         "availability": [
-            "Wed",
-            "Thu"
+            "Mon",
+            "Tue",
+            "Thu",
+            "Sun"
+        ],
+        "type": "G"
+    },
+    {
+        "firstname": "Tomi",
+        "lastname": "Aleman",
+        "email": "alemanmdq@gmail.com",
+        "nickname": "Tomi",
+        "phonenumber": "2235048754",
+        "birthdate": "2022-09-28",
+        "password": "1234",
+        "petSize": "Medium",
+        "availability": [
+            "Mon",
+            "Sun"
         ],
         "type": "G"
     }

@@ -5,8 +5,7 @@
 }
 
 body {
-  background-image: url("https://cdn.discordapp.com/attachments/1022513613375807644/1025462786010120343/10780029.jpg");
-  background-repeat: no-repeat;
+  background-image: url("https://cdn.discordapp.com/attachments/1022513613375807644/1032661379414491146/unknown.png");
 }
 
 /* ===== Career ===== */
@@ -43,6 +42,16 @@ body {
   color: #fff;
 }
 
+h3{
+  color: #f2c459e1;
+  font-weight: 800;
+}
+
+h5{
+  font-weight: 800;
+  margin-left: 30px;
+}
+
 .career-form .custom-select {
   background-color: rgba(255, 255, 255, 0.2);
   border: 0;
@@ -68,8 +77,8 @@ body {
 
 .filter-result .job-box {
   -webkit-box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
-  box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
-  background-color: rgba(255, 255, 255, 0.63);
+  box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.2);
+  background-color: #f2c459e1;
   border-radius: 10px;
   padding: 10px 35px;
 }
@@ -90,15 +99,16 @@ ul {
 .job-box .img-holder {
   height: 65px;
   width: 65px;
-  background-color: #ffc312;
+  background-color: rgb(78, 108, 122);
   background-image: -webkit-gradient(
     linear,
     left top,
     right top,
-    from(#ffc312),
-    to(#ffdc74)
+    from rgb(51, 83, 98),
+    to rgb(78, 108, 122)
   );
-  background-image: linear-gradient(to right, #ffc312, #ffdc74);
+
+  background-image: linear-gradient(to right, rgb(51, 83, 98), rgb(78, 108, 122));
   font-family: "Open Sans", sans-serif;
   color: #fff;
   font-size: 22px;
@@ -151,7 +161,7 @@ ul {
 
 .job-overview .job-detail ul li {
   opacity: 0.75;
-  font-weight: 600;
+  font-weight: 800;
   margin-bottom: 15px;
 }
 

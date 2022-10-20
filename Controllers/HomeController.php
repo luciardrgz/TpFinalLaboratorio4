@@ -15,4 +15,9 @@ class HomeController
         $auth->login();
         }
     }
+
+
+    public function signUp(){
+       require_once(VIEWS_PATH . "signUp.php");
+    }
 }
