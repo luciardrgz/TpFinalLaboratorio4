@@ -38,7 +38,7 @@ class AuthController
                     $_SESSION['loggeduser'] = $guardian;
                     $_SESSION['email'] = $guardian->getEmail();
                     $_SESSION['type'] = $guardian->getType();
-                    $this->showLandingPage($guardian->getType());
+                    header("Location:". FRONT_ROOT . "Auth");
                 } else {
                     require_once(VIEWS_PATH . "login.php");
                 }
@@ -49,7 +49,7 @@ class AuthController
                         $_SESSION['loggeduser'] = $owner;
                         $_SESSION['email'] = $owner->getEmail();
                         $_SESSION['type'] = $owner->getType();
-                        $this->showLandingPage($owner->getType());
+                        header("Location:". FRONT_ROOT . "Auth");
                     }
                 } else {
                     require_once(VIEWS_PATH . "login.php");

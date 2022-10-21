@@ -10,8 +10,10 @@
         "petSize": "Medium",
         "availability": [
             "Mon",
+            "Tue",
+            "Wed",
             "Thu",
-            "Sun"
+            "Fri"
         ],
         "type": "G"
     },

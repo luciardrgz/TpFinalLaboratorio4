@@ -26,7 +26,7 @@ class PetController
                 $pet->setOwnerEmail($_SESSION['email']);      
 
                 $petDAO->add($pet);
-                require_once(VIEWS_PATH . "landingPageOwner.php");
+                header("Location:". FRONT_ROOT . "User");
             }else {
                     require_once(VIEWS_PATH . "addPet.php");
                 }
