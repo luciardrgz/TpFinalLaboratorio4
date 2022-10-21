@@ -40,6 +40,7 @@ class AuthController
                     $_SESSION['type'] = $guardian->getType();
                     header("Location:" . FRONT_ROOT . "Auth");
                 } else {
+                    echo "<script> if(confirm('Contraseña incorrecta, vuelva a ingresarla')); </script>";
                     require_once(VIEWS_PATH . "login.php");
                 }
             } else if ($owner != null) {
@@ -50,9 +51,11 @@ class AuthController
                     $_SESSION['type'] = $owner->getType();
                     header("Location:" . FRONT_ROOT . "Auth");
                 } else {
+                    echo "<script> if(confirm('Contraseña incorrecta, vuelva a ingresarla')); </script>";
                     require_once(VIEWS_PATH . "login.php");
                 }
             } else {
+                echo "<script> if(confirm('Email incorrecto o no registrado')); </script>";
                 require_once(VIEWS_PATH . "login.php");
             }
         }

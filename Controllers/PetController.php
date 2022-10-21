@@ -38,8 +38,7 @@ class PetController
             require_once(VIEWS_PATH . "login.php");
         }   
     }
-
-
+    
     public function listPets(){
 
         if(isset($_SESSION['loggeduser'])){
