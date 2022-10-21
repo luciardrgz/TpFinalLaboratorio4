@@ -31,5 +31,49 @@
             "Sun"
         ],
         "type": "G"
+    },
+    {
+        "firstname": "Elias",
+        "lastname": "Helu",
+        "email": "elias@gmail.com",
+        "nickname": "Elias",
+        "phonenumber": "2268156123",
+        "birthdate": "2002-08-21",
+        "password": "1234",
+        "petSize": "Small",
+        "availability": [
+            "Mon",
+            "Tue",
+            "Thu"
+        ],
+        "type": "G"
+    },
+    {
+        "firstname": "Pepe",
+        "lastname": "Argento",
+        "email": "pepe@gmail.com",
+        "nickname": "Pepe",
+        "phonenumber": "223254121",
+        "birthdate": "1998-02-26",
+        "password": "1234",
+        "petSize": "Medium",
+        "availability": [
+            "Fri",
+            "Sat",
+            "Sun"
+        ],
+        "type": "G"
+    },
+    {
+        "firstname": "c",
+        "lastname": "c",
+        "email": "c@c",
+        "nickname": "cc",
+        "phonenumber": "561",
+        "birthdate": "2022-09-25",
+        "password": "1234",
+        "petSize": null,
+        "availability": null,
+        "type": "G"
     }
 ]

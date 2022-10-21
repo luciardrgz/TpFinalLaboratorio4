@@ -54,23 +54,6 @@ class GuardianDAO /*implements IGuardianDAO*/
         return false;
     }
 
-    /*  public function UpdateEstado($id,$estado)
-      {
-        $this->loadData();
-        foreach($this->list as $item) 
-        {
-          if($item->getId() == $id)
-          {
-            $item->setEstado($estado);
-            
-            $this->SaveData();
-            
-            return true;
-          }
-        }
-        return false;
-      } */
-
     function getAll()
     {
         $this->loadData();

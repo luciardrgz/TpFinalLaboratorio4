@@ -21,6 +21,16 @@ class UserController
         $this->ownerDAO = new OwnerDAO();
     }
 
+    public function Index(){
+        if(isset($_SESSION["loggeduser"]))
+        {
+        $this->showLandingPage($_SESSION["type"]);    
+        }else
+        {
+        require_once(VIEWS_PATH . "login.php");
+        }
+    }
+
     function showLandingPage($type)
     {
         if ($type == 'G')
@@ -84,59 +94,22 @@ class UserController
             require_once(VIEWS_PATH . "login.php");
         }
     }
-/*
-    public function addPet($petName=" ", $pictureURL =" ", $breed=" ", $video=" ", $vaccination=" ", $type=" ")
-    {
-        if(isset($_SESSION['loggeduser'])){
-          if($_SESSION['type'] == 'O')
-          {
-            if($petName!=" " || $pictureURL!=" " || $breed!=" " || $video!=" " || $vaccination!=" " || $type!=" ")
-            { 
-                $pet = new Pet(); // new Dog
-                $petDAO = new PetDAO();
 
-                $pet->setName($petName);
-                $pet->setPicture($pictureURL);
-                $pet->setBreed($breed);
-                $pet->setVideo($video);
-                $pet->setVaccination($vaccination);
-                $pet->setType($type);
-                $pet->setOwnerEmail($_SESSION['email']);      
-
-                $petDAO->add($pet);
-                $this->showLandingPage($_SESSION['type']); //enviar a lista de mascotas
-            }else {
-                     require_once(VIEWS_PATH . "addPet.php");
-                  }
-          }else{
-            $this->showLandingPage($_SESSION['type']);
-          }   
-        }
-        else{
-            require_once(VIEWS_PATH . "login.php");
-        }   
-   }
-
-
-    public function listPets(){
-
+    public function showGuardianList(){
         if(isset($_SESSION['loggeduser'])){
             if($_SESSION['type'] == 'O')
             {
-                $petList = array();
-                $petDAO = new PetDAO();
-
-                $petList = $petDAO->getPetsByOwnerEmail($_SESSION['email']);
-
-                require_once(VIEWS_PATH . "petList.php");
+                $guardianList = array();
+                $guardianList = $this->guardianDAO->getAll();
+                require_once(VIEWS_PATH . "GuardianList.php");
             }else{
-            $this->showLandingPage($_SESSION['type']);
-            }   
-        }
-        else{
+                require_once(VIEWS_PATH."landingPageGuardian");
+            }
+        }else{
             require_once(VIEWS_PATH . "login.php");
-        }   
-   }*/
+        }
+       
+    }
 
     public function showProfileInfo(){
         if(isset($_SESSION['loggeduser'])){
@@ -196,15 +169,7 @@ class UserController
         }
     }
 
-    public function Index(){
-        if(isset($_SESSION["loggeduser"]))
-        {
-        $this->showLandingPage($_SESSION["type"]);    
-        }else
-        {
-        require_once(VIEWS_PATH . "login.php");
-        }
-    }
+    
     
 }
 ?>

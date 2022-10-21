@@ -38,5 +38,25 @@
         "video": "video.com",
         "vaccination": "certificate.com",
         "type": "D"
+    },
+    {
+        "id": 5,
+        "petName": "Rufus",
+        "ownerEmail": "roberto@gmail.com",
+        "pictureURL": "url2",
+        "breed": "labrador",
+        "video": "video1url",
+        "vaccination": "certificadourl",
+        "type": "D"
+    },
+    {
+        "id": 6,
+        "petName": "Fatiga",
+        "ownerEmail": "moni@gmail.com",
+        "pictureURL": "url1",
+        "breed": "Calle",
+        "video": "urlVideo",
+        "vaccination": "certificadourl",
+        "type": "D"
     }
 ]
