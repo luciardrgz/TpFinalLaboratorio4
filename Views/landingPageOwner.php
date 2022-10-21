@@ -12,7 +12,7 @@ include("navOwner.php");
     <title>Owner Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH."landingPage.css"?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH . "landingPage.css" ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -30,14 +30,15 @@ include("navOwner.php");
                     aria-label="Slide 3"></button>
             </div>
             <div class="carousel-inner">
-            <div class="carousel-item active">
-                    <img src="<?php echo FRONT_ROOT . IMG_PATH."bannerImage1.jpg"?>" class="d-block w-100" alt="...">
+                <div class="carousel-item active">
+                    <img src="<?php echo FRONT_ROOT . IMG_PATH . "bannerImage1.jpg" ?>" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="<?php echo  FRONT_ROOT .IMG_PATH ."bannerImage2.jpg"?>" class="d-block w-100" alt="...">
+                    <img src="<?php echo  FRONT_ROOT . IMG_PATH . "bannerImage2.jpg" ?>" class="d-block w-100"
+                        alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="<?php echo FRONT_ROOT. IMG_PATH."bannerImage3.jpg"?>" class="d-block w-100" alt="...">
+                    <img src="<?php echo FRONT_ROOT . IMG_PATH . "bannerImage3.jpg" ?>" class="d-block w-100" alt="...">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
@@ -59,33 +60,36 @@ include("navOwner.php");
             <div class="col">
                 <div class="card">
                     <img src="https://gumlet.assettype.com/mimorelia%2F2022-07%2Fe2b6c575-cb38-4633-8282-b98f4dcbd734%2Fperrito_gordito_unam.jpg?auto=format%2Ccompress&fit=max&w=1200"
-                        class="card-img-top" alt="Hollywood Sign on The Hill" />
+                        class="card-img-top" />
                     <div class="card-body">
-                        <h5 class="card-title">Elige tu mascota</h5>
-                        <p class="card-text-uno">Todo buen Cuidador sabe elegir</p>
+                        <h5 align='center'><b>Don't leave your pet alone!</b></h5>
+                        <h6 align='center'>Away from home for a few days and can't take your pet with you? Pet Hero
+                            <b>helps you</b>
+                        </h6>
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="card">
                     <img src="https://entrenatuperro.online/wp-content/uploads/2021/05/socializar-a-mi-cachorro.jpg"
-                        class="card-img-top" alt="Palm Springs Road" />
+                        class="card-img-top" />
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content.
-                        </p>
+                        <h5 align='center'><b>An exceptional experience</b></h5>
+                        <h6 align='center'>Pet Hero guardians are rated by <b>owners who trusted them</b>, so
+                            neither you nor your pet will have any surprises
+                        </h6>
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="card">
                     <img src="https://unamglobal.unam.mx/wp-content/uploads/2020/11/perros-sonr%C3%ADen-1024x576.jpg"
-                        class="card-img-top" alt="Los Angeles Skyscrapers" />
+                        class="card-img-top" />
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content.</p>
+                        <h5 align='center'><b>They'll have a wonderful time</b></h5>
+                        <h6 align='center'>Our guardians will not only provide food and water for your pet, they'll
+                            will also spend <b>quality time</b> with them :)
+                        </h6>
                     </div>
                 </div>
             </div>

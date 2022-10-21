@@ -36,10 +36,10 @@ include("navOwner.php");
 
                         <div class="card-body p-4 p-md-5">
 
-                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Add your pet's information</h3>
+                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5"><b>Add a new pet</b></h3>
 
                             <form action="<?php echo FRONT_ROOT . "Pet/addPet" ?>" method="POST">
-                            
+
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
@@ -61,7 +61,8 @@ include("navOwner.php");
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline datepicker w-100">
                                             <label for="breed" class="form-label">Breed</label>
-                                            <input type="text" name="breed" class="form-control form-control-lg" required>
+                                            <input type="text" name="breed" class="form-control form-control-lg"
+                                                required>
                                         </div>
                                     </div>
 
@@ -69,7 +70,8 @@ include("navOwner.php");
                                         <div class="form-outline">
                                             <label class="form-label" for="video">Video</label>
                                             <input type="text" name="video" id="video"
-                                                class="form-control form-control-lg" placeholder="Video URL goes here" required>
+                                                class="form-control form-control-lg" placeholder="Video URL goes here"
+                                                required>
                                         </div>
                                     </div>
                                 </div>

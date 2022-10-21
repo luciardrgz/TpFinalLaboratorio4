@@ -28,5 +28,15 @@
         "video": "chihuahuavideo",
         "vaccination": "chihuahuacertificado",
         "type": "D"
+    },
+    {
+        "id": 4,
+        "petName": "Milanesa",
+        "ownerEmail": "alberto@ramirez.com",
+        "pictureURL": "photo.com",
+        "breed": "Callejero",
+        "video": "video.com",
+        "vaccination": "certificate.com",
+        "type": "D"
     }
 ]

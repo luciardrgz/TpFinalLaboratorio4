@@ -1,9 +1,10 @@
 <?php
+
 namespace Views;
 
-if($_SESSION["type"] == "O"){
+if ($_SESSION["type"] == "O") {
     include("navOwner.php");
-}else if($_SESSION["type"]== "G"){
+} else if ($_SESSION["type"] == "G") {
     include("navGuardian.php");
 }
 ?>
@@ -16,51 +17,50 @@ if($_SESSION["type"] == "O"){
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH ."Profile.css" ?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH . "Profile.css" ?>">
 </head>
 
 <body>
 
     <div class="container emp-profile">
-                    <div class="row">
-                <div class="col-md-4">
-                    <div class="profile-img">
-                        <?php if($_SESSION['type'] == 'O'){?>
-                        <img src="https://www.dogmagazine.net/wp-content/uploads/2014/12/The-dog-who-mimicks-their-owner.jpg"/>
-                        <?php }else{?>
-                            <img src="https://media.biobiochile.cl/wp-content/uploads/2021/09/cesarmillan.jpg"/>
-                            <?php }?>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="profile-head">
-                        <h5>
-                            <?php echo $user->getFirstName() . " " . $user->getLastName()?>
-                        </h5>
-                        <?php if($_SESSION['type'] == 'O'){?>
-                        <h6><?php echo "Owner";?></h6>
-                        <?php }else{?>
-                         <h6><?php echo "Guardian";?></h6>
-                         <p class="profile-rating">Your score: <span>8/10</span></p>
-                         <?php }?>
-                        
-                    </div>
-                </div>
-                <div class=" col-md-2">
-                    <input type="submit" class="profile-edit-btn" value="Edit Profile" />
-                    
-                    
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-img">
+                    <?php if ($_SESSION['type'] == 'O') { ?>
+                    <img src="https://static.boredpanda.com/blog/wp-content/uploads/2021/08/Ba_JjS-jdVu-png__700.jpg" />
+                    <?php } else { ?>
+                    <img src="https://media.biobiochile.cl/wp-content/uploads/2021/09/cesarmillan.jpg" />
+                    <?php } ?>
                 </div>
             </div>
-            <div class="row">
-                
-                <div class="col-md-4">
-                    <div class="profile-work">
+            <div class="col-md-6">
+                <div class="profile-head">
+                    <h5><b><?php echo $user->getFirstName() . " " . $user->getLastName() ?></b>
+                    </h5>
+                    <?php if ($_SESSION['type'] == 'O') { ?>
+                    <h6><i><?php echo "Pet Owner"; ?></i></h6>
+                    <?php } else { ?>
+                    <h6><i><?php echo " Pet Guardian"; ?></i></h6>
+                    <p class="profile-rating">Your guardian score: <span>8/10</span></p>
+                    <?php } ?>
 
-                    <?php if($_SESSION['type'] == 'G'){?>
-                    <form action="<?php echo FRONT_ROOT. "User/updatePetSizePreference/" ?>" method="POST"> 
-                        <label><br> <b>Change pet size preference</b> </label><br>
-                        
+                </div>
+            </div>
+
+            <div class=" col-md-2">
+                <input type="submit" class="profile-edit-btn" value="Edit profile" />
+            </div>
+
+        </div>
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="profile-work">
+
+                    <?php if ($_SESSION['type'] == 'G') { ?>
+                    <form action="<?php echo FRONT_ROOT . "User/updatePetSizePreference/" ?>" method="POST">
+                        <label><br> <b>My pet size preference</b> </label><br>
+
                         <select name="petSize">
                             <option value="Big">Big</option>
                             <option value="Medium">Medium</option>
@@ -71,168 +71,175 @@ if($_SESSION["type"] == "O"){
                         <input type="submit" name="submit" class="profile-edit-btn" value="Save preference" />
                     </form>
 
-                        <form action="<?php echo FRONT_ROOT. "User/updateDate/" ?>" method="POST">
-                            <label><br> <b>My availability</b> </label><br>
-
-                             
-                            <input type="checkbox" <?php 
-                            if($user->getAvailability()!= null){
-                               if(in_array("Mon",$user->getAvailability())){?>
-                                checked
-                            <?php } }?>
-                            name="availability[]" value="Mon"> Monday <br>
-                            
-                            <input type="checkbox" <?php 
-                            if($user->getAvailability()!= null){
-                                if(in_array("Tue",$user->getAvailability())){?>
-                                 checked
-                             <?php } } ?>
-                                name="availability[]" value="Tue"> Tuesday <br>
-                                
-                            <input type="checkbox" <?php 
-                            if($user->getAvailability()!= null){
-                                if(in_array("Wed",$user->getAvailability())){?>
-                                 checked
-                            <?php } } ?> 
-                                name="availability[]" value="Wed"> Wednesday <br>
-
-                                
-                            <input type="checkbox" <?php 
-                            if($user->getAvailability()!= null){
-                                if(in_array("Thu",$user->getAvailability())){?>
-                                 checked
-                            <?php } } ?> 
-                                name="availability[]" value="Thu"> Thursday <br>
+                    <form action="<?php echo FRONT_ROOT . "User/updateDate/" ?>" method="POST">
+                        <label><br> <b>My availability</b> </label><br>
 
 
-                            <input type="checkbox" <?php 
-                            if($user->getAvailability()!= null){
-                                if(in_array("Fri",$user->getAvailability())){?>
-                                  checked
-                            <?php } } ?> 
-                                name="availability[]" value="Fri"> Friday <br>
+                        <input type="checkbox" <?php
+                                                    if ($user->getAvailability() != null) {
+                                                        if (in_array("Mon", $user->getAvailability())) { ?> checked <?php }
+                                                                                                            } ?>
+                            name="availability[]" value="Mon">
+                        Monday <br>
 
-                            <input type="checkbox" <?php 
-                            if($user->getAvailability()!= null){
-                                if(in_array("Sat",$user->getAvailability())){?>
-                                 checked
-                            <?php } }  ?> 
-                                name="availability[]" value="Sat"> Saturday <br> 
+                        <input type="checkbox" <?php
+                                                    if ($user->getAvailability() != null) {
+                                                        if (in_array("Tue", $user->getAvailability())) { ?> checked <?php }
+                                                                                                            } ?>
+                            name="availability[]" value="Tue">
+                        Tuesday <br>
 
-                                
-                            <input type="checkbox" <?php  
-                            if($user->getAvailability()!= null){
-                                if(in_array("Sun",$user->getAvailability())){?>
-                                 checked
-                            <?php } }  ?>  
-                                name="availability[]" value="Sun"> Sunday 
-                                
-                            <br><br>
-                             
-                            <input type="submit" name="submit" class="profile-edit-btn" value="Save date" />
-                        </form>  
+                        <input type="checkbox" <?php
+                                                    if ($user->getAvailability() != null) {
+                                                        if (in_array("Wed", $user->getAvailability())) { ?> checked <?php }
+                                                                                                            } ?>
+                            name="availability[]" value="Wed">
+                        Wednesday <br>
 
-                        <?php }?>
-                    </div>
+
+                        <input type="checkbox" <?php
+                                                    if ($user->getAvailability() != null) {
+                                                        if (in_array("Thu", $user->getAvailability())) { ?> checked <?php }
+                                                                                                            } ?>
+                            name="availability[]" value="Thu">
+                        Thursday <br>
+
+
+                        <input type="checkbox" <?php
+                                                    if ($user->getAvailability() != null) {
+                                                        if (in_array("Fri", $user->getAvailability())) { ?> checked <?php }
+                                                                                                            } ?>
+                            name="availability[]" value="Fri">
+                        Friday <br>
+
+                        <input type="checkbox" <?php
+                                                    if ($user->getAvailability() != null) {
+                                                        if (in_array("Sat", $user->getAvailability())) { ?> checked <?php }
+                                                                                                            }  ?>
+                            name="availability[]" value="Sat"> Saturday <br>
+
+
+                        <input type="checkbox" <?php
+                                                    if ($user->getAvailability() != null) {
+                                                        if (in_array("Sun", $user->getAvailability())) { ?> checked <?php }
+                                                                                                            }  ?>
+                            name="availability[]" value="Sun"> Sunday
+
+                        <br><br>
+
+                        <input type="submit" name="submit" class="profile-edit-btn" value="Save availability" />
+                    </form>
+
+                    <?php } ?>
                 </div>
-                
-                    
-                <div class="col-md-8">
-                    <div class="tab-content profile-tab" id="myTabContent">
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            </div>
 
-                            <br>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>First Name</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <label><?php echo $user->getFirstName()?></label>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Last Name</label>
-                                </div>
-                                <div class="col-md-6">
 
-                                    <label><?php echo $user->getLastName()?></label>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Email</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <label><?php echo $user->getEmail()?></label>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Phonenumber</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <label><?php echo $user->getPhoneNumber()?></label>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Birth Date</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <label><?php echo $user->getBirthDate()?></label>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Nickname</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <label><?php echo $user->getNickName()?></label>
-                                </div>
-                            </div>
-                            <br>
+            <div class="col-md-8">
+                <div class="tab-content profile-tab">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
-                            <?php if($_SESSION['type'] == 'G'){?>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Pet size preference</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <label><?php echo $user->getPetsize()?></label>
-                                </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>First Name</label>
                             </div>
-                            <br>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Availability</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <?php if($user->getAvailability()!=null) { ?>
-                                    <label><?php foreach($user->getAvailability() as $day)
-                                    {
-                                        echo $day . ", ";
-                                    }
-                                
-                                    ?></label>
-
-                                    <?php } ?>
-                                </div>
+                            <div class="col-md-6">
+                                <label><?php echo $user->getFirstName() ?></label>
                             </div>
-                            <?php }?>
                         </div>
+
+                        <br>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Last Name</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label><?php echo $user->getLastName() ?></label>
+                            </div>
                         </div>
+
+                        <br>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Email</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label><?php echo $user->getEmail() ?></label>
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Phone Number</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label><?php echo $user->getPhoneNumber() ?></label>
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Date of Birth</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label><?php echo $user->getBirthDate() ?></label>
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Nickname</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label><?php echo $user->getNickName() ?></label>
+                            </div>
+                        </div>
+                        <br>
+
+                        <?php if ($_SESSION['type'] == 'G') { ?>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Pet Size Preference</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label><?php echo $user->getPetsize() ?></label>
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Availability</label>
+                            </div>
+                            <div class="col-md-6">
+                                <?php if ($user->getAvailability() != null) { ?>
+                                <label><?php foreach ($user->getAvailability() as $day) {
+                                                    echo $day . "  ";
+                                                }
+
+                                                ?></label>
+
+                                <?php } ?>
+                            </div>
+                        </div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
-        
+        </div>
+    </div>
+
     </div>
 
 </body>
+
 </html>

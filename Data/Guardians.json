@@ -7,10 +7,9 @@
         "phonenumber": "45524452",
         "birthdate": "2022-09-25",
         "password": "1234",
-        "petSize": "Small",
+        "petSize": "Medium",
         "availability": [
             "Mon",
-            "Tue",
             "Thu",
             "Sun"
         ],

@@ -1,4 +1,5 @@
 <?php
+
 namespace Views;
 /*
 session_start();
@@ -7,6 +8,7 @@ if ($_SESSION['guardian']guardian){
 }else{
   include("../navOwner.php");  
 }*/
+
 include("navGuardian.php");
 
 ?>
@@ -18,7 +20,7 @@ include("navGuardian.php");
     <title></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH ."bookingHistory.css" ?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH . "bookingHistory.css" ?>">
 </head>
 
 <body>
@@ -41,32 +43,28 @@ include("navGuardian.php");
 
                     <form action="#" class="career-form mb-60">
                         <div class="row">
+
                             <div class="col-md-6 col-lg-3 my-3">
                                 <div class="input-group position-relative">
-                                    <input type="text" class="form-control" placeholder="Enter Your Keywords"
+                                    <input type="text" class="form-control" placeholder="Enter a Pet's Name"
                                         id="keywords">
                                 </div>
                             </div>
+
                             <div class="col-md-6 col-lg-3 my-3">
                                 <div class="select-container">
                                     <select class="custom-select">
-                                        <option selected="">Location</option>
-                                        <option value="1">Jaipur</option>
-                                        <option value="2">Pune</option>
-                                        <option value="3">Bangalore</option>
+                                        <option selected="">Pet Type</option>
+                                        <option value="1">Dog</option>
+                                        <option value="2">Cat</option>
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-md-6 col-lg-3 my-3">
-                                <div class="select-container">
-                                    <select class="custom-select">
-                                        <option selected="">Select Job Type</option>
-                                        <option value="1">Ui designer</option>
-                                        <option value="2">JS developer</option>
-                                        <option value="3">Web developer</option>
-                                    </select>
-                                </div>
+                                <input type="date" name="bookingDate" class="form-control">
                             </div>
+
                             <div class="col-md-6 col-lg-3 my-3">
                                 <button type="button" class="btn btn-lg btn-block btn-light btn-custom"
                                     id="contact-submit">
@@ -81,10 +79,10 @@ include("navGuardian.php");
                         <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
                             <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
                                 <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
-                                    FD
+                                    B1
                                 </div>
                                 <div class="job-content">
-                                    <h5 class="text-center text-md-left">Front End Developer</h5>
+                                    <h5 class="text-md-left">Booking 1</h5>
                                     <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
                                         <li class="mr-md-4">
                                             <i class="zmdi zmdi-pin mr-2"></i> Los Angeles
@@ -99,17 +97,17 @@ include("navGuardian.php");
                                 </div>
                             </div>
                             <div class="job-right my-4 flex-shrink-0">
-                                <a href="#" class="btn d-block w-100 d-sm-inline-block btn-light">Apply now</a>
+                                <a href="#" class="btn d-block w-100 d-sm-inline-block btn-light">More details</a>
                             </div>
                         </div>
 
                         <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
                             <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
                                 <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
-                                    UX
+                                    B2
                                 </div>
                                 <div class="job-content">
-                                    <h5 class="text-center text-md-left">Ui/Ux Developer</h5>
+                                    <h5 class="text-md-left">Booking 2</h5>
                                     <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
                                         <li class="mr-md-4">
                                             <i class="zmdi zmdi-pin mr-2"></i> Los Angeles
@@ -124,17 +122,17 @@ include("navGuardian.php");
                                 </div>
                             </div>
                             <div class="job-right my-4 flex-shrink-0">
-                                <a href="#" class="btn d-block w-100 d-sm-inline-block btn-light">Apply now</a>
+                                <a href="#" class="btn d-block w-100 d-sm-inline-block btn-light">More details</a>
                             </div>
                         </div>
 
                         <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
                             <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
                                 <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
-                                    GD
+                                    B3
                                 </div>
                                 <div class="job-content">
-                                    <h5 class="text-center text-md-left">Graphic Designer</h5>
+                                    <h5 class="text-md-left">Booking 3</h5>
                                     <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
                                         <li class="mr-md-4">
                                             <i class="zmdi zmdi-pin mr-2"></i> Los Angeles
@@ -149,17 +147,17 @@ include("navGuardian.php");
                                 </div>
                             </div>
                             <div class="job-right my-4 flex-shrink-0">
-                                <a href="#" class="btn d-block w-100 d-sm-inline-block btn-light">Apply now</a>
+                                <a href="#" class="btn d-block w-100 d-sm-inline-block btn-light">More details</a>
                             </div>
                         </div>
 
                         <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
                             <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
                                 <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
-                                    JS
+                                    B4
                                 </div>
                                 <div class="job-content">
-                                    <h5 class="text-center text-md-left">Javascript Developer</h5>
+                                    <h5 class="text-md-left">Booking 4</h5>
                                     <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
                                         <li class="mr-md-4">
                                             <i class="zmdi zmdi-pin mr-2"></i> Los Angeles
@@ -174,7 +172,7 @@ include("navGuardian.php");
                                 </div>
                             </div>
                             <div class="job-right my-4 flex-shrink-0">
-                                <a href="#" class="btn d-block w-100 d-sm-inline-block btn-light">Apply now</a>
+                                <a href="#" class="btn d-block w-100 d-sm-inline-block btn-light">More details</a>
                             </div>
                         </div>
 

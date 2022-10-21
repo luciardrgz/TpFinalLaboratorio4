@@ -8,50 +8,39 @@ body {
   background-image: url("https://cdn.discordapp.com/attachments/1022513613375807644/1032661379414491146/unknown.png");
 }
 
-/* ===== Career ===== */
+/* Rectángulo de búsquedas */
 .career-form {
-  background-color: #ffc312;
+  background-color: rgb(51, 83, 98);
   border-radius: 5px;
   padding: 0 16px;
 }
 
-.career-form .form-control {
-  background-color: rgba(255, 255, 255, 0.2);
-  border: 0;
-  padding: 12px 15px;
-  color: rgb(0, 0, 0);
-}
-
-.career-form .form-control::-webkit-input-placeholder {
-  /* Chrome/Opera/Safari */
-  color: rgb(0, 0, 0);
-}
-
-.career-form .form-control::-moz-placeholder {
-  /* Firefox 19+ */
-  color: #fff;
-}
-
-.career-form .form-control:-ms-input-placeholder {
-  /* IE 10+ */
-  color: #fff;
-}
-
-.career-form .form-control:-moz-placeholder {
-  /* Firefox 18- */
-  color: #fff;
-}
-
-h3{
+/* Booking History */
+h3 {
   color: #f2c459e1;
   font-weight: 800;
 }
 
-h5{
+/* Rectángulo Enter your Keywords*/
+.career-form .form-control {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  padding: 12px 15px;
+  color: rgb(255, 255, 255);
+}
+
+/* Texto Enter your Keywords*/
+.career-form .form-control::-webkit-input-placeholder {
+  color: rgb(255, 255, 255);
+}
+
+/* Títulos de cada bloque*/
+h5 {
   font-weight: 800;
   margin-left: 30px;
 }
 
+/* Select Pet Type*/
 .career-form .custom-select {
   background-color: rgba(255, 255, 255, 0.2);
   border: 0;
@@ -60,21 +49,20 @@ h5{
   width: 100%;
   border-radius: 5px;
   text-align: left;
-  height: auto;
-  background-image: none;
-  color: black;
 }
 
+/* Cuando se hace click en el select*/
 .career-form .custom-select:focus {
   -webkit-box-shadow: none;
   box-shadow: none;
-  color: black;
+  color: rgb(255, 255, 255);
 }
 
 .career-form .select-container {
   position: relative;
 }
 
+/* Cada cajita que se muestra */
 .filter-result .job-box {
   -webkit-box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
   box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.2);
@@ -83,33 +71,20 @@ h5{
   padding: 10px 35px;
 }
 
+/* Evita que muestre el punto por default de las ul*/
 ul {
   list-style: none;
 }
 
-.list-disk li {
-  list-style: none;
-  margin-bottom: 12px;
-}
-
-.list-disk li:last-child {
-  margin-bottom: 0;
-}
-
+/*Contenedor de imagen*/
 .job-box .img-holder {
   height: 65px;
   width: 65px;
-  background-color: rgb(78, 108, 122);
-  background-image: -webkit-gradient(
-    linear,
-    left top,
-    right top,
-    from rgb(51, 83, 98),
-    to rgb(78, 108, 122)
+  background-image: linear-gradient(
+    to right,
+    rgb(51, 83, 98),
+    rgb(78, 108, 122)
   );
-
-  background-image: linear-gradient(to right, rgb(51, 83, 98), rgb(78, 108, 122));
-  font-family: "Open Sans", sans-serif;
   color: #fff;
   font-size: 22px;
   font-weight: 700;
