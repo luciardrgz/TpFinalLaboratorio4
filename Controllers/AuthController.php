@@ -19,10 +19,10 @@ class AuthController
         $this->ownerDAO = new OwnerDAO();
     }
 
-    public function login($email="", $password="")
+    public function login($email = "", $password = "")
     {
         if ($email == "" || $password == "") {
-            require_once(VIEWS_PATH."login.php");  
+            require_once(VIEWS_PATH . "login.php");
         } else {
 
             $guardianDAO = new GuardianDAO();
@@ -33,30 +33,30 @@ class AuthController
             $owner = new Owner();
             $owner = $this->ownerDAO->getByEmail($email);
 
-            if ($guardian != null){
+            if ($guardian != null) {
                 if ($guardian->getPassword() == $password) {
                     $_SESSION['loggeduser'] = $guardian;
                     $_SESSION['email'] = $guardian->getEmail();
                     $_SESSION['type'] = $guardian->getType();
-                    header("Location:". FRONT_ROOT . "Auth");
+                    header("Location:" . FRONT_ROOT . "Auth");
+                } else {
+                    require_once(VIEWS_PATH . "login.php");
+                }
+            } else if ($owner != null) {
+                if ($owner->getPassword() == $password) {
+
+                    $_SESSION['loggeduser'] = $owner;
+                    $_SESSION['email'] = $owner->getEmail();
+                    $_SESSION['type'] = $owner->getType();
+                    header("Location:" . FRONT_ROOT . "Auth");
                 } else {
                     require_once(VIEWS_PATH . "login.php");
                 }
             } else {
-                if ($owner != null) {
-                    if ($owner->getPassword() == $password) {
-
-                        $_SESSION['loggeduser'] = $owner;
-                        $_SESSION['email'] = $owner->getEmail();
-                        $_SESSION['type'] = $owner->getType();
-                        header("Location:". FRONT_ROOT . "Auth");
-                    }
-                } else {
-                    require_once(VIEWS_PATH . "login.php");
-                }
+                require_once(VIEWS_PATH . "login.php");
             }
+        }
     }
-}
 
     public function showLandingPage($type)
     {
@@ -74,13 +74,12 @@ class AuthController
         require_once(VIEWS_PATH . "login.php");
     }
 
-    public function Index(){
-        if(isset($_SESSION["loggeduser"]))
-        {
-        $this->showLandingPage($_SESSION["type"]);    
-        }else
-        {
-        $this->login();
+    public function Index()
+    {
+        if (isset($_SESSION["loggeduser"])) {
+            $this->showLandingPage($_SESSION["type"]);
+        } else {
+            $this->login();
         }
     }
 }
