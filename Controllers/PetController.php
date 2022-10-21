@@ -59,5 +59,19 @@ class PetController
             require_once(VIEWS_PATH . "login.php");
         }   
     }
+
+    public function Index(){
+        if(isset($_SESSION["loggeduser"]))
+        {
+            if($_SESSION['type']=="O"){
+                $this->listPets(); 
+            }else{
+                require_once(VIEWS_PATH . "landingPageGuardian.php");
+            }
+        }else
+        {
+        require_once(VIEWS_PATH . "login.php");
+        }
+    }
 }
 ?>

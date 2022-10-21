@@ -195,6 +195,16 @@ class UserController
             require_once(VIEWS_PATH . "login.php");
         }
     }
+
+    public function Index(){
+        if(isset($_SESSION["loggeduser"]))
+        {
+        $this->showLandingPage($_SESSION["type"]);    
+        }else
+        {
+        require_once(VIEWS_PATH . "login.php");
+        }
+    }
     
 }
 ?>

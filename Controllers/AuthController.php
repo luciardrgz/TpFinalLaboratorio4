@@ -73,4 +73,14 @@ class AuthController
         session_destroy();
         require_once(VIEWS_PATH . "login.php");
     }
+
+    public function Index(){
+        if(isset($_SESSION["loggeduser"]))
+        {
+        $this->showLandingPage($_SESSION["type"]);    
+        }else
+        {
+        $this->login();
+        }
+    }
 }
