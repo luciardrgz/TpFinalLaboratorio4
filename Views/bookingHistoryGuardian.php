@@ -54,7 +54,7 @@ include("navGuardian.php");
                             <div class="col-md-6 col-lg-3 my-3">
                                 <div class="select-container">
                                     <select class="custom-select">
-                                        <option selected="">Pet Type</option>
+                                        <option value="" disabled selected hidden>Pet Type</option>
                                         <option value="1">Dog</option>
                                         <option value="2">Cat</option>
                                     </select>
@@ -66,8 +66,7 @@ include("navGuardian.php");
                             </div>
 
                             <div class="col-md-6 col-lg-3 my-3">
-                                <button type="button" class="btn btn-lg btn-block btn-light btn-custom"
-                                    id="contact-submit">
+                                <button type="button" class="btn btn-lg btn-block btn-light btn-custom" id="search-btn">
                                     Search
                                 </button>
                             </div>

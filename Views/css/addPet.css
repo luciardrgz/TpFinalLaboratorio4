@@ -5,7 +5,8 @@
 }
 
 html,
-body, .gradient-custom {
+body,
+.gradient-custom {
   background-image: url("https://cdn.shopify.com/s/files/1/0325/4524/3274/files/D-fCuGVX4AAKrCt.jpg?v=1616718362");
   background-size: cover;
   background-repeat: no-repeat;
@@ -27,7 +28,8 @@ body, .gradient-custom {
 
 label,
 h3,
-h6 {
+h6,
+.petTypeCheck {
   color: white;
 }
 

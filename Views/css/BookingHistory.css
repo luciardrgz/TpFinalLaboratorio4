@@ -21,15 +21,16 @@ h3 {
   font-weight: 800;
 }
 
-/* Rectángulo Enter your Keywords*/
+/* Rectángulo Enter a Pet's Name + Date*/
 .career-form .form-control {
   background-color: rgba(255, 255, 255, 0.2);
   border: none;
+  height: 45px;
   padding: 12px 15px;
   color: rgb(255, 255, 255);
 }
 
-/* Texto Enter your Keywords*/
+/* Texto Enter a Pet's Name*/
 .career-form .form-control::-webkit-input-placeholder {
   color: rgb(255, 255, 255);
 }
@@ -45,7 +46,7 @@ h5 {
   background-color: rgba(255, 255, 255, 0.2);
   border: 0;
   padding: 12px 15px;
-  color: #fff;
+  color: rgb(255, 255, 255);
   width: 100%;
   border-radius: 5px;
   text-align: left;
@@ -55,7 +56,7 @@ h5 {
 .career-form .custom-select:focus {
   -webkit-box-shadow: none;
   box-shadow: none;
-  color: rgb(255, 255, 255);
+  color: rgb(5, 0, 0);
 }
 
 .career-form .select-container {
@@ -172,4 +173,9 @@ ul {
 }
 .mb-30 {
   margin-bottom: 30px;
+}
+
+button {
+  margin-left: 120px;
+  height: 45px;
 }

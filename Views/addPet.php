@@ -15,6 +15,18 @@ include("navOwner.php");
 <head>
     <title>Add your Pet!</title>
 
+    <script type="text/javascript">
+    function disableTypeSelect() {
+        if (document.getElementById('Cat').checked) {
+            document.getElementById('size').disabled = true;
+        } else {
+            if (document.getElementById('Dog').checked) {
+                document.getElementById('size').disabled = false;
+            }
+        }
+    }
+    </script>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
@@ -22,6 +34,7 @@ include("navOwner.php");
         integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH . "addPet.css" ?>">
+
 </head>
 
 <body>
@@ -43,16 +56,17 @@ include("navOwner.php");
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
-                                            <label class="form-label" for="petName">Pet Name</label>
+                                            <label class="form-label" for="petName">Pet Name*</label>
                                             <input type="text" name="petName" id="petName"
-                                                class="form-control form-control-lg" placeholder="Manchita" required>
+                                                class="form-control form-control-lg" placeholder="Your pet's name"
+                                                required>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
-                                            <label class="form-label" for="picture">Upload a picture</label>
+                                            <label class="form-label" for="picture">Picture URL*</label>
                                             <input type="text" name="pictureURL" class="form-control form-control-lg"
-                                                placeholder="Picture URL goes here" required>
+                                                placeholder="Your pet's picture" required>
                                         </div>
                                     </div>
                                 </div>
@@ -60,18 +74,17 @@ include("navOwner.php");
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline datepicker w-100">
-                                            <label for="breed" class="form-label">Breed</label>
-                                            <input type="text" name="breed" class="form-control form-control-lg"
-                                                required>
+                                            <label for="breed" class="form-label">Breed*</label>
+                                            <input type="text" name="breed" placeholder="Your pet's breed" class=" form-control
+                                                form-control-lg" required>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6 mb-4 pb-2">
                                         <div class="form-outline">
-                                            <label class="form-label" for="video">Video</label>
+                                            <label class="form-label" for="video">Video URL (optional)</label>
                                             <input type="text" name="video" id="video"
-                                                class="form-control form-control-lg" placeholder="Video URL goes here"
-                                                required>
+                                                class="form-control form-control-lg" placeholder="Your pet's video">
                                         </div>
                                     </div>
                                 </div>
@@ -79,18 +92,36 @@ include("navOwner.php");
                                 <div class="row">
                                     <div class="col-md-6 mb-4 pb-2">
                                         <div class="form-outline">
-                                            <label class="form-label" for="vacc">Vaccination Certificate</label>
+                                            <label class="form-label" for="vacc">Vaccination Certificate URL*</label>
                                             <input type="text" name="vaccination" class="form-control form-control-lg"
-                                                placeholder="Certificate URL goes here" required>
+                                                placeholder="Your pet's vaccines" required>
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6 mb-4">
-                                        <label class="form-label select-label">Pet type</label> <br>
-                                        <select name="type" class="select form-control-lg">
-                                            <option value="D">Dog</option>
-                                            <option value="C">Cat</option>
-                                        </select required>
+                                    <div class="col-md-6 mb-4 pb-2">
+                                        <label class="form-label select-label">Pet type*</label> <br>
+                                        <label class="petTypeCheck">
+                                            <input type="radio" name="Pet" id="Dog" value="D"
+                                                onclick="disableTypeSelect()"> Dog &nbsp;&nbsp;
+
+                                        </label>
+
+                                        <label class=" petTypeCheck">
+                                            <input type="radio" name="Pet" id="Cat" value="C"
+                                                onclick="disableTypeSelect()"> Cat
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-4 pb-2">
+                                        <label class="form-label select-label">Pet size</label> <br>
+                                        <select name="size" id="size" class="select form-control-lg">
+                                            <option value="S">Small</option>
+                                            <option value="M">Medium</option>
+                                            <option value="B">Big</option>
+                                        </select>
                                     </div>
                                 </div>
 
@@ -103,7 +134,6 @@ include("navOwner.php");
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 </body>
 
@@ -130,3 +160,6 @@ include("navOwner.php");
                                     -->
 
 </html>
+<!--         
+                                        
+                                                

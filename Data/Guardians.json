@@ -75,5 +75,17 @@
         "petSize": null,
         "availability": null,
         "type": "G"
+    },
+    {
+        "firstname": "Julio",
+        "lastname": "Iglesias",
+        "email": "julio@gmail.com",
+        "nickname": "Julito123",
+        "phonenumber": "223569802",
+        "birthdate": "1963-02-01",
+        "password": "78910",
+        "petSize": null,
+        "availability": null,
+        "type": "G"
     }
 ]

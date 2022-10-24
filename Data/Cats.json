@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "catName": "Rupert",
+    "ownerEmail": "alberto@ramirez.com",
+    "pictureURL": "pic.com",
+    "breed": "Orange",
+    "video": "",
+    "vaccination": "vacc.com",
+    "type": "C"
+  }
+]

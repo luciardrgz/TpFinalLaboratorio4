@@ -1,0 +1,13 @@
+[
+    {
+        "id": 1,
+        "dogName": "Spot",
+        "ownerEmail": "alberto@ramirez.com",
+        "pictureURL": "pic.com",
+        "breed": "Raza",
+        "video": "",
+        "vaccination": "cert.com",
+        "type": "D",
+        "size": "M"
+    }
+]

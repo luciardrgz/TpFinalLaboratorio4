@@ -1,4 +1,5 @@
 <?php
+
 namespace Views;
 /*
 session_start();
@@ -7,6 +8,7 @@ if ($_SESSION['guardian']guardian){
 }else{
   include("../navOwner.php");  
 }*/
+
 include("navOwner.php");
 
 ?>
@@ -18,7 +20,7 @@ include("navOwner.php");
     <title></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH."BookingHistory.css"?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH . "BookingHistory.css" ?>">
 </head>
 
 <body>
@@ -76,24 +78,29 @@ include("navOwner.php");
                         </div>
                     </form>  -->
                     <!-- desde aca      -->
-                    <?php foreach($petList as $pet){?>
+                    <?php foreach ($petList as $pets) { ?>
+                    <?php foreach ($pets as $pet) { ?>
                     <div class="filter-result">
 
                         <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
                             <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
                                 <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
-                                    FD <!-- foto según pettype-->
+                                    FD
+                                    <!-- foto según pettype-->
                                 </div>
                                 <div class="job-content">
 
-                                    <h5 class="text-md-left"><?php echo $pet->getName();?></h5>
+                                    <h5 class="text-md-left"><?php echo $pet->getName(); ?></h5>
 
                                     <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
                                         <li class="mr-md-4">
-                                            <?php echo "<br>Raza: " . $pet->getBreed();?>
-                                            <?php echo "<br>Foto: " . $pet->getPicture();?>
-                                            <?php echo "<br>Video: " . $pet->getVideo();?>
-                                            <?php echo "<br>Vacunas: " . $pet->getVaccination();?>
+                                            <?php echo "<br>Raza: " . $pet->getBreed(); ?>
+                                            <?php echo "<br>Foto: " . $pet->getPicture(); ?>
+                                            <?php echo "<br>Video: " . $pet->getVideo(); ?>
+                                            <?php echo "<br>Vacunas: " . $pet->getVaccination(); ?>
+                                            <?php if ($pet->getType() == "D") {
+                                                        echo "<br>Size: " . $pet->getSize();
+                                                    } ?>
                                         </li>
                                     </ul>
                                 </div>
@@ -102,36 +109,37 @@ include("navOwner.php");
                                 <a href="#" class="btn d-block w-100 d-sm-inline-block btn-light">Apply now</a>
                             </div>
                         </div>
-                        <?php } ?>
+                        <?php }
+                    } ?>
                         <!-- hasta aca      -->
-                        
-                       
 
-                <!-- START Pagination -->
 
-                <ul class="pagination pagination-reset justify-content-center">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
-                            <i class="zmdi zmdi-long-arrow-left"></i>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item d-none d-md-inline-block"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item d-none d-md-inline-block"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">...</a></li>
-                    <li class="page-item"><a class="page-link" href="#">8</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">
-                            <i class="zmdi zmdi-long-arrow-right"></i>
-                        </a>
-                    </li>
-                </ul>
-                </nav>
-                <!-- END Pagination -->
+
+                        <!-- START Pagination -->
+
+                        <ul class="pagination pagination-reset justify-content-center">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                                    <i class="zmdi zmdi-long-arrow-left"></i>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item d-none d-md-inline-block"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item d-none d-md-inline-block"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">...</a></li>
+                            <li class="page-item"><a class="page-link" href="#">8</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">
+                                    <i class="zmdi zmdi-long-arrow-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        </nav>
+                        <!-- END Pagination -->
+                    </div>
+                </div>
+
             </div>
-        </div>
-
-    </div>
 </body>
 
 </html>
