@@ -139,7 +139,7 @@ class UserController
                 $guardianList = $this->guardianDAO->getAll();
                 require_once(VIEWS_PATH . "GuardianList.php");
             } else {
-                require_once(VIEWS_PATH . "landingPageGuardian");
+                require_once(VIEWS_PATH . "landingPageGuardian.php");
             }
         } else {
             require_once(VIEWS_PATH . "login.php");
@@ -173,7 +173,7 @@ class UserController
                 $user = $this->guardianDAO->getByEmail($_SESSION['email']);
                 require_once(VIEWS_PATH . "profile.php");
             } else {
-                require_once(VIEWS_PATH . "landingPageOwner");
+                require_once(VIEWS_PATH . "landingPageOwner.php");
             }
         } else {
             require_once(VIEWS_PATH . "login.php");
@@ -190,10 +190,36 @@ class UserController
                 $availability = $user->getAvailability();
                 require_once(VIEWS_PATH . "profile.php");
             } else {
-                require_once(VIEWS_PATH . "landingPageOwner");
+                require_once(VIEWS_PATH . "landingPageOwner.php");
             }
         } else {
             require_once(VIEWS_PATH . "login.php");
+        }
+    }
+
+    public function bookDate($email = ' ' , $pets = ' '){
+        if(isset ($_SESSION['loggeduser'])){
+            
+            // Si viene de la guardian list
+            if($email != ' ' && $pets == ' '){
+                require_once(VIEWS_PATH . "petSelection.php");
+            }
+
+            //  Si viene de petSelection
+            elseif($email != ' ' && $pets != ' '){
+                
+                require_once(VIEWS_PATH . "bookingConfirmation.php");
+            }
+
+            // Si no tiene ninguno de los datos para hacer la reserva
+            elseif($email == ' ' && $pets == ' ')
+            {
+                $this->showGuardianList();
+            }
+        }
+        else
+        {
+            require_once(VIEWS_PATH."login.php");
         }
     }
 }

@@ -26,9 +26,8 @@ class PetController
         if (isset($_SESSION['loggeduser'])) {
             if ($_SESSION['type'] == 'O') {
                 if ($petName != " " || $pictureURL != " " || $breed != " " || $video != " " || $vaccination != " " || $type != " ") {
-
                     // Si manda size, es un perro
-                    if ($size != "Submit") {
+                    if ($type == "D") {
                         $dog = new Dog();
 
                         $dog->setName($petName);

@@ -3,12 +3,26 @@ namespace Models;
 
 class Booking
 {
+    private $status;
+    private $pet;
     private $schedules;
     private $startDate;
     private $endDate;
     private $ownerEmail;
     private $guardianEmail;
 
+
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    
     public function getSchedules()
     {
         return $this->schedules;
@@ -17,8 +31,6 @@ class Booking
     public function setSchedules($schedules)
     {
         $this->schedules = $schedules;
-
-        return $this;
     }
 
     public function getStartDate()
@@ -29,8 +41,6 @@ class Booking
     public function setStartDate($startDate)
     {
         $this->startDate = $startDate;
-
-        return $this;
     }
 
     public function getEndDate()
@@ -41,8 +51,6 @@ class Booking
     public function setEndDate($endDate)
     {
         $this->endDate = $endDate;
-
-        return $this;
     }
 
     public function getOwnerEmail()
@@ -53,8 +61,6 @@ class Booking
     public function setOwnerEmail($ownerEmail)
     {
         $this->ownerEmail = $ownerEmail;
-
-        return $this;
     }
 
     public function getGuardianEmail()
@@ -65,8 +71,16 @@ class Booking
     public function setGuardianEmail($GuardianEmail)
     {
         $this->GuardianEmail = $GuardianEmail;
+    }
 
-        return $this;
+    public function getPet()
+    {
+        return $this->pet;
+    }
+ 
+    public function setPet($pet)
+    {
+        $this->pet = $pet;
     }
 }
 

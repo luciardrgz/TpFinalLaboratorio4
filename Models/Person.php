@@ -8,15 +8,6 @@
         private $email;
         private $phoneNumber;
         private $birthDate;
-        
-        /*
-        function __construct($firstName, $lastName, $email,$phoneNumber,$birthDate){
-            $this->firstName=$firstName;
-            $this->lastName=$lastName;
-            $this->email=$email;
-            $this->phoneNumber=$phoneNumber;
-            $this->birthDate=$birthDate;
-        }*/
 
         public function getFirstName()
         {
