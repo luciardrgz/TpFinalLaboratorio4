@@ -155,11 +155,18 @@ constraint fk_id_pet_bxp foreign key (id_pet) references Pets(id)
 )engine=InnoDB;
 
 select * 
-from Owners;
+from Guardians;
 
 Select g.id, g.email, g.pass, g.first_name, g.last_name, g.phone, g.birth_date, g.nickname, g.score, g.first_available_day, g.last_available_day, g.price ,ps.size  
 from Guardians as g
-join GuardianXSize as gxs
+left join GuardianXSize as gxs
 on g.id = gxs.id_guardian
-join petsizes as ps
-on gxs.id_petsize = ps.id;
+left join petsizes as ps
+on gxs.id_petsize = ps.id
+where email = 'pepe@gmail.com';
+
+Select *
+from owners; 
+
+delete from owners where id= '24';
+
