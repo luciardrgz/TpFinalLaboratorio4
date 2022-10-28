@@ -26,16 +26,7 @@ class PetController
             if ($_SESSION['type'] == 'O') {
                 if ($petName != " " || $pictureURL != " " || $breed != " " || $video != " " || $vaccination != " " || $type != " ") {
                      
-                        $pet = new Pet();
-
-                        $pet->setName($petName);
-                        $pet->setPicture($pictureURL);
-                        $pet->setBreed($breed);
-                        $pet->setVideo($video);
-                        $pet->setVaccination($vaccination);
-                        $pet->setType($type);
-                        $pet->setSize($size);
-                        $pet->setOwnerEmail($_SESSION['email']);
+                        $pet = new Pet($_SESSION['email'], $petName, $pictureURL, $breed, $video, $vaccination, $type, $size);
 
                         $this->petDAO->add($pet);
                         header("Location:" . FRONT_ROOT . "User");

@@ -1,91 +1,18 @@
 [
     {
-        "firstname": "Roberto",
-        "lastname": "Hamilton",
-        "email": "juan@marin.com",
-        "nickname": "roberto",
-        "phonenumber": "45524452",
-        "birthdate": "2022-09-25",
-        "password": "1234",
-        "petSize": "Medium",
-        "availability": [
-            "Mon",
-            "Tue",
-            "Wed",
-            "Thu",
-            "Fri"
-        ],
-        "type": "G"
-    },
-    {
-        "firstname": "Tomi",
-        "lastname": "Aleman",
+        "id": 1,
+        "firstName": "Tomi",
+        "lastName": "Aleman",
         "email": "alemanmdq@gmail.com",
-        "nickname": "Tomi",
-        "phonenumber": "2235048754",
-        "birthdate": "2022-09-28",
+        "nickName": "Tomi",
+        "phoneNumber": "2235048754",
+        "birthDate": "1995-12-06",
         "password": "1234",
-        "petSize": "Medium",
-        "availability": [
-            "Mon",
-            "Sun"
-        ],
-        "type": "G"
-    },
-    {
-        "firstname": "Elias",
-        "lastname": "Helu",
-        "email": "elias@gmail.com",
-        "nickname": "Elias",
-        "phonenumber": "2268156123",
-        "birthdate": "2002-08-21",
-        "password": "1234",
-        "petSize": "Small",
-        "availability": [
-            "Mon",
-            "Tue",
-            "Thu"
-        ],
-        "type": "G"
-    },
-    {
-        "firstname": "Pepe",
-        "lastname": "Argento",
-        "email": "pepe@gmail.com",
-        "nickname": "Pepe",
-        "phonenumber": "223254121",
-        "birthdate": "1998-02-26",
-        "password": "1234",
-        "petSize": "Medium",
-        "availability": [
-            "Fri",
-            "Sat",
-            "Sun"
-        ],
-        "type": "G"
-    },
-    {
-        "firstname": "c",
-        "lastname": "c",
-        "email": "c@c",
-        "nickname": "cc",
-        "phonenumber": "561",
-        "birthdate": "2022-09-25",
-        "password": "1234",
-        "petSize": null,
-        "availability": null,
-        "type": "G"
-    },
-    {
-        "firstname": "Julio",
-        "lastname": "Iglesias",
-        "email": "julio@gmail.com",
-        "nickname": "Julito123",
-        "phonenumber": "223569802",
-        "birthdate": "1963-02-01",
-        "password": "78910",
-        "petSize": null,
-        "availability": null,
+        "petSize": "Big",
+        "score": "",
+        "price": "",
+        "firstAvailableDay": "2022-10-09",
+        "lastAvailableDay": "2022-11-04",
         "type": "G"
     }
 ]

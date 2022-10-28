@@ -7,10 +7,14 @@ class OwnerDAO implements IOwnerDAO
 {
     private $ownerList = array();
     private $fileName = ROOT . "Data/Owners.json";
+    private $maxid;
 
     function add(Owner $owner)
     {
         $this->loadData();
+
+        $this->maxId++;
+        $owner->setId($this->maxId);
 
         array_push($this->ownerList, $owner);
 
@@ -60,6 +64,7 @@ class OwnerDAO implements IOwnerDAO
     private function loadData()
     {
         $this->ownerList = array();
+        $this->maxId=0;
 
         if (file_exists($this->fileName)) {
             $jsonToDecode = file_get_contents($this->fileName);
@@ -67,15 +72,9 @@ class OwnerDAO implements IOwnerDAO
             $contentArray = ($jsonToDecode) ? json_decode($jsonToDecode, true) : array();
 
             foreach ($contentArray as $content) {
-                $owner = new Owner();
-                $owner->setFirstName($content["firstname"]);
-                $owner->setLastName($content["lastname"]);
-                $owner->setEmail($content["email"]);
-                $owner->setPhoneNumber($content["phonenumber"]);
-                $owner->setBirthDate($content["birthdate"]);
-                $owner->setNickName($content["nickname"]);
-                $owner->setPassword($content["password"]);
-                $owner->setType($content["type"]);
+                $owner = new Owner($content["firstName"],$content["lastName"],$content["email"],$content["phoneNumber"],$content["birthDate"],$content["nickName"],$content["password"]);
+                $this->maxId++;
+                $owner->setId($this->maxId);
                 array_push($this->ownerList, $owner);
             }
         }
@@ -87,12 +86,13 @@ class OwnerDAO implements IOwnerDAO
 
         foreach ($this->ownerList as $owner) {
             $valuesArray = array();
-            $valuesArray["firstname"] = $owner->getFirstName();
-            $valuesArray["lastname"] = $owner->getLastName();
+            $valuesArray["id"] = $owner->getId();
+            $valuesArray["firstName"] = $owner->getFirstName();
+            $valuesArray["lastName"] = $owner->getLastName();
             $valuesArray["email"] = $owner->getEmail();
-            $valuesArray["phonenumber"] = $owner->getPhoneNumber();
-            $valuesArray["birthdate"] = $owner->getBirthDate();
-            $valuesArray["nickname"] = $owner->getNickName();
+            $valuesArray["phoneNumber"] = $owner->getPhoneNumber();
+            $valuesArray["birthDate"] = $owner->getBirthDate();
+            $valuesArray["nickName"] = $owner->getNickName();
             $valuesArray["password"] = $owner->getPassword();
             $valuesArray["type"] = $owner->getType();
 

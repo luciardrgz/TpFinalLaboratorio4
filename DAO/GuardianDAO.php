@@ -1,9 +1,11 @@
 <?php
-namespace DB;
-use DAOInterfaces\IGuardianDao as IGuardianDao;
+
+namespace DD;
+
+use DAO\IGuardianDao as IGuardianDao;
 use Models\Guardian as Guardian;
 
-class GuardianDAO implements IGuardianDAO
+class GuardianDAO /*implements IGuardianDAO*/
 {
     private $guardianList = array();
     private $fileName = ROOT . "Data/Guardians.json";
@@ -34,15 +36,15 @@ class GuardianDAO implements IGuardianDAO
         return false;
     }
 
-    function updateDate($email, $availability){
+    function updateDate($email, $firstDay,$lastDay){
         $this->loadData();
 
         foreach($this->guardianList as $guardian) 
         {
           if($guardian->getEmail() == $email)
           {
-          
-               $guardian->setAvailability($availability); 
+               $guardian->setFirstAvailableDay($firstDay); 
+               $guardian->setLastAvailableDay($lastDay); 
             
             $this->SaveData();
             

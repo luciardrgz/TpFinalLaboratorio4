@@ -59,14 +59,14 @@ namespace Views;
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline datepicker w-100">
                                             <label for="birthdate" class="form-label">Birthday</label>
-                                            <input type="date" name="birthdate" class="form-control form-control-lg" required>
+                                            <input type="date" name="birthDate" class="form-control form-control-lg" required>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6 mb-4 pb-2">
                                         <div class="form-outline">
                                             <label class="form-label" for="email">Email</label>
-                                            <input type="email" name="email" id=" emailAddress"
+                                            <input type="email" name="email" id="emailAddress"
                                                 class="form-control form-control-lg" placeholder="ejemplo@gmail.com" required>
                                         </div>
                                     </div>

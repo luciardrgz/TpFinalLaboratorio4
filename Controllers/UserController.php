@@ -55,40 +55,22 @@ class UserController
         }
     }
 
-    public function add($firstName = " ", $lastName = " ", $birthdate = " ", $email = " ", $phoneNumber = " ", $nickName = " ", $password = " ", $type = " ")
+    public function add($firstName = "", $lastName = "", $birthDate = "", $email = "", $phoneNumber = "", $nickName = "", $password = "", $type = "")
     {
-        if ($firstName != " " || $lastName != " " || $birthdate != " " || $email != " " || $phoneNumber != " " || $nickName != " " || $password != " " || $type != " ") {
+        if ($firstName != "" || $lastName != "" || $birthdate != "" || $email != "" || $phoneNumber != "" || $nickName != "" || $password != "" || $type != "") {
             $auth = new AuthController();
 
             if ($this->validateUser($email, $nickName) == true) {
-                if ($this->validateAge($birthdate)) {
+                if ($this->validateAge($birthDate)) {
                     if ($type == 'G') {
 
-                        $guardian = new Guardian();
-
-                        $guardian->setFirstName($firstName);
-                        $guardian->setLastName($lastName);
-                        $guardian->setEmail($email);
-                        $guardian->setBirthDate($birthdate);
-                        $guardian->setPhoneNumber($phoneNumber);
-                        $guardian->setNickName($nickName);
-                        $guardian->setPassword($password);
-                        $guardian->setType($type);
+                        $guardian = new Guardian($firstName, $lastName ,$email,$phoneNumber,$birthDate,$nickName,$password);
 
                         $this->guardianDAO->add($guardian);
                         $auth->login($email, $password);
                     } else if ($type == 'O') {
 
-                        $owner = new Owner();
-
-                        $owner->setFirstName($firstName);
-                        $owner->setLastName($lastName);
-                        $owner->setEmail($email);
-                        $owner->setBirthDate($birthdate);
-                        $owner->setPhoneNumber($phoneNumber);
-                        $owner->setNickName($nickName);
-                        $owner->setPassword($password);
-                        $owner->setType($type);
+                        $owner = new Owner($firstName, $lastName ,$email ,$phoneNumber ,$birthDate ,$nickName ,$password);
 
                         $this->ownerDAO->add($owner);
                         $auth->login($email, $password);
@@ -163,7 +145,6 @@ class UserController
             } else if ($_SESSION['type'] == 'G') {
                 $user = new Guardian();
                 $user = $this->guardianDAO->getByEmail($_SESSION['email']);
-                $availability = $user->getAvailability();
                 require_once(VIEWS_PATH . "profile.php");
             }
         } else {
@@ -187,14 +168,15 @@ class UserController
         }
     }
 
-    public function updateDate($availability = " ")
+    public function updateDate($firstDay,$lastDay)
     {
         if (isset($_SESSION['loggeduser'])) {
             if ($_SESSION['type'] == 'G') {
+
                 $user = new Guardian();
-                $this->guardianDAO->updateDate($_SESSION['email'], $availability);
+                $this->guardianDAO->updateDate($_SESSION['email'], $firstDay, $lastDay);
                 $user = $this->guardianDAO->getByEmail($_SESSION['email']);
-                $availability = $user->getAvailability();
+
                 require_once(VIEWS_PATH . "profile.php");
             } else {
                 require_once(VIEWS_PATH . "landingPageOwner.php");

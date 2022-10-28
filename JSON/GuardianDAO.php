@@ -7,10 +7,14 @@ class GuardianDAO implements IGuardianDAO
 {
     private $guardianList = array();
     private $fileName = ROOT . "Data/Guardians.json";
+    private $maxId;
 
     function add(Guardian $guardian)
     {
         $this->loadData();
+
+        $this->maxId++;
+        $guardian->setId($this->maxId);
 
         array_push($this->guardianList, $guardian);
 
@@ -34,7 +38,7 @@ class GuardianDAO implements IGuardianDAO
         return false;
     }
 
-    function updateDate($email, $availability){
+    function updateDate($email, $firstDay, $lastDay){
         $this->loadData();
 
         foreach($this->guardianList as $guardian) 
@@ -42,7 +46,8 @@ class GuardianDAO implements IGuardianDAO
           if($guardian->getEmail() == $email)
           {
           
-               $guardian->setAvailability($availability); 
+            $guardian->setFirstAvailableDay($firstDay); 
+            $guardian->setLastAvailableDay($lastDay); 
             
             $this->SaveData();
             
@@ -108,6 +113,7 @@ class GuardianDAO implements IGuardianDAO
     private function loadData()
     {
         $this->guardianList = array();
+        $this->maxId=0;
 
         if (file_exists($this->fileName)) {
             $jsonToDecode = file_get_contents($this->fileName);
@@ -115,19 +121,9 @@ class GuardianDAO implements IGuardianDAO
             $contentArray = ($jsonToDecode) ? json_decode($jsonToDecode, true) : array();
 
             foreach ($contentArray as $content) {
-                $guardian = new Guardian();
-                $guardian->setFirstName($content["firstname"]);
-                $guardian->setLastName($content["lastname"]);
-                $guardian->setEmail($content["email"]);
-                $guardian->setPhoneNumber($content["phonenumber"]);
-                $guardian->setBirthDate($content["birthdate"]);
-                $guardian->setNickName($content["nickname"]);
-                $guardian->setPassword($content["password"]);
-                $guardian->setPetsize($content["petSize"]);
-                $guardian->setAvailability($content['availability']);
-                $guardian->setType($content["type"]);
-
-
+                $guardian = new Guardian($content["firstName"],$content["lastName"],$content["email"],$content["phoneNumber"],$content["birthDate"],$content["nickName"],$content["password"],$content["score"],$content["petSize"],$content["price"],$content["firstAvailableDay"],$content["lastAvailableDay"]);
+                $this->maxId++;
+                $guardian->setId($this->maxId);
                 array_push($this->guardianList, $guardian);
             }
         }
@@ -139,15 +135,19 @@ class GuardianDAO implements IGuardianDAO
 
         foreach ($this->guardianList as $guardian) {
             $valuesArray = array();
-            $valuesArray["firstname"] = $guardian->getFirstName();
-            $valuesArray["lastname"] = $guardian->getLastName();
+            $valuesArray["id"] = $guardian->getId();
+            $valuesArray["firstName"] = $guardian->getFirstName();
+            $valuesArray["lastName"] = $guardian->getLastName();
             $valuesArray["email"] = $guardian->getEmail();
-            $valuesArray["nickname"] = $guardian->getNickName();
-            $valuesArray["phonenumber"] = $guardian->getPhoneNumber();
-            $valuesArray["birthdate"] = $guardian->getBirthDate();
+            $valuesArray["nickName"] = $guardian->getNickName();
+            $valuesArray["phoneNumber"] = $guardian->getPhoneNumber();
+            $valuesArray["birthDate"] = $guardian->getBirthDate();
             $valuesArray["password"] = $guardian->getPassword();
             $valuesArray["petSize"] = $guardian->getPetsize();
-            $valuesArray["availability"] = $guardian->getAvailability();
+            $valuesArray["score"] = $guardian->getScore();
+            $valuesArray["price"] = $guardian->getPrice();
+            $valuesArray["firstAvailableDay"] = $guardian->getFirstAvailableDay();
+            $valuesArray["lastAvailableDay"] = $guardian->getLastAvailableDay();
             $valuesArray["type"] = $guardian->getType();
 
             array_push($arrayToEncode, $valuesArray);

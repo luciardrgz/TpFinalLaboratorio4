@@ -1,6 +1,6 @@
 [
     {
-        "id": 1,
+        "id": null,
         "size": "M",
         "petName": "Manchita",
         "ownerEmail": "alberto@ramirez.com",
@@ -12,24 +12,13 @@
     },
     {
         "id": 2,
-        "size": "S",
-        "petName": "Tuti",
+        "size": "B",
+        "petName": "Fruti",
         "ownerEmail": "alberto@ramirez.com",
         "pictureURL": "google.com",
-        "breed": "Michi",
+        "breed": "De la calle",
         "video": "google.com",
         "vaccination": "google.com",
         "type": "C"
-    },
-    {
-        "id": 3,
-        "size": "B",
-        "petName": "Ciro",
-        "ownerEmail": "alberto@ramirez.com",
-        "pictureURL": "google.com",
-        "breed": "Caniche",
-        "video": "google.com",
-        "vaccination": "google.com",
-        "type": "D"
     }
 ]

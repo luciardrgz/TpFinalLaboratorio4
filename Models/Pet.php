@@ -9,15 +9,21 @@ namespace Models;
     private $picture;
     private $breed;
     private $video;
-    private $vaccination; // Image
+    private $vaccination; // URL Image
     private $type;
     private $size;
     private $id;
     
-    /*
-    function __construct(){
-        
-    }*/
+    function __construct($ownerEmail = "", $name = "", $picture = "",$breed = "",$video = "",$vaccination = "", $type = "",$size = ""){
+        $this->ownerEmail=$ownerEmail;
+        $this->name=$name;
+        $this->picture=$picture;
+        $this->breed=$breed;
+        $this->video=$video;
+        $this->vaccination=$vaccination;
+        $this->type=$type;
+        $this->size=$size;
+    }
 
     public function getName()
     {

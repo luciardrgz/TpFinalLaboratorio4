@@ -1,41 +1,12 @@
 [
     {
-        "firstname": "Brian",
-        "lastname": "Lalli",
-        "email": "Brian@gmail.com",
-        "phonenumber": "1111111111",
-        "birthdate": "2022-09-26",
-        "nickname": "BL",
-        "password": "1234",
-        "type": "O"
-    },
-    {
-        "firstname": "Alberto",
-        "lastname": "Ramirez",
+        "id": 1,
+        "firstName": "Jorge",
+        "lastName": "Paris",
         "email": "alberto@ramirez.com",
-        "phonenumber": "1234",
-        "birthdate": "2022-10-03",
-        "nickname": "albert123",
-        "password": "1234",
-        "type": "O"
-    },
-    {
-        "firstname": "Roberto",
-        "lastname": "Hamilton",
-        "email": "roberto@gmail.com",
-        "phonenumber": "223519478",
-        "birthdate": "2000-03-31",
-        "nickname": "Roberto",
-        "password": "1234",
-        "type": "O"
-    },
-    {
-        "firstname": "Moni",
-        "lastname": "Argento",
-        "email": "moni@gmail.com",
-        "phonenumber": "223516263",
-        "birthdate": "2001-07-26",
-        "nickname": "Moni",
+        "phoneNumber": "223545754",
+        "birthDate": "1987-02-28",
+        "nickName": "JP",
         "password": "1234",
         "type": "O"
     }

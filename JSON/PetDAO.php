@@ -106,18 +106,8 @@ class PetDAO implements IPetDAO{
             $contentArray = ($jsonToDecode) ? json_decode($jsonToDecode, true) : array();
 
             foreach ($contentArray as $content) {
-                $pet = new Pet();
+                $pet = new Pet($content["ownerEmail"], $content["petName"], $content["pictureURL"], $content["breed"], $content["video"], $content["vaccination"],  $content["type"], $content["size"]);
                 $this->maxId++;
-
-                $pet->setId($this->maxId);
-                $pet->setName($content["petName"]);
-                $pet->setPicture($content["pictureURL"]);
-                $pet->setBreed($content["breed"]);
-                $pet->setVideo($content["video"]);
-                $pet->setVaccination($content["vaccination"]);
-                $pet->setSize($content["size"]);
-                $pet->setType($content["type"]);
-                $pet->setOwnerEmail($content["ownerEmail"]);
 
                 array_push($this->petList, $pet);
             }

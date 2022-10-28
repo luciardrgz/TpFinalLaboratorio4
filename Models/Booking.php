@@ -5,11 +5,19 @@ class Booking
 {
     private $status;
     private $pet;
-    private $schedules;
     private $startDate;
     private $endDate;
     private $ownerEmail;
     private $guardianEmail;
+
+    function __construct($status = "", $pet = "", $startDate = "",$endDate = "",$ownerEmail = "",$guardianEmail = ""){
+        $this->status = $status;
+        $this->pet = $pet;
+        $this->startDate = $startDate;
+        $this->endDate = $endDate;
+        $this->ownerEmail = $ownerEmail;
+        $this->guardianEmail = $guardianEmail;
+    }
 
 
     public function getStatus()
@@ -22,15 +30,14 @@ class Booking
         $this->status = $status;
     }
 
-    
-    public function getSchedules()
+    public function getPet()
     {
-        return $this->schedules;
+        return $this->pet;
     }
-
-    public function setSchedules($schedules)
+ 
+    public function setPet($pet)
     {
-        $this->schedules = $schedules;
+        $this->pet = $pet;
     }
 
     public function getStartDate()
@@ -73,16 +80,6 @@ class Booking
         $this->GuardianEmail = $GuardianEmail;
     }
 
-    public function getPet()
-    {
-        return $this->pet;
-    }
- 
-    public function setPet($pet)
-    {
-        $this->pet = $pet;
-    }
 }
-
 
 ?>

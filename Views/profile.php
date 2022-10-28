@@ -74,56 +74,10 @@ if ($_SESSION["type"] == "O") {
                     <form action="<?php echo FRONT_ROOT . "User/updateDate/" ?>" method="POST">
                         <label><br> <b>My availability</b> </label><br>
 
-
-                        <input type="checkbox" <?php
-                                                    if ($user->getAvailability() != null) {
-                                                        if (in_array("Mon", $user->getAvailability())) { ?> checked <?php }
-                                                                                                            } ?>
-                            name="availability[]" value="Mon">
-                        Monday <br>
-
-                        <input type="checkbox" <?php
-                                                    if ($user->getAvailability() != null) {
-                                                        if (in_array("Tue", $user->getAvailability())) { ?> checked <?php }
-                                                                                                            } ?>
-                            name="availability[]" value="Tue">
-                        Tuesday <br>
-
-                        <input type="checkbox" <?php
-                                                    if ($user->getAvailability() != null) {
-                                                        if (in_array("Wed", $user->getAvailability())) { ?> checked <?php }
-                                                                                                            } ?>
-                            name="availability[]" value="Wed">
-                        Wednesday <br>
-
-
-                        <input type="checkbox" <?php
-                                                    if ($user->getAvailability() != null) {
-                                                        if (in_array("Thu", $user->getAvailability())) { ?> checked <?php }
-                                                                                                            } ?>
-                            name="availability[]" value="Thu">
-                        Thursday <br>
-
-
-                        <input type="checkbox" <?php
-                                                    if ($user->getAvailability() != null) {
-                                                        if (in_array("Fri", $user->getAvailability())) { ?> checked <?php }
-                                                                                                            } ?>
-                            name="availability[]" value="Fri">
-                        Friday <br>
-
-                        <input type="checkbox" <?php
-                                                    if ($user->getAvailability() != null) {
-                                                        if (in_array("Sat", $user->getAvailability())) { ?> checked <?php }
-                                                                                                            }  ?>
-                            name="availability[]" value="Sat"> Saturday <br>
-
-
-                        <input type="checkbox" <?php
-                                                    if ($user->getAvailability() != null) {
-                                                        if (in_array("Sun", $user->getAvailability())) { ?> checked <?php }
-                                                                                                            }  ?>
-                            name="availability[]" value="Sun"> Sunday
+                        
+                        From: <input type="date" name="firstDay" className="dateSelection" required>
+                        <br><br>
+                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To:&nbsp;<input type="date" name="lastDay" className="dateSelection" required>
 
                         <br><br>
 
@@ -221,17 +175,15 @@ if ($_SESSION["type"] == "O") {
                                 <label>Availability</label>
                             </div>
                             <div class="col-md-6">
-                                <?php if ($user->getAvailability() != null) { ?>
-                                <label><?php foreach ($user->getAvailability() as $day) {
-                                                    echo $day . "  ";
-                                                }
+                                <?php if ($user->getFirstAvailableDay() != null && $user->getLastAvailableDay() != null) { ?>
+                                <label><?php 
+                                                    echo "From: ".$user->getFirstAvailableDay() . "<br>To: " . $user->getLastAvailableDay();
+                                 } 
+                                 }?></label>
 
-                                                ?></label>
-
-                                <?php } ?>
                             </div>
                         </div>
-                        <?php } ?>
+
                     </div>
                 </div>
             </div>

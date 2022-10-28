@@ -7,6 +7,6 @@ interface IGuardianDAO{
     function getAll();
     function getByNickname($nickname);
     function update($email,$petSize);
-    function updateDate($email,$availability);
+    function updateDate($email, $firstDay, $lastDay);
     function getByEmail($email);
 }

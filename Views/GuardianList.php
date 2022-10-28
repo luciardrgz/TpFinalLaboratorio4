@@ -105,8 +105,8 @@ include("navOwner.php");
                                                 echo "<br>Pet Size Preference: " . $guardian->getPetsize();
                                             }
                                             
-                                            if($guardian->getAvailability() != null){
-                                                echo "<br>Availability: " . implode(" ", $guardian->getAvailability());
+                                            if($guardian->getFirstAvailableDay() != null && $guardian->getLastAvailableDay() != null){
+                                                echo "<br>Availability: " . $guardian->getFirstAvailableDay() . " | " . $guardian->getLastAvailableDay();
                                             }
                                             ?>
                                         </li>

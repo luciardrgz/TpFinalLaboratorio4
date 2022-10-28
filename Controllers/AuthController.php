@@ -71,7 +71,6 @@ class AuthController
         }
     }
 
-
     public function Logout()
     {
         session_destroy();
