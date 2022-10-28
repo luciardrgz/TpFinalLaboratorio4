@@ -15,6 +15,7 @@ include("navOwner.php");
 <head>
     <title>Add your Pet!</title>
 
+    <!--
     <script type="text/javascript">
     function disableTypeSelect() {
         if (document.getElementById('Cat').checked) {
@@ -26,6 +27,8 @@ include("navOwner.php");
         }
     }
     </script>
+ En cada input (Dog y Cat) va onclick="disableTypeSelect()" 
+-->
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -102,13 +105,13 @@ include("navOwner.php");
                                         <label class="form-label select-label">Pet type*</label> <br>
                                         <label class="petTypeCheck">
                                             <input type="radio" name="Pet" id="Dog" value="D"
-                                                onclick="disableTypeSelect()"> Dog &nbsp;&nbsp;
+                                               > Dog &nbsp;&nbsp;
 
                                         </label>
 
                                         <label class=" petTypeCheck">
                                             <input type="radio" name="Pet" id="Cat" value="C"
-                                                onclick="disableTypeSelect()"> Cat
+                                                > Cat
                                         </label>
                                     </div>
 

@@ -2,12 +2,19 @@
 
 namespace Controllers;
 
-use DAO\GuardianDAO as GuardianDAO;
-use DAO\OwnerDAO as OwnerDAO;
+//use DAO\GuardianDAO as GuardianDAO;
+use JSON\GuardianDAO as GuardianDAO;
+
+//use DAO\OwnerDAO as OwnerDAO;
+use JSON\OwnerDAO as OwnerDAO;
+
+//use DAO\PetDAO as PetDAO;
+use JSON\PetDAO as PetDAO;
+
 use Models\Guardian as Guardian;
 use Models\Owner as Owner;
 use Models\Pet as Pet;
-use DAO\PetDAO as PetDAO;
+
 use Controllers\AuthController as AuthController;
 
 class UserController

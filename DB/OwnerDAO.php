@@ -1,12 +1,12 @@
 <?php 
-
-namespace DAO;
+namespace DB;
+use DAOInterfaces\IOwnerDAO as IOwnerDAO;
 use Models\Owner as Owner;
 
-class OwnerDAO{
+class OwnerDAO implements IOwnerDAO{
+
     private $ownerList = array();
     private $fileName = ROOT . "Data/Owners.json";
-
 
     function add(Owner $owner)
     {
@@ -56,20 +56,7 @@ class OwnerDAO{
             return $found;
         }  
     }
-
-    /*
-        function remove($code)
-        {
-            $this->loadData();
-
-            $this->guardianList = array_filter($this->guardianList, function($guardian) use($code){
-                return $guardian->getCode() != $code;
-            });
-
-            $this->saveData();
-        }
-        */
-
+    
     private function loadData()
     {
         $this->ownerList = array();

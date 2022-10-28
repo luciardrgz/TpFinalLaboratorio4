@@ -11,6 +11,7 @@ namespace Models;
     private $video;
     private $vaccination; // Image
     private $type;
+    private $size;
     private $id;
     
     /*
@@ -102,7 +103,19 @@ namespace Models;
         $this->ownerEmail = $ownerEmail;
 
         return $this;
+
     }
+    public function getSize()
+    {
+        return $this->size;
+    }
+   
+    public function setSize($size)
+    {
+        $this->size = $size;
+    }
+
+
 }
 
 ?>

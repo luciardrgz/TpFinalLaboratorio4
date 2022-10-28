@@ -1,0 +1,35 @@
+[
+    {
+        "id": 1,
+        "size": "M",
+        "petName": "Manchita",
+        "ownerEmail": "alberto@ramirez.com",
+        "pictureURL": "google.com",
+        "breed": "Golden",
+        "video": "google.com",
+        "vaccination": "google.com",
+        "type": "D"
+    },
+    {
+        "id": 2,
+        "size": "S",
+        "petName": "Tuti",
+        "ownerEmail": "alberto@ramirez.com",
+        "pictureURL": "google.com",
+        "breed": "Michi",
+        "video": "google.com",
+        "vaccination": "google.com",
+        "type": "C"
+    },
+    {
+        "id": 3,
+        "size": "B",
+        "petName": "Ciro",
+        "ownerEmail": "alberto@ramirez.com",
+        "pictureURL": "google.com",
+        "breed": "Caniche",
+        "video": "google.com",
+        "vaccination": "google.com",
+        "type": "D"
+    }
+]

@@ -1,11 +1,9 @@
 <?php
-
-namespace DAO;
-
-use DAO\IGuardianDao as IGuardianDao;
+namespace DB;
+use DAOInterfaces\IGuardianDao as IGuardianDao;
 use Models\Guardian as Guardian;
 
-class GuardianDAO /*implements IGuardianDAO*/
+class GuardianDAO implements IGuardianDAO
 {
     private $guardianList = array();
     private $fileName = ROOT . "Data/Guardians.json";

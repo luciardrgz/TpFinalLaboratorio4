@@ -1,9 +1,9 @@
 <?php 
-namespace DAO;
-
+namespace DB;
+use DAOInterfaces\IPetDAO as IPetDAO;
 use Models\Pet as Pet;
 
-class PetDAO{
+class PetDAO implements IPetDAO{
     private $petList = array();
     private $fileName = ROOT . "Data/Pets.json";
     private $maxId;
@@ -53,8 +53,33 @@ class PetDAO{
         }
        return $pets; 
       }
- 
+      
+      public function getDogsByOwnerEmail($email)
+      {
+        $this->loadData();
+        $dogs = array();
 
+        foreach ($this->petList as $pet) {
+            if ($pet->getOwnerEmail() == $email && $pet->getType() == "D") {
+                array_push($dogs, $pet);
+            }
+        }
+        return $dogs;
+       }
+
+      public function getCatsByOwnerEmail($email)
+      {
+        $this->loadData();
+        $cats = array();
+
+        foreach ($this->petList as $pet) {
+            if ($pet->getOwnerEmail() == $email && $pet->getType() == "C") {
+                array_push($cats, $pet);
+            }
+        }
+        return $cats;
+       }
+     
     
         /*    
         function remove($id)
@@ -69,6 +94,7 @@ class PetDAO{
         }
         
         */
+
     private function loadData()
     {
         $this->petList = array();
@@ -89,6 +115,7 @@ class PetDAO{
                 $pet->setBreed($content["breed"]);
                 $pet->setVideo($content["video"]);
                 $pet->setVaccination($content["vaccination"]);
+                $pet->setSize($content["size"]);
                 $pet->setType($content["type"]);
                 $pet->setOwnerEmail($content["ownerEmail"]);
 
@@ -105,6 +132,7 @@ class PetDAO{
             
             $valuesArray = array();
             $valuesArray["id"] = $pet->getId();
+            $valuesArray["size"] = $pet->getSize();
             $valuesArray["petName"] = $pet->getName();
             $valuesArray["ownerEmail"] = $pet->getOwnerEmail();
             $valuesArray["pictureURL"] = $pet->getPicture();

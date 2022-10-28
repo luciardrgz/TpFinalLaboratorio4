@@ -5,9 +5,10 @@ namespace Controllers;
 use models\User as User;
 use models\Owner as Owner;
 use models\Guardian as Guardian;
-use DAO\OwnerDAO as OwnerDAO;
-use DAO\GuardianDAO as GuardianDAO;
-
+//use DAO\OwnerDAO as OwnerDAO;
+use JSON\OwnerDAO as OwnerDAO;
+//use DAO\GuardianDAO as GuardianDAO;
+use JSON\GuardianDAO as GuardianDAO;
 class AuthController
 {
     private $guardianDAO;

@@ -5,8 +5,8 @@ namespace Controllers;
 use Models\Pet as Pet;
 use Models\Dog as Dog;
 use Models\Cat as Cat;
-use DAO\DogDAO as DogDAO;
-use Dao\CatDAO as CatDAO;
+//use DAO\PetDAO as PetDAO;
+use JSON\PetDAO as PetDAO;
 use Controllers\AuthController as AuthController;
 
 class PetController
@@ -17,8 +17,7 @@ class PetController
 
     public function __construct()
     {
-        $this->DogDAO = new DogDAO();
-        $this->CatDAO = new CatDAO();
+        $this->petDAO = new PetDAO();
     }
 
     public function addPet($petName = " ", $pictureURL = " ", $breed = " ", $video = " ", $vaccination = " ", $type = " ", $size = " ")
@@ -26,35 +25,21 @@ class PetController
         if (isset($_SESSION['loggeduser'])) {
             if ($_SESSION['type'] == 'O') {
                 if ($petName != " " || $pictureURL != " " || $breed != " " || $video != " " || $vaccination != " " || $type != " ") {
-                    // Si manda size, es un perro
-                    if ($type == "D") {
-                        $dog = new Dog();
+                     
+                        $pet = new Pet();
 
-                        $dog->setName($petName);
-                        $dog->setPicture($pictureURL);
-                        $dog->setBreed($breed);
-                        $dog->setVideo($video);
-                        $dog->setVaccination($vaccination);
-                        $dog->setType($type);
-                        $dog->setSize($size);
-                        $dog->setOwnerEmail($_SESSION['email']);
+                        $pet->setName($petName);
+                        $pet->setPicture($pictureURL);
+                        $pet->setBreed($breed);
+                        $pet->setVideo($video);
+                        $pet->setVaccination($vaccination);
+                        $pet->setType($type);
+                        $pet->setSize($size);
+                        $pet->setOwnerEmail($_SESSION['email']);
 
-                        $this->DogDAO->add($dog);
+                        $this->petDAO->add($pet);
                         header("Location:" . FRONT_ROOT . "User");
-                    } else {
-                        $cat = new Cat();
-
-                        $cat->setName($petName);
-                        $cat->setPicture($pictureURL);
-                        $cat->setBreed($breed);
-                        $cat->setVideo($video);
-                        $cat->setVaccination($vaccination);
-                        $cat->setType($type);
-                        $cat->setOwnerEmail($_SESSION['email']);
-
-                        $this->CatDAO->add($cat);
-                        header("Location:" . FRONT_ROOT . "User");
-                    }
+                    
                 } else {
                     require_once(VIEWS_PATH . "addPet.php");
                 }
@@ -88,7 +73,7 @@ class PetController
     public function listDogs()
     {
         $dogsList = array();
-        $dogsList = $this->DogDAO->getDogsByOwnerEmail($_SESSION['email']);
+        $dogsList = $this->petDAO->getDogsByOwnerEmail($_SESSION['email']);
 
         return $dogsList;
     }
@@ -96,7 +81,7 @@ class PetController
     public function listCats()
     {
         $catsList = array();
-        $catsList = $this->CatDAO->getCatsByOwnerEmail($_SESSION['email']);
+        $catsList = $this->petDAO->getCatsByOwnerEmail($_SESSION['email']);
 
         return $catsList;
     }
