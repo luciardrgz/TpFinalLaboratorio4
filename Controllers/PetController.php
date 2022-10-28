@@ -5,8 +5,8 @@ namespace Controllers;
 use Models\Pet as Pet;
 use Models\Dog as Dog;
 use Models\Cat as Cat;
-//use DAO\PetDAO as PetDAO;
-use JSON\PetDAO as PetDAO;
+use DB\PetDAO as PetDAO;
+//use JSON\PetDAO as PetDAO;
 use Controllers\AuthController as AuthController;
 
 class PetController

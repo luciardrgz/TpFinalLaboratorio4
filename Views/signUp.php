@@ -76,7 +76,7 @@ namespace Views;
                                     <div class="col-md-6 mb-4 pb-2">
                                         <div class="form-outline">
                                             <label class="form-label" for="phoneNumber">Phone Number</label>
-                                            <input type="tel" name="phoneNumber" class="form-control form-control-lg"
+                                            <input type="number" name="phoneNumber" class="form-control form-control-lg"
                                                 placeholder="1234567890"required>
                                         </div>
                                     </div>

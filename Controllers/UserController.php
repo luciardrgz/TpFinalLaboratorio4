@@ -2,14 +2,14 @@
 
 namespace Controllers;
 
-//use DAO\GuardianDAO as GuardianDAO;
-use JSON\GuardianDAO as GuardianDAO;
+use DB\GuardianDAO as GuardianDAO;
+//use JSON\GuardianDAO as GuardianDAO;
 
-//use DAO\OwnerDAO as OwnerDAO;
-use JSON\OwnerDAO as OwnerDAO;
+use DB\OwnerDAO as OwnerDAO;
+//use JSON\OwnerDAO as OwnerDAO;
 
-//use DAO\PetDAO as PetDAO;
-use JSON\PetDAO as PetDAO;
+use DB\PetDAO as PetDAO;
+//use JSON\PetDAO as PetDAO;
 
 use Models\Guardian as Guardian;
 use Models\Owner as Owner;
@@ -55,71 +55,6 @@ class UserController
         }
     }
 
-    public function add($firstName = "", $lastName = "", $birthDate = "", $email = "", $phoneNumber = "", $nickName = "", $password = "", $type = "")
-    {
-        if ($firstName != "" || $lastName != "" || $birthdate != "" || $email != "" || $phoneNumber != "" || $nickName != "" || $password != "" || $type != "") {
-            $auth = new AuthController();
-
-            if ($this->validateUser($email, $nickName) == true) {
-                if ($this->validateAge($birthDate)) {
-                    if ($type == 'G') {
-
-                        $guardian = new Guardian($firstName, $lastName ,$email,$phoneNumber,$birthDate,$nickName,$password);
-
-                        $this->guardianDAO->add($guardian);
-                        $auth->login($email, $password);
-                    } else if ($type == 'O') {
-
-                        $owner = new Owner($firstName, $lastName ,$email ,$phoneNumber ,$birthDate ,$nickName ,$password);
-
-                        $this->ownerDAO->add($owner);
-                        $auth->login($email, $password);
-                    }
-                } else {
-                    echo "<script> if(confirm('You must be 16 or older to register'));";
-                    echo "window.location = '" . FRONT_ROOT . "User'; </script>";
-                }
-            } else {
-                echo "<script> if(confirm('User is already registered'));";
-                echo "window.location = '" . FRONT_ROOT . "User'; </script>";
-            }
-        } else {
-            echo "<script> if(confirm('User is already registered'));";
-            echo "window.location = '" . FRONT_ROOT . "User'; </script>";
-        }
-    }
-
-    public function validateUser($email, $nickName)
-    {
-        $validation = true;
-
-        $foundGuardianEmail = $this->guardianDAO->GetByEmail($email);
-        $foundGuardianNickname = $this->guardianDAO->getByNickname($nickName);
-
-        $foundOwnerEmail = $this->ownerDAO->GetByEmail($email);
-        $foundOwnerNickname = $this->ownerDAO->getByNickname($nickName);
-
-        if ($foundGuardianEmail != null || $foundGuardianNickname != null || $foundOwnerEmail != null || $foundOwnerNickname != null) {
-            $validation = false;
-        }
-
-        return $validation;
-    }
-
-    public function validateAge($DOB)
-    {
-        $validation = true;
-
-        $diff = date_diff(date_create($DOB), date_create(date("Y-m-d")));
-
-        if ($diff->format('%y') < 16) {
-            $validation = false;
-        }
-
-        return $validation;
-    }
-
-
     public function showGuardianList()
     {
         if (isset($_SESSION['loggeduser'])) {
@@ -150,6 +85,83 @@ class UserController
         } else {
             require_once(VIEWS_PATH . "login.php");
         }
+    }
+
+    public function add($firstName = "", $lastName = "", $birthDate = "", $email = "", $phoneNumber = "", $nickName = "", $password = "", $type = "")
+    {
+        try {
+            if ($firstName != "" || $lastName != "" || $birthdate != "" || $email != "" || $phoneNumber != "" || $nickName != "" || $password != "" || $type != "") {
+                $auth = new AuthController();
+
+               if ($this->validateUser($email, $nickName) == true) {
+                    if ($this->validateAge($birthDate)) {
+                        
+                        if ($type == 'G') {
+                            echo $type;
+                            echo $email;
+                            $guardian = new Guardian($firstName, $lastName, $email, $phoneNumber,$birthDate,$nickName,$password);
+    
+                            $this->guardianDAO->add($guardian);
+                            $auth->login($email, $password);
+
+                        } else {
+                            echo $type;
+                            $owner = new Owner($firstName, $lastName ,$email ,$phoneNumber ,$birthDate ,$nickName ,$password);
+    
+                            $this->ownerDAO->add($owner);
+                            $auth->login($email, $password);
+                        }
+                    }
+                }
+            } else {
+                require_once(VIEWS_PATH . "signUp.php"); 
+            } 
+        } catch (Exception $exc) {
+            // throw $exc;
+            echo "excepcion en add de usercontroller";
+        }
+    }
+
+    public function validateUser($email, $nickName)
+    {
+        try {
+            $validation = true;
+            
+            $foundGuardianEmail = $this->guardianDAO->GetByEmail($email);
+            $foundGuardianNickname = $this->guardianDAO->getByNickname($nickName);
+    
+            $foundOwnerEmail = $this->ownerDAO->GetByEmail($email);
+            $foundOwnerNickname = $this->ownerDAO->getByNickname($nickName);
+    
+            if ($foundGuardianEmail != null || $foundGuardianNickname != null || $foundOwnerEmail != null || $foundOwnerNickname != null) {
+                $validation = false;
+            }
+    
+            return $validation;
+        } catch (Exception $ex) {
+            // throw $exc;
+            echo "excepcion en validateuser de usercontroller";
+        }
+       
+    }
+
+    public function validateAge($DOB)
+    {
+        try {
+        $validation = true;
+
+        $diff = date_diff(date_create($DOB), date_create(date("Y-m-d")));
+
+        if ($diff->format('%y') < 16) {
+            $validation = false;
+        }
+
+        return $validation;
+        } catch (Exception $exc) {
+             // throw $exc;
+             echo "excepcion en validateage de usercontroller";
+        }
+        
     }
 
     public function updatePetSizePreference($petSize)

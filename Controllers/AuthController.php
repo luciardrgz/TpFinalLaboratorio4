@@ -5,10 +5,11 @@ namespace Controllers;
 use models\User as User;
 use models\Owner as Owner;
 use models\Guardian as Guardian;
-//use DAO\OwnerDAO as OwnerDAO;
-use JSON\OwnerDAO as OwnerDAO;
-//use DAO\GuardianDAO as GuardianDAO;
-use JSON\GuardianDAO as GuardianDAO;
+use DB\OwnerDAO as OwnerDAO;
+//use JSON\OwnerDAO as OwnerDAO;
+use DB\GuardianDAO as GuardianDAO;
+//use JSON\GuardianDAO as GuardianDAO;
+
 class AuthController
 {
     private $guardianDAO;
@@ -35,28 +36,30 @@ class AuthController
             $owner = $this->ownerDAO->getByEmail($email);
 
             if ($guardian != null) {
+                echo "guardian!=null";
                 if ($guardian->getPassword() == $password) {
+
+                    echo "guardian password";
                     $_SESSION['loggeduser'] = $guardian;
                     $_SESSION['email'] = $guardian->getEmail();
                     $_SESSION['type'] = $guardian->getType();
                     header("Location:" . FRONT_ROOT . "Auth");
+                    
                 } else {
-                    echo "<script> if(confirm('Contraseña incorrecta, vuelva a ingresarla')); </script>";
                     require_once(VIEWS_PATH . "login.php");
                 }
             } else if ($owner != null) {
+                echo "owner!=null";
                 if ($owner->getPassword() == $password) {
-
+                    echo "owner password";
                     $_SESSION['loggeduser'] = $owner;
                     $_SESSION['email'] = $owner->getEmail();
                     $_SESSION['type'] = $owner->getType();
                     header("Location:" . FRONT_ROOT . "Auth");
-                } else {
-                    echo "<script> if(confirm('Contraseña incorrecta, vuelva a ingresarla')); </script>";
+                } else {    
                     require_once(VIEWS_PATH . "login.php");
                 }
             } else {
-                echo "<script> if(confirm('Email incorrecto o no registrado')); </script>";
                 require_once(VIEWS_PATH . "login.php");
             }
         }
