@@ -4,7 +4,7 @@ namespace Models;
 
  class Pet
 {
-    private $ownerEmail;
+    private $ownerId;
     private $name;
     private $picture;
     private $breed;
@@ -14,8 +14,8 @@ namespace Models;
     private $size;
     private $id;
     
-    function __construct($ownerEmail = "", $name = "", $picture = "",$breed = "",$video = "",$vaccination = "", $type = "",$size = ""){
-        $this->ownerEmail=$ownerEmail;
+    function __construct($ownerId = "", $name = "", $picture = "",$breed = "",$video = "",$vaccination = "", $type = "",$size = ""){
+        $this->ownerId=$ownerId;
         $this->name=$name;
         $this->picture=$picture;
         $this->breed=$breed;
@@ -84,7 +84,6 @@ namespace Models;
     {
         $this->type = $type;
 
-        return $this;
     }
 
     public function getId()
@@ -95,22 +94,8 @@ namespace Models;
     public function setId($id)
     {
         $this->id = $id;
-
-        return $this;
     }
 
-    public function getOwnerEmail()
-    {
-        return $this->ownerEmail;
-    }
-
-    public function setOwnerEmail($ownerEmail)
-    {
-        $this->ownerEmail = $ownerEmail;
-
-        return $this;
-
-    }
     public function getSize()
     {
         return $this->size;
@@ -121,7 +106,15 @@ namespace Models;
         $this->size = $size;
     }
 
+    public function getOwnerId()
+    {
+        return $this->ownerId;
+    }
 
+    public function setOwnerId($ownerId)
+    {
+        $this->ownerId = $ownerId;
+    }
 }
 
 ?>

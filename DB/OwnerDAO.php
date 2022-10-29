@@ -1,43 +1,35 @@
-<?php 
+<?php
 
 namespace DB;
+
 use Models\Owner as Owner;
+
 use DAOInterfaces\IOwnerDAO as IOwnerDAO;
 use DB\Connection as Connection;
 use \Exception as Exception;
 
-class OwnerDAO implements IOwnerDAO{
-    
+class OwnerDAO implements IOwnerDAO
+{
     private $connection;
     private $tableName = "Owners";
 
     function add(Owner $owner)
     {
-        try{
+        try {
             $query = "INSERT INTO " . $this->tableName . " (email, pass, first_name, last_name, phone, birth_date, nickname) VALUES (:email,:password,:firstName,:lastName,:phoneNumber,:birthDate,:nickName);";
-
-            echo " pasó el insertinto";
 
             $parameters["email"] = $owner->getEmail();
             $parameters["password"] = $owner->getPassword();
             $parameters["firstName"] = $owner->getFirstName();
             $parameters["lastName"] = $owner->getLastName();
-            $parameters["phoneNumber"] = $owner->getPhoneNumber(); 
+            $parameters["phoneNumber"] = $owner->getPhoneNumber();
             $parameters["birthDate"] = $owner->getBirthDate();
             $parameters["nickName"] = $owner->getNickName();
 
-            echo " pasó los parameters";
-
             $this->connection = Connection::GetInstance();
 
-            echo " pasó getinstance";
-        
             $this->connection->ExecuteNonQuery($query, $parameters);
-
-            echo " pasó ENQ";
-
-        }
-        catch(Exception $insertExc){
+        } catch (Exception $insertExc) {
             throw $insertExc;
             echo " excepcion en add de ownerdao";
         }
@@ -45,7 +37,7 @@ class OwnerDAO implements IOwnerDAO{
 
     function getAll()
     {
-        try{
+        try {
             $ownerList = array();
 
             $query = "SELECT * FROM " . $this->tableName;
@@ -54,76 +46,108 @@ class OwnerDAO implements IOwnerDAO{
 
             $resultSet = $this->connection->Execute($query);
 
-            foreach($resultSet as $row){
-                $owner = new Owner();
-
+            foreach ($resultSet as $row) {
+                $owner = new Owner($row["first_name"], $row["last_name"], $row["email"], $row["phone"], $row["birth_date"], $row["nickname"], $row["pass"]);
                 $owner->setId($row["id"]);
-                $owner->setEmail($row["email"]);
-                $owner->setPassword($row["pass"]);
-                $owner->setFirstName($row["first_name"]);
-                $owner->setLastName($row["last_name"]);
-                $owner->setPhoneNumber($row["phone"]);
-                $owner->setBirthDate($row["birth_date"]);
-                $owner->setNickName($row["nickname"]);
-                $owner->setType("O");
 
                 array_push($ownerList, $owner);
-                
             }
 
-            return $ownerList;
-
-            //return (count($ownerList) > 0) ? $ownerList[0] : null;
-
             return count($ownerList) > 0 ? $ownerList : $ownerList['0'];
-        }
-        catch(Exception $ex){
+        } catch (Exception $ex) {
             throw $ex;
             echo "excepcion en getAll";
         }
     }
 
-    public function getByEmail($email) 
+    public function getByEmail($email)
     {
-        try
-        {
+        try {
             $ownerList = array();
 
-            $query = "SELECT * FROM ".$this->tableName." WHERE (email = :email);";
+            $query = "SELECT * FROM " . $this->tableName . " WHERE (email = :email);";
 
             $parameters['email'] = $email;
 
             $this->connection = Connection::GetInstance();
 
             $resultSet = $this->connection->Execute($query, $parameters);
-            
-            foreach ($resultSet as $row)
-            {    
-                $owner = new Owner();  
 
-                // Nombre de columnas de la BD
+            foreach ($resultSet as $row) {
+
+                $owner = new Owner();
+                $owner = new Owner($row["first_name"], $row["last_name"], $row["email"], $row["phone"], $row["birth_date"], $row["nickname"], $row["pass"]);
                 $owner->setId($row["id"]);
-                $owner->setEmail($row["email"]);
-                $owner->setPassword($row["pass"]);
-                $owner->setFirstName($row["first_name"]);
-                $owner->setLastName($row["last_name"]);
-                $owner->setPhoneNumber($row["phone"]);
-                $owner->setBirthDate($row["birth_date"]);
-                $owner->setNickName($row["nickname"]);
-                $owner->setType("O");
-                
+
                 array_push($ownerList, $owner);
             }
-                ///return the array in position 0
-                return (count($ownerList) > 0) ? $ownerList[0] : null;
-
-        }catch(Exception $ex){
+            return (count($ownerList) > 0) ? $ownerList[0] : null;
+        } catch (Exception $ex) {
             //throw $ex;
             echo "excepcion en getbyemail owner";
         }
-    }    
+    }
 
-    
+    # Si usamos el constructor de Owner, en los $row[] usamos nombre de columnas de la BD*
+    # Si usamos los set ($owner->setAlgo($row["algo"]), podemos no usar los nombres de columnas 
+
+    public function getByNickName($nickname)
+    {
+        try {
+            $ownerList = array();
+
+            $query = "SELECT * FROM " . $this->tableName . " WHERE (nickname = :nickname);";
+
+            $parameters['nickname'] = $nickname;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            foreach ($resultSet as $row) {
+                $owner = new Owner($row["first_name"], $row["last_name"], $row["email"], $row["phone"], $row["birth_date"], $row["nickname"], $row["pass"]);
+                $owner->setId($row["id"]);
+
+                array_push($ownerList, $owner);
+            }
+
+            return (count($ownerList) > 0) ? $ownerList[0] : null;
+        } catch (Exception $ex) {
+            //throw $ex;
+            echo "excepcion en getbynickname owner";
+        }
+    }
+
+    function getIdByEmail(){
+        $ownerDAO = new OwnerDAO();
+        $owner = new Owner();
+        
+        $owner = $ownerDAO->getByEmail($_SESSION['email']);
+        $id = $owner->getId();
+        
+        return $id;
+    }
+
+
+    // ------------------------------------------------------------ Con Mapear ------------------------------------------------------------------
+
+    /*
+    //Transforma el listado de usuario en objetos de la clase Usuario
+    protected function mapear($value)
+    {
+
+        $value = is_array($value) ? $value : [];
+
+        $resp = array_map(function ($p) {
+            $owner = new Owner($p['first_name'], $p['last_name'], $p['email'], $p['phone'], $p['birth_date'], $p['nickname'], $p['pass']);
+            $owner->setId($p['id']);
+
+            return $owner;
+        }, $value);
+
+        return count($resp) > 1 ? $resp : $resp['0'];
+    }*/
+
     /*
     function getByEmail($email)
     {
@@ -144,7 +168,7 @@ class OwnerDAO implements IOwnerDAO{
         } 
     }*/
 
-	
+
     /*
     function getByNickname($nickname)
     {
@@ -179,59 +203,4 @@ class OwnerDAO implements IOwnerDAO{
 
         
     }*/
-
-    public function getByNickName($nickname) 
-    {
-        try
-        {
-            $ownerList = array();
-
-            $query = "SELECT * FROM ".$this->tableName." WHERE (nickname = :nickname);";
-
-            $parameters['nickname'] = $nickname;
-
-            $this->connection = Connection::GetInstance();
-
-            $resultSet = $this->connection->Execute($query, $parameters);
-            
-            foreach ($resultSet as $row)
-            {    
-                $owner = new Owner();  
-                $owner->setId($row["id"]);
-                $owner->setEmail($row["email"]);
-                $owner->setPassword($row["password"]);
-                $owner->setFirstName($row["firstname"]);
-                $owner->setLastName($row["lastname"]);
-                $owner->setPhoneNumber($row["phonenumber"]);
-                $owner->setBirthDate($row["birthdate"]);
-                $owner->setNickName($row["nickname"]);
-                $owner->setType("O");
-                
-                array_push($ownerList, $owner);
-            }
-                ///return the array in position 0
-                return (count($ownerList) > 0) ? $ownerList[0] : null;
-
-        }catch(Exception $ex)
-        {
-            //throw $ex;
-            echo "excepcion en getbynickname owner";
-        }
-    }  
-
-    	/*Transforma el listado de usuario en objetos de la clase Usuario*/
-		protected function mapear($value) { 
-
-			$value = is_array($value) ? $value : [];
-
-			$resp = array_map(function($p){
-				$owner=new Owner($p['first_name'], $p['last_name'], $p['email'], $p['phone'],$p['birth_date'], $p['nickname'], $p['pass']);
-                $owner->setId($p['id']);
-
-                return $owner;
-			}, $value);
-
-               return count($resp) > 1 ? $resp : $resp['0'];
-
-		}
 }

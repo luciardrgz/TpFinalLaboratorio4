@@ -62,7 +62,7 @@ class UserController
             if ($_SESSION['type'] == 'O') {
                 $guardianList = array();
                 $guardianList = $this->guardianDAO->getAll();
-                require_once(VIEWS_PATH . "GuardianList.php");
+                require_once(VIEWS_PATH . "guardianList.php");
             } else {
                 require_once(VIEWS_PATH . "landingPageGuardian.php");
             }
@@ -94,32 +94,28 @@ class UserController
             if ($firstName != "" || $lastName != "" || $birthDate != "" || $email != "" || $phoneNumber != "" || $nickName != "" || $password != "" || $type != "") {
                 $auth = new AuthController();
 
-               if ($this->validateUser($email, $nickName) == true) {
-                echo"paso validacion de email y nickname";
-                
+                if ($this->validateUser($email, $nickName) == true) {
+
                     if ($this->validateAge($birthDate)) {
-                    echo "paso validacion de birthdate";        
+                        
                         if ($type == 'G') {
-                            echo "tipo: " . $type;
-                            echo "email:" . $email;
-                            $guardian = new Guardian($firstName, $lastName, $email, $phoneNumber,$birthDate,$nickName,$password);
-    
+                            
+                            $guardian = new Guardian($firstName, $lastName, $email, $phoneNumber, $birthDate, $nickName, $password);
+
                             $this->guardianDAO->add($guardian);
                             $auth->login($email, $password);
-
                         } else {
-                            echo "tipo: " . $type;
-                            echo "email:" . $email;
-                            $owner = new Owner($firstName, $lastName ,$email ,$phoneNumber ,$birthDate ,$nickName ,$password);
-    
+                            
+                            $owner = new Owner($firstName, $lastName, $email, $phoneNumber, $birthDate, $nickName, $password);
+
                             $this->ownerDAO->add($owner);
                             $auth->login($email, $password);
                         }
                     }
                 }
             } else {
-                require_once(VIEWS_PATH . "signUp.php"); 
-            } 
+                require_once(VIEWS_PATH . "signUp.php");
+            }
         } catch (Exception $exc) {
             throw $exc;
             echo "excepcion en add de usercontroller";
@@ -130,45 +126,41 @@ class UserController
     {
         try {
             $validation = true;
-            
-            /*
+
             $foundGuardianEmail = $this->guardianDAO->getByEmail($email);
-            $foundGuardianNickname = $this->guardianDAO->getByNickname($nickName);*/
-    
+            $foundGuardianNickname = $this->guardianDAO->getByNickname($nickName);
+
             $foundOwnerEmail = $this->ownerDAO->getByEmail($email);
             $foundOwnerNickname = $this->ownerDAO->getByNickname($nickName);
-    
-            //$foundGuardianEmail != null || $foundGuardianNickname != null || 
-            if ($foundOwnerEmail != null || $foundOwnerNickname != null) {
+
+
+            if ($foundGuardianEmail != null || $foundGuardianNickname != null || $foundOwnerEmail != null || $foundOwnerNickname != null) {
                 $validation = false;
             }
-    
-            return $validation;
 
+            return $validation;
         } catch (Exception $ex) {
-             throw $ex;
+            throw $ex;
             echo "excepcion en validateuser de usercontroller";
         }
-       
     }
 
     public function validateAge($DOB)
     {
         try {
-        $validation = true;
+            $validation = true;
 
-        $diff = date_diff(date_create($DOB), date_create(date("Y-m-d")));
+            $diff = date_diff(date_create($DOB), date_create(date("Y-m-d")));
 
-        if ($diff->format('%y') < 16) {
-            $validation = false;
-        }
+            if ($diff->format('%y') < 16) {
+                $validation = false;
+            }
 
-        return $validation;
+            return $validation;
         } catch (Exception $exc) {
             throw $exc;
-             echo "excepcion en validateage de usercontroller";
+            echo "excepcion en validateage de usercontroller";
         }
-        
     }
 
     public function updatePetSizePreference($petSize)
@@ -187,7 +179,7 @@ class UserController
         }
     }
 
-    public function updateDate($firstDay,$lastDay)
+    public function updateDate($firstDay, $lastDay)
     {
         if (isset($_SESSION['loggeduser'])) {
             if ($_SESSION['type'] == 'G') {
@@ -205,29 +197,27 @@ class UserController
         }
     }
 
-    public function bookDate($email = ' ' , $pets = ' '){
-        if(isset ($_SESSION['loggeduser'])){
-            
+    public function bookDate($email = ' ', $pets = ' ')
+    {
+        if (isset($_SESSION['loggeduser'])) {
+
             // Si viene de la guardian list
-            if($email != ' ' && $pets == ' '){
+            if ($email != ' ' && $pets == ' ') {
                 require_once(VIEWS_PATH . "petSelection.php");
             }
 
             //  Si viene de petSelection
-            elseif($email != ' ' && $pets != ' '){
-                
+            elseif ($email != ' ' && $pets != ' ') {
+
                 require_once(VIEWS_PATH . "bookingConfirmation.php");
             }
 
             // Si no tiene ninguno de los datos para hacer la reserva
-            elseif($email == ' ' && $pets == ' ')
-            {
+            elseif ($email == ' ' && $pets == ' ') {
                 $this->showGuardianList();
             }
-        }
-        else
-        {
-            require_once(VIEWS_PATH."login.php");
+        } else {
+            require_once(VIEWS_PATH . "login.php");
         }
     }
 }

@@ -32,6 +32,9 @@ class PetController
                         header("Location:" . FRONT_ROOT . "User");
                     
                 } else {
+                    $catList=$this->petDAO->getAllCatBreeds();
+                    $dogList=$this->petDAO->getAllDogBreeds();
+
                     require_once(VIEWS_PATH . "addPet.php");
                 }
             } else {

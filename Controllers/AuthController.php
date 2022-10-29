@@ -27,37 +27,35 @@ class AuthController
             require_once(VIEWS_PATH . "login.php");
         } else {
 
-            /*
+
             $guardianDAO = new GuardianDAO();
             $guardian = new Guardian();
-            $guardian = $this->guardianDAO->getByEmail($email);*/
+            $guardian = $this->guardianDAO->getByEmail($email);
 
             $ownerDAO = new OwnerDAO();
             $owner = new Owner();
             $owner = $this->ownerDAO->getByEmail($email);
 
-            /*if ($guardian != null) {
-                echo "guardian!=null";
+            if ($guardian != null) {
+
                 if ($guardian->getPassword() == $password) {
 
-                    echo "guardian password";
                     $_SESSION['loggeduser'] = $guardian;
                     $_SESSION['email'] = $guardian->getEmail();
                     $_SESSION['type'] = $guardian->getType();
                     header("Location:" . FRONT_ROOT . "Auth");
-                    
                 } else {
                     require_once(VIEWS_PATH . "login.php");
                 }
-            } else */if ($owner != null) {
-                echo "owner!=null";
+            } else if ($owner != null) {
+
                 if ($owner->getPassword() == $password) {
-                    echo "owner password";
+
                     $_SESSION['loggeduser'] = $owner;
                     $_SESSION['email'] = $owner->getEmail();
                     $_SESSION['type'] = $owner->getType();
                     header("Location:" . FRONT_ROOT . "Auth");
-                } else {    
+                } else {
                     require_once(VIEWS_PATH . "login.php");
                 }
             } else {

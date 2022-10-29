@@ -1,4 +1,4 @@
-create database PetHero;
+drop database PetHero;
 use PetHero;
 
 create table cupones(
@@ -11,10 +11,21 @@ constraint pk_id_cupon primary key (id)
 select * 
 from cupones;
 
+create table PetTypes(
+id int auto_increment,
+type_description varchar(45) unique,
+constraint pk_id_pet_type primary key (id)
+)engine=InnoDB;
+
+select * 
+from pettype;
+
 create table petBreeds(
 id int auto_increment,
-breed varchar(50) not null,
-constraint pk_id_petbreed primary key (id)
+breed varchar(50) not null unique,
+id_pet_type int not null,
+constraint pk_id_petbreed primary key (id),
+constraint fk_id_pettype_breeds foreign key (id_pet_type) references petTypes (id)
 )engine=InnoDB;
 
 select * 
@@ -29,7 +40,7 @@ constraint pk_id_petsize primary key (id)
 select * 
 from petSizes;
 
-create table owners(
+create table Owners(
 id int auto_increment,
 email varchar(100) unique not null,
 pass varchar(20) not null,
@@ -64,25 +75,27 @@ constraint check_score check (score <= 5 and score >= 0)
 select * 
 from Guardians;
 
-alter table Guardians add column price float;
-
 create table Pets(
 id int auto_increment,
+id_pet_owner int not null,
 id_pet_breed int,
 id_pet_size int,
 name varchar(50),
 picture varchar(150)unique,
-video varchar(150)unique,
+video varchar(150),
 vaccination varchar(150)unique,
-petType binary,
+id_pet_type int not null,
 constraint pk_id_pet primary key (id),
+constraint fk_id_petowner foreign key (id_pet_owner) references Owners(id),
 constraint fk_id_petbreed foreign key (id_pet_breed) references petBreeds (id),
-constraint fk_id_petsize foreign key (id_pet_size) references petSizes (id)
+constraint fk_id_petsize foreign key (id_pet_size) references petSizes (id),
+constraint fk_id_pettype_pets foreign key (id_pet_type) references petTypes (id)
 )engine=InnoDB;
 
 select * 
 from Pets;
 
+/*
 create table OwnerXPet(
 id int auto_increment,
 id_owner int not null,
@@ -93,7 +106,7 @@ constraint fk_id_pet foreign key (id_pet) references Pets(id)
 )engine=InnoDB;
 
 select * 
-from OwnerXPet;
+from OwnerXPet;*/
 
 create table GuardianXSize(
 id int auto_increment,
@@ -154,8 +167,8 @@ constraint fk_id_booking_bxp foreign key (id_booking) references Bookings(id),
 constraint fk_id_pet_bxp foreign key (id_pet) references Pets(id)
 )engine=InnoDB;
 
-select * 
-from Guardians;
+select * from Guardians;
+select * from Owners; 
 
 Select g.id, g.email, g.pass, g.first_name, g.last_name, g.phone, g.birth_date, g.nickname, g.score, g.first_available_day, g.last_available_day, g.price ,ps.size  
 from Guardians as g
@@ -165,8 +178,36 @@ left join petsizes as ps
 on gxs.id_petsize = ps.id
 where email = 'pepe@gmail.com';
 
-Select *
-from owners; 
+insert into PetTypes (type_description) values
+('Dog'), ('Cat');
+select * from PetTypes;
 
-delete from owners where id= '24';
+insert into PetBreeds (breed, id_pet_type) values
+('Labrador', 1), ('Golden', 1), ('Chihuahua', 1), ('Husky', 1);
+
+insert into PetBreeds (breed, id_pet_type) values
+('Labrador', 1), ('Golden', 1), ('Chihuahua', 1), ('Husky', 1);
+
+select * from PetBreeds;
+
+insert into PetSizes (size) values
+('Small'), ('Medium'), ('Big');
+select * from PetSizes;
+
+select * from Owners;
+
+insert into Pets (id_pet_owner, id_pet_breed, id_pet_size, name, picture, video, vaccination, id_pet_type) values
+(1, 2, 3, 'Daniel', 'danielpic.com', 'danielvid.com', 'danielvacc.com', 1),
+(1, 3, 1, 'Missy', 'missypic.com', '', 'missyvacc.com', 1),
+(1, 4, 2, 'Michi', 'michipic.com', '', 'michivacc.com', 2);
+select * from Pets;
+
+/*
+SELECT p.id_pet_breed, p.id_pet_size, p.name, p.picture, p.video, p.vaccination, p.petType   
+FROM Pets as p
+LEFT JOIN PetBreeds AS pb
+ON p.id_pet_breed = pb.id
+LEFT JOIN PetSizes AS ps
+ON p.id_pet_size = ps.id;*/
+
 
