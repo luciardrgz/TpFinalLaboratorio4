@@ -1,4 +1,4 @@
-drop database PetHero;
+create database PetHero;
 use PetHero;
 
 create table cupones(
@@ -183,11 +183,8 @@ insert into PetTypes (type_description) values
 select * from PetTypes;
 
 insert into PetBreeds (breed, id_pet_type) values
-('Labrador', 1), ('Golden', 1), ('Chihuahua', 1), ('Husky', 1);
-
-insert into PetBreeds (breed, id_pet_type) values
-('Labrador', 1), ('Golden', 1), ('Chihuahua', 1), ('Husky', 1);
-
+('Labrador', 1), ('Golden', 1), ('Chihuahua', 1), ('Husky', 1),
+('Sphynx', 2), ('Persian', 2), ('Ragdoll', 2), ('Scottish', 2);
 select * from PetBreeds;
 
 insert into PetSizes (size) values
