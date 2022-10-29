@@ -27,15 +27,16 @@ class AuthController
             require_once(VIEWS_PATH . "login.php");
         } else {
 
+            /*
             $guardianDAO = new GuardianDAO();
             $guardian = new Guardian();
-            $guardian = $this->guardianDAO->getByEmail($email);
+            $guardian = $this->guardianDAO->getByEmail($email);*/
 
             $ownerDAO = new OwnerDAO();
             $owner = new Owner();
             $owner = $this->ownerDAO->getByEmail($email);
 
-            if ($guardian != null) {
+            /*if ($guardian != null) {
                 echo "guardian!=null";
                 if ($guardian->getPassword() == $password) {
 
@@ -48,7 +49,7 @@ class AuthController
                 } else {
                     require_once(VIEWS_PATH . "login.php");
                 }
-            } else if ($owner != null) {
+            } else */if ($owner != null) {
                 echo "owner!=null";
                 if ($owner->getPassword() == $password) {
                     echo "owner password";

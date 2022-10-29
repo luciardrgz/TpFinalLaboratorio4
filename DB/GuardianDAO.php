@@ -5,6 +5,7 @@ namespace DB;
 use DAOInterfaces\IGuardianDao as IGuardianDao;
 use Models\Guardian as Guardian;
 use DB\Connection as Connection;
+use \Exception as Exception;
 
 class GuardianDAO implements IGuardianDAO
 {
@@ -22,7 +23,7 @@ class GuardianDAO implements IGuardianDAO
             $parameters["lastName"] = $guardian->getLastName();
             $parameters["phoneNumber"] = $guardian->getPhoneNumber(); 
 
-                    $parameters["birthDate"] = $guardian->getBirthDate();
+            $parameters["birthDate"] = $guardian->getBirthDate();
             $parameters["nickName"] = $guardian->getNickName();
 
             $this->connection = Connection::GetInstance();
@@ -31,7 +32,7 @@ class GuardianDAO implements IGuardianDAO
 
         }
         catch(Exception $insertExc){
-            //throw $insertExc;
+            //throw $insertExc; 
             echo "excepcion en add guardian";
         }
     }
@@ -61,11 +62,12 @@ class GuardianDAO implements IGuardianDAO
             return $guardianList;
         }
         catch(Exception $ex){
-            //throw $ex;
+            throw $ex;
             echo "excepcion en getAll guardian";
         }
     }
 
+    
     function getByEmail($email)
     {
         try{
@@ -79,7 +81,7 @@ class GuardianDAO implements IGuardianDAO
             WHERE email = :email;";
            
             $parameters['email']=$email;
-
+       
             $this->connection = Connection::GetInstance();
 
             $foundGuardian =  $this->mapear($this->connection->Execute($query, $parameters));
@@ -87,7 +89,7 @@ class GuardianDAO implements IGuardianDAO
             return $foundGuardian;
         }
         catch(Exception $ex){
-            //throw $ex;
+            throw $ex;
             echo "excepcion en getByEmail guardian";
         } 
     }
@@ -102,9 +104,12 @@ class GuardianDAO implements IGuardianDAO
             ON g.id = gxs.id_guardian
             LEFT JOIN petsizes AS ps
             ON gxs.id_petsize = ps.id 
-            WHERE nickname = :nickName;";
+            WHERE nickname = :nickname;";
 
-            $parameters['nickName']=$nickname;
+         
+            $parameters['nickname']=$nickname;
+        
+
 
             $this->connection = Connection::GetInstance();
 
@@ -113,7 +118,7 @@ class GuardianDAO implements IGuardianDAO
             return $foundGuardian;
         }
         catch(Exception $ex){
-            //throw $ex;
+            throw $ex;
             echo "excepcion en getByEmail guardian";
         } 
     }
@@ -125,14 +130,15 @@ class GuardianDAO implements IGuardianDAO
 
 			$resp = array_map(function($p){
                 
-				$guardian = new Guardian($p['first_name'], $p['last_name'], $p['email'], $p['phone'],$p['birth_date'], $p['nickname'], $p['pass'],
-                $p['score'],$p['size'],$p['price'],$p['first_available_day'],$p['last_available_day']);
+				$guardian = new Guardian($p['first_name'], $p['last_name'], $p['email'], $p['phone'],$p['birth_date'], $p['nickname'], $p['pass'],$p['score'],$p['size'],$p['price'],$p['first_available_day'],$p['last_available_day']);
                 $guardian->setId($p['id']);
 
                 return $guardian;
 			}, $value);
                return count($resp) > 1 ? $resp : $resp['0'];
-		}
+		} 
+        
+    
 
     function update($email,$petSize){
         

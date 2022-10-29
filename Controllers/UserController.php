@@ -14,6 +14,7 @@ use DB\PetDAO as PetDAO;
 use Models\Guardian as Guardian;
 use Models\Owner as Owner;
 use Models\Pet as Pet;
+use \Exception as Exception;
 
 use Controllers\AuthController as AuthController;
 
@@ -90,22 +91,25 @@ class UserController
     public function add($firstName = "", $lastName = "", $birthDate = "", $email = "", $phoneNumber = "", $nickName = "", $password = "", $type = "")
     {
         try {
-            if ($firstName != "" || $lastName != "" || $birthdate != "" || $email != "" || $phoneNumber != "" || $nickName != "" || $password != "" || $type != "") {
+            if ($firstName != "" || $lastName != "" || $birthDate != "" || $email != "" || $phoneNumber != "" || $nickName != "" || $password != "" || $type != "") {
                 $auth = new AuthController();
 
                if ($this->validateUser($email, $nickName) == true) {
+                echo"paso validacion de email y nickname";
+                
                     if ($this->validateAge($birthDate)) {
-                        
+                    echo "paso validacion de birthdate";        
                         if ($type == 'G') {
-                            echo $type;
-                            echo $email;
+                            echo "tipo: " . $type;
+                            echo "email:" . $email;
                             $guardian = new Guardian($firstName, $lastName, $email, $phoneNumber,$birthDate,$nickName,$password);
     
                             $this->guardianDAO->add($guardian);
                             $auth->login($email, $password);
 
                         } else {
-                            echo $type;
+                            echo "tipo: " . $type;
+                            echo "email:" . $email;
                             $owner = new Owner($firstName, $lastName ,$email ,$phoneNumber ,$birthDate ,$nickName ,$password);
     
                             $this->ownerDAO->add($owner);
@@ -117,7 +121,7 @@ class UserController
                 require_once(VIEWS_PATH . "signUp.php"); 
             } 
         } catch (Exception $exc) {
-            // throw $exc;
+            throw $exc;
             echo "excepcion en add de usercontroller";
         }
     }
@@ -127,19 +131,22 @@ class UserController
         try {
             $validation = true;
             
-            $foundGuardianEmail = $this->guardianDAO->GetByEmail($email);
-            $foundGuardianNickname = $this->guardianDAO->getByNickname($nickName);
+            /*
+            $foundGuardianEmail = $this->guardianDAO->getByEmail($email);
+            $foundGuardianNickname = $this->guardianDAO->getByNickname($nickName);*/
     
-            $foundOwnerEmail = $this->ownerDAO->GetByEmail($email);
+            $foundOwnerEmail = $this->ownerDAO->getByEmail($email);
             $foundOwnerNickname = $this->ownerDAO->getByNickname($nickName);
     
-            if ($foundGuardianEmail != null || $foundGuardianNickname != null || $foundOwnerEmail != null || $foundOwnerNickname != null) {
+            //$foundGuardianEmail != null || $foundGuardianNickname != null || 
+            if ($foundOwnerEmail != null || $foundOwnerNickname != null) {
                 $validation = false;
             }
     
             return $validation;
+
         } catch (Exception $ex) {
-            // throw $exc;
+             throw $ex;
             echo "excepcion en validateuser de usercontroller";
         }
        
@@ -158,7 +165,7 @@ class UserController
 
         return $validation;
         } catch (Exception $exc) {
-             // throw $exc;
+            throw $exc;
              echo "excepcion en validateage de usercontroller";
         }
         

@@ -2,7 +2,7 @@
 namespace DB;
 use DAOInterfaces\IPetDAO as IPetDAO;
 use Models\Pet as Pet;
-
+//use \Exception as Exception; falta pasar esto a base de datos
 class PetDAO implements IPetDAO{
     private $petList = array();
     private $fileName = ROOT . "Data/Pets.json";
