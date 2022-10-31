@@ -204,9 +204,22 @@ select * from Pets;
 
 select * from Owners;
 
-SELECT * FROM Pets WHERE (id_pet_owner = 1);
+SELECT * FROM Pets WHERE (id_pet_owner = 2);
 
 SELECT * FROM PetBreeds WHERE (id_pet_type = 1);
+
+select * from guardians;
+
+SELECT g.id as 'IdGuardian', gxs.id_petsize as 'IdPetSize', gxs.id as 'Id GxPS'
+from guardians as g
+left join guardianxsize as gxs
+on g.id = gxs.id_guardian
+left join petsizes as ps
+on gxs.id_petsize = ps.id;
+
+
+select * from guardianxsize;
+
 
 /*
 SELECT p.id_pet_breed, p.id_pet_size, p.name, p.picture, p.video, p.vaccination, p.petType   
