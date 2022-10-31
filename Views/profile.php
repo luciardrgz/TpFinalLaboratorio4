@@ -62,9 +62,9 @@ if ($_SESSION["type"] == "O") {
                         <label><br> <b>My pet size preference</b> </label><br>
 
                         <select name="petSize">
-                            <option value="Big">Big</option>
-                            <option value="Medium">Medium</option>
-                            <option value="Small">Small</option>
+                            <option value="3">Big</option>
+                            <option value="2">Medium</option>
+                            <option value="1">Small</option>
                         </select>
                         <br><br>
 
@@ -74,10 +74,11 @@ if ($_SESSION["type"] == "O") {
                     <form action="<?php echo FRONT_ROOT . "User/updateDate/" ?>" method="POST">
                         <label><br> <b>My availability</b> </label><br>
 
-                        
+
                         From: <input type="date" name="firstDay" className="dateSelection" required>
                         <br><br>
-                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To:&nbsp;<input type="date" name="lastDay" className="dateSelection" required>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To:&nbsp;<input type="date" name="lastDay"
+                            className="dateSelection" required>
 
                         <br><br>
 
@@ -176,10 +177,10 @@ if ($_SESSION["type"] == "O") {
                             </div>
                             <div class="col-md-6">
                                 <?php if ($user->getFirstAvailableDay() != null && $user->getLastAvailableDay() != null) { ?>
-                                <label><?php 
-                                                    echo "From: ".$user->getFirstAvailableDay() . "<br>To: " . $user->getLastAvailableDay();
-                                 } 
-                                 }?></label>
+                                <label><?php
+                                                echo "From: " . $user->getFirstAvailableDay() . "<br>To: " . $user->getLastAvailableDay();
+                                            }
+                                        } ?></label>
 
                             </div>
                         </div>

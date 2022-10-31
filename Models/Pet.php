@@ -1,8 +1,8 @@
-<?php 
+<?php
 
 namespace Models;
 
- class Pet
+class Pet
 {
     private $ownerId;
     private $name;
@@ -13,16 +13,17 @@ namespace Models;
     private $type;
     private $size;
     private $id;
-    
-    function __construct($ownerId = "", $name = "", $picture = "",$breed = "",$video = "",$vaccination = "", $type = "",$size = ""){
-        $this->ownerId=$ownerId;
-        $this->name=$name;
-        $this->picture=$picture;
-        $this->breed=$breed;
-        $this->video=$video;
-        $this->vaccination=$vaccination;
-        $this->type=$type;
-        $this->size=$size;
+
+    function __construct($ownerId = "", $name = "", $picture = "", $breed = "", $video = "", $vaccination = "", $type = "", $size = "")
+    {
+        $this->ownerId = $ownerId;
+        $this->name = $name;
+        $this->picture = $picture;
+        $this->breed = $breed;
+        $this->video = $video;
+        $this->vaccination = $vaccination;
+        $this->type = $type;
+        $this->size = $size;
     }
 
     public function getName()
@@ -34,7 +35,7 @@ namespace Models;
     {
         $this->name = $name;
     }
- 
+
     public function getPicture()
     {
         return $this->picture;
@@ -44,7 +45,7 @@ namespace Models;
     {
         $this->picture = $picture;
     }
-   
+
     public function getBreed()
     {
         return $this->breed;
@@ -52,7 +53,7 @@ namespace Models;
 
     public function setBreed($breed)
     {
-        $this->breed=$breed;
+        $this->breed = $breed;
     }
 
     public function getVideo()
@@ -83,7 +84,6 @@ namespace Models;
     public function setType($type)
     {
         $this->type = $type;
-
     }
 
     public function getId()
@@ -100,7 +100,7 @@ namespace Models;
     {
         return $this->size;
     }
-   
+
     public function setSize($size)
     {
         $this->size = $size;
@@ -116,5 +116,3 @@ namespace Models;
         $this->ownerId = $ownerId;
     }
 }
-
-?>

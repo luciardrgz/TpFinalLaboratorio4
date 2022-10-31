@@ -5,14 +5,14 @@
 }
 
 html,
-body, .gradient-custom {
+body,
+.gradient-custom {
   background-image: url("https://cloudfront-us-east-1.images.arcpublishing.com/infobae/IDESGY5PMFHL3CRYMTSLFYT7WU.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   height: 100%;
   font-family: "Montserrat", sans-serif;
 }
-
 
 .card-registration .select-input.form-control[readonly]:not([disabled]) {
   font-size: 1rem;
@@ -21,7 +21,7 @@ body, .gradient-custom {
   padding-right: 0.75em;
 }
 
-.hola {
+.formBoxBg {
   margin-top: -30px;
   background-color: rgba(0, 0, 0, 0.5) !important;
 }

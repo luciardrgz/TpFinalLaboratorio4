@@ -6,34 +6,38 @@ use Models\Pet as Pet;
 use Models\Dog as Dog;
 use Models\Cat as Cat;
 use DB\PetDAO as PetDAO;
+use DB\OwnerDAO as OwnerDAO;
+use DB\BreedDAO as BreedDAO;
 //use JSON\PetDAO as PetDAO;
 use Controllers\AuthController as AuthController;
 
 class PetController
 {
-
-    private $DogDAO;
-    private $CatDAO;
+    private $petDAO;
+    private $ownerDAO;
+    private $breedDAO;
 
     public function __construct()
     {
         $this->petDAO = new PetDAO();
+        $this->ownerDAO = new OwnerDAO();
+        $this->breedDAO = new BreedDAO();
     }
 
-    public function addPet($petName = " ", $pictureURL = " ", $breed = " ", $video = " ", $vaccination = " ", $type = " ", $size = " ")
+    public function addPet($petName = " ", $size = " ", $type = " ", $breed = " ", $pictureURL = " ", $vaccination = " ", $video = " ")
     {
         if (isset($_SESSION['loggeduser'])) {
             if ($_SESSION['type'] == 'O') {
                 if ($petName != " " || $pictureURL != " " || $breed != " " || $video != " " || $vaccination != " " || $type != " ") {
-                     
-                        $pet = new Pet($_SESSION['email'], $petName, $pictureURL, $breed, $video, $vaccination, $type, $size);
 
-                        $this->petDAO->add($pet);
-                        header("Location:" . FRONT_ROOT . "User");
-                    
+                    $pet = new Pet($_SESSION['id'], $petName, $pictureURL, $breed, $video, $vaccination, $type, $size);
+                    $this->petDAO->add($pet);
+
+                    header("Location:" . FRONT_ROOT . "User");
                 } else {
-                    $catList=$this->petDAO->getAllCatBreeds();
-                    $dogList=$this->petDAO->getAllDogBreeds();
+
+                    $catBreedsList = $this->breedDAO->getAllCatBreeds();
+                    $dogBreedsList = $this->breedDAO->getAllDogBreeds();
 
                     require_once(VIEWS_PATH . "addPet.php");
                 }
@@ -50,10 +54,8 @@ class PetController
         if (isset($_SESSION['loggeduser'])) {
             if ($_SESSION['type'] == 'O') {
 
-                $dogsList = $this->listDogs();
-                $catsList = $this->listCats();
-                $petList[0] = $dogsList;
-                $petList[1] = $catsList;
+                $petList = array();
+                $petList = $this->petDAO->getPetsByOwnerId();
 
                 require_once(VIEWS_PATH . "petList.php");
             } else {

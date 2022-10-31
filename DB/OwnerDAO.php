@@ -75,7 +75,6 @@ class OwnerDAO implements IOwnerDAO
 
             foreach ($resultSet as $row) {
 
-                $owner = new Owner();
                 $owner = new Owner($row["first_name"], $row["last_name"], $row["email"], $row["phone"], $row["birth_date"], $row["nickname"], $row["pass"]);
                 $owner->setId($row["id"]);
 
@@ -118,15 +117,6 @@ class OwnerDAO implements IOwnerDAO
         }
     }
 
-    function getIdByEmail(){
-        $ownerDAO = new OwnerDAO();
-        $owner = new Owner();
-        
-        $owner = $ownerDAO->getByEmail($_SESSION['email']);
-        $id = $owner->getId();
-        
-        return $id;
-    }
 
 
     // ------------------------------------------------------------ Con Mapear ------------------------------------------------------------------

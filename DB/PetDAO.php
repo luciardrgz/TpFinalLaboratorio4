@@ -6,7 +6,8 @@ use DAOInterfaces\IPetDAO as IPetDAO;
 use Models\Pet as Pet;
 use Models\Breed as Breed;
 use DB\Connection as Connection;
-use DB\OwnerDAO as OwnerDao;
+use DB\OwnerDAO as OwnerDAO;
+use DB\BreedDAO as BreedDAO;
 use \Exception as Exception;
 use Models\Owner;
 
@@ -22,16 +23,16 @@ class PetDAO /*implements IPetDAO*/
             (id_pet_owner,id_pet_breed, id_pet_size, name, picture, video, vaccination, id_pet_type)
             VALUES (:ownerId,:breed,:size,:name,:picture,:video,:vaccination,:type);";
 
-            $ownerDAO = new OwnerDAO();
+            $breedDAO = new BreedDAO();
 
-            $parameters["id_pet_owner"] = $ownerDAO->getIdByEmail();
-            $parameters["id_pet_breed"] = $pet->getBreed();
-            $parameters["id_pet_size"] = $pet->getSize();
+            $parameters["ownerId"] = $pet->getOwnerId();
+            $parameters["breed"] = $pet->getBreed(); // LE ESTAMOS PASANDO UN STRING Y HAY QUE PASARLE UN ID
+            $parameters["size"] = $pet->getSize();
             $parameters["name"] = $pet->getName();
             $parameters["picture"] = $pet->getPicture();
             $parameters["video"] = $pet->getVideo();
             $parameters["vaccination"] = $pet->getVaccination();
-            $parameters["id_pet_type"] = $pet->getType();
+            $parameters["type"] = $pet->getType();
 
             $this->connection = Connection::GetInstance();
 
@@ -42,169 +43,113 @@ class PetDAO /*implements IPetDAO*/
         }
     }
 
-    function getAllDogBreeds()
-    {
-        try
-        {
-            $petList= array();
-            
-            $query = "SELECT * FROM " . "PetBreeds" . " WHERE (id_pet_type = 1);";
-
-            $parameters['id_pet_type'] = 1;
-            
-            $this->connection = Connection::GetInstance();
-
-            $resultSet = $this->connection->Execute($query, $parameters);
-
-            foreach ($resultSet as $row) {
-                $breed = new Breed ($row["breed"], $row["id_pet_type"]);
-                $breed->setId($row["id"]);
-
-                array_push($ownerList, $breed);
-            }
-                
-        }catch(Exception $ex)
-        {
-            //throw $ex;
-            echo "excepcion en getalldogbreeds";
-        }
-    }
-    
-    function getAllCatBreeds(){
-        try{
-            $breedList = array();
-            
-            $query = "SELECT * FROM " . "PetBreeds" . "WHERE (id_pet_type = :2);";
-
-            $parameters['id_pet_type'] = 2;
-
-            $this->connection = Connection::GetInstance();
-            
-            $resultSet = $this->connection->Execute($query, $parameters);
-
-            foreach ($resultSet as $row) {
-                $breed = new Breed($row["breed"], $row["id_pet_type"]);
-                $breed->setId($row["id"]);
-
-                array_push($breedList, $breed);
-            }
-            
-        }catch(Exception $ex){
-            //throw $ex;
-            echo " excepcion getallcatbreeds";
-        }
-    }
-
-    /*
-    function getAll()
+    function getPetsByOwnerId()
     {
         try {
             $petList = array();
 
-            $query = "SELECT g.id, g.email, g.pass, g.first_name, g.last_name, g.phone, g.birth_date, g.nickname, g.score, g.first_available_day, g.last_available_day, g.price, ps.size  
-            FROM " . $this->tableName  . " AS g 
-            LEFT JOIN GuardianXSize AS gxs
-            ON g.id = gxs.id_guardian
-            LEFT JOIN petsizes AS ps
-            ON gxs.id_petsize = ps.id;";
+            $query = "SELECT * FROM " . $this->tableName . " WHERE (id_pet_owner = :idOwner);";
+
+            $idOwner = $_SESSION['id'];
+
+            $parameters['idOwner'] = $idOwner;
 
             $this->connection = Connection::GetInstance();
 
-            $resultSet = $this->connection->Execute($query);
+            $resultSet = $this->connection->Execute($query, $parameters);
 
             foreach ($resultSet as $row) {
-                $guardian = new Guardian();
+                $pet = new Pet(
+                    $row["id_pet_owner"],
+                    $row["name"],
+                    $row["picture"],
+                    $row["id_pet_breed"],
+                    $row["video"],
+                    $row["vaccination"],
+                    $row["id_pet_type"],
+                    $row["id_pet_size"]
+                );
+                $pet->setId($row["id"]);
 
-                $guardian->setId($row["id"]);
-                $guardian->setEmail($row["email"]);
-                $guardian->setPassword($row["pass"]);
-                $guardian->setFirstName($row["first_name"]);
-                $guardian->setLastName($row["last_name"]);
-                $guardian->setPhoneNumber($row["phone"]);
-                $guardian->setBirthDate($row["birth_date"]);
-                $guardian->setScore($row["score"]);
-                $guardian->setFirstAvailableDay($row["first_available_day"]);
-                $guardian->setLastAvailableDay($row["last_available_day"]);
-                $guardian->setPrice($row["price"]);
-                $guardian->setPetsize($row["size"]);
-                $guardian->setNickName($row["nickname"]);
-                $guardian->setType("G");
-
-                array_push($guardianList, $guardian);
+                array_push($petList, $pet);
             }
 
-            return count($guardianList) > 0 ? $guardianList : null;
+            return (count($petList) > 0) ? $petList : null;
         } catch (Exception $ex) {
-            throw $ex;
-            echo "excepcion en getAll";
+            //throw $ex;
+            echo " excepcion en getpetsbyownerid";
         }
     }
 
-    function getByPetName($petName)
+    public function getCatsByOwnerEmail($email)
     {
-        $this->loadData();
+        try {
+            $catsList = array();
 
-        $pets = array_filter($this->petList, function ($pet) use ($petName) {
-            return $pet->getName() == $petName;
-        });
+            $query = "SELECT o.id as 'ownerId', p.id ,p.name,p.picture,p.vaccination,p.video,pb.breed, ps.size, pt.type_description
+            FROM pets as p
+            join owners as o
+            on p.id_pet_owner = o.id
+            join petbreeds as pb
+            on p.id_pet_breed = pb.id
+            join petsizes as ps
+            on p.id_pet_size = ps.id
+            join pettypes as pt
+            on p.id_pet_type = pt.id
+            WHERE o.email = :email and p.id_pet_type = 2;";
 
-        $pets = array_values($pets);
+            $parameters['email'] = $email;
 
-        return (count($pets) > 0) ? $pets[0] : null;
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            foreach ($resultSet as $row) {
+                $cat = new Pet($row["ownerId"], $row["name"], $row["picture"], $row["breed"], $row["video"], $row["vaccination"], $row["type_description"], $row["size"]);
+                $cat->setId($row["id"]);
+
+                array_push($catsList, $cat);
+            }
+
+            return $catsList;
+        } catch (Exception $ex) {
+            echo ' excepcion en getCatsByOwnerEmail';
+        }
     }
 
-       public function getPetsByOwnerEmail($email) 
-      {
-        $this->loadData();
-        $pets = array();
-        foreach($this->petList as $pet) 
-        {
-          if($pet->getOwnerEmail() == $email)
-          {
-            array_push($pets,$pet); 
-          }
-        }
-       return $pets; 
-      }
-      
-      public function getDogsByOwnerEmail($email)
-      {
-        $this->loadData();
-        $dogs = array();
+    public function getDogsByOwnerEmail($email)
+    {
+        try {
+            $dogsList = array();
 
-        foreach ($this->petList as $pet) {
-            if ($pet->getOwnerEmail() == $email && $pet->getType() == "D") {
-                array_push($dogs, $pet);
+            $query = "SELECT o.id as 'ownerId', p.id ,p.name,p.picture,p.vaccination,p.video,pb.breed, ps.size, pt.type_description
+            FROM pets as p
+            join owners as o
+            on p.id_pet_owner = o.id
+            join petbreeds as pb
+            on p.id_pet_breed = pb.id
+            join petsizes as ps
+            on p.id_pet_size = ps.id
+            join pettypes as pt
+            on p.id_pet_type = pt.id
+            WHERE o.email = :email and p.id_pet_type = 1;";
+
+            $parameters['email'] = $email;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            foreach ($resultSet as $row) {
+                $dog = new Pet($row["ownerId"], $row["name"], $row["picture"], $row["breed"], $row["video"], $row["vaccination"], $row["type_description"], $row["size"]);
+                $dog->setId($row["id"]);
+
+                array_push($dogsList, $dog);
             }
+
+            return $dogsList;
+        } catch (Exception $ex) {
+            echo ' excepcion en getDogsByOwnerEmail';
         }
-        return $dogs;
-       }
-
-      public function getCatsByOwnerEmail($email)
-      {
-        $this->loadData();
-        $cats = array();
-
-        foreach ($this->petList as $pet) {
-            if ($pet->getOwnerEmail() == $email && $pet->getType() == "C") {
-                array_push($cats, $pet);
-            }
-        }
-        return $cats;
-       }
-     
-    
-        /*    
-        function remove($id)
-        {
-            $this->loadData();
-
-            $pets = array_filter($this->petList, function ($pet) use ($petName) {
-                return $pet->getId() == $id;
-            });
-
-            $this->saveData();
-        }
-        
-        */
+    }
 }

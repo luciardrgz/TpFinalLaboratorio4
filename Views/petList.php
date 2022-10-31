@@ -1,6 +1,9 @@
 <?php
 
 namespace Views;
+
+use DB\BreedDAO;
+
 /*
 session_start();
 if ($_SESSION['guardian']guardian){
@@ -78,8 +81,14 @@ include("navOwner.php");
                         </div>
                     </form>  -->
                     <!-- desde aca      -->
-                    <?php foreach ($petList as $pets) { ?>
-                    <?php foreach ($pets as $pet) { ?>
+
+                    <?php
+
+                    $breedDAO = new BreedDAO();
+
+                    if ($petList != null) {
+                        foreach ($petList as $pets) { ?>
+
                     <div class="filter-result">
 
                         <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
@@ -90,16 +99,16 @@ include("navOwner.php");
                                 </div>
                                 <div class="job-content">
 
-                                    <h5 class="text-md-left"><?php echo $pet->getName(); ?></h5>
+                                    <h5 class="text-md-left"><?php echo $pets->getName(); ?></h5>
 
                                     <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
                                         <li class="mr-md-4">
-                                            <?php echo "<br>Raza: " . $pet->getBreed(); ?>
-                                            <?php echo "<br>Foto: " . $pet->getPicture(); ?>
-                                            <?php echo "<br>Video: " . $pet->getVideo(); ?>
-                                            <?php echo "<br>Vacunas: " . $pet->getVaccination(); ?>
-                                            <?php if ($pet->getType() == "D") {
-                                                        echo "<br>Size: " . $pet->getSize();
+                                            <?php echo "<br>Raza: " . $breedDAO->getBreedName($pets->getBreed()); ?>
+                                            <?php echo "<br>Foto: " . $pets->getPicture(); ?>
+                                            <?php echo "<br>Video: " . $pets->getVideo(); ?>
+                                            <?php echo "<br>Vacunas: " . $pets->getVaccination(); ?>
+                                            <?php if ($pets->getType() == "D") {
+                                                        echo "<br>Size: " . $pets->getSize();
                                                     } ?>
                                         </li>
                                     </ul>
@@ -109,7 +118,8 @@ include("navOwner.php");
                                 <a href="#" class="btn d-block w-100 d-sm-inline-block btn-light">Apply now</a>
                             </div>
                         </div>
-                        <?php }
+                        <?php
+                        }
                     } ?>
                         <!-- hasta aca      -->
 

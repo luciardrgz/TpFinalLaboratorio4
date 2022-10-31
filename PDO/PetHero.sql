@@ -183,7 +183,7 @@ insert into PetTypes (type_description) values
 select * from PetTypes;
 
 insert into PetBreeds (breed, id_pet_type) values
-('Labrador', 1), ('Golden', 1), ('Chihuahua', 1), ('Husky', 1),
+('Labrador', 1), ('Golden', 1), ('Chihuahua', 1), ('Husky', 1), ('Shepard', 1),
 ('Sphynx', 2), ('Persian', 2), ('Ragdoll', 2), ('Scottish', 2);
 select * from PetBreeds;
 
@@ -191,13 +191,22 @@ insert into PetSizes (size) values
 ('Small'), ('Medium'), ('Big');
 select * from PetSizes;
 
-select * from Owners;
+/* Pruebas select*/
+SELECT * FROM PetBreeds WHERE (id_pet_type = 1);
+SELECT * FROM  PetBreeds WHERE (breed = 'Golden');
 
+/* Prueba insert*/
 insert into Pets (id_pet_owner, id_pet_breed, id_pet_size, name, picture, video, vaccination, id_pet_type) values
 (1, 2, 3, 'Daniel', 'danielpic.com', 'danielvid.com', 'danielvacc.com', 1),
 (1, 3, 1, 'Missy', 'missypic.com', '', 'missyvacc.com', 1),
 (1, 4, 2, 'Michi', 'michipic.com', '', 'michivacc.com', 2);
 select * from Pets;
+
+select * from Owners;
+
+SELECT * FROM Pets WHERE (id_pet_owner = 1);
+
+SELECT * FROM PetBreeds WHERE (id_pet_type = 1);
 
 /*
 SELECT p.id_pet_breed, p.id_pet_size, p.name, p.picture, p.video, p.vaccination, p.petType   

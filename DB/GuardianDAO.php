@@ -111,11 +111,11 @@ class GuardianDAO implements IGuardianDAO
                 $guardian->setPhoneNumber($row["phone"]);
                 $guardian->setBirthDate($row["birth_date"]);
                 $guardian->setNickName($row["nickname"]);
-                $guardian->setNickName($row["score"]);
-                $guardian->setNickName($row["first_available_day"]);
-                $guardian->setNickName($row["last_available_day"]);
-                $guardian->setNickName($row["price"]);
-                $guardian->setNickName($row["size"]);
+                $guardian->setScore($row["score"]);
+                $guardian->setFirstAvailableDay($row["first_available_day"]);
+                $guardian->setLastAvailableDay($row["last_available_day"]);
+                $guardian->setPrice($row["price"]);
+                $guardian->setPetsize($row["size"]);
                 $guardian->setType("G");
 
                 array_push($guardianList, $guardian);
@@ -157,11 +157,11 @@ class GuardianDAO implements IGuardianDAO
                 $guardian->setPhoneNumber($row["phonenumber"]);
                 $guardian->setBirthDate($row["birthdate"]);
                 $guardian->setNickName($row["nickname"]);
-                $guardian->setNickName($row["score"]);
-                $guardian->setNickName($row["first_available_day"]);
-                $guardian->setNickName($row["last_available_day"]);
-                $guardian->setNickName($row["price"]);
-                $guardian->setNickName($row["size"]);
+                $guardian->setScore($row["score"]);
+                $guardian->setFirstAvailableDay($row["first_available_day"]);
+                $guardian->setLastAvailableDay($row["last_available_day"]);
+                $guardian->getPrice($row["price"]);
+                $guardian->setPetsize($row["size"]);
                 $guardian->setType("G");
 
                 $guardianList = array();
@@ -175,8 +175,55 @@ class GuardianDAO implements IGuardianDAO
         }
     }
 
-    function update($email, $petSize)
+    function validateGuardianxSize($id)
     {
+        try {
+
+            $query = "SELECT * FROM GuardianxSize WHERE id_guardian = :id;";
+
+            $parameters['id'] = $id;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            if (empty($resultSet)) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (Exception $ex) {
+            // throw $ex;
+            echo " exc en validateGuardianxSize";
+        }
+    }
+
+    function update($id, $petSize)
+    {
+        try {
+            if ($this->validateGuardianxSize($id)) {
+                $query = "UPDATE GuardianxSize SET id_petsize = :petSize WHERE id_guardian = :id;";
+
+                $parameters['id'] = $id;
+                $parameters['petSize'] = $petSize;
+
+                $this->connection = Connection::GetInstance();
+
+                $this->connection->Execute($query, $parameters);
+            } else {
+                $query = "INSERT INTO GuardianxSize (id_guardian, id_petsize) VALUES (:id, :petSize);";
+
+                $parameters['id'] = $id;
+                $parameters['petSize'] = $petSize;
+
+                $this->connection = Connection::GetInstance();
+
+                $this->connection->Execute($query, $parameters);
+            }
+        } catch (Exception $ex) {
+            // throw $ex;
+            echo ' exc en update() de GuardianDAO';
+        }
     }
 
     function updateDate($email, $firstDay, $lastDay)

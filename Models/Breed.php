@@ -1,13 +1,16 @@
-<?php 
+<?php
+
 namespace Models;
 
-class Breed{
+class Breed
+{
     private $id;
     private $breed;
     private $idPetType;
 
-    function __construct($id = "", $breed = "", $idPetType = ""){
-        $this->id = $id;
+    function __construct($breed = "", $idPetType = "")
+    {
+
         $this->breed = $breed;
         $this->idPetType = $idPetType;
     }
@@ -29,7 +32,7 @@ class Breed{
 
     public function setBreed($breed)
     {
-        $this->breed = $breed;      
+        $this->breed = $breed;
     }
 
     public function getIdPetType()
@@ -42,4 +45,3 @@ class Breed{
         $this->idPetType = $idPetType;
     }
 }
-?>

@@ -97,15 +97,15 @@ class UserController
                 if ($this->validateUser($email, $nickName) == true) {
 
                     if ($this->validateAge($birthDate)) {
-                        
+
                         if ($type == 'G') {
-                            
+
                             $guardian = new Guardian($firstName, $lastName, $email, $phoneNumber, $birthDate, $nickName, $password);
 
                             $this->guardianDAO->add($guardian);
                             $auth->login($email, $password);
                         } else {
-                            
+
                             $owner = new Owner($firstName, $lastName, $email, $phoneNumber, $birthDate, $nickName, $password);
 
                             $this->ownerDAO->add($owner);
@@ -168,8 +168,9 @@ class UserController
         if (isset($_SESSION['loggeduser'])) {
             if ($_SESSION['type'] == 'G') {
                 $user = new Guardian();
-                $this->guardianDAO->update($_SESSION['email'], $petSize);
+                $this->guardianDAO->update($_SESSION['id'], $petSize);
                 $user = $this->guardianDAO->getByEmail($_SESSION['email']);
+
                 require_once(VIEWS_PATH . "profile.php");
             } else {
                 require_once(VIEWS_PATH . "landingPageOwner.php");
