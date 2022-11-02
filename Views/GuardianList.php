@@ -121,8 +121,8 @@ include("navOwner.php");
                                 </div>
                             </div>
                             <div class="job-right my-4 flex-shrink-0">
-                                <a href="<?php echo "user/booking/" . $guardian->getEmail(); ?>"
-                                    class="btn d-block w-100 d-sm-inline-block btn-light">Apply now</a>
+                                <a href="<?php echo FRONT_ROOT . "Booking/bookDate/" . $guardian->getId(); ?>"
+                                    class="btn d-block w-100 d-sm-inline-block btn-light">Contact :D</a>
                             </div>
                         </div>
                         <?php }

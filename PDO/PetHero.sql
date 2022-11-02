@@ -204,7 +204,8 @@ select * from Pets;
 
 select * from Owners;
 
-SELECT * FROM Pets WHERE (id_pet_owner = 2);
+SELECT * FROM Pets WHERE (id_pet_owner = 1);
+select * from petsizes;
 
 SELECT * FROM PetBreeds WHERE (id_pet_type = 1);
 
@@ -218,7 +219,15 @@ left join petsizes as ps
 on gxs.id_petsize = ps.id;
 
 
-select * from guardianxsize;
+select * from guardians;
+
+UPDATE Guardians 
+SET first_available_day = '2022-05-12', last_available_day = '2022-05-31' WHERE id = 1;
+
+SELECT * FROM Guardians 
+WHERE (first_available_day >= '2022-11-14' AND last_available_day >= '2022-11-18');
+
+
 
 
 /*

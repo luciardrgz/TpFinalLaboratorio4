@@ -94,7 +94,7 @@ include("navOwner.php");
                         <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
                             <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
                                 <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
-                                    FD
+                                    PL
                                     <!-- foto según pettype-->
                                 </div>
                                 <div class="job-content">

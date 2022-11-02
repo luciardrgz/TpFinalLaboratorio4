@@ -226,8 +226,50 @@ class GuardianDAO implements IGuardianDAO
         }
     }
 
-    function updateDate($email, $firstDay, $lastDay)
+    function updateDate($id, $firstDay, $lastDay)
     {
+        try {
+            $query = "UPDATE Guardians SET first_available_day = :firstDay , last_available_day = :lastDay WHERE id = :id;";
+
+            $parameters['firstDay'] = $firstDay;
+            $parameters['lastDay'] = $lastDay;
+            $parameters['id'] = $id;
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->Execute($query, $parameters);
+        } catch (Exception $ex) {
+            // throw $ex;
+            echo ' exc en update() de GuardianDAO';
+        }
+    }
+
+    public function getGuardiansByDate($firstDay, $lastDay)
+    {
+        try {
+            $query = "SELECT * FROM " . $this->tableName . " WHERE (first_available_day >= :firstDay
+            AND last_available_day >= :lastDay);";
+
+            $parameters['firstDay'] = $firstDay;
+            $parameters['lastDay'] = $lastDay;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            foreach ($resultSet as $row) {
+                $guardian = new Guardian($row["firstname"], $row["lastname"], $row["email"], $row["phonenumber"], $row["birthdate"], $row["nickname"], $row["password"], $row["score"], $row["size"], $row["price"], $row["first_available_day"], $row["last_available_day"]);
+                $guardian->setId($row["id"]);
+
+                $guardianList = array();
+                array_push($guardianList, $guardian);
+            }
+
+            return (count($guardianList) > 0) ? $guardianList : null;
+        } catch (Exception $ex) {
+            // throw $ex;
+            echo " exc en getGuardiansByDate";
+        }
     }
 
 
