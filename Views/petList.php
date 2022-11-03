@@ -100,10 +100,10 @@ include("navOwner.php");
 
                                             <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
                                                 <li class="mr-md-4">
-                                                    <?php echo "<br>Raza: " . $breedDAO->getBreedName($pets->getBreed()); ?>
-                                                    <?php echo "<br>Foto: " . $pets->getPicture(); ?>
+                                                    <?php echo "<br>Breed: " . $breedDAO->getBreedName($pets->getBreed()); ?>
+                                                    <?php echo "<br>Picture: " . $pets->getPicture(); ?>
                                                     <?php echo "<br>Video: " . $pets->getVideo(); ?>
-                                                    <?php echo "<br>Vacunas: " . $pets->getVaccination(); ?>
+                                                    <?php echo "<br>Vaccines: " . $pets->getVaccination(); ?>
                                                     <?php if ($pets->getType() == "D") {
                                                         echo "<br>Size: " . $pets->getSizeText();
                                                     } ?>
@@ -112,7 +112,7 @@ include("navOwner.php");
                                         </div>
                                     </div>
                                     <div class="job-right my-4 flex-shrink-0">
-                                        <a href="#" class="btn d-block w-100 d-sm-inline-block btn-light">Apply now</a>
+                                        <a href="#" class="btn d-block w-100 d-sm-inline-block btn-light">Remove</a>
                                     </div>
                                 </div>
                         <?php

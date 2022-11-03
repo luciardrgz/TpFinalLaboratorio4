@@ -31,9 +31,8 @@ class BookingController
 
             $userController = new UserController();
             $petDAO = new PetDAO();
-
+            
             if ($_SESSION['type'] == 'O') {
-
                 // Si viene de la guardian list
                 if ($id != '' && $selectedPet == '') {
 
@@ -42,12 +41,19 @@ class BookingController
 
                     require_once(VIEWS_PATH . "petSelection.php");
                 }
-
                 //  Si viene de petSelection
                 elseif ($id != '' && $selectedPet != '') {
-                    if ($this->verifyPetBreed($selectedPet)) {
-                        if ($this->verifyPetSize($selectedPet, $id)) {
+                    $ArrayPets = array();
+                    $ArrayPets = $this->passArrayIDTOArrayPets($selectedPet);
+
+                    if ($this->verifyPetBreed($ArrayPets)) {
+                        if ($this->verifyPetSize($ArrayPets, $id)) {
                             if ($this->verifyGuardianAvailability($id, $firstDay, $lastDay)) {
+
+                                $guardian = new Guardian();
+                                $guardianDao = new GuardianDAO();
+                                $guardian = $guardianDao->getById($id);
+                                
                                 require_once(VIEWS_PATH . "bookingConfirmation.php");
                             } else {
                                 echo 'El rango de fechas ingresado no esta disponible para este Guardian';
@@ -74,22 +80,13 @@ class BookingController
 
     function verifyPetBreed($pets)
     {
-        $petDAO = new PetDAO();
-        $pet = new Pet();
-        $petsObjects = array();
         $verification = true;
-
-        foreach ($pets as $id) {
-            $pet = $petDAO->getPetById($id);
-            array_push($petsObjects, $pet);
-        }
-
-        $petbreed = $petsObjects[0]->getBreed();
+        $petbreed = $pets[0]->getBreed();
 
         $i = 0;
-        while ($verification == true && count($petsObjects) > $i) {
+        while ($verification == true && count($pets) > $i) {
 
-            if ($petbreed != $petsObjects[$i]->getBreed()) {
+            if ($petbreed != $pets[$i]->getBreed()) {
                 $verification = false;
             }
             $i++;
@@ -100,23 +97,15 @@ class BookingController
 
     function verifyPetSize($pets, $idGuardian)
     {
-        $petDAO = new PetDAO();
-        $pet = new Pet();
-        $petsObjects = array();
         $guardian = new Guardian();
         $guardianDAO = new GuardianDAO();
         $verification = true;
 
-        foreach ($pets as $id) {
-            $pet = $petDAO->getPetById($id);
-            array_push($petsObjects, $pet);
-        }
-
         $guardian = $guardianDAO->getById($idGuardian);
         $i = 0;
 
-        while ($verification == true && count($petsObjects) > $i) {
-            if ($guardian->getPetsize() != $petsObjects[$i]->getSizeText()) {
+        while ($verification == true && count($pets) > $i) {
+            if ($guardian->getPetsize() != $pets[$i]->getSizeText()) {
                 $verification = false;
             }
             $i++;
@@ -139,5 +128,20 @@ class BookingController
             }
         }
         return $flag;
+    }
+
+    function passArrayIDTOArrayPets($idArray)
+    {
+        $petDAO = new PetDAO();
+        $pet = new Pet();
+        $petsObjects = array();
+        $verification = true;
+
+        foreach ($idArray as $id) {
+            $pet = $petDAO->getPetById($id);
+            array_push($petsObjects, $pet);
+        }
+
+        return $petsObjects;
     }
 }

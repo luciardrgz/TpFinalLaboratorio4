@@ -42,6 +42,7 @@ class AuthController
 
                     $_SESSION['loggeduser'] = $guardian;
                     $_SESSION['id'] = $guardian->getId();
+                    $_SESSION['nickname'] = $guardian->getNickname();
                     $_SESSION['email'] = $guardian->getEmail();
                     $_SESSION['type'] = $guardian->getType();
                     header("Location:" . FRONT_ROOT . "Auth");
@@ -54,6 +55,7 @@ class AuthController
 
                     $_SESSION['loggeduser'] = $owner;
                     $_SESSION['email'] = $owner->getEmail();
+                    $_SESSION['nickname'] = $owner->getNickname();
                     $_SESSION['type'] = $owner->getType();
                     $_SESSION['id'] = $owner->getId();
                     header("Location:" . FRONT_ROOT . "Auth");

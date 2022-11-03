@@ -82,7 +82,8 @@ include("navOwner.php");
                     <?php
 
                     if ($guardianList != null) {
-                        foreach ($guardianList as $guardian) { ?>
+                        foreach ($guardianList as $guardian) { 
+                            if ($guardian->getPetsize() != null && $guardian->getFirstAvailableDay() != null && $guardian->getLastAvailableDay() != null){?>
                     <div class="filter-result">
 
                         <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
@@ -97,25 +98,24 @@ include("navOwner.php");
 
                                     <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
                                         <li class="mr-md-4">
-                                            <?php echo "<br>Name: " . $guardian->getFirstName() . " | Last Name:" . $guardian->getLastName(); ?>
+                                            <?php echo "<br>Name: " . $guardian->getFirstName(); 
+                                            
+                                            echo "<br>Last Name:" . $guardian->getLastName(); 
 
-                                            <?php echo "<br>Email: " . $guardian->getEmail() . " | Phone Number: " . $guardian->getPhoneNumber(); ?>
+                                            echo "<br>Email: " . $guardian->getEmail(); 
+                                            
+                                            echo "<br>Phone Number: " . $guardian->getPhoneNumber();
 
-                                            <?php echo "<br>Date of Birth: " . $guardian->getBirthDate(); ?>
+                                            echo "<br>Date of Birth: " . $guardian->getBirthDate(); 
 
-                                            <?php
-                                                    if ($guardian->getScore() != null) {
-                                                        echo "<br>Score: " . $guardian->getScore();
-                                                    }
-
-                                                    if ($guardian->getPetsize() != null) {
-                                                        echo "<br>Pet Size Preference: " . $guardian->getPetsize();
-                                                    }
-
-                                                    if ($guardian->getFirstAvailableDay() != null && $guardian->getLastAvailableDay() != null) {
-                                                        echo "<br>Availability: " . $guardian->getFirstAvailableDay() . " | " . $guardian->getLastAvailableDay();
-                                                    }
-                                                    ?>
+                                            echo "<br>Pet Size Preference: " . $guardian->getPetsize();
+        
+                                            echo "<br>Availability: " . $guardian->getFirstAvailableDay() . " | " . $guardian->getLastAvailableDay();
+                                            
+                                            if ($guardian->getScore() != null) {
+                                                 echo "<br>Score: " . $guardian->getScore();
+                                            } 
+                                          ?>
                                         </li>
                                     </ul>
                                 </div>
@@ -126,6 +126,7 @@ include("navOwner.php");
                             </div>
                         </div>
                         <?php }
+                        }
                     } else {
                         echo "No hay guardianes disponibles";
                     } ?>

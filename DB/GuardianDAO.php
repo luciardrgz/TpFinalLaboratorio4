@@ -148,7 +148,7 @@ class GuardianDAO implements IGuardianDAO
             $resultSet = $this->connection->Execute($query, $parameters);
 
             foreach ($resultSet as $row) {
-                $guardian = new Guardian($row["first_name"], $row["last_name"], $row["email"], $row["phone"], $row["birth_date"], $row["nickname"], $row["pass"], $row["score"], $row["pet_size"], $row["price"], $row["first_available_day"], $row["last_available_day"]);
+                $guardian = new Guardian($row["first_name"], $row["last_name"], $row["email"], $row["phone"], $row["birth_date"], $row["nickname"], $row["pass"], $row["score"], $row["size"], $row["price"], $row["first_available_day"], $row["last_available_day"]);
                 $guardian->setId($row["id"]);
 
                 array_push($guardianList, $guardian);
@@ -181,7 +181,7 @@ class GuardianDAO implements IGuardianDAO
             $resultSet = $this->connection->Execute($query, $parameters);
 
             foreach ($resultSet as $row) {
-                $guardian = new Guardian($row["first_name"], $row["last_name"], $row["email"], $row["phone"], $row["birth_date"], $row["nickname"], $row["pass"], $row["score"], $row["pet_size"], $row["price"], $row["first_available_day"], $row["last_available_day"]);
+                $guardian = new Guardian($row["first_name"], $row["last_name"], $row["email"], $row["phone"], $row["birth_date"], $row["nickname"], $row["pass"], $row["score"], $row["size"], $row["price"], $row["first_available_day"], $row["last_available_day"]);
                 $guardian->setId($row["id"]);
 
                 $guardianList = array();
@@ -278,7 +278,7 @@ class GuardianDAO implements IGuardianDAO
             $resultSet = $this->connection->Execute($query, $parameters);
 
             foreach ($resultSet as $row) {
-                $guardian = new Guardian($row["first_name"], $row["last_name"], $row["email"], $row["phone"], $row["birth_date"], $row["nickname"], $row["pass"], $row["score"], $row["pet_size"], $row["price"], $row["first_available_day"], $row["last_available_day"]);
+                $guardian = new Guardian($row["first_name"], $row["last_name"], $row["email"], $row["phone"], $row["birth_date"], $row["nickname"], $row["pass"], $row["score"], $row["size"], $row["price"], $row["first_available_day"], $row["last_available_day"]);
                 $guardian->setId($row["id"]);
 
                 $guardianList = array();
