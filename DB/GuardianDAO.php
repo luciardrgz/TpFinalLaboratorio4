@@ -80,6 +80,53 @@ class GuardianDAO implements IGuardianDAO
             echo "excepcion en getAll";
         }
     }
+    public function getById($id)
+    {
+        try {
+            $guardianList = array();
+            $query = "SELECT g.id, g.email, g.pass, g.first_name, g.last_name, g.phone, g.birth_date, 
+            g.nickname, g.score, g.first_available_day, g.last_available_day, g.price, ps.size  
+            FROM " . $this->tableName  . " AS g 
+            LEFT JOIN GuardianXSize AS gxs
+            ON g.id = gxs.id_guardian
+            LEFT JOIN petsizes AS ps
+            ON gxs.id_petsize = ps.id 
+            WHERE g.id = :id;";
+
+            $parameters['id'] = $id;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            foreach ($resultSet as $row) {
+                $guardian = new Guardian(
+                    $row["first_name"],
+                    $row["last_name"],
+                    $row["email"],
+                    $row["phone"],
+                    $row["birth_date"],
+                    $row["nickname"],
+                    $row["pass"],
+                    $row["score"],
+                    $row["size"],
+                    $row["price"],
+                    $row["first_available_day"],
+                    $row["last_available_day"]
+                );
+                $guardian->setId($row["id"]);
+
+                array_push($guardianList, $guardian);
+            }
+
+            return (count($guardianList) > 0) ? $guardianList[0] : null;
+
+            return $guardian;
+        } catch (Exception $ex) {
+            //throw $ex;
+            echo "excepcion en getbyemail guardian";
+        }
+    }
 
     public function getByEmail($email)
     {
@@ -101,22 +148,8 @@ class GuardianDAO implements IGuardianDAO
             $resultSet = $this->connection->Execute($query, $parameters);
 
             foreach ($resultSet as $row) {
-                $guardian = new Guardian();
-
+                $guardian = new Guardian($row["first_name"], $row["last_name"], $row["email"], $row["phone"], $row["birth_date"], $row["nickname"], $row["pass"], $row["score"], $row["pet_size"], $row["price"], $row["first_available_day"], $row["last_available_day"]);
                 $guardian->setId($row["id"]);
-                $guardian->setEmail($row["email"]);
-                $guardian->setPassword($row["pass"]);
-                $guardian->setFirstName($row["first_name"]);
-                $guardian->setLastName($row["last_name"]);
-                $guardian->setPhoneNumber($row["phone"]);
-                $guardian->setBirthDate($row["birth_date"]);
-                $guardian->setNickName($row["nickname"]);
-                $guardian->setScore($row["score"]);
-                $guardian->setFirstAvailableDay($row["first_available_day"]);
-                $guardian->setLastAvailableDay($row["last_available_day"]);
-                $guardian->setPrice($row["price"]);
-                $guardian->setPetsize($row["size"]);
-                $guardian->setType("G");
 
                 array_push($guardianList, $guardian);
             }
@@ -148,21 +181,8 @@ class GuardianDAO implements IGuardianDAO
             $resultSet = $this->connection->Execute($query, $parameters);
 
             foreach ($resultSet as $row) {
-                $guardian = new Guardian();
+                $guardian = new Guardian($row["first_name"], $row["last_name"], $row["email"], $row["phone"], $row["birth_date"], $row["nickname"], $row["pass"], $row["score"], $row["pet_size"], $row["price"], $row["first_available_day"], $row["last_available_day"]);
                 $guardian->setId($row["id"]);
-                $guardian->setEmail($row["email"]);
-                $guardian->setPassword($row["password"]);
-                $guardian->setFirstName($row["firstname"]);
-                $guardian->setLastName($row["lastname"]);
-                $guardian->setPhoneNumber($row["phonenumber"]);
-                $guardian->setBirthDate($row["birthdate"]);
-                $guardian->setNickName($row["nickname"]);
-                $guardian->setScore($row["score"]);
-                $guardian->setFirstAvailableDay($row["first_available_day"]);
-                $guardian->setLastAvailableDay($row["last_available_day"]);
-                $guardian->getPrice($row["price"]);
-                $guardian->setPetsize($row["size"]);
-                $guardian->setType("G");
 
                 $guardianList = array();
                 array_push($guardianList, $guardian);
@@ -258,7 +278,7 @@ class GuardianDAO implements IGuardianDAO
             $resultSet = $this->connection->Execute($query, $parameters);
 
             foreach ($resultSet as $row) {
-                $guardian = new Guardian($row["firstname"], $row["lastname"], $row["email"], $row["phonenumber"], $row["birthdate"], $row["nickname"], $row["password"], $row["score"], $row["size"], $row["price"], $row["first_available_day"], $row["last_available_day"]);
+                $guardian = new Guardian($row["first_name"], $row["last_name"], $row["email"], $row["phone"], $row["birth_date"], $row["nickname"], $row["pass"], $row["score"], $row["pet_size"], $row["price"], $row["first_available_day"], $row["last_available_day"]);
                 $guardian->setId($row["id"]);
 
                 $guardianList = array();

@@ -101,6 +101,18 @@ class Pet
         return $this->size;
     }
 
+    public function getSizeText()
+    {
+        if ($this->size == 1) {
+            return "Small";
+        } elseif ($this->size == 2) {
+            return "Medium";
+        } else {
+            return "Big";
+        }
+    }
+
+
     public function setSize($size)
     {
         $this->size = $size;

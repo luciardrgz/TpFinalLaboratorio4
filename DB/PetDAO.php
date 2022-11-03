@@ -43,6 +43,42 @@ class PetDAO /*implements IPetDAO*/
         }
     }
 
+    function getPetById($id)
+    {
+        try {
+            $petList = array();
+
+            $query = "SELECT * FROM " . $this->tableName . " WHERE (id = :id);";
+
+            $parameters['id'] = $id;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            foreach ($resultSet as $row) {
+                $pet = new Pet(
+                    $row["id_pet_owner"],
+                    $row["name"],
+                    $row["picture"],
+                    $row["id_pet_breed"],
+                    $row["video"],
+                    $row["vaccination"],
+                    $row["id_pet_type"],
+                    $row["id_pet_size"]
+                );
+                $pet->setId($row["id"]);
+
+                array_push($petList, $pet);
+            }
+
+            return (count($petList) > 0) ? $petList[0] : null;
+        } catch (Exception $ex) {
+            //throw $ex;
+            echo " excepcion en getpetsbyownerid";
+        }
+    }
+
     function getPetsByOwnerId()
     {
         try {

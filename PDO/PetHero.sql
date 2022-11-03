@@ -224,10 +224,17 @@ select * from guardians;
 UPDATE Guardians 
 SET first_available_day = '2022-05-12', last_available_day = '2022-05-31' WHERE id = 1;
 
-SELECT * FROM Guardians 
+SELECT * FROM Guardians
 WHERE (first_available_day >= '2022-11-14' AND last_available_day >= '2022-11-18');
 
-
+SELECT g.id, g.email, g.pass, g.first_name, g.last_name, g.phone, g.birth_date, 
+g.nickname, g.score, g.first_available_day, g.last_available_day, g.price, ps.size  
+FROM guardians AS g 
+LEFT JOIN GuardianXSize AS gxs
+ON g.id = gxs.id_guardian
+LEFT JOIN petsizes AS ps
+ON gxs.id_petsize = ps.id 
+WHERE g.id = 1;
 
 
 /*
