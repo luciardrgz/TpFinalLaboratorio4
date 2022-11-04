@@ -13,30 +13,56 @@ class BookingDAO
     private $connection;
     private $tableName = "Bookings";
 
-    /* function add(Booking $booking)
+     function add(Booking $booking)
     {
         try {
             $query = "INSERT INTO " . $this->tableName . " 
-            (email, pass, first_name, last_name, phone, birth_date, nickname) 
-            VALUES (:email,:password,:firstName,:lastName,:phoneNumber,:birthDate,:nickName);";
+            (id_status, start_date, end_date, totalAmount, id_guardian) 
+            VALUES (:status,:firstDay,:lastDay,:totalAmount,:idGuardian);";
 
-            $parameters["email"] = $booking->getEmail();
-            $parameters["password"] = $booking->getPassword();
-            $parameters["firstName"] = $booking->getFirstName();
-            $parameters["lastName"] = $booking->getLastName();
-            $parameters["phoneNumber"] = $booking->getPhoneNumber();
-            $parameters["birthDate"] = $booking->getBirthDate();
-            $parameters["nickName"] = $booking->getNickName();
+            $parameters["status"] = $booking->getStatus();
+            $parameters["firstDay"] = $booking->getStartDate();
+            $parameters["lastDay"] = $booking->getEndDate();
+            $parameters["totalAmount"] = $booking->getPrice();
+            $parameters["idGuardian"] = $booking->getGuardianId();
 
-            $this->connection = Connection::GetInstance();
+            $this->connection = Connection::GetInstance(); 
 
             $this->connection->ExecuteNonQuery($query, $parameters);
-        } catch (SQLInsertExc $exc) {
+
+            $this->addOwnerXBooking($booking->getOwnerId());
+
+        } catch (Exception $exc) {
             throw $exc;
             //echo "excepcion en add guardian";
         }
     }
 
+    function addOwnerXBooking($idOwner, $idBooking)
+    {
+        try {
+
+            $query = "INSERT INTO ownerxbooking  
+            (id_owner, id_booking) 
+            VALUES (:idOwner, idBooking);";
+
+            $parameters["idOwner"] = $idOwner;
+            $parameters["idBooking"] = $idBooking
+         
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query, $parameters);
+        } catch (Exception $exc) {
+            throw $exc;
+            //echo "excepcion en add guardian";
+        }
+    }
+
+    public function getBookingId()
+    {
+        
+    }
+/*
     function getAll()
     {
         try {

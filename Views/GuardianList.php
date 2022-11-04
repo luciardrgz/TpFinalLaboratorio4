@@ -24,6 +24,11 @@ include("navOwner.php");
                 <div class="section-title text-center ">
                     <h3 class="top-c-sep"><br>Guardian List</h3>
                 </div>
+                <?php if ($message != null) { ?>
+                                <div class="alert alert-danger">
+                                    <?php echo $message; ?>
+                                </div>
+                            <?php } ?>
             </div>
         </div>
 

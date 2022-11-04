@@ -26,10 +26,13 @@ include("navOwner.php");
     <div class="container">
         <div class="row">
             <div class="col-lg-10 mx-auto mb-4">
+
                 <div class="section-title text-center ">
                     <h3 class="top-c-sep"><br>Select Pets and Booking Date</h3>
-                    <h4 class="top-c-sep">Guardians can take care of one size of dog at a time.</h3>
+                    <h4 class="top-c-sep"><br>You must select a pet to continue <br>
+                    Guardians can take care of one size of dog at a time.</h4>
                 </div>
+
             </div>
         </div>
 
@@ -41,9 +44,16 @@ include("navOwner.php");
 
                         <input type="text" name="id" value="<?php echo $id ?>" hidden>
 
+                        From: <input type="date" name="firstDay" className="dateSelection" required>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To:&nbsp;<input type="date" name="lastDay"
+                        className="dateSelection" required>
+
+                        <br>
+                        <br>
+
                         <?php
                         $breedDAO = new BreedDAO();
-
+                        
                         if ($petList != null) {
                             foreach ($petList as $pets) { ?>
 
@@ -81,19 +91,12 @@ include("navOwner.php");
                             }
                         } ?>
 
-                            From: <input type="date" name="firstDay" className="dateSelection" required>
-
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To:&nbsp;<input type="date" name="lastDay"
-                                className="dateSelection" required>
-
                             <div className="submitBtnBox">
-                                <button name="submit" type="submit" value="Submit"
-                                    class="btn btn-warning">Submit</button>
+                                <button name="submit" type="submit" class="btn btn-warning">Submit</button>
                             </div>
                             <br>
                             <br>
-                            <br>
-                            <br>
+
 
                     </form>
 

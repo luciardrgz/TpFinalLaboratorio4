@@ -6,7 +6,6 @@ use DAOInterfaces\IGuardianDao as IGuardianDao;
 use Models\Guardian as Guardian;
 use DB\Connection as Connection;
 use \Exception as Exception;
-use ExceptionHandler\SQLInsertExc as SQLInsertExc;
 
 class GuardianDAO implements IGuardianDAO
 {
@@ -31,7 +30,7 @@ class GuardianDAO implements IGuardianDAO
             $this->connection = Connection::GetInstance();
 
             $this->connection->ExecuteNonQuery($query, $parameters);
-        } catch (SQLInsertExc $exc) {
+        } catch (Exception $exc) {
             throw $exc;
             //echo "excepcion en add guardian";
         }

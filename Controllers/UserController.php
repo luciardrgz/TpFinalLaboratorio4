@@ -18,7 +18,7 @@ use Models\Alert as Alert;
 use \Exception as Exception;
 
 use Controllers\AuthController as AuthController;
-use ExceptionHandler\SQLInsertExc;
+
 
 class UserController
 {
@@ -65,7 +65,7 @@ class UserController
                 $guardianList = array();
                 $guardianList = $this->guardianDAO->getAll();
 
-                $this->showErrorMsg();
+                $message =$this->getErrorMsg();
 
                 require_once(VIEWS_PATH . "guardianList.php");
             } else {
@@ -76,22 +76,15 @@ class UserController
         }
     }
 
-
-    public function showErrorMsg()
+    public function getErrorMsg()
     {
-        // TODO: tirar una exception en cada uno
-        $message = null;
-        if (isset($_GET['datesMsg'])) {
+        $errorMsg = null;
 
-            $message = $message . " The dates you chose aren't available for this guardian";
-        } elseif (isset($_GET['sizesMsg'])) {
+        if (isset($_GET['message'])) {
+            $errorMsg = $_GET['message'];
+        } 
 
-            $message = $message . " The pet sizes you chose must be the same as the guardian's size preference";
-        } elseif (isset($_GET['breedsMsg'])) {
-
-            $message = $message . " You must select pets of the same breed";
-        }
-        echo $message;
+        return $errorMsg;
     }
 
     public function showProfileInfo()

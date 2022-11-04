@@ -26,20 +26,23 @@ class BookingController
         }
     }
 
-    public function add($firstDay = "", $lastDay = "", $guardianId = "", $price = "")
+    public function add($idPetsArray="", $firstDay="", $lastDay="", $guardianId="", $totalAmount="")
     {
         if (isset($_SESSION['loggeduser'])) {
             if ($_SESSION['type'] == 'O') {
-                if ($firstDay != '' && $lastDay != '' && $guardianId != '' && $price != '') {
+                if($idPetsArray !="" && $firstDay !="" && $lastDay !="" && $guardianId !="" && $totalAmount !=""){
+               
+                $myPets = explode(",", $idPetsArray);
+                $allPets = $this->passArrayIDTOArrayPets($myPets);
 
-                    $booking =  new Booking($_GET['arraypets'], $firstDay, $lastDay, $_SESSION["id"], $guardianId, $price);
-                    //$bookingDAO = new BookingDAO();
-                    //$bookingDAO->add($booking);
-                    echo 'Var dump booking:  ';
-                    var_dump($booking);
-                    $message = "You've succesfully made a booking!";
-                } else {
-                    $message = "Failed to load data";
+                $booking =  new Booking($allPets, $firstDay, $lastDay, $_SESSION["id"], $guardianId, $totalAmount);
+                var_dump($booking);
+                $bookingDAO = new BookingDAO();
+                $bookingDAO->add($booking);
+                
+                $message = "You've succesfully made a booking!";
+                }else{
+                    $message = "failed data!";
                     require_once(VIEWS_PATH . "GuardianList.php");
                 }
             } else {
@@ -50,50 +53,53 @@ class BookingController
         }
     }
 
-    public function bookDate($id = '', $selectedPet =  '', $firstDay = '', $lastDay = '')
+    public function bookDate($id = '', $firstDay = '', $lastDay = '',$selectedPet =  '')
     {
         if (isset($_SESSION['loggeduser'])) {
 
             $userController = new UserController();
             $petDAO = new PetDAO();
-
+            
             if ($_SESSION['type'] == 'O') {
-                // Si viene de la guardian list
                 if ($id != '' && $selectedPet == '') {
-
                     $petList = array();
                     $petList = $petDAO->getPetsByOwnerId();
-
                     require_once(VIEWS_PATH . "petSelection.php");
-                }
-                //  Si viene de petSelection
-                elseif ($id != '' && $selectedPet != '') {
+                }elseif ($id != '' && $selectedPet != '') {
+                    
                     $ArrayPets = array();
                     $ArrayPets = $this->passArrayIDTOArrayPets($selectedPet);
 
                     if ($this->verifyPetBreed($ArrayPets)) {
+
                         if ($this->verifyPetSize($ArrayPets, $id)) {
+                            
                             if ($this->verifyGuardianAvailability($id, $firstDay, $lastDay)) {
 
                                 $guardian = new Guardian();
                                 $guardianDao = new GuardianDAO();
                                 $guardian = $guardianDao->getById($id);
 
+                                $idPetsArray = implode(",",$selectedPet);
+
+                                $substraction = date_diff(date_create($firstDay), date_create($lastDay));
+                                $bookingDays = $substraction->format('%a');
+                                    
+                                $totalAmount = $bookingDays * $guardian->getPrice();
+                                
                                 require_once(VIEWS_PATH . "bookingConfirmation.php");
                             } else {
-                                header("location:" . FRONT_ROOT . "User/showGuardianList?datesMsg");
+                                $message = "There are no guardians available on the dates you've selected";
+                                header("location:" .FRONT_ROOT . "User/showGuardianList?message");
                             }
                         } else {
-                            header("location:" . FRONT_ROOT . "User/showGuardianList?sizesMsg");
+                            $message = "The size you've selected isn't the same as the guardian's size preference";
+                            header("location:".FRONT_ROOT . "User/showGuardianList?message");
                         }
                     } else {
-                        header("location:" . FRONT_ROOT . "User/showGuardianList?breedsMsg");
+                        $message = "You must select pets of the same breed";
+                        header("location:".FRONT_ROOT . "User/showGuardianList?message");
                     }
-                }
-
-                // Si no tiene ninguno de los datos para hacer la reserva
-                elseif ($id == '' && $selectedPet == '') {
-                    $userController->showGuardianList();
                 }
             } else {
                 $userController->showLandingPage($_SESSION['type']);

@@ -4,6 +4,7 @@ namespace Models;
 
 class Booking
 {
+    private $id;
     private $status;
     private $pet;
     private $startDate;
@@ -14,7 +15,7 @@ class Booking
 
     function __construct($pet = "", $startDate = "", $endDate = "", $ownerId = "", $guardianId = "", $price = "")
     {
-        $this->status = 1;
+        $this->status = "1";
         $this->pet = $pet;
         $this->startDate = $startDate;
         $this->endDate = $endDate;
@@ -23,6 +24,16 @@ class Booking
         $this->price = $price;
     }
 
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
     public function getStatus()
     {

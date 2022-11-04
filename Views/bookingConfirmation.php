@@ -75,28 +75,7 @@ use DB\BreedDAO as BreedDAO;
                         <span>Pet Hero Team 🐾</span>
                     </div>
                     <div class="d-flex justify-content-between footer p-3">
-                        <?php
-                        /*
-                        $petsString = "";
-                        foreach ($ArrayPets as $pet) {
-                            foreach ($pet as $p) {
-                                $petsString .= implode(",", $pet);
-                            }
-                        } 
-                        echo $petsString;*/
-                        ?>
-                        <form action="<?php echo FRONT_ROOT . "Booking/add/" .  $firstDay . "/" .  $lastDay . "/" .  $guardian->getId() . "/" . $guardian->getPrice(); ?>" method="POST">
-                            <?php $_GET['arraypets'] = $ArrayPets; ?>
-                            <input type="date" name="firstDay" value="<?php echo $firstDay ?>" hidden>
-                            <input type="date" name="lastDay" value="<?php echo $lastDay ?>" hidden>
-                            <input type="date" name="guardianId" value="<?php echo $guardian->getId() ?>" hidden>
-                            <input type="date" name="price" value="<?php echo $guardian->getPrice() ?>" hidden>
-
-                            <button name="submit" type="submit" class="btn btn-success">Submit</button>
-
-                        </form>
-                        <!--<a href="<?php /* echo FRONT_ROOT . "Booking/add/" .  $firstDay . "/" .  $lastDay . "/" .  $guardian->getId() . "/" . $guardian->getPrice();*/ ?>" class="btn d-block w-100 d-sm-inline-block btn-success">Confirm</a>-->
-
+                        <a href="<?php  echo FRONT_ROOT . "Booking/add/" . $idPetsArray . "/".  $firstDay . "/" .  $lastDay . "/" .  $guardian->getId() . "/" . $totalAmount; ?>" class="btn d-block w-100 d-sm-inline-block btn-success">Confirm</a>
                     </div>
                     <div class="d-flex justify-content-between footer p-3">
                         <a href="<?php echo FRONT_ROOT . "User/showLandingPage/" . $_SESSION['type']; ?>" class="btn d-block w-100 d-sm-inline-block btn-danger">Go Home</a>
