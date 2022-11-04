@@ -103,6 +103,12 @@ namespace Views;
                                 <button name="submit" type="submit" value="Submit" class="btn btn-warning">Submit</button>
 
                             </form>
+                            <br>
+                            <?php if ($message != null) { ?>
+                                <div class="alert alert-danger">
+                                    <?php echo $message; ?>
+                                </div>
+                            <?php } ?>
 
                         </div>
                     </div>
@@ -111,27 +117,5 @@ namespace Views;
         </div>
     </section>
 </body>
-
-
-<!--
-                                    <div class="col-md-6 mb-4">
-                                        <h6 class="mb-2 pb-1">Gender </h6>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                                id="femaleGender" value="option1" checked />
-                                            <label class="form-check-label" for="femaleGender">Female</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                                id="maleGender" value="option2" />
-                                            <label class="form-check-label" for="maleGender">Male</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                                id="otherGender" value="option3" />
-                                            <label class="form-check-label" for="otherGender">Other</label>
-                                        </div>
-                                    </div>
-                                    -->
 
 </html>

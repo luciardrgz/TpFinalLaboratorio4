@@ -191,6 +191,9 @@ insert into PetSizes (size) values
 ('Small'), ('Medium'), ('Big');
 select * from PetSizes;
 
+insert into BookingStatus (booking_status) values ('Waiting'), ('Accepted'), ('Rejected'), ('Finished');
+select * from BookingStatus;
+
 /* Pruebas select*/
 SELECT * FROM PetBreeds WHERE (id_pet_type = 1);
 SELECT * FROM  PetBreeds WHERE (breed = 'Golden');
@@ -203,6 +206,8 @@ insert into Pets (id_pet_owner, id_pet_breed, id_pet_size, name, picture, video,
 select * from Pets;
 
 select * from Owners;
+select * from Pets;
+select * from bookings; 
 
 SELECT * FROM Pets WHERE (id_pet_owner = 1);
 select * from petsizes;
@@ -235,6 +240,8 @@ ON g.id = gxs.id_guardian
 LEFT JOIN petsizes AS ps
 ON gxs.id_petsize = ps.id 
 WHERE g.id = 1;
+
+select b.id, b.id_status, b.start_date, b.end_date, b.totalAmount, b.id_guardian, b.id_cupon
 
 
 /*

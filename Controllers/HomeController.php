@@ -1,23 +1,26 @@
 <?php
 
 namespace Controllers;
+
 use Controllers\AuthController as AuthController;
+use Models\Alert as Alert;
 
 class HomeController
 {
-    public function Index(){
+    public function Index()
+    {
         $auth = new AuthController();
-        if(isset($_SESSION["loggeduser"]))
-        {
-        $auth->showLandingPage($_SESSION["type"]);    
-        }else
-        {
-        $auth->login();
+        if (isset($_SESSION["loggeduser"])) {
+            $auth->showLandingPage($_SESSION["type"]);
+        } else {
+            $auth->login();
         }
     }
 
 
-    public function signUp(){
-       require_once(VIEWS_PATH . "signUp.php");
+    public function signUp()
+    {
+        $message = "";
+        require_once(VIEWS_PATH . "signUp.php");
     }
 }

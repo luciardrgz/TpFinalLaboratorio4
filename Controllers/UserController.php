@@ -14,9 +14,11 @@ use DB\PetDAO as PetDAO;
 use Models\Guardian as Guardian;
 use Models\Owner as Owner;
 use Models\Pet as Pet;
+use Models\Alert as Alert;
 use \Exception as Exception;
 
 use Controllers\AuthController as AuthController;
+use ExceptionHandler\SQLInsertExc;
 
 class UserController
 {
@@ -62,6 +64,9 @@ class UserController
             if ($_SESSION['type'] == 'O') {
                 $guardianList = array();
                 $guardianList = $this->guardianDAO->getAll();
+
+                $this->showErrorMsg();
+
                 require_once(VIEWS_PATH . "guardianList.php");
             } else {
                 require_once(VIEWS_PATH . "landingPageGuardian.php");
@@ -69,6 +74,24 @@ class UserController
         } else {
             require_once(VIEWS_PATH . "login.php");
         }
+    }
+
+
+    public function showErrorMsg()
+    {
+        // TODO: tirar una exception en cada uno
+        $message = null;
+        if (isset($_GET['datesMsg'])) {
+
+            $message = $message . " The dates you chose aren't available for this guardian";
+        } elseif (isset($_GET['sizesMsg'])) {
+
+            $message = $message . " The pet sizes you chose must be the same as the guardian's size preference";
+        } elseif (isset($_GET['breedsMsg'])) {
+
+            $message = $message . " You must select pets of the same breed";
+        }
+        echo $message;
     }
 
     public function showProfileInfo()
@@ -111,14 +134,21 @@ class UserController
                             $this->ownerDAO->add($owner);
                             $auth->login($email, $password);
                         }
+                        $message = "Usuario ingresado correctamente";
+                    } else {
+                        $message = "El usuario es menor a 16 años";
+                        require_once(VIEWS_PATH . "signUp.php");
                     }
+                } else {
+                    $message = "Este usuario ya existe";
+                    require_once(VIEWS_PATH . "signUp.php");
                 }
             } else {
                 require_once(VIEWS_PATH . "signUp.php");
             }
         } catch (Exception $exc) {
-            throw $exc;
-            echo "excepcion en add de usercontroller";
+            $message = $exc->getMessage();
+            require_once(VIEWS_PATH . "signUp.php");
         }
     }
 
@@ -186,10 +216,26 @@ class UserController
             if ($_SESSION['type'] == 'G') {
                 $user = new Guardian();
                 if ($firstDay > $lastDay) {
-                    echo 'esta mal';
                 } else {
                     $this->guardianDAO->updateDate($_SESSION['id'], $firstDay, $lastDay);
                 }
+                $user = $this->guardianDAO->getByEmail($_SESSION['email']);
+                require_once(VIEWS_PATH . "profile.php");
+            } else {
+                require_once(VIEWS_PATH . "landingPageOwner.php");
+            }
+        } else {
+            require_once(VIEWS_PATH . "login.php");
+        }
+    }
+
+    public function updatePrice($price)
+    {
+        if (isset($_SESSION['loggeduser'])) {
+            if ($_SESSION['type'] == 'G') {
+                $user = new Guardian();
+
+                $this->guardianDAO->updatePrice($_SESSION['id'], $price);
                 $user = $this->guardianDAO->getByEmail($_SESSION['email']);
                 require_once(VIEWS_PATH . "profile.php");
             } else {

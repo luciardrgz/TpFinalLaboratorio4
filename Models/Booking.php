@@ -1,4 +1,5 @@
 <?php
+
 namespace Models;
 
 class Booking
@@ -7,16 +8,19 @@ class Booking
     private $pet;
     private $startDate;
     private $endDate;
-    private $ownerEmail;
-    private $guardianEmail;
+    private $ownerId;
+    private $guardianId;
+    private $price;
 
-    function __construct($status = "", $pet = "", $startDate = "",$endDate = "",$ownerEmail = "",$guardianEmail = ""){
-        $this->status = $status;
+    function __construct($pet = "", $startDate = "", $endDate = "", $ownerId = "", $guardianId = "", $price = "")
+    {
+        $this->status = 1;
         $this->pet = $pet;
         $this->startDate = $startDate;
         $this->endDate = $endDate;
-        $this->ownerEmail = $ownerEmail;
-        $this->guardianEmail = $guardianEmail;
+        $this->ownerId = $ownerId;
+        $this->guardianId = $guardianId;
+        $this->price = $price;
     }
 
 
@@ -34,7 +38,7 @@ class Booking
     {
         return $this->pet;
     }
- 
+
     public function setPet($pet)
     {
         $this->pet = $pet;
@@ -60,26 +64,33 @@ class Booking
         $this->endDate = $endDate;
     }
 
-    public function getOwnerEmail()
+    public function getOwnerId()
     {
-        return $this->ownerEmail;
+        return $this->ownerId;
     }
 
-    public function setOwnerEmail($ownerEmail)
+    public function setOwnerId($ownerId)
     {
-        $this->ownerEmail = $ownerEmail;
+        $this->ownerId = $ownerId;
     }
 
-    public function getGuardianEmail()
+    public function getGuardianId()
     {
-        return $this->GuardianEmail;
+        return $this->guardianId;
     }
 
-    public function setGuardianEmail($GuardianEmail)
+    public function setGuardianId($guardianId)
     {
-        $this->GuardianEmail = $GuardianEmail;
+        $this->guardianId = $guardianId;
     }
 
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    public function setPrice($price)
+    {
+        $this->price = $price;
+    }
 }
-
-?>

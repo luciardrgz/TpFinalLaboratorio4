@@ -60,11 +60,11 @@ include("navOwner.php");
 
                                         <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
                                             <li class="mr-md-4">
-                                                <?php echo "<br>Raza: " . $breedDAO->getBreedName($pets->getBreed()); ?>
-                                                <?php echo "<br>Tamaño: " . $pets->getSizeText(); ?>
-                                                <?php echo "<br>Foto: " . $pets->getPicture(); ?>
+                                                <?php echo "<br>Breed: " . $breedDAO->getBreedName($pets->getBreed()); ?>
+                                                <?php echo "<br>Size: " . $pets->getSizeText(); ?>
+                                                <?php echo "<br>Picture: " . $pets->getPicture(); ?>
                                                 <?php echo "<br>Video: " . $pets->getVideo(); ?>
-                                                <?php echo "<br>Vacunas: " . $pets->getVaccination(); ?>
+                                                <?php echo "<br>Vaccines: " . $pets->getVaccination(); ?>
 
                                             </li>
                                         </ul>

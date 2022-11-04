@@ -6,9 +6,10 @@ use Controllers\AuthController as AuthController;
 use Controllers\UserController as UserController;
 use Models\Guardian as Guardian;
 use Models\Pet as Pet;
+use Models\Booking as Booking;
 use DB\PetDAO as PetDAO;
 use DB\BookingDAO as BookingDAO;
-use DB\BreedDAO;
+use DB\BreedDAO as BreedDAO;
 use DB\GuardianDAO as GuardianDAO;
 //use JSON\BookingDAO as BookingDAO;
 
@@ -25,13 +26,37 @@ class BookingController
         }
     }
 
+    public function add($firstDay = "", $lastDay = "", $guardianId = "", $price = "")
+    {
+        if (isset($_SESSION['loggeduser'])) {
+            if ($_SESSION['type'] == 'O') {
+                if ($firstDay != '' && $lastDay != '' && $guardianId != '' && $price != '') {
+
+                    $booking =  new Booking($_GET['arraypets'], $firstDay, $lastDay, $_SESSION["id"], $guardianId, $price);
+                    //$bookingDAO = new BookingDAO();
+                    //$bookingDAO->add($booking);
+                    echo 'Var dump booking:  ';
+                    var_dump($booking);
+                    $message = "You've succesfully made a booking!";
+                } else {
+                    $message = "Failed to load data";
+                    require_once(VIEWS_PATH . "GuardianList.php");
+                }
+            } else {
+                require_once(VIEWS_PATH . "Home");
+            }
+        } else {
+            require_once(VIEWS_PATH . "login.php");
+        }
+    }
+
     public function bookDate($id = '', $selectedPet =  '', $firstDay = '', $lastDay = '')
     {
         if (isset($_SESSION['loggeduser'])) {
 
             $userController = new UserController();
             $petDAO = new PetDAO();
-            
+
             if ($_SESSION['type'] == 'O') {
                 // Si viene de la guardian list
                 if ($id != '' && $selectedPet == '') {
@@ -53,16 +78,16 @@ class BookingController
                                 $guardian = new Guardian();
                                 $guardianDao = new GuardianDAO();
                                 $guardian = $guardianDao->getById($id);
-                                
+
                                 require_once(VIEWS_PATH . "bookingConfirmation.php");
                             } else {
-                                echo 'El rango de fechas ingresado no esta disponible para este Guardian';
+                                header("location:" . FRONT_ROOT . "User/showGuardianList?datesMsg");
                             }
                         } else {
-                            echo 'El tamaño de tus mascotas deben ser de la preferencia del guardian';
+                            header("location:" . FRONT_ROOT . "User/showGuardianList?sizesMsg");
                         }
                     } else {
-                        echo 'Se deben enviar mascotas de la misma raza';
+                        header("location:" . FRONT_ROOT . "User/showGuardianList?breedsMsg");
                     }
                 }
 
