@@ -16,7 +16,7 @@ include("navOwner.php");
     <title></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH . "BookingHistory.css" ?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH . "list.css" ?>">
 </head>
 
 <body>
@@ -26,11 +26,6 @@ include("navOwner.php");
 
     <div class="container">
         <div class="row">
-            <div class="col-lg-10 mx-auto mb-4">
-                <div class="section-title text-center ">
-                    <h3 class="top-c-sep"><br>Your Pets</h3>
-                </div>
-            </div>
         </div>
 
         <div class="row">
@@ -42,26 +37,43 @@ include("navOwner.php");
                     $breedDAO = new BreedDAO();
 
                     if ($petList != null) {
-                        foreach ($petList as $pets) { ?>
+                    ?>
+
+                    <div class="title-div">
+                        <h3 class="list-title">Your lovely pets</h3>
+                    </div>
+
+                    <?php foreach ($petList as $pets) { ?>
 
                     <div class="filter-result">
 
                         <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
                             <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
+
                                 <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
-                                    PL
-                                    <!-- foto según pettype-->
+                                    <img src="<?php echo $pets->getPicture(); ?>" />
                                 </div>
+
                                 <div class="job-content">
 
-                                    <h5 class="text-md-left"><?php echo $pets->getName(); ?></h5>
+                                    <h5 class="h5-pets"><?php echo $pets->getName(); ?></h5>
 
-                                    <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
+                                    <ul>
                                         <li class="mr-md-4">
+
                                             <?php echo "<br>Breed: " . $breedDAO->getBreedName($pets->getBreed()); ?>
-                                            <?php echo "<br>Picture: " . $pets->getPicture(); ?>
-                                            <?php echo "<br>Video: " . $pets->getVideo(); ?>
-                                            <?php echo "<br>Vaccines: " . $pets->getVaccination(); ?>
+
+                                            <?php if ($pets->getVideo() != null) {
+                                                        echo "<br>Video: " . $pets->getVideo();
+                                                    } else {
+                                                        echo "<br>No video available";
+                                                    } ?>
+
+                                            <br><label>Vaccines: </label> <br>
+                                            <div class="vacc-pic">
+                                                <img src="<?php echo $pets->getVaccination(); ?>" />
+                                            </div>
+
                                             <?php if ($pets->getType() == "D") {
                                                         echo "<br>Size: " . $pets->getSizeText();
                                                     } ?>
@@ -70,11 +82,18 @@ include("navOwner.php");
                                 </div>
                             </div>
                             <div class="job-right my-4 flex-shrink-0">
-                                <a href="#" class="btn d-block w-100 d-sm-inline-block btn-light">Remove</a>
+                                <a href="<?php echo FRONT_ROOT . "Pet/remove/" . $pets->getId(); ?>"
+                                    class="btn d-block w-100 d-sm-inline-block btn-light"
+                                    onclick="return confirm('Are you sure that you want to remove that pet?')">Remove</a>
                             </div>
                         </div>
                         <?php
                         }
+                    } else { ?>
+                        <div class="title-div">
+                            <h3 class="list-title">You haven't added any pets yet :(</h3>
+                        </div>
+                        <?php
                     } ?>
 
                     </div>

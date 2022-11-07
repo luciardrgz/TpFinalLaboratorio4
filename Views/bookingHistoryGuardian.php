@@ -11,12 +11,15 @@ include("navGuardian.php");
 
 <head>
     <title></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH . "bookingHistory.css" ?>">
 </head>
 
 <body>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css"
+        integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
 
     <div class="container">
         <div class="row">
@@ -36,7 +39,8 @@ include("navGuardian.php");
 
                             <div class="col-md-6 col-lg-3 my-3">
                                 <div class="input-group position-relative">
-                                    <input type="text" class="form-control" placeholder="Enter a Pet's Name" id="keywords">
+                                    <input type="text" class="form-control" placeholder="Enter a Pet's Name"
+                                        id="keywords">
                                 </div>
                             </div>
 
@@ -71,7 +75,7 @@ include("navGuardian.php");
                                 </div>
                                 <div class="job-content">
                                     <h5 class="text-md-left">Booking 1</h5>
-                                    <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
+                                    <ul class="d-md-flex flex-wrap ff-open-sans">
                                         <li class="mr-md-4">
                                             <i class="zmdi zmdi-pin mr-2"></i> Los Angeles
                                         </li>
@@ -96,7 +100,7 @@ include("navGuardian.php");
                                 </div>
                                 <div class="job-content">
                                     <h5 class="text-md-left">Booking 2</h5>
-                                    <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
+                                    <ul class="d-md-flex flex-wrap ff-open-sans">
                                         <li class="mr-md-4">
                                             <i class="zmdi zmdi-pin mr-2"></i> Los Angeles
                                         </li>
@@ -121,7 +125,7 @@ include("navGuardian.php");
                                 </div>
                                 <div class="job-content">
                                     <h5 class="text-md-left">Booking 3</h5>
-                                    <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
+                                    <ul class="d-md-flex flex-wrap ff-open-sans">
                                         <li class="mr-md-4">
                                             <i class="zmdi zmdi-pin mr-2"></i> Los Angeles
                                         </li>
@@ -146,7 +150,7 @@ include("navGuardian.php");
                                 </div>
                                 <div class="job-content">
                                     <h5 class="text-md-left">Booking 4</h5>
-                                    <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
+                                    <ul class="d-md-flex flex-wrap ff-open-sans">
                                         <li class="mr-md-4">
                                             <i class="zmdi zmdi-pin mr-2"></i> Los Angeles
                                         </li>

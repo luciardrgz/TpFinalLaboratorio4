@@ -82,6 +82,20 @@ class PetController
         return $catsList;
     }
 
+    function remove($id)
+    {
+        if (isset($_SESSION['loggeduser'])) {
+            if ($_SESSION['type'] == 'O') {
+                $this->petDAO->remove($id);
+                header("location:" . FRONT_ROOT . "Pet/listPets");
+            } else {
+                require_once(VIEWS_PATH . "landingPageOwner.php");
+            }
+        } else {
+            require_once(VIEWS_PATH . "login.php");
+        }
+    }
+
     public function Index()
     {
         if (isset($_SESSION["loggeduser"])) {

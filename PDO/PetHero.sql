@@ -160,26 +160,23 @@ insert into PetTypes (type_description) values
 ('Dog'), ('Cat');
 
 insert into PetBreeds (breed, id_pet_type) values
-('Labrador', 1), ('Golden', 1), ('Chihuahua', 1), ('Husky', 1), ('Shepard', 1),
-('Sphynx', 2), ('Persian', 2), ('Ragdoll', 2), ('Scottish', 2);
+('Labrador', 1), ('Golden', 1), ('Chihuahua', 1), ('Husky', 1), ('Shepherd', 1),
+('Sphynx', 2), ('Persian', 2), ('Ragdoll', 2), ('Scottish', 2), ('Tuxedo', 2);
 
 insert into PetSizes (size) values
 ('Small'), ('Medium'), ('Big');
 
 insert into BookingStatus (booking_status) values ('Waiting'), ('Accepted'), ('Rejected'), ('Finished');
 
-
 #Selects 
 
 SELECT * FROM PetTypes;
 SELECT * FROM BookingStatus;
 SELECT * FROM Owners;
-SELECT * FROM bookings; 
+SELECT * FROM Bookings; 
 SELECT * FROM Pets;
-SELECT * FROM petsizes;
+SELECT * FROM PetSizes;
 SELECT * FROM PetBreeds;
-SELECT * FROM guardians;
-SELECT * FROM ownerxbooking;
-
-
+SELECT * FROM Guardians;
+SELECT * FROM OwnerXBooking;
 

@@ -19,7 +19,7 @@ include("navOwner.php");
 <body>
 
     <!-- Carrusel -->
-    <div class=" carrusel">
+    <div class="carousel">
         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
@@ -95,16 +95,27 @@ include("navOwner.php");
             </div>
         </div>
 
-        <!-- Script -->
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-            integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
-            integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
-        </script>
+        <div class="container">
+            <!-- Our Card -->
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col2">
+                    <div class="card2">
+                        <div class="card-body">
+                            Lab 4 2022 - <b>Alemán Tomás, Lalli Brian, Rodriguez Lucía</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    </div>
+            <!-- Carousel Script -->
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+                integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+                crossorigin="anonymous">
+            </script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+                integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
+                crossorigin="anonymous">
+            </script>
 </body>
-
 
 </html>

@@ -4,26 +4,15 @@
   font-family: "Montserrat", sans-serif;
 }
 
-html,
 body {
   background-image: url("https://cdn.discordapp.com/attachments/1022513613375807644/1032661379414491146/unknown.png");
-  /*https://images.ctfassets.net/rt5zmd3ipxai/eVijz3sFJ4rvPKW0aNP5z/3b023e93083c2f0492d02d1d86c99d40/Untitled_design__8_.png*/
-}
-
-.container {
-  width: 100%;
-  height: 100%;
+  background-repeat: repeat;
+  height: 1000px;
 }
 
 .carousel {
   height: 100px;
   width: 100%;
-}
-
-.carousel-item {
-  text-align: center;
-  /*width: 1920px;*/
-  height: 1500px;
 }
 
 .carousel-control-prev {
@@ -43,33 +32,30 @@ body {
 }
 
 .col {
-  margin-top: 350px;
-  height: 350px;
+  margin-top: 400px;
   align-content: center;
+  margin-bottom: 100px;
 }
 
 .card {
   width: 400px;
   height: 350px;
   border: 5px solid rgb(255, 255, 255);
-  /*
+}
+
+.col2 {
+  width: 100%;
+  align-content: center;
+  color: white;
+}
+
+.card2 {
   align-items: center;
-  align-content: center;*/
-}
+  text-align: center;
 
-/*
-.card-body {
-  margin-bottom: -0px;
+  margin-left: -130px;
+  width: 1525px;
+  height: 50px;
+  background-color: rgb(14, 59, 80);
+  padding-top: 12px;
 }
-
-.card-text-uno {
-  color: black;
-  margin-bottom: 0px;
-  margin-left: -124px;
-}
-
-.card-text {
-  color: black;
-  margin-left: -157px;
-  margin-bottom: -80px;
-}*/

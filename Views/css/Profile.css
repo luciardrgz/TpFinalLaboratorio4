@@ -8,7 +8,7 @@ body {
 
 .emp-profile {
   padding: 3%;
-  margin-top: 3%;
+  margin-top: 30px;
   margin-bottom: 3%;
   border-radius: 0.5rem;
   background: rgba(255, 255, 255, 0.871);
@@ -64,10 +64,6 @@ span {
   font-weight: 800;
 }
 
-.profile-tab label {
-  font-weight: bold !important;
-}
-
 .profile-tab p {
   margin-top: 50px;
   font-family: "Montserrat", sans-serif;
@@ -75,17 +71,85 @@ span {
   color: #cc0000;
 }
 
-.profile-edit-btn {
+.profile-btns {
   border: none;
-  border-radius: 1.5rem;
+  border-radius: 5px;
   width: 70%;
   padding: 2%;
-  font-weight: 600;
+  font-weight: bold;
   background-color: #ffc312;
-  color: #000000;
+  color: #816102;
   cursor: pointer;
 }
 
-.dateSelection{
-  border-radius: 0.5rem;
+.dates-div {
+  font-size: 15px;
+  font-weight: bold;
+  padding: 10px 35px 10px 10px;
+  margin-bottom: 5px;
+}
+
+.first-day-selector {
+  background-color: lightgray;
+  padding: 5px;
+  margin-left: 15px;
+  color: black;
+  font-size: 15px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
+}
+
+.last-day-selector {
+  background-color: lightgray;
+  padding: 5px;
+  margin-left: 40px;
+  color: black;
+  font-size: 15px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
+}
+
+.edit-subtitle {
+  font-size: 18px;
+}
+
+.size-pref {
+  width: 225px;
+  border-radius: 5px;
+  height: 40px;
+  border-color: rgb(189, 189, 189);
+  color: gray;
+}
+
+.price-input {
+  width: 100px;
+  height: 40px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  padding: 0px 0px 0px 20px;
+  transition: width 0.4s ease-in-out;
+}
+
+.price-input:focus {
+  width: 210px;
+}
+
+label {
+  font-weight: bold;
+}
+
+.note {
+  margin-top: 20px;
+  color: rgba(128, 128, 128, 0.796);
+}
+
+.note-txt {
+  font-weight: normal;
 }

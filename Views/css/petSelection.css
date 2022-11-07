@@ -15,9 +15,9 @@ body {
   padding: 0 16px;
 }
 
-/* Booking History */
+/* Titulo principal */
 h3 {
-  color: #f2c459e1;
+  color: rgb(51, 83, 98);
   font-weight: 800;
 }
 
@@ -33,12 +33,6 @@ h3 {
 /* Texto Enter a Pet's Name*/
 .career-form .form-control::-webkit-input-placeholder {
   color: rgb(255, 255, 255);
-}
-
-/* Títulos de cada bloque*/
-h5 {
-  font-weight: 800;
-  margin-left: 30px;
 }
 
 /* Select Pet Type*/
@@ -63,7 +57,7 @@ h5 {
   position: relative;
 }
 
-/* Cada cajita que se muestra */
+/* Cada cajita de info */
 .filter-result .job-box {
   -webkit-box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
   box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.2);
@@ -72,33 +66,101 @@ h5 {
   padding: 10px 35px;
 }
 
+.h5-pets {
+  font-weight: bold;
+  margin-left: 30px;
+  margin-bottom: -20px;
+}
+
 /* Evita que muestre el punto por default de las ul*/
 ul {
   list-style: none;
+  line-height: 30px;
 }
 
 /*Contenedor de imagen*/
-.job-box .img-holder {
+.job-box .img-holder,
+.img-holder img {
   height: 65px;
   width: 65px;
-  background-image: linear-gradient(
-    to right,
-    rgb(51, 83, 98),
-    rgb(78, 108, 122)
-  );
-  color: #fff;
-  font-size: 22px;
-  font-weight: 700;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  object-fit: cover;
+  background-color: lightyellow;
   border-radius: 65px;
+}
+
+/* Vaccination pic */
+.vacc-pic,
+.vacc-pic img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+/* Custom Pet Select checkbox */
+.pet-select-container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 18px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hides the browser's default checkbox */
+.pet-select-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Custom checkbox */
+.checkmark {
+  color: black;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  background-color: white;
+}
+
+.pet-select-container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When Select is selected*/
+.pet-select-container input:checked ~ .checkmark {
+  background-color: rgb(51, 83, 98);
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.pet-select-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.pet-select-container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
 }
 
 .career-title {
@@ -117,75 +179,57 @@ ul {
   background-image: linear-gradient(to right, #ffc312, #ffdc74);
 }
 
-.job-overview {
-  -webkit-box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
-  box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
-  border-radius: 10px;
-}
-
-@media (min-width: 992px) {
-  .job-overview {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 70px;
-  }
-}
-
-.job-overview .job-detail ul {
-  margin-bottom: 28px;
-}
-
-.job-overview .job-detail ul li {
-  opacity: 0.75;
-  font-weight: 800;
-  margin-bottom: 15px;
-}
-
-.job-overview .job-detail ul li i {
-  font-size: 20px;
-  position: relative;
-  top: 1px;
-}
-
-.job-overview .overview-bottom,
-.job-overview .overview-top {
-  padding: 35px;
-}
-
-.job-content ul li {
-  font-weight: 600;
-  opacity: 0.75;
-  border-bottom: 1px solid #ccc;
-  padding: 10px 5px;
-}
-
-@media (min-width: 768px) {
-  .job-content ul li {
-    border-bottom: 0;
-    padding: 0;
-  }
-}
-
-.job-content ul li i {
-  font-size: 20px;
-  position: relative;
-  top: 1px;
-}
 .mb-30 {
   margin-bottom: 30px;
 }
 
-button {
-  margin-left: 120px;
-  height: 45px;
-}
-
-.petSelectCheckbox {
-  color: white;
-  background-color: red;
-}
-
 .submitBtnBox {
-  padding: 500px 500px 500px 500px;
-  background-color: red;
+  text-align: center;
+  margin-top: 80px;
+  margin-bottom: 40px;
+}
+
+button {
+  height: 45px;
+  width: 100%;
+  background-color: rgb(38, 78, 97);
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+}
+
+.instructions-div {
+  text-align: center;
+  -webkit-box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
+  margin-top: 30px;
+  box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.2);
+  background-color: #f2c459f4;
+  border-radius: 10px;
+  padding: 10px 35px 30px 30px;
+}
+
+.dates-div {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  -webkit-box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
+  margin-top: 10px;
+  margin-bottom: 32px;
+  box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.2);
+  background-color: #f2c459e1;
+  border-radius: 10px;
+  padding: 10px 35px 10px 10px;
+}
+
+.dateSelection {
+  background-color: #efa908;
+  padding: 5px;
+  color: black;
+  font-size: 15px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  margin: 0px 30px 0px 10px;
 }

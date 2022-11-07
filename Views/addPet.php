@@ -26,122 +26,124 @@ include("navOwner.php");
 </head>
 
 <body>
-    <section class="vh-100 gradient-custom">
-        <div class="container py-5 h-100">
 
-            <div class="row justify-content-center align-items-center h-100">
+    <div class="container py-5 h-100">
 
-                <div class="col-12 col-lg-9 col-xl-7">
+        <div class="row justify-content-center align-items-center h-100">
 
-                    <div class="formBoxBg" style="border-radius: 15px;">
+            <div class="col-12 col-lg-9 col-xl-7">
 
-                        <div class="card-body p-4 p-md-5">
+                <div class="formBoxBg">
 
-                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5"><b>Add a new pet</b></h3>
+                    <div class="card-body p-4 p-md-5">
 
-                            <form action="<?php echo FRONT_ROOT . "Pet/addPet" ?>" method="POST">
+                        <h3 class="add-title">Add a new pet</h3>
 
-                                <div class="row">
-                                    <div class="col-md-6 mb-4">
-                                        <div class="form-outline">
-                                            <label class="form-label" for="petName">Pet Name*</label>
-                                            <input type="text" name="petName" id="petName"
-                                                class="form-control form-control-lg" placeholder="Your pet's name"
-                                                required>
-                                        </div>
+                        <form action="<?php echo FRONT_ROOT . "Pet/addPet" ?>" method="POST">
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="petName">Pet name*</label>
+                                        <input type="text" name="petName" id="petName"
+                                            class="form-control form-control-lg" placeholder="Your pet's name" required>
                                     </div>
-                                    <div class="col-md-6 mb-4 pb-2">
-                                        <label class="form-label select-label">Pet size</label> <br>
-                                        <select name="size" id="size" class="select form-control-lg">
-                                            <option value="1">Small</option>
-                                            <option value="2">Medium</option>
-                                            <option value="3">Big</option>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label select-label">Size*</label> <br>
+                                    <select name="size" id="size" class="select form-control-lg" required>
+                                        <option value="1">Small</option>
+                                        <option value="2">Medium</option>
+                                        <option value="3">Big</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label select-label">Type*</label> <br>
+                                    <label class="petTypeCheck">
+                                        <input type="radio" name="type" id="Dog" value="1" onclick="showBreedSelect()"
+                                            required>
+                                        Dog
+                                    </label>
+
+                                    &nbsp;&nbsp;
+
+                                    <label class=" petTypeCheck">
+                                        <input type="radio" name="type" id="Cat" value="2" onclick="showBreedSelect()"
+                                            required>
+                                        Cat
+                                    </label>
+                                </div>
+
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline datepicker w-100">
+                                        <label for="breed" class="form-label">Breed*</label><br>
+                                        <select name="breed" id="selectCatBreed" class="select form-control-lg" hidden>
+
+                                            <?php if ($catBreedsList != null) {
+                                                echo "NO ES NULL CATBREEDS";
+                                                foreach ($catBreedsList as $catBreed) { ?>
+                                            <option value="<?php echo $catBreed->getId(); ?>">
+                                                <?php echo $catBreed->getBreed(); ?>
+                                            </option>
+                                            <?php }
+                                            } ?>
+                                        </select>
+
+                                        <select name="breed" id="selectDogBreed" class="select form-control-lg" hidden>
+
+                                            <?php if ($dogBreedsList != null) {
+                                                echo "NO ES NULL DOGBREEDS";
+                                                foreach ($dogBreedsList as $dogBreed) { ?>
+                                            <option value="<?php echo $dogBreed->getId(); ?>">
+                                                <?php echo $dogBreed->getBreed(); ?>
+                                            </option>
+                                            <?php }
+                                            } ?>
                                         </select>
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-md-6 mb-4 pb-2">
-                                        <label class="form-label select-label">Pet type*</label> <br>
-                                        <label class="petTypeCheck">
-                                            <input type="radio" name="type" id="Dog" value="1"
-                                                onclick="showBreedSelect()">
-                                            Dog &nbsp;&nbsp;
-                                        </label>
+                            </div>
 
-                                        <label class=" petTypeCheck">
-                                            <input type="radio" name="type" id="Cat" value="2"
-                                                onclick="showBreedSelect()"> Cat
-                                        </label>
-                                    </div>
-
-                                    <div class="col-md-6 mb-4">
-                                        <div class="form-outline datepicker w-100">
-                                            <label for="breed" class="form-label">Breed*</label><br>
-                                            <select name="breed" id="selectCatBreed" class="select form-control-lg">
-
-                                                <?php if ($catBreedsList != null) {
-                                                    echo "NO ES NULL CATBREEDS";
-                                                    foreach ($catBreedsList as $catBreed) { ?>
-                                                <option value="<?php echo $catBreed->getId(); ?>">
-                                                    <?php echo $catBreed->getBreed(); ?>
-                                                </option>
-                                                <?php }
-                                                } ?>
-                                            </select>
-
-                                            <select name="breed" id="selectDogBreed" class="select form-control-lg">
-
-                                                <?php if ($dogBreedsList != null) {
-                                                    echo "NO ES NULL DOGBREEDS";
-                                                    foreach ($dogBreedsList as $dogBreed) { ?>
-                                                <option value="<?php echo $dogBreed->getId(); ?>">
-                                                    <?php echo $dogBreed->getBreed(); ?>
-                                                </option>
-                                                <?php }
-                                                } ?>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-4">
-                                        <div class="form-outline">
-                                            <label class="form-label" for="picture">Picture URL*</label>
-                                            <input type="text" name="pictureURL" class="form-control form-control-lg"
-                                                placeholder="Your pet's picture" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-4 pb-2">
-                                        <div class="form-outline">
-                                            <label class="form-label" for="vacc">Vaccination Certificate URL*</label>
-                                            <input type="text" name="vaccination" class="form-control form-control-lg"
-                                                placeholder="Your pet's vaccines" required>
-                                        </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="picture">Picture URL*</label>
+                                        <input type="text" name="pictureURL" class="form-control form-control-lg"
+                                            placeholder="Your pet's picture" required>
                                     </div>
                                 </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-4 pb-2">
-                                        <div class="form-outline">
-                                            <label class="form-label" for="video">Video URL (optional)</label>
-                                            <input type="text" name="video" id="video"
-                                                class="form-control form-control-lg" placeholder="Your pet's video">
-                                        </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="vacc">Vaccination Certificate URL*</label>
+                                        <input type="text" name="vaccination" class="form-control form-control-lg"
+                                            placeholder="Your pet's vaccines" required>
                                     </div>
                                 </div>
+                            </div>
 
-                                <button name="submit" type="submit" class="btn btn-warning">Submit</button>
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="video">Video URL (optional)</label>
+                                        <input type="text" name="video" id="video" class="form-control form-control-lg"
+                                            placeholder="Your pet's video">
+                                    </div>
+                                </div>
+                                <div class="submit-pet-btn">
+                                    <button name="submit" type="submit" class="btn btn-warning">Submit</button>
+                                </div>
+                            </div>
+                        </form>
 
-                            </form>
-
-                        </div>
                     </div>
                 </div>
             </div>
-    </section>
+        </div>
+
 </body>
 
 </html>

@@ -188,4 +188,18 @@ class PetDAO /*implements IPetDAO*/
             echo ' excepcion en getDogsByOwnerEmail';
         }
     }
+
+    public function remove($id)
+    {
+        try {
+            $query = "DELETE FROM " . $this->tableName . " WHERE id = :id;";
+
+            $parameters["id"] = $id;
+
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters);
+        } catch (Exception $ex) {
+            echo ' excepcion en remove de PetDAO';
+        }
+    }
 }

@@ -13,7 +13,7 @@ class BookingDAO
     private $connection;
     private $tableName = "Bookings";
 
-     function add(Booking $booking)
+    function add(Booking $booking)
     {
         try {
             $query = "INSERT INTO " . $this->tableName . " 
@@ -26,12 +26,11 @@ class BookingDAO
             $parameters["totalAmount"] = $booking->getPrice();
             $parameters["idGuardian"] = $booking->getGuardianId();
 
-            $this->connection = Connection::GetInstance(); 
+            $this->connection = Connection::GetInstance();
 
             $this->connection->ExecuteNonQuery($query, $parameters);
 
-            $this->addOwnerXBooking($booking->getOwnerId());
-
+            // $this->addOwnerXBooking($booking->getOwnerId());
         } catch (Exception $exc) {
             throw $exc;
             //echo "excepcion en add guardian";
@@ -47,8 +46,8 @@ class BookingDAO
             VALUES (:idOwner, idBooking);";
 
             $parameters["idOwner"] = $idOwner;
-            $parameters["idBooking"] = $idBooking
-         
+            $parameters["idBooking"] = $idBooking;
+
             $this->connection = Connection::GetInstance();
 
             $this->connection->ExecuteNonQuery($query, $parameters);
@@ -60,9 +59,8 @@ class BookingDAO
 
     public function getBookingId()
     {
-        
     }
-/*
+    /*
     function getAll()
     {
         try {

@@ -35,12 +35,6 @@ h3 {
   color: rgb(255, 255, 255);
 }
 
-/* Títulos de cada bloque*/
-h5 {
-  font-weight: 800;
-  margin-left: 30px;
-}
-
 /* Select Pet Type*/
 .career-form .custom-select {
   background-color: rgba(255, 255, 255, 0.2);
@@ -63,7 +57,18 @@ h5 {
   position: relative;
 }
 
-/* Cada cajita que se muestra */
+.h5-guardians {
+  margin-left: 30px;
+  font-weight: 800;
+}
+
+.h5-pets {
+  font-weight: bold;
+  margin-left: 30px;
+  margin-bottom: -20px;
+}
+
+/* Cada cajita con info */
 .filter-result .job-box {
   -webkit-box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
   box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.2);
@@ -75,10 +80,53 @@ h5 {
 /* Evita que muestre el punto por default de las ul*/
 ul {
   list-style: none;
+  line-height: 40px;
 }
 
-/*Contenedor de imagen*/
-.job-box .img-holder {
+/* Pet pic */
+.job-box .img-holder,
+.img-holder img {
+  height: 65px;
+  width: 65px;
+  object-fit: cover;
+  background-color: lightyellow;
+  border-radius: 65px;
+}
+
+/* Vaccination pic */
+.vacc-pic,
+.vacc-pic img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.career-title {
+  background-color: #ffc312;
+  color: #fff;
+  padding: 15px;
+  text-align: center;
+  border-radius: 10px 10px 0 0;
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(#ffc312),
+    to(#ffdc74)
+  );
+  background-image: linear-gradient(to right, #ffc312, #ffdc74);
+}
+
+.mb-30 {
+  margin-bottom: 30px;
+}
+
+button {
+  margin-left: 120px;
+  height: 45px;
+}
+
+.job-box .guardian-id {
   height: 65px;
   width: 65px;
   background-image: linear-gradient(
@@ -101,81 +149,17 @@ ul {
   border-radius: 65px;
 }
 
-.career-title {
-  background-color: #ffc312;
-  color: #fff;
-  padding: 15px;
+.title-div {
   text-align: center;
-  border-radius: 10px 10px 0 0;
-  background-image: -webkit-gradient(
-    linear,
-    left top,
-    right top,
-    from(#ffc312),
-    to(#ffdc74)
-  );
-  background-image: linear-gradient(to right, #ffc312, #ffdc74);
-}
-
-.job-overview {
   -webkit-box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
-  box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
+  box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.2);
+  background-color: #f2c459ec;
   border-radius: 10px;
-}
-
-@media (min-width: 992px) {
-  .job-overview {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 70px;
-  }
-}
-
-.job-overview .job-detail ul {
-  margin-bottom: 28px;
-}
-
-.job-overview .job-detail ul li {
-  opacity: 0.75;
-  font-weight: 800;
-  margin-bottom: 15px;
-}
-
-.job-overview .job-detail ul li i {
-  font-size: 20px;
-  position: relative;
-  top: 1px;
-}
-
-.job-overview .overview-bottom,
-.job-overview .overview-top {
-  padding: 35px;
-}
-
-.job-content ul li {
-  font-weight: 600;
-  opacity: 0.75;
-  border-bottom: 1px solid #ccc;
-  padding: 10px 5px;
-}
-
-@media (min-width: 768px) {
-  .job-content ul li {
-    border-bottom: 0;
-    padding: 0;
-  }
-}
-
-.job-content ul li i {
-  font-size: 20px;
-  position: relative;
-  top: 1px;
-}
-.mb-30 {
+  padding: 15px 10px 10px 10px;
+  margin-top: 30px;
   margin-bottom: 30px;
 }
 
-button {
-  margin-left: 120px;
-  height: 45px;
+.list-title {
+  color: rgb(51, 83, 98);
 }

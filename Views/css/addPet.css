@@ -5,13 +5,10 @@
 }
 
 html,
-body,
-.gradient-custom {
-  background-image: url("https://cdn.shopify.com/s/files/1/0325/4524/3274/files/D-fCuGVX4AAKrCt.jpg?v=1616718362");
+body {
+  background-image: url("https://wallpapercrafter.com/sizes/1920x1080/292447-dog-cat-animals-friend-animal-pet.jpg");
   background-size: cover;
   background-repeat: no-repeat;
-  height: 100%;
-  font-family: "Montserrat", sans-serif;
 }
 
 .card-registration .select-input.form-control[readonly]:not([disabled]) {
@@ -22,17 +19,38 @@ body,
 }
 
 .formBoxBg {
-  margin-top: -30px;
-  background-color: rgba(0, 0, 0, 0.5) !important;
+  margin-top: -10px;
+  background-color: rgba(255, 255, 255, 0.871);
+  border-radius: 15px;
 }
 
 label,
 h3,
 h6,
 .petTypeCheck {
-  color: white;
+  color: black;
 }
 
 .card-registration .select-arrow {
   top: 13px;
+}
+
+.submit-pet-btn {
+  margin-left: 15px;
+  margin-top: 32px;
+}
+
+button {
+  height: 48px;
+  width: 255px;
+}
+
+select {
+  border-color: rgb(189, 189, 189);
+  color: gray;
+}
+
+.add-title {
+  font-weight: bold;
+  margin-bottom: 20px;
 }
