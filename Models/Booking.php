@@ -40,6 +40,19 @@ class Booking
         return $this->status;
     }
 
+    public function getStatusText()
+    {
+        if ($this->status == 1) {
+            return "Waiting";
+        } elseif ($this->status == 2) {
+            return "Accepted";
+        } elseif ($this->status == 3) {
+            return "Rejected";
+        } else {
+            return "Finished";
+        }
+    }
+
     public function setStatus($status)
     {
         $this->status = $status;

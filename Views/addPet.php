@@ -83,7 +83,6 @@ include("navOwner.php");
                                         <select name="breed" id="selectCatBreed" class="select form-control-lg" hidden>
 
                                             <?php if ($catBreedsList != null) {
-                                                echo "NO ES NULL CATBREEDS";
                                                 foreach ($catBreedsList as $catBreed) { ?>
                                             <option value="<?php echo $catBreed->getId(); ?>">
                                                 <?php echo $catBreed->getBreed(); ?>
@@ -95,7 +94,6 @@ include("navOwner.php");
                                         <select name="breed" id="selectDogBreed" class="select form-control-lg" hidden>
 
                                             <?php if ($dogBreedsList != null) {
-                                                echo "NO ES NULL DOGBREEDS";
                                                 foreach ($dogBreedsList as $dogBreed) { ?>
                                             <option value="<?php echo $dogBreed->getId(); ?>">
                                                 <?php echo $dogBreed->getBreed(); ?>

@@ -11,6 +11,9 @@ use DB\OwnerDAO as OwnerDAO;
 use DB\PetDAO as PetDAO;
 //use JSON\PetDAO as PetDAO;
 
+use DB\BookingDAO as BookingDAO;
+//use JSON\BookingDAO as BookingDAO;
+
 use Models\Guardian as Guardian;
 use Models\Owner as Owner;
 use Models\Pet as Pet;
@@ -49,15 +52,6 @@ class UserController
         }
     }
 
-    function showBookingHistoryPage($type)
-    {
-        if ($type == 'G') {
-            require_once(VIEWS_PATH . "bookingHistoryGuardian.php");
-        } else {
-            require_once(VIEWS_PATH . "landingPageOwner.php");
-        }
-    }
-
     public function showGuardianList()
     {
         if (isset($_SESSION['loggeduser'])) {
@@ -65,7 +59,7 @@ class UserController
                 $guardianList = array();
                 $guardianList = $this->guardianDAO->getAll();
 
-                $message =$this->getErrorMsg();
+                $message = $this->getErrorMsg();
 
                 require_once(VIEWS_PATH . "guardianList.php");
             } else {
@@ -76,13 +70,14 @@ class UserController
         }
     }
 
+
     public function getErrorMsg()
     {
         $errorMsg = null;
 
         if (isset($_GET['message'])) {
             $errorMsg = $_GET['message'];
-        } 
+        }
 
         return $errorMsg;
     }

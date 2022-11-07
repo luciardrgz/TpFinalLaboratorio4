@@ -5,12 +5,14 @@ namespace Controllers;
 use Controllers\AuthController as AuthController;
 use Controllers\UserController as UserController;
 use Models\Guardian as Guardian;
+use Models\Owner as Owner;
 use Models\Pet as Pet;
 use Models\Booking as Booking;
 use DB\PetDAO as PetDAO;
 use DB\BookingDAO as BookingDAO;
 use DB\BreedDAO as BreedDAO;
 use DB\GuardianDAO as GuardianDAO;
+use DB\OwnerDAO as OwnerDAO;
 //use JSON\BookingDAO as BookingDAO;
 
 class BookingController
@@ -36,11 +38,11 @@ class BookingController
                     $allPets = $this->passArrayIDTOArrayPets($myPets);
 
                     $booking =  new Booking($allPets, $firstDay, $lastDay, $_SESSION["id"], $guardianId, $totalAmount);
-                    var_dump($booking);
+
                     $bookingDAO = new BookingDAO();
                     $bookingDAO->add($booking);
 
-                    $message = "You've succesfully made a booking!";
+                    $message = "You've made a booking with success!";
                 } else {
                     $message = "failed data!";
                     require_once(VIEWS_PATH . "guardianList.php");
@@ -53,7 +55,7 @@ class BookingController
         }
     }
 
-    public function bookDate($id = '', $firstDay = '', $lastDay = '', $selectedPet =  '')
+    public function bookDate($id = '', $firstDay = '', $lastDay = '', $selectedPet = '')
     {
         if (isset($_SESSION['loggeduser'])) {
 
@@ -174,5 +176,72 @@ class BookingController
         }
 
         return $petsObjects;
+    }
+
+    public function showGuardianRequests()
+    {
+        if (isset($_SESSION['loggeduser'])) {
+
+            if ($_SESSION['type'] == 'G') {
+
+                $bookingDAO = new BookingDAO();
+                $arrayRequests = $bookingDAO->getRequests($_SESSION['id']);
+
+                $arrayNickname = array();
+                $ownerDAO =  new OwnerDAO();
+
+                if ($arrayRequests != null) {
+                    foreach ($arrayRequests as $booking) {
+                        $nickname = $ownerDAO->getNicknameById($booking->getOwnerId());
+                        array_push($arrayNickname, $nickname);
+                    }
+                }
+
+                require_once(VIEWS_PATH . "requests.php");
+            } else {
+                require_once(VIEWS_PATH . "landingPageOwner.php");
+            }
+        } else {
+            require_once(VIEWS_PATH . "login.php");
+        }
+    }
+
+    function showBookingHistory()
+    {
+        if (isset($_SESSION['loggeduser'])) {
+            if ($_SESSION['type'] == 'G') {
+                $bookingDAO = new BookingDAO();
+                $arrayRequests = $bookingDAO->getByIdGuardian($_SESSION['id']);
+
+                $arrayNickname = array();
+                $ownerDAO =  new OwnerDAO();
+
+                foreach ($arrayRequests as $booking) {
+                    $nickname = $ownerDAO->getNicknameById($booking->getOwnerId());
+                    array_push($arrayNickname, $nickname);
+                }
+
+                require_once(VIEWS_PATH . "bookingHistoryGuardian.php");
+            } else {
+                require_once(VIEWS_PATH . "landingPageOwner.php");
+            }
+        } else {
+            require_once(VIEWS_PATH . "login.php");
+        }
+    }
+
+    public function updateStatus($statusId, $idBooking)
+    {
+        if (isset($_SESSION['loggeduser'])) {
+            if ($_SESSION['type'] == 'G') {
+                $bookingDAO = new BookingDAO();
+                $bookingDAO->updateStatus($idBooking, $statusId);
+                $this->showGuardianRequests();
+            } else {
+                require_once(VIEWS_PATH . "Home");
+            }
+        } else {
+            require_once(VIEWS_PATH . "login.php");
+        }
     }
 }

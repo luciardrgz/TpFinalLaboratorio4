@@ -3,7 +3,7 @@
 namespace DB;
 
 use Models\Booking as Booking;
-
+use DB\PetDAO as PetDAO;
 //use DAOInterfaces\IBookingDao as IBookingDao;
 use DB\Connection as Connection;
 use \Exception as Exception;
@@ -30,79 +30,180 @@ class BookingDAO
 
             $this->connection->ExecuteNonQuery($query, $parameters);
 
-            // $this->addOwnerXBooking($booking->getOwnerId());
+            $idBooking = $this->getMaxIdBooking();
+            $this->addOwnerXBooking($booking->getOwnerId(), $idBooking);
+
+            $arraypets = $booking->getPet();
+            foreach ($arraypets as $pet) {
+                $this->addBookingXPets($pet->getId(), $idBooking);
+            }
         } catch (Exception $exc) {
             throw $exc;
-            //echo "excepcion en add guardian";
+        }
+    }
+
+    function getMaxIdBooking()
+    {
+        try {
+            $query =  "SELECT max(id) as 'id' FROM " . $this->tableName;
+
+            $this->connection = Connection::GetInstance();
+
+            $result = $this->connection->Execute($query);
+
+            foreach ($result as $row) {
+                $idBooking = $row["id"];
+            }
+
+            return $idBooking;
+        } catch (Exception $exc) {
+            throw $exc;
         }
     }
 
     function addOwnerXBooking($idOwner, $idBooking)
     {
         try {
-
             $query = "INSERT INTO ownerxbooking  
             (id_owner, id_booking) 
-            VALUES (:idOwner, idBooking);";
+            VALUES (:idOwner, :idBooking);";
 
             $parameters["idOwner"] = $idOwner;
             $parameters["idBooking"] = $idBooking;
 
             $this->connection = Connection::GetInstance();
 
-            $this->connection->ExecuteNonQuery($query, $parameters);
+            $this->connection->Execute($query, $parameters);
         } catch (Exception $exc) {
             throw $exc;
-            //echo "excepcion en add guardian";
         }
     }
 
-    public function getBookingId()
-    {
-    }
-    /*
-    function getAll()
+    function addBookingXPets($idPet, $idBooking)
     {
         try {
-            $guardianList = array();
+            $query = "INSERT INTO bookingxpet
+            (id_booking, id_pet) 
+            VALUES (:idBooking, :idPet);";
 
-            $query = "SELECT g.id, g.email, g.pass, g.first_name, g.last_name, 
-            g.phone, g.birth_date, g.nickname, g.score, g.first_available_day, g.last_available_day, g.price, ps.size  
-            FROM " . $this->tableName  . " AS g 
-            LEFT JOIN GuardianXSize AS gxs
-            ON g.id = gxs.id_guardian
-            LEFT JOIN petsizes AS ps
-            ON gxs.id_petsize = ps.id;";
+            $parameters["idPet"] = $idPet;
+            $parameters["idBooking"] = $idBooking;
 
             $this->connection = Connection::GetInstance();
 
-            $resultSet = $this->connection->Execute($query);
+            $this->connection->Execute($query, $parameters);
+        } catch (Exception $exc) {
+            throw $exc;
+        }
+    }
+
+    function getByIdGuardian($idGuardian)
+    {
+        try {
+            $bookingList = array();
+
+            $query =
+                "SELECT b.id, b.id_status, b.start_date, b.end_date, b.totalAmount, b.id_guardian, ob.id_owner 
+            FROM bookings as b 
+            JOIN ownerxbooking as ob
+            ON b.id = ob.id_booking 
+            WHERE b.id_guardian = :idGuardian  AND b.id_status <> '1';";
+
+            $parameters["idGuardian"] = $idGuardian;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
 
             foreach ($resultSet as $row) {
-                $booking = new Booking(
-                    $row["first_name"],
-                    $row["last_name"],
-                    $row["email"],
-                    $row["phone"],
-                    $row["birth_date"],
-                    $row["nickname"],
-                    $row["pass"],
-                    $row["score"],
-                    $row["size"],
-                    $row["price"],
-                    $row["first_available_day"],
-                    $row["last_available_day"]
-                );
+                $booking = new Booking($this->getPets($row['id']), ($row["start_date"]), ($row["end_date"]), ($row["id_owner"]), ($row["id_guardian"]), ($row["totalAmount"]));
 
                 $booking->setId($row["id"]);
+                $booking->setStatus($row["id_status"]);
 
-                array_push($guardianList, $booking);
+                array_push($bookingList, $booking);
             }
 
-            return count($guardianList) > 0 ? $guardianList : null;
+            return count($bookingList) > 0 ? $bookingList : null;
         } catch (Exception $ex) {
             throw $ex;
             echo "excepcion en getAll";
         }
-    }*/
+    }
+
+    function getRequests($idGuardian)
+    {
+        try {
+            $requestsList = array();
+
+            $query = "SELECT b.id, b.id_status, b.start_date, b.end_date, b.totalAmount, b.id_guardian, ob.id_owner 
+            FROM bookings as b 
+            JOIN ownerxbooking as ob 
+            ON b.id = ob.id_booking 
+            WHERE id_guardian = :idGuardian AND id_status = '1';";
+
+            $parameters["idGuardian"] = $idGuardian;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
+            foreach ($resultSet as $row) {
+                $booking = new Booking($this->getPets($row['id']), ($row["start_date"]), ($row["end_date"]), ($row["id_owner"]), ($row["id_guardian"]), ($row["totalAmount"]));
+
+                $booking->setId($row["id"]);
+                $booking->setStatus($row["id_status"]);
+                array_push($requestsList, $booking);
+            }
+
+            return count($requestsList) > 0 ? $requestsList : null;
+        } catch (Exception $ex) {
+            throw $ex;
+            echo "excepcion en getRequests";
+        }
+    }
+
+    function getPets($idBooking)
+    {
+        try {
+            $query = "SELECT id_pet 
+            FROM bookingxpet 
+            WHERE id_booking = :idBooking;";
+
+            $parameters["idBooking"] = $idBooking;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            $arrayPets = array();
+            $petDAO = new PetDAO();
+
+            foreach ($resultSet as $row) {
+                array_push($arrayPets, $petDAO->getPetById($row['id_pet']));
+            }
+
+            return $arrayPets;
+        } catch (Exception $ex) {
+            throw $ex;
+            echo " excepcion en getPets bookingDAO";
+        }
+    }
+
+    public function updateStatus($id, $status)
+    {
+        try {
+            $query = "UPDATE " . $this->tableName . " SET id_status = :status 
+            WHERE id = :id;";
+
+            $parameters['id'] = $id;
+            $parameters['status'] = $status;
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->Execute($query, $parameters);
+        } catch (Exception $ex) {
+            // throw $ex;
+            echo ' exc en updateStatus() de BookingDAO';
+        }
+    }
 }

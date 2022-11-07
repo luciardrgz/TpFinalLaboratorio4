@@ -179,4 +179,4 @@ SELECT * FROM PetSizes;
 SELECT * FROM PetBreeds;
 SELECT * FROM Guardians;
 SELECT * FROM OwnerXBooking;
-
+SELECT * FROM BookingXPet;

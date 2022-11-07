@@ -81,10 +81,10 @@ $breedDAO = new BreedDAO();
                     <?php if ($arrayRequests != null) { ?>
 
                     <div class="title-div">
-                        <h3 class="list-title">Booking History</h3>
+                        <h3 class="list-title">My requests</h3>
                     </div>
 
-                    <?php for ($i = 0; $i < count($arrayRequests); $i++) { ?>
+                    <?php foreach ($arrayRequests as $request) { ?>
 
                     <div class="filter-result">
 
@@ -93,25 +93,25 @@ $breedDAO = new BreedDAO();
 
                                 <div class="job-content">
 
-                                    <h5 class="h5-guardians"><?php
-                                                                        echo $arrayNickname[$i]; ?></h5>
+                                    <h5 class="h5-guardians"><?php //echo $arrayNickname[$i]; 
+                                                                        ?></h5>
 
                                     <ul class="d-md-flex flex-wrap ff-open-sans">
                                         <li class="mr-md-4">
 
                                             <img src="https://img.icons8.com/material/24/null/clock--v1.png" />
-                                            <?php echo $arrayRequests[$i]->getStatusText(); ?>
+                                            <?php echo $request->getStatusText(); ?>
 
                                             <br>
 
                                             <img src="https://img.icons8.com/material/24/null/calendar-plus.png" />
-                                            <?php echo "From " . $arrayRequests[$i]->getStartDate() . " to " . $arrayRequests[$i]->getEndDate(); ?>
+                                            <?php echo "From " . $request->getStartDate() . " to " . $request->getEndDate(); ?>
 
                                             <br>
 
                                             <img src="https://img.icons8.com/material/24/null/dog-paw-print.png" />
                                             <?php
-                                                    $arrayPets = $arrayRequests[$i]->getPet();
+                                                    $arrayPets = $request->getPet();
 
                                                     echo "Pets to take care of";
 
@@ -148,12 +148,17 @@ $breedDAO = new BreedDAO();
                                                     } ?>
 
 
-
                                         </li>
                                     </ul>
                                 </div>
                             </div>
-
+                            <div class="job-right my-4 flex-shrink-0">
+                                <a href="<?php echo FRONT_ROOT . "Booking/updateStatus/2/" . $request->getId() ?>"
+                                    class="btn d-block w-100 d-sm-inline-block btn-success">Accept</a>
+                                <br><br>
+                                <a href="<?php echo  FRONT_ROOT . "Booking/updateStatus/3/" . $request->getId() ?>"
+                                    class="btn d-block w-100 d-sm-inline-block btn-danger">Reject</a>
+                            </div>
                         </div>
                         <?php }
                     } else { ?>

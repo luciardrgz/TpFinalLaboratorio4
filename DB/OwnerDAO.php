@@ -90,6 +90,27 @@ class OwnerDAO implements IOwnerDAO
     # Si usamos el constructor de Owner, en los $row[] usamos nombre de columnas de la BD*
     # Si usamos los set ($owner->setAlgo($row["algo"]), podemos no usar los nombres de columnas 
 
+    public function getNicknameById($id)
+    {
+        try {
+            $query = "SELECT nickname FROM " . $this->tableName . " where id = :id";
+
+            $parameters['id'] = $id;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            foreach ($resultSet as $row) {
+                $nickname = ($row['nickname']);
+            }
+
+            return $nickname;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
     public function getByNickName($nickname)
     {
         try {
