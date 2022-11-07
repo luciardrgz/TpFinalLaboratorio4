@@ -169,7 +169,6 @@ insert into PetSizes (size) values
 insert into BookingStatus (booking_status) values ('Waiting'), ('Accepted'), ('Rejected'), ('Finished');
 
 #Selects 
-
 SELECT * FROM PetTypes;
 SELECT * FROM BookingStatus;
 SELECT * FROM Owners;

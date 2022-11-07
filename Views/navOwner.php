@@ -15,7 +15,7 @@ namespace Views;
         <a href="<?php echo FRONT_ROOT . "User/showLandingPage/" . $_SESSION['type']; ?>">Home</a>
         <a href="<?php echo FRONT_ROOT . "User/showProfileInfo" ?>">Profile</a>
         <a href="#">Booking&nbsp;history</a>
-        <a href="<?php echo FRONT_ROOT . "User/showGuardianList" ?>">Guardian&nbsp;list</a>
+        <a href="<?php echo FRONT_ROOT . "Booking/showNewBookingDates" ?>">New&nbsp;booking</a>
         <a href="<?php echo  FRONT_ROOT . "Pet/addPet" ?>">Add Pet</a>
         <a href="<?php echo  FRONT_ROOT . "Pet/listPets" ?>">Pet list </a>
         <a href="<?php echo FRONT_ROOT . "Auth/logout" ?>">Logout</a>

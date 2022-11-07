@@ -4,6 +4,7 @@ namespace Controllers;
 
 use Controllers\AuthController as AuthController;
 use Controllers\UserController as UserController;
+use Controllers\HomeController as HomeController;
 use Models\Guardian as Guardian;
 use Models\Owner as Owner;
 use Models\Pet as Pet;
@@ -43,12 +44,14 @@ class BookingController
                     $bookingDAO->add($booking);
 
                     $message = "You've made a booking with success!";
+                    header("location:" . FRONT_ROOT . "User/showLandingPage?message");
                 } else {
                     $message = "failed data!";
                     require_once(VIEWS_PATH . "guardianList.php");
                 }
             } else {
-                require_once(VIEWS_PATH . "Home");
+                $message = "You have no permits to make a booking";
+                header("location:" . FRONT_ROOT . "User/showLandingPage?message");
             }
         } else {
             require_once(VIEWS_PATH . "login.php");
@@ -216,9 +219,11 @@ class BookingController
                 $arrayNickname = array();
                 $ownerDAO =  new OwnerDAO();
 
-                foreach ($arrayRequests as $booking) {
-                    $nickname = $ownerDAO->getNicknameById($booking->getOwnerId());
-                    array_push($arrayNickname, $nickname);
+                if ($arrayRequests != null) {
+                    foreach ($arrayRequests as $booking) {
+                        $nickname = $ownerDAO->getNicknameById($booking->getOwnerId());
+                        array_push($arrayNickname, $nickname);
+                    }
                 }
 
                 require_once(VIEWS_PATH . "bookingHistoryGuardian.php");
@@ -239,6 +244,20 @@ class BookingController
                 $this->showGuardianRequests();
             } else {
                 require_once(VIEWS_PATH . "Home");
+            }
+        } else {
+            require_once(VIEWS_PATH . "login.php");
+        }
+    }
+
+    public function showNewBookingDates()
+    {
+        if (isset($_SESSION['loggeduser'])) {
+            if ($_SESSION['type'] == 'O') {
+                $message = null;
+                require_once(VIEWS_PATH . "newBookingDates.php");
+            } else {
+                require_once(VIEWS_PATH . "landingPageOwner.php");
             }
         } else {
             require_once(VIEWS_PATH . "login.php");

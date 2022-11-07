@@ -37,7 +37,7 @@ $guardianName = $guardian->getFirstName();
 
                 <div class="instructions-div">
                     <h3><br>You've selected <?php echo $guardianName; ?> to take care of your pets!</h3>
-                    <h4>Now, you have to select <b>dates</b> and <b>at least 1 pet</b> to continue. <br>
+                    <h4>Now, you have to select <b>at least 1 pet</b> to continue. <br>
                         But be careful, guardians can take care of <b>1 size of pet</b> at a time.
                     </h4>
 
@@ -53,13 +53,8 @@ $guardianName = $guardian->getFirstName();
                     <form action="<?php echo FRONT_ROOT . "Booking/bookDate/" ?>" method="POST">
 
                         <input type="text" name="id" value="<?php echo $id ?>" hidden>
-
-                        <div class="dates-div">
-                            <label>From: </label>
-                            <input type="date" name="firstDay" class="dateSelection" required>
-                            <label>to: </label>
-                            <input type="date" name="lastDay" class="dateSelection" required>
-                        </div>
+                        <input type="date" name="firstDay" value="<?php echo $firstDay ?>" hidden>
+                        <input type="date" name="lastDay" value="<?php echo $lastDay ?>" hidden>
 
                         <?php
                         $breedDAO = new BreedDAO();

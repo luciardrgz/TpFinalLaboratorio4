@@ -285,8 +285,15 @@ class GuardianDAO implements IGuardianDAO
     public function getGuardiansByDate($firstDay, $lastDay)
     {
         try {
-            $query = "SELECT * FROM " . $this->tableName . " WHERE (first_available_day >= :firstDay
-            AND last_available_day >= :lastDay);";
+            $guardianList = array();
+
+            $query = "SELECT g.id, g.email, g.pass, g.first_name, g.last_name, g.phone, g.birth_date, g.nickname, g.score, g.first_available_day, g.last_available_day, g.price, ps.size
+            FROM " . $this->tableName . " AS g 
+            JOIN guardianxsize as gxs 
+            ON g.id = gxs.id_guardian 
+            LEFT JOIN petsizes AS ps 
+            ON gxs.id_petsize = ps.id 
+            WHERE (g.first_available_day <= :firstDay AND g.last_available_day >= :lastDay);";
 
             $parameters['firstDay'] = $firstDay;
             $parameters['lastDay'] = $lastDay;
@@ -299,10 +306,8 @@ class GuardianDAO implements IGuardianDAO
                 $guardian = new Guardian($row["first_name"], $row["last_name"], $row["email"], $row["phone"], $row["birth_date"], $row["nickname"], $row["pass"], $row["score"], $row["size"], $row["price"], $row["first_available_day"], $row["last_available_day"]);
                 $guardian->setId($row["id"]);
 
-                $guardianList = array();
                 array_push($guardianList, $guardian);
             }
-
             return (count($guardianList) > 0) ? $guardianList : null;
         } catch (Exception $ex) {
             // throw $ex;

@@ -15,15 +15,12 @@ $breedDAO = new BreedDAO();
 
 <head>
     <title></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH . "list.css" ?>">
 </head>
 
 <body>
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css"
-        integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
 
     <div class="container">
         <div class="row">
@@ -80,37 +77,37 @@ $breedDAO = new BreedDAO();
 
                     <?php if ($arrayRequests != null) { ?>
 
-                    <div class="title-div">
-                        <h3 class="list-title">Booking History</h3>
-                    </div>
+                        <div class="title-div">
+                            <h3 class="list-title">Booking History</h3>
+                        </div>
 
-                    <?php for ($i = 0; $i < count($arrayRequests); $i++) { ?>
+                        <?php for ($i = 0; $i < count($arrayRequests); $i++) { ?>
 
-                    <div class="filter-result">
+                            <div class="filter-result">
 
-                        <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
-                            <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
+                                <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
+                                    <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
 
-                                <div class="job-content">
+                                        <div class="job-content">
 
-                                    <h5 class="h5-guardians"><?php
+                                            <h5 class="h5-guardians"><?php
                                                                         echo $arrayNickname[$i]; ?></h5>
 
-                                    <ul class="d-md-flex flex-wrap ff-open-sans">
-                                        <li class="mr-md-4">
+                                            <ul class="d-md-flex flex-wrap ff-open-sans">
+                                                <li class="mr-md-4">
 
-                                            <img src="https://img.icons8.com/material/24/null/clock--v1.png" />
-                                            <?php echo $arrayRequests[$i]->getStatusText(); ?>
+                                                    <img src="https://img.icons8.com/material/24/null/clock--v1.png" />
+                                                    <?php echo $arrayRequests[$i]->getStatusText(); ?>
 
-                                            <br>
+                                                    <br>
 
-                                            <img src="https://img.icons8.com/material/24/null/calendar-plus.png" />
-                                            <?php echo "From " . $arrayRequests[$i]->getStartDate() . " to " . $arrayRequests[$i]->getEndDate(); ?>
+                                                    <img src="https://img.icons8.com/material/24/null/calendar-plus.png" />
+                                                    <?php echo "From " . $arrayRequests[$i]->getStartDate() . " to " . $arrayRequests[$i]->getEndDate(); ?>
 
-                                            <br>
+                                                    <br>
 
-                                            <img src="https://img.icons8.com/material/24/null/dog-paw-print.png" />
-                                            <?php
+                                                    <img src="https://img.icons8.com/material/24/null/dog-paw-print.png" />
+                                                    <?php
                                                     $arrayPets = $arrayRequests[$i]->getPet();
 
                                                     echo "Pets to take care of";
@@ -119,12 +116,11 @@ $breedDAO = new BreedDAO();
 
                                                         $breedDAO = new BreedDAO(); ?>
 
-                                            <div
-                                                class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
-                                                <img src="<?php echo $pet->getPicture(); ?>" />
-                                            </div>
+                                                        <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
+                                                            <img src="<?php echo $pet->getPicture(); ?>" />
+                                                        </div>
 
-                                            <?php
+                                                        <?php
                                                         echo "<br>Name: " . $pet->getName();
 
                                                         echo "<br>Breed: " . $breedDAO->getBreedName($pet->getBreed());
@@ -135,34 +131,30 @@ $breedDAO = new BreedDAO();
                                                             echo "<br>No video available";
                                                         } ?>
 
-                                            <br><label>Vaccines: </label> <br>
-                                            <div class="vacc-pic">
-                                                <img src="<?php echo $pet->getVaccination(); ?>" />
-                                            </div>
+                                                        <br><label>Vaccines: </label> <br>
+                                                        <div class="vacc-pic">
+                                                            <img src="<?php echo $pet->getVaccination(); ?>" />
+                                                        </div>
 
-                                            <?php if ($pet->getType() == "D") {
+                                                        <?php if ($pet->getType() == "D") {
                                                             echo "<br>Size: " . $pet->getSizeText();
                                                         } ?>
-
-                                            <?php
+                                                    <?php
                                                     } ?>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-
-
-                                        </li>
-                                    </ul>
                                 </div>
-                            </div>
-
-                        </div>
-                        <?php }
+                            <?php }
                     } else { ?>
-                        <div class="title-div">
-                            <h3 class="list-title">You have no requests :(</h3>
-                        </div>
+                            <div class="title-div">
+                                <h3 class="list-title">Your history is empty :(</h3>
+                            </div>
                         <?php } ?>
 
-                    </div>
+                            </div>
                 </div>
 
             </div>

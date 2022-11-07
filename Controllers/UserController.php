@@ -70,6 +70,30 @@ class UserController
         }
     }
 
+    public function filterGuardianList($firstDay, $lastDay)
+    {
+        if (isset($_SESSION['loggeduser'])) {
+            if ($_SESSION['type'] == 'O') {
+                if ($firstDay <= $lastDay) {
+                    $guardianList = array();
+                    $guardianList = $this->guardianDAO->getGuardiansByDate($firstDay, $lastDay);
+
+                    $message = null;
+                    $firstDay;
+                    $lastDay;
+
+                    require_once(VIEWS_PATH . "guardianList.php");
+                } else {
+                    $message = "Ingrese un rango de fechas valido";
+                    require_once(VIEWS_PATH . "newBookingDates.php");
+                }
+            } else {
+                require_once(VIEWS_PATH . "landingPageGuardian.php");
+            }
+        } else {
+            require_once(VIEWS_PATH . "login.php");
+        }
+    }
 
     public function getErrorMsg()
     {
