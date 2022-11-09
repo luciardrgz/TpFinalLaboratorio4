@@ -67,15 +67,26 @@ class BookingController
 
             if ($_SESSION['type'] == 'O') {
                 if ($id != '' && $selectedPet == '') {
+
                     $petList = array();
                     $petList = $petDAO->getPetsByOwnerId();
-                    require_once(VIEWS_PATH . "petSelection.php");
+                    $breed = $this->getBreedBetweenDates($id, $firstDay, $lastDay);
+
+                    if($breed == 'EmptyOpt'){
+                        $breed = null;
+                        require_once(VIEWS_PATH . "petSelection.php");
+                    }elseif($breed == 'DiffBreedsOpt'){
+                        $this->showNewBookingDates();
+                    }else{
+                        require_once(VIEWS_PATH . "petSelection.php");
+                    }
+
                 } elseif ($id != '' && $selectedPet != '') {
 
                     $ArrayPets = array();
                     $ArrayPets = $this->passArrayIDTOArrayPets($selectedPet);
 
-                    if ($this->verifyPetBreed($ArrayPets)) {
+                    if ($this->verifyPetBreed($ArrayPets)) { // Agregar $breed como parametro para comparar con el array de Pets
 
                         if ($this->verifyPetSize($ArrayPets, $id)) {
 
@@ -262,5 +273,43 @@ class BookingController
         } else {
             require_once(VIEWS_PATH . "login.php");
         }
+    }
+
+    function getBreedBetweenDates($idGuardian, $firstDay, $lastDay){
+
+        $bookingDAO = new BookingDAO();
+        $arrayBookings =array();
+        $arrayBookings = $bookingDAO->getBookingsBetweenDates($idGuardian, $firstDay, $lastDay);
+        $flag =true;
+        $toReturn = null;
+
+        $petsArray = array();
+        $breedArray = array();
+
+        if($arrayBookings != null){
+
+            foreach ($arrayBookings as $booking){
+                $petsArray = $booking->getPet();
+                array_push($breedArray,$petsArray[0]->getBreed());  
+            }
+
+            $breedCompare = $breedArray[0];
+            foreach($breedArray as $breed){
+                if($breedCompare != $breed){
+                    $flag = false;
+                }
+            }
+
+            if($flag == true){
+                $toReturn = $breedCompare;
+            }else{
+                $toReturn = 'DiffBreedsOpt';     
+            }
+
+        }else{
+            $toReturn='EmptyOpt';
+        }
+        
+        return $toReturn;
     }
 }

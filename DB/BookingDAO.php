@@ -127,7 +127,42 @@ class BookingDAO
             return count($bookingList) > 0 ? $bookingList : null;
         } catch (Exception $ex) {
             throw $ex;
-            echo "excepcion en getAll";
+            echo "excepcion en getByIdGuardian";
+        }
+    }
+
+    function getBookingsBetweenDates($idGuardian,$firstDay,$lastDay)
+    {
+        try {
+            $bookingList = array();
+
+            $query = "SELECT b.id, b.id_status, b.start_date, b.end_date, b.totalAmount, b.id_guardian, ob.id_owner 
+            FROM bookings as b 
+            JOIN ownerxbooking as ob
+            ON b.id = ob.id_booking 
+            where id_status = '2' 
+            AND ((b.start_date between :firstDay and :lastDay) or (b.end_date between :firstDay and :lastDay)) 
+            OR ((:firstDay between b.start_date and b.end_date) or (:lastDay between b.start_date and b.end_date));";
+
+            $parameters["firstDay"] = $firstDay;
+            $parameters["lastDay"] = $lastDay;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            foreach ($resultSet as $row) {
+                $booking = new Booking($this->getPets($row['id']), ($row["start_date"]), ($row["end_date"]), ($row["id_owner"]), ($row["id_guardian"]), ($row["totalAmount"]));
+                $booking->setId($row["id"]);
+                $booking->setStatus($row["id_status"]);
+
+                array_push($bookingList, $booking);
+            }
+
+            return count($bookingList) > 0 ? $bookingList : null;
+        } catch (Exception $ex) {
+            throw $ex;
+            echo "excepcion en getBookingsBetweenDates";
         }
     }
 

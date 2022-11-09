@@ -38,10 +38,10 @@ $guardianName = $guardian->getFirstName();
                 <div class="instructions-div">
                     <h3><br>You've selected <?php echo $guardianName; ?> to take care of your pets!</h3>
                     <h4>Now, you have to select <b>at least 1 pet</b> to continue. <br>
-                        <img src="https://im5.ezgif.com/tmp/ezgif-5-d9ad6955f2.gif">
-                        Guardians can take care of <b>1 size of pet</b> and <b>1 breed of dog</b> at
+                        <img src="https://i.ibb.co/HnpvQD5/dog.gif">
+                        Guardians can take care of <b>1 size of pet</b> and <b><?php if($breed == null){echo "1 breed of pet";}else{ echo "1 " . $breed . "pet";} ?></b> at
                         a time.
-                        <img src="https://im5.ezgif.com/tmp/ezgif-5-1523c91a9d.gif">
+                        <img src="https://i.ibb.co/bJHGvzz/cat.gif">
                     </h4>
 
                 </div>
