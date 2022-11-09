@@ -155,7 +155,7 @@ constraint fk_id_booking_bxp foreign key (id_booking) references Bookings(id),
 constraint fk_id_pet_bxp foreign key (id_pet) references Pets(id)
 )engine=InnoDB;
 
-
+# Default Inserts
 insert into PetTypes (type_description) values
 ('Dog'), ('Cat');
 

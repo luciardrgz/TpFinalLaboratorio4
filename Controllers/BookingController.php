@@ -46,11 +46,11 @@ class BookingController
                     $message = "You've made a booking with success!";
                     header("location:" . FRONT_ROOT . "User/showLandingPage?message");
                 } else {
-                    $message = "failed data!";
+                    $message = "Data loading failed";
                     require_once(VIEWS_PATH . "guardianList.php");
                 }
             } else {
-                $message = "You have no permits to make a booking";
+                $message = "You have insufficient permits to make a booking";
                 header("location:" . FRONT_ROOT . "User/showLandingPage?message");
             }
         } else {

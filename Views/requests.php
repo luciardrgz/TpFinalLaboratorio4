@@ -87,78 +87,76 @@ $breedDAO = new BreedDAO();
                     <?php foreach ($arrayRequests as $request) { ?>
 
                     <div class="filter-result">
-
                         <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
                             <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
 
-                                <div class="job-content">
 
-                                    <h5 class="h5-guardians"><?php //echo $arrayNickname[$i]; 
-                                                                        ?></h5>
+                                <h5 class="h5-guardians"><?php //echo $arrayNickname[$i]; 
+                                                                    ?></h5>
+                                <ul>
+                                    <li>
+                                        <img src="https://img.icons8.com/material/24/null/clock--v1.png" />
+                                        <b><?php echo $request->getStatusText() . " for your response"; ?></b>
 
-                                    <ul class="d-md-flex flex-wrap ff-open-sans">
-                                        <li class="mr-md-4">
+                                        <br>
 
-                                            <img src="https://img.icons8.com/material/24/null/clock--v1.png" />
-                                            <?php echo $request->getStatusText(); ?>
+                                        <img src="https://img.icons8.com/material/24/null/calendar-plus.png" />
+                                        <b><?php echo "From " . $request->getStartDate() . " to " . $request->getEndDate(); ?></b>
 
-                                            <br>
+                                        <br>
 
-                                            <img src="https://img.icons8.com/material/24/null/calendar-plus.png" />
-                                            <?php echo "From " . $request->getStartDate() . " to " . $request->getEndDate(); ?>
+                                        <img src="https://img.icons8.com/material/24/null/dog-paw-print.png" />
+                                        <?php
+                                                $arrayPets = $request->getPet();
 
-                                            <br>
+                                                echo "<b>Pets to take care of:</b>";
 
-                                            <img src="https://img.icons8.com/material/24/null/dog-paw-print.png" />
-                                            <?php
-                                                    $arrayPets = $request->getPet();
+                                                foreach ($arrayPets as $pet) {
 
-                                                    echo "Pets to take care of";
+                                                    $breedDAO = new BreedDAO(); ?>
 
-                                                    foreach ($arrayPets as $pet) {
-
-                                                        $breedDAO = new BreedDAO(); ?>
-
-                                            <div
-                                                class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
+                                        <div class="req-pet-profile">
+                                            <div class="req-img-holder">
                                                 <img src="<?php echo $pet->getPicture(); ?>" />
                                             </div>
+                                            <label><?php echo $pet->getName() . " | "; ?></label> &nbsp;
 
-                                            <?php
-                                                        echo "<br>Name: " . $pet->getName();
+                                            <?php if ($pet->getType() == "1") { ?>
+                                            <label> <?php echo $pet->getSizeText() ?> </label> &nbsp;
+                                            <?php }  ?>
 
-                                                        echo "<br>Breed: " . $breedDAO->getBreedName($pet->getBreed());
+                                            <label><?php echo $breedDAO->getBreedName($pet->getBreed()); ?></label>
 
-                                                        if ($pet->getVideo() != null) {
-                                                            echo "<br>Video: " . $pet->getVideo();
-                                                        } else {
-                                                            echo "<br>No video available";
-                                                        } ?>
+                                        </div>
 
-                                            <br><label>Vaccines: </label> <br>
-                                            <div class="vacc-pic">
-                                                <img src="<?php echo $pet->getVaccination(); ?>" />
-                                            </div>
-
-                                            <?php if ($pet->getType() == "D") {
-                                                            echo "<br>Size: " . $pet->getSizeText();
-                                                        } ?>
-
-                                            <?php
+                                        <?php if ($pet->getVideo() != null) {  ?>
+                                        <a href="<?php echo $pet->getVideo(); ?>" target="_BLANK">
+                                            <?php echo "Watch " .  $pet->getName(); ?>'s video</a>
+                                        <?php
+                                                    } else {
+                                                        echo "No video available";
                                                     } ?>
 
+                                        <?php echo "<br>Vaccines: "; ?>
+                                        <div class="pl-vacc-pic">
+                                            <img src="<?php echo $pet->getVaccination(); ?>" />
+                                        </div>
+                                        <br>
+                                        <?php } ?>
 
-                                        </li>
-                                    </ul>
-                                </div>
+                                    </li>
+                                    <div class="accept-reject-box">
+                                        <a href="<?php echo FRONT_ROOT . "Booking/updateStatus/2/" . $request->getId() ?>"
+                                            class="btn d-block w-100 d-sm-inline-block btn-success">Accept</a>
+                                        <br><br>
+                                        <a href="<?php echo  FRONT_ROOT . "Booking/updateStatus/3/" . $request->getId() ?>"
+                                            class="btn d-block w-100 d-sm-inline-block btn-danger">Reject</a>
+                                    </div>
+                                </ul>
+
                             </div>
-                            <div class="job-right my-4 flex-shrink-0">
-                                <a href="<?php echo FRONT_ROOT . "Booking/updateStatus/2/" . $request->getId() ?>"
-                                    class="btn d-block w-100 d-sm-inline-block btn-success">Accept</a>
-                                <br><br>
-                                <a href="<?php echo  FRONT_ROOT . "Booking/updateStatus/3/" . $request->getId() ?>"
-                                    class="btn d-block w-100 d-sm-inline-block btn-danger">Reject</a>
-                            </div>
+
+
                         </div>
                         <?php }
                     } else { ?>

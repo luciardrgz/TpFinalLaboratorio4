@@ -15,12 +15,15 @@ $breedDAO = new BreedDAO();
 
 <head>
     <title></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH . "list.css" ?>">
 </head>
 
 <body>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css"
+        integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
 
     <div class="container">
         <div class="row">
@@ -77,84 +80,101 @@ $breedDAO = new BreedDAO();
 
                     <?php if ($arrayRequests != null) { ?>
 
-                        <div class="title-div">
-                            <h3 class="list-title">Booking History</h3>
-                        </div>
+                    <div class="title-div">
+                        <h3 class="list-title">Booking History</h3>
+                    </div>
 
-                        <?php for ($i = 0; $i < count($arrayRequests); $i++) { ?>
+                    <?php for ($i = 0; $i < count($arrayRequests); $i++) { ?>
 
-                            <div class="filter-result">
+                    <div class="filter-result">
 
-                                <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
-                                    <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
+                        <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
+                            <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
+                                <div class="booking-content">
 
-                                        <div class="job-content">
+                                    <h5 class="h5-guardians">
+                                        <?php
+                                                $status = $arrayRequests[$i]->getStatusText();
 
-                                            <h5 class="h5-guardians"><?php
-                                                                        echo $arrayNickname[$i]; ?></h5>
+                                                echo $arrayNickname[$i] . "'s Request | ";
 
-                                            <ul class="d-md-flex flex-wrap ff-open-sans">
-                                                <li class="mr-md-4">
+                                                if ($status == 'Accepted') { ?>
+                                        <img src="https://i.ibb.co/31jPdqD/accepted.png" />
+                                        <?php echo $status;
+                                                } else if ($status == 'Rejected') { ?>
+                                        <img src="https://i.ibb.co/3WPbhrj/rejected.png" />
+                                        <?php echo $status;
+                                                }
+                                                ?>
+                                    </h5>
 
-                                                    <img src="https://img.icons8.com/material/24/null/clock--v1.png" />
-                                                    <?php echo $arrayRequests[$i]->getStatusText(); ?>
+                                    <ul>
+                                        <li>
+                                            <img src="https://img.icons8.com/material/24/null/calendar-plus.png" />
+                                            <b><?php echo "From " . $arrayRequests[$i]->getStartDate() . " to " . $arrayRequests[$i]->getEndDate(); ?></b>
 
-                                                    <br>
+                                            <br>
 
-                                                    <img src="https://img.icons8.com/material/24/null/calendar-plus.png" />
-                                                    <?php echo "From " . $arrayRequests[$i]->getStartDate() . " to " . $arrayRequests[$i]->getEndDate(); ?>
+                                            <img src="https://img.icons8.com/material/24/null/dog-paw-print.png" />
+                                            <b><?php
+                                                        $arrayPets = $arrayRequests[$i]->getPet();
 
-                                                    <br>
+                                                        echo "Pets to take care of: <br>";
+                                                        ?></b>
 
-                                                    <img src="https://img.icons8.com/material/24/null/dog-paw-print.png" />
-                                                    <?php
-                                                    $arrayPets = $arrayRequests[$i]->getPet();
-
-                                                    echo "Pets to take care of";
-
-                                                    foreach ($arrayPets as $pet) {
+                                            <?php foreach ($arrayPets as $pet) {
 
                                                         $breedDAO = new BreedDAO(); ?>
 
-                                                        <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
-                                                            <img src="<?php echo $pet->getPicture(); ?>" />
-                                                        </div>
+                                            <div class="bh-pet-profile">
+                                                <div
+                                                    class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
+                                                    <img src="<?php echo $pet->getPicture() ?>" />
+                                                </div>
 
-                                                        <?php
-                                                        echo "<br>Name: " . $pet->getName();
+                                                <label><?php echo $pet->getName() . " | "; ?></label> &nbsp;
 
-                                                        echo "<br>Breed: " . $breedDAO->getBreedName($pet->getBreed());
+                                                <?php if ($pet->getType() == "1") { ?>
+                                                <label> <?php echo $pet->getSizeText() ?> </label> &nbsp;
+                                                <?php }  ?>
 
-                                                        if ($pet->getVideo() != null) {
-                                                            echo "<br>Video: " . $pet->getVideo();
-                                                        } else {
-                                                            echo "<br>No video available";
+                                                <label><?php echo $breedDAO->getBreedName($pet->getBreed()); ?></label>
+                                            </div>
+
+                                            <?php if ($pet->getVideo() != null) { ?>
+                                            <b><label>Video: </label></b>
+                                            <?php
+                                                            echo $pet->getVideo();
+                                                        } else { ?>
+                                            <b><label>No video available </label></b>
+                                            <?php
                                                         } ?>
 
-                                                        <br><label>Vaccines: </label> <br>
-                                                        <div class="vacc-pic">
-                                                            <img src="<?php echo $pet->getVaccination(); ?>" />
-                                                        </div>
+                                            <br><b><label>Vaccines: </label></b>
+                                            <div class="vacc-pic">
+                                                <img src="<?php echo $pet->getVaccination(); ?>" />
+                                            </div>
 
-                                                        <?php if ($pet->getType() == "D") {
-                                                            echo "<br>Size: " . $pet->getSizeText();
-                                                        } ?>
-                                                    <?php
+                                            <?php
                                                     } ?>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
+                                        </li>
+                                    </ul>
                                 </div>
-                            <?php }
-                    } else { ?>
-                            <div class="title-div">
-                                <h3 class="list-title">Your history is empty :(</h3>
                             </div>
+                        </div>
+
+                        <?php
+
+                        }
+                    } else { ?>
+
+                        <div class="title-div">
+                            <h3 class="list-title">Your history is empty :(</h3>
+                        </div>
+
                         <?php } ?>
 
-                            </div>
+                    </div>
                 </div>
 
             </div>

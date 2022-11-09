@@ -38,7 +38,10 @@ $guardianName = $guardian->getFirstName();
                 <div class="instructions-div">
                     <h3><br>You've selected <?php echo $guardianName; ?> to take care of your pets!</h3>
                     <h4>Now, you have to select <b>at least 1 pet</b> to continue. <br>
-                        But be careful, guardians can take care of <b>1 size of pet</b> at a time.
+                        <img src="https://im5.ezgif.com/tmp/ezgif-5-d9ad6955f2.gif">
+                        Guardians can take care of <b>1 size of pet</b> and <b>1 breed of dog</b> at
+                        a time.
+                        <img src="https://im5.ezgif.com/tmp/ezgif-5-1523c91a9d.gif">
                     </h4>
 
                 </div>

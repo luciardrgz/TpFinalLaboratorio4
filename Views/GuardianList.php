@@ -36,10 +36,12 @@ include("navOwner.php");
             <div class="col-lg-10 mx-auto">
                 <div class="career-search mb-60">
 
+
                     <div class="title-div">
                         <h3 class="list-title">Guardians available from <?php echo $firstDay ?> to
                             <?php echo $lastDay ?> </h3>
                     </div>
+
 
                     <?php if ($guardianList != null) { ?>
 
@@ -105,14 +107,14 @@ include("navOwner.php");
                             </div>
                             <div class="job-right my-4 flex-shrink-0">
                                 <a href="<?php echo FRONT_ROOT . "Booking/bookDate/" . $guardian->getId() . "/" . $firstDay . "/" . $lastDay ?>"
-                                    class="btn d-block w-100 d-sm-inline-block btn-light">Contact</a>
+                                    class="btn d-block w-100 d-sm-inline-block btn-light">Hire</a>
                             </div>
                         </div>
                         <?php }
                         }
                     } else { ?>
                         <div class="title-div">
-                            <h3 class="list-title">No guardians available :(</h3>
+                            <h3 class="list-title">Sorry, no guardians available :(</h3>
                         </div>
                         <?php
                     } ?>

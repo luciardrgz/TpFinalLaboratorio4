@@ -34,21 +34,21 @@ namespace Views;
 
                         <div class="card-body p-4 p-md-5">
 
-                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Sign up</h3>
+                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Sign up and join us!</h3>
 
                             <form action="<?php echo FRONT_ROOT . "User/add/" ?>" method="POST">
 
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
-                                            <label class="form-label" for="firstName">First Name</label>
+                                            <label class="form-label" for="firstName">First Name*</label>
                                             <input type="text" name="firstName" id="firstName"
                                                 class="form-control form-control-lg" placeholder="George" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
-                                            <label class="form-label" for="lastName">Last Name</label>
+                                            <label class="form-label" for="lastName">Last Name*</label>
                                             <input type="text" name="lastName" class="form-control form-control-lg"
                                                 placeholder="Washington" required>
                                         </div>
@@ -58,15 +58,15 @@ namespace Views;
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline datepicker w-100">
-                                            <label for="birthdate" class="form-label">Birthday</label>
+                                            <label for="birthdate" class="form-label">Date of Birth*</label>
                                             <input type="date" name="birthDate" class="form-control form-control-lg"
                                                 required>
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6 mb-4 pb-2">
+                                    <div class="col-md-6 mb-4">
                                         <div class="form-outline">
-                                            <label class="form-label" for="email">Email</label>
+                                            <label class="form-label" for="email">Email*</label>
                                             <input type="email" name="email" id="emailAddress"
                                                 class="form-control form-control-lg" placeholder="ejemplo@gmail.com"
                                                 required>
@@ -75,9 +75,9 @@ namespace Views;
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-6 mb-4 pb-2">
+                                    <div class="col-md-6 mb-4">
                                         <div class="form-outline">
-                                            <label class="form-label" for="phoneNumber">Phone Number</label>
+                                            <label class="form-label" for="phoneNumber">Phone Number*</label>
                                             <input type="number" name="phoneNumber" class="form-control form-control-lg"
                                                 placeholder="1234567890" required>
                                         </div>
@@ -85,9 +85,9 @@ namespace Views;
 
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
-                                            <label class="form-label" for="nickName">Nickname</labe>
-                                                <input type="text" name="nickName" class="form-control form-control-lg"
-                                                    placeholder="Nickname" required>
+                                            <label class="form-label" for="nickName">Nickname*</label>
+                                            <input type="text" name="nickName" class="form-control form-control-lg"
+                                                placeholder="Nickname" required>
                                         </div>
                                     </div>
                                 </div>
@@ -95,14 +95,14 @@ namespace Views;
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
-                                            <label class="form-label" for="password">Password</label>
+                                            <label class="form-label" for="password">Password*</label>
                                             <input type="password" name="password" class="form-control form-control-lg"
                                                 placeholder="Password" required>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6 mb-4">
-                                        <label class="form-label select-label">Choose option</label> <br>
+                                        <label class="form-label select-label">What'd you like to be?*</label> <br>
                                         <select name="type" class="select form-control-lg" required>
                                             <option value="G" selected>Pet Guardian</option>
                                             <option value="O">Pet Owner</option>
@@ -110,10 +110,13 @@ namespace Views;
                                     </div>
                                 </div>
 
-                                <button name="submit" type="submit" value="Submit"
-                                    class="btn btn-warning">Submit</button>
+                                <div class="btn-box">
+                                    <button name="submit" type="submit" value="Submit"
+                                        class="signup-btn">Submit</button>
+                                </div>
 
                             </form>
+
                             <br>
                             <?php if ($message != null) { ?>
                             <div class="alert alert-danger">

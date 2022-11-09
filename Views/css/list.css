@@ -96,9 +96,28 @@ ul {
 /* Vaccination pic */
 .vacc-pic,
 .vacc-pic img {
+  margin-top: 10px;
+  margin-left: 25px;
   width: 100px;
   height: 100px;
   object-fit: cover;
+}
+
+/* Pet List Vaccination pic */
+.pl-vacc-pic,
+.pl-vacc-pic img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.pl-img-holder,
+.pl-img-holder img {
+  height: 65px;
+  width: 65px;
+  margin-top: -80px;
+  object-fit: cover;
+  border-radius: 65px;
 }
 
 .career-title {
@@ -151,7 +170,6 @@ button {
 
 .title-div {
   text-align: center;
-  box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.2);
   background-color: #f2c459ec;
   border-radius: 10px;
   padding: 15px 10px 10px 10px;
@@ -161,7 +179,6 @@ button {
 
 .list-title {
   color: rgb(51, 83, 98);
-  -webkit-box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
 }
 
 .dates-div {
@@ -187,7 +204,70 @@ button {
   margin-left: 400px;
 }
 
-.dates-div .label,
-label {
+.bh-pet-profile {
+  -webkit-box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
+  box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  padding: 10px 0px 10px 10px;
+  display: flex;
+}
+
+/* Pet's name*/
+.bh-pet-profile label {
+  margin-left: 20px;
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.booking-content label {
+  margin-left: 10px;
+}
+
+.pet-content {
+  margin-bottom: 500px;
+}
+
+.whole-req {
+  height: 40px;
+  margin-bottom: 100px;
+}
+
+.request-content {
+  background-color: blue;
+  margin-left: 200px;
+}
+
+.req-pet-profile {
+  display: inline;
+  -webkit-box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
+  box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  padding: 10px 0px 10px 10px;
+  display: flex;
+}
+
+/* Pet's name*/
+.req-pet-profile label {
+  margin-top: 12px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.req-img-holder,
+.req-img-holder img {
+  height: 65px;
+  width: 65px;
+  margin-right: 20px;
+  object-fit: cover;
+  border-radius: 65px;
+}
+
+.accept-reject-box {
+  width: 870px;
+  align-items: center;
   text-align: center;
+  display: flex;
+  gap: 20px;
+  height: 40px;
 }
