@@ -24,12 +24,16 @@ include("navOwner.php");
     <div class="container">
         <div class="row">
 
-            <?php if ($message != null) { ?>
+            <?php 
+            if(isset($_GET['message'])){
+                    $message = $_GET['message'];
+                }
+                if ($message != null) { ?>
             <div class="alert alert-danger">
-                <?php echo $message; ?>
+                <?php echo $message;?>
             </div>
             <?php } ?>
-
+ 
         </div>
 
         <div class="row">
@@ -38,15 +42,26 @@ include("navOwner.php");
 
 
                     <div class="title-div">
-                        <h3 class="list-title">Guardians available from <?php echo $firstDay ?> to
-                            <?php echo $lastDay ?> </h3>
+                        <h3 class="list-title">Guardians available from 
+                            <?php 
+                            if (!isset($firstDay)){
+                                if(isset($_GET['firstDay'])){
+                                     $firstDay = $_GET['firstDay'];
+                                 }
+                            }
+                             echo $firstDay; ?> to <?php 
+                            if (!isset($lastDay)){
+                                if(isset($_GET['lastDay'])){
+                                    $lastDay = $_GET['lastDay'];
+                                }
+                            }
+                             echo $lastDay ?> </h3>
                     </div>
 
 
                     <?php if ($guardianList != null) { ?>
 
-                    <?php foreach ($guardianList as $guardian) {
-                            if ($guardian->getPetsize() != null && $guardian->getFirstAvailableDay() != null && $guardian->getLastAvailableDay() != null && $guardian->getPrice() != null) { ?>
+                    <?php foreach ($guardianList as $guardian) { ?>
 
                     <div class="filter-result">
                         <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
@@ -110,7 +125,7 @@ include("navOwner.php");
                                     class="btn d-block w-100 d-sm-inline-block btn-light">Hire</a>
                             </div>
                         </div>
-                        <?php }
+                        <?php 
                         }
                     } else { ?>
                         <div class="title-div">

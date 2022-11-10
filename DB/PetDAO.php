@@ -26,7 +26,7 @@ class PetDAO /*implements IPetDAO*/
             $breedDAO = new BreedDAO();
 
             $parameters["ownerId"] = $pet->getOwnerId();
-            $parameters["breed"] = $pet->getBreed(); // LE ESTAMOS PASANDO UN STRING Y HAY QUE PASARLE UN ID
+            $parameters["breed"] = $pet->getBreed(); 
             $parameters["size"] = $pet->getSize();
             $parameters["name"] = $pet->getName();
             $parameters["picture"] = $pet->getPicture();
@@ -48,7 +48,11 @@ class PetDAO /*implements IPetDAO*/
         try {
             $petList = array();
 
-            $query = "SELECT * FROM " . $this->tableName . " WHERE (id = :id);";
+            $query = "SELECT p.id, p.id_pet_owner, p.name, p.picture, pb.breed, p.video,p.vaccination, p.id_pet_type, p.id_pet_size 
+            FROM " . $this->tableName . " as p
+            JOIN petbreeds pb
+            ON p.id_pet_breed = pb.id
+            WHERE (p.id = :id);";
 
             $parameters['id'] = $id;
 
@@ -61,7 +65,7 @@ class PetDAO /*implements IPetDAO*/
                     $row["id_pet_owner"],
                     $row["name"],
                     $row["picture"],
-                    $row["id_pet_breed"],
+                    $row["breed"],
                     $row["video"],
                     $row["vaccination"],
                     $row["id_pet_type"],
@@ -84,7 +88,11 @@ class PetDAO /*implements IPetDAO*/
         try {
             $petList = array();
 
-            $query = "SELECT * FROM " . $this->tableName . " WHERE (id_pet_owner = :idOwner);";
+            $query = "SELECT p.id, p.id_pet_owner, p.name, p.picture, pb.breed, p.video,p.vaccination, p.id_pet_type, p.id_pet_size 
+            FROM " . $this->tableName . " as p
+            JOIN petbreeds pb
+            ON p.id_pet_breed = pb.id
+            WHERE (p.id_pet_owner = :idOwner);";
 
             $idOwner = $_SESSION['id'];
 
@@ -99,7 +107,7 @@ class PetDAO /*implements IPetDAO*/
                     $row["id_pet_owner"],
                     $row["name"],
                     $row["picture"],
-                    $row["id_pet_breed"],
+                    $row["breed"],
                     $row["video"],
                     $row["vaccination"],
                     $row["id_pet_type"],

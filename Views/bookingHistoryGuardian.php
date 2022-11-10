@@ -4,10 +4,6 @@ namespace Views;
 
 include("navGuardian.php");
 
-use DB\BreedDAO as BreedDAO;
-
-$breedDAO = new BreedDAO();
-
 ?>
 
 <!DOCTYPE html>
@@ -122,9 +118,7 @@ $breedDAO = new BreedDAO();
                                                         echo "Pets to take care of: <br>";
                                                         ?></b>
 
-                                            <?php foreach ($arrayPets as $pet) {
-
-                                                        $breedDAO = new BreedDAO(); ?>
+                                            <?php foreach ($arrayPets as $pet) { ?>
 
                                             <div class="bh-pet-profile">
                                                 <div
@@ -138,7 +132,7 @@ $breedDAO = new BreedDAO();
                                                 <label> <?php echo $pet->getSizeText() ?> </label> &nbsp;
                                                 <?php }  ?>
 
-                                                <label><?php echo $breedDAO->getBreedName($pet->getBreed()); ?></label>
+                                                <label><?php echo $pet->getBreed(); ?></label>
                                             </div>
 
                                             <?php if ($pet->getVideo() != null) { ?>

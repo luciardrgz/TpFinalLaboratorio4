@@ -4,10 +4,6 @@ namespace Views;
 
 include("navGuardian.php");
 
-use DB\BreedDAO as BreedDAO;
-
-$breedDAO = new BreedDAO();
-
 ?>
 
 <!DOCTYPE html>
@@ -28,56 +24,18 @@ $breedDAO = new BreedDAO();
     <div class="container">
         <div class="row">
 
-            <?php /*if ($message != null) { ?>
+            <?php if (isset($message)) { ?>
             <div class="alert alert-danger">
                 <?php echo $message; ?>
             </div>
-            <?php }*/ ?>
+            <?php }?>
 
         </div>
 
         <div class="row">
             <div class="col-lg-10 mx-auto">
                 <div class="career-search mb-60">
-                    <!--
-                    <form action="#" class="career-form mb-60">
-                        <div class="row">
-                            <div class="col-md-6 col-lg-3 my-3">
-                                <div class="input-group position-relative">
-                                    <input type="text" class="form-control" placeholder="Enter Your Keywords"
-                                        id="keywords">
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-3 my-3">
-                                <div class="select-container">
-                                    <select class="custom-select">
-                                        <option selected="">Location</option>
-                                        <option value="1">Jaipur</option>
-                                        <option value="2">Pune</option>
-                                        <option value="3">Bangalore</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-3 my-3">
-                                <div class="select-container">
-                                    <select class="custom-select">
-                                        <option selected="">Select Job Type</option>
-                                        <option value="1">Ui designer</option>
-                                        <option value="2">JS developer</option>
-                                        <option value="3">Web developer</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-3 my-3">
-                                <button type="button" class="btn btn-lg btn-block btn-light btn-custom"
-                                    id="contact-submit">
-                                    Search
-                                </button>
-                            </div>
-                        </div>
-                    </form> 
-                        -->
-
+              
                     <?php if ($arrayRequests != null) { ?>
 
                     <div class="title-div">
@@ -91,8 +49,7 @@ $breedDAO = new BreedDAO();
                             <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
 
 
-                                <h5 class="h5-guardians"><?php //echo $arrayNickname[$i]; 
-                                                                    ?></h5>
+                                <h5 class="h5-guardians"><?php //echo $arrayNickname[$i]; ?></h5>
                                 <ul>
                                     <li>
                                         <img src="https://img.icons8.com/material/24/null/clock--v1.png" />
@@ -111,9 +68,7 @@ $breedDAO = new BreedDAO();
 
                                                 echo "<b>Pets to take care of:</b>";
 
-                                                foreach ($arrayPets as $pet) {
-
-                                                    $breedDAO = new BreedDAO(); ?>
+                                                foreach ($arrayPets as $pet) { ?>
 
                                         <div class="req-pet-profile">
                                             <div class="req-img-holder">
@@ -125,7 +80,7 @@ $breedDAO = new BreedDAO();
                                             <label> <?php echo $pet->getSizeText() ?> </label> &nbsp;
                                             <?php }  ?>
 
-                                            <label><?php echo $breedDAO->getBreedName($pet->getBreed()); ?></label>
+                                            <label><?php echo $pet->getBreed(); ?></label>
 
                                         </div>
 

@@ -2,19 +2,9 @@
 
 namespace Views;
 
-use DB\BreedDAO as BreedDAO;
-use DB\GuardianDAO as GuardianDAO;
-use Models\Guardian as Guardian;
-
 include("navOwner.php");
 
-$guardianDAO = new GuardianDAO();
-$guardian = new Guardian();
-$guardian = $guardianDAO->getById($id);
-$guardianName = $guardian->getFirstName();
 ?>
-
-
 
 <!DOCTYPE html>
 <html>
@@ -39,7 +29,7 @@ $guardianName = $guardian->getFirstName();
                     <h3><br>You've selected <?php echo $guardianName; ?> to take care of your pets!</h3>
                     <h4>Now, you have to select <b>at least 1 pet</b> to continue. <br>
                         <img src="https://i.ibb.co/HnpvQD5/dog.gif">
-                        Guardians can take care of <b>1 size of pet</b> and <b><?php if($breed == null){echo "1 breed of pet";}else{ echo "1 " . $breed . "pet";} ?></b> at
+                        Guardians can take care of <b>1 size of pet</b> and <b><?php if($breed == null){echo "1 breed of pet";}else{ echo "1 " . $breed . " pet";} ?></b> at
                         a time.
                         <img src="https://i.ibb.co/bJHGvzz/cat.gif">
                     </h4>
@@ -60,7 +50,7 @@ $guardianName = $guardian->getFirstName();
                         <input type="date" name="lastDay" value="<?php echo $lastDay ?>" hidden>
 
                         <?php
-                        $breedDAO = new BreedDAO();
+                
 
                         if ($petList != null) {
                             foreach ($petList as $pets) { ?>
@@ -79,7 +69,7 @@ $guardianName = $guardian->getFirstName();
 
                                         <ul>
                                             <li class="mr-md-4">
-                                                <?php echo "<br>" . $pets->getSizeText() . " " .  $breedDAO->getBreedName($pets->getBreed()); ?>
+                                                <?php echo "<br>" . $pets->getSizeText() . " " .  $pets->getBreed(); ?>
 
                                                 <?php if ($pets->getVideo() != null) {
                                                             echo "<br>Video: " . $pets->getVideo();
@@ -124,5 +114,4 @@ $guardianName = $guardian->getFirstName();
         <br>
 
 </body>
-
 </html>

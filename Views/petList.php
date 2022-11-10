@@ -2,9 +2,6 @@
 
 namespace Views;
 
-use DB\BreedDAO;
-
-
 include("navOwner.php");
 
 ?>
@@ -34,8 +31,6 @@ include("navOwner.php");
 
                     <?php
 
-                    $breedDAO = new BreedDAO();
-
                     if ($petList != null) {
                     ?>
 
@@ -64,7 +59,7 @@ include("navOwner.php");
                                                     if ($pets->getType() == "1") {
                                                         echo $pets->getSizeText() . " ";
                                                     }
-                                                    echo $breedDAO->getBreedName($pets->getBreed());
+                                                    echo $pets->getBreed();
 
                                                     if ($pets->getVideo() != null) {
                                                     ?> <br>

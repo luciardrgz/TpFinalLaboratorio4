@@ -2,8 +2,6 @@
 
 namespace Views;
 
-use DB\BreedDAO as BreedDAO;
-
 ?>
 
 <!DOCTYPE html>
@@ -59,8 +57,6 @@ use DB\BreedDAO as BreedDAO;
                                 <h5>Pets to be cared for</h5>
                                 <?php
 
-                                $breed = new BreedDAO();
-
                                 foreach ($ArrayPets as $pet) { ?>
                                 <tbody>
                                     <tr>
@@ -73,7 +69,7 @@ use DB\BreedDAO as BreedDAO;
                                             <span class="font-weight-bold"><?php echo $pet->getName() ?></span>
                                             <div class="product-qty">
                                                 <span class="d-block">Breed:
-                                                    <?php echo $breed->getBreedName($pet->getBreed()); ?></span>
+                                                    <?php $pet->getBreed(); ?></span>
                                                 <span>Size: <?php echo $pet->getSizeText() ?></span>
                                             </div>
                                         </td>

@@ -179,3 +179,12 @@ SELECT * FROM PetBreeds;
 SELECT * FROM Guardians;
 SELECT * FROM OwnerXBooking;
 SELECT * FROM BookingXPet;
+
+SELECT b.id, b.id_status, b.start_date, b.end_date, b.totalAmount, b.id_guardian, ob.id_owner 
+            FROM bookings as b 
+            JOIN ownerxbooking as ob
+            ON b.id = ob.id_booking 
+            where id_status = '2' AND ((start_date between '2022-12-08' and '2022-12-12') or (end_date between '2022-12-08' and '2022-12-12')) or (('2022-12-08' between start_date and end_date) or ( '2022-12-12'between start_date and end_date));
+
+select * from bookings
+where id_status = '2' AND ((start_date between '2022-12-08' and '2022-12-12') or (end_date between '2022-12-08' and '2022-12-12')) or (('2022-12-08' between start_date and end_date) or ( '2022-12-12'between start_date and end_date));

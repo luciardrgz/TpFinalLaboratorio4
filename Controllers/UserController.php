@@ -52,12 +52,12 @@ class UserController
         }
     }
 
-    public function showGuardianList()
+   /* public function showGuardianList()
     {
         if (isset($_SESSION['loggeduser'])) {
             if ($_SESSION['type'] == 'O') {
                 $guardianList = array();
-                $guardianList = $this->guardianDAO->getAll();
+                $guardianList = $this->guardianDAO->getGuardiansByDate();
 
                 $message = $this->getErrorMsg();
 
@@ -68,7 +68,7 @@ class UserController
         } else {
             require_once(VIEWS_PATH . "login.php");
         }
-    }
+    }*/
 
     public function filterGuardianList($firstDay, $lastDay)
     {
