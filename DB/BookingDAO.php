@@ -131,6 +131,40 @@ class BookingDAO
         }
     }
 
+    function getByIdOwner($idOwner)
+    {
+        try {
+            $bookingList = array();
+
+            $query =
+            "SELECT b.id, b.id_status, b.start_date, b.end_date, b.totalAmount, b.id_guardian, ob.id_owner 
+            FROM bookings as b 
+            JOIN ownerxbooking as ob
+            ON b.id = ob.id_booking 
+            WHERE ob.id_owner = :idOwner AND (b.id_status = '2' OR b.id_status = '4');";
+
+            $parameters["idOwner"] = $idOwner;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            foreach ($resultSet as $row) {
+                $booking = new Booking($this->getPets($row['id']), ($row["start_date"]), ($row["end_date"]), ($row["id_owner"]), ($row["id_guardian"]), ($row["totalAmount"]));
+
+                $booking->setId($row["id"]);
+                $booking->setStatus($row["id_status"]);
+
+                array_push($bookingList, $booking);
+            }
+
+            return count($bookingList) > 0 ? $bookingList : null;
+        } catch (Exception $ex) {
+            throw $ex;
+            echo "excepcion en getByIdOwner";
+        }
+    }
+
     function getBookingsBetweenDates($idGuardian,$firstDay,$lastDay)
     {
         try {
@@ -140,8 +174,9 @@ class BookingDAO
             FROM bookings as b 
             JOIN ownerxbooking as ob
             ON b.id = ob.id_booking 
-            WHERE id_status = '2' 
-            AND b.id_guardian = :idGuardian
+            WHERE (id_status = '2'
+            OR id_status = '5') 
+            AND (b.id_guardian = :idGuardian)
             AND (((b.start_date between :firstDay and :lastDay) or (b.end_date between :firstDay and :lastDay)) 
             OR ((:firstDay between b.start_date and b.end_date) or (:lastDay between b.start_date and b.end_date)));";
 
@@ -274,4 +309,39 @@ class BookingDAO
             echo "excepcion en getById";
         }
     }
+
+    function updatePastConfirmedBookings($idGuardian){
+
+        $query = "UPDATE ". $this->tableName . " SET id_status = 4 WHERE id_status = 5 AND id_guardian = :idGuardian AND (end_date < now());";
+            
+        $parameters["idGuardian"] = $idGuardian;
+
+        $this->connection = Connection::GetInstance();
+
+        $resultSet = $this->connection->ExecuteNonQuery($query, $parameters);
+    }
+
+    function updatePastAcceptedBookings($idGuardian){
+
+        $query = "UPDATE ". $this->tableName . " SET id_status = 3 WHERE id_status = 2 AND id_guardian = :idGuardian AND (start_date < now());";
+            
+        $parameters["idGuardian"] = $idGuardian;
+
+        $this->connection = Connection::GetInstance();
+
+        $resultSet = $this->connection->ExecuteNonQuery($query, $parameters);
+    }
+
+
+    function updatePastWaitingBookings($idGuardian){
+
+        $query = "UPDATE ". $this->tableName . " SET id_status = 3 WHERE id_status = 1 AND id_guardian = :idGuardian AND (start_date < now());";
+            
+        $parameters["idGuardian"] = $idGuardian;
+
+        $this->connection = Connection::GetInstance();
+
+        $resultSet = $this->connection->ExecuteNonQuery($query, $parameters);
+    }
 }
+    

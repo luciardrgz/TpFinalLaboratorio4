@@ -35,44 +35,6 @@ include("navGuardian.php");
         <div class="row">
             <div class="col-lg-10 mx-auto">
                 <div class="career-search mb-60">
-                    <!--
-                    <form action="#" class="career-form mb-60">
-                        <div class="row">
-                            <div class="col-md-6 col-lg-3 my-3">
-                                <div class="input-group position-relative">
-                                    <input type="text" class="form-control" placeholder="Enter Your Keywords"
-                                        id="keywords">
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-3 my-3">
-                                <div class="select-container">
-                                    <select class="custom-select">
-                                        <option selected="">Location</option>
-                                        <option value="1">Jaipur</option>
-                                        <option value="2">Pune</option>
-                                        <option value="3">Bangalore</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-3 my-3">
-                                <div class="select-container">
-                                    <select class="custom-select">
-                                        <option selected="">Select Job Type</option>
-                                        <option value="1">Ui designer</option>
-                                        <option value="2">JS developer</option>
-                                        <option value="3">Web developer</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-3 my-3">
-                                <button type="button" class="btn btn-lg btn-block btn-light btn-custom"
-                                    id="contact-submit">
-                                    Search
-                                </button>
-                            </div>
-                        </div>
-                    </form> 
-                        -->
 
                     <?php if ($arrayRequests != null) { ?>
 
@@ -101,6 +63,10 @@ include("navGuardian.php");
                                         <img src="https://i.ibb.co/3WPbhrj/rejected.png" />
                                         <?php echo $status;
                                                 }
+                                             else if ($status == 'Finished') { ?>
+                                                <img src="https://i.ibb.co/GVx5TxH/finished.png"/>
+                                                <?php echo $status;
+                                                        }
                                                 ?>
                                     </h5>
 
@@ -128,9 +94,9 @@ include("navGuardian.php");
 
                                                 <label><?php echo $pet->getName() . " | "; ?></label> &nbsp;
 
-                                                <?php if ($pet->getType() == "1") { ?>
-                                                <label> <?php echo $pet->getSizeText() ?> </label> &nbsp;
-                                                <?php }  ?>
+                                            
+                                                <label> <?php echo $pet->getSizeText() ?> </label> 
+                                               
 
                                                 <label><?php echo $pet->getBreed(); ?></label>
                                             </div>

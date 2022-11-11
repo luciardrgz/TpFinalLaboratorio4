@@ -41,7 +41,7 @@ if ($_SESSION["type"] == "O") {
                     <h6><i><?php echo "Pet Owner"; ?></i></h6>
                     <?php } else { ?>
                     <h6><i><?php echo " Pet Guardian"; ?></i></h6>
-                    <p class="profile-rating">Your guardian score: <span>8/10</span></p>
+                    <p class="profile-rating">Your guardian score: <span><?php if($user->getScore() != null){echo $user->getScore() . "/5";}else{echo 'empty';}?></span></p>
                     <?php } ?>
 
                 </div>

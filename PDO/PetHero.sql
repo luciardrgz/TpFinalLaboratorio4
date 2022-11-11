@@ -65,6 +65,18 @@ constraint check_score check (score <= 5 and score >= 0)
 select * 
 from Guardians;
 
+create table scores(
+id int auto_increment,
+id_guardian int not null,
+id_owner int not null,
+score int not null,
+review varchar(300),
+constraint pk_id_score primary key (id),
+constraint fk_id_guardian_score foreign key (id_guardian) references Guardians(id),
+constraint fk_id_owner_score foreign key (id_guardian) references owners(id),
+constraint check_score_table check (score <= 5 and score >= 0)
+)engine=InnoDB;
+
 create table Pets(
 id int auto_increment,
 id_pet_owner int not null,
@@ -166,7 +178,7 @@ insert into PetBreeds (breed, id_pet_type) values
 insert into PetSizes (size) values
 ('Small'), ('Medium'), ('Big');
 
-insert into BookingStatus (booking_status) values ('Waiting'), ('Accepted'), ('Rejected'), ('Finished');
+insert into BookingStatus (booking_status) values ('Waiting'), ('Accepted'), ('Rejected'), ('Finished'), ('Confirmed'), ('Timed Out'), ('Rated');
 
 #Selects 
 SELECT * FROM PetTypes;
@@ -179,12 +191,9 @@ SELECT * FROM PetBreeds;
 SELECT * FROM Guardians;
 SELECT * FROM OwnerXBooking;
 SELECT * FROM BookingXPet;
+SELECT * FROM scores;
 
-SELECT b.id, b.id_status, b.start_date, b.end_date, b.totalAmount, b.id_guardian, ob.id_owner 
-            FROM bookings as b 
-            JOIN ownerxbooking as ob
-            ON b.id = ob.id_booking 
-            where id_status = '2' AND ((start_date between '2022-12-08' and '2022-12-12') or (end_date between '2022-12-08' and '2022-12-12')) or (('2022-12-08' between start_date and end_date) or ( '2022-12-12'between start_date and end_date));
-
-select * from bookings
-where id_status = '2' AND ((start_date between '2022-12-08' and '2022-12-12') or (end_date between '2022-12-08' and '2022-12-12')) or (('2022-12-08' between start_date and end_date) or ( '2022-12-12'between start_date and end_date));
+Update guardians SET score = (select avg(score)
+from scores
+where id_guardian = 1) 
+where id = 1;

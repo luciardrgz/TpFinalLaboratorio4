@@ -23,8 +23,6 @@ class PetDAO /*implements IPetDAO*/
             (id_pet_owner,id_pet_breed, id_pet_size, name, picture, video, vaccination, id_pet_type)
             VALUES (:ownerId,:breed,:size,:name,:picture,:video,:vaccination,:type);";
 
-            $breedDAO = new BreedDAO();
-
             $parameters["ownerId"] = $pet->getOwnerId();
             $parameters["breed"] = $pet->getBreed(); 
             $parameters["size"] = $pet->getSize();

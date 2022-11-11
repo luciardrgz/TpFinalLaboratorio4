@@ -18,6 +18,7 @@ use Models\Guardian as Guardian;
 use Models\Owner as Owner;
 use Models\Pet as Pet;
 use Models\Alert as Alert;
+use Models\Booking as Booking;
 use \Exception as Exception;
 
 use Controllers\AuthController as AuthController;
@@ -27,11 +28,13 @@ class UserController
 {
     private $guardianDAO;
     private $ownerDAO;
+    //private $bookingDAO;
 
     public function __construct()
     {
         $this->guardianDAO = new GuardianDAO();
         $this->ownerDAO = new OwnerDAO();
+        //$this->$bookingDAO = new BookingDAO();
     }
 
     public function Index()
@@ -39,7 +42,7 @@ class UserController
         if (isset($_SESSION["loggeduser"])) {
             $this->showLandingPage($_SESSION["type"]);
         } else {
-            require_once(VIEWS_PATH . "login.php");
+            header("location:" . FRONT_ROOT . "Auth");
         }
     }
 
@@ -68,9 +71,20 @@ class UserController
         } else {
             require_once(VIEWS_PATH . "login.php");
         }
+        
+        public function getErrorMsg()
+    {
+        $errorMsg = null;
+
+        if (isset($_GET['message'])) {
+            $errorMsg = $_GET['message'];
+        }
+
+        return $errorMsg;
+    }
     }*/
 
-    public function filterGuardianList($firstDay, $lastDay)
+    public function filterGuardianList($firstDay, $lastDay, $message = '')
     {
         if (isset($_SESSION['loggeduser'])) {
             if ($_SESSION['type'] == 'O') {
@@ -78,9 +92,13 @@ class UserController
                     $guardianList = array();
                     $guardianList = $this->guardianDAO->getGuardiansByDate($firstDay, $lastDay);
 
-                    $message = null;
+                    if($message == ''){
+                        $message = null;
+                    }
                     $firstDay;
-                    $lastDay;
+                    $lastDay;    
+                    echo 'firstday: ' .$firstDay;
+                    echo 'lastDay: ' .$lastDay;
 
                     require_once(VIEWS_PATH . "guardianList.php");
                 } else {
@@ -91,20 +109,11 @@ class UserController
                 require_once(VIEWS_PATH . "landingPageGuardian.php");
             }
         } else {
-            require_once(VIEWS_PATH . "login.php");
+            header("location:" . FRONT_ROOT . "Auth");
         }
     }
 
-    public function getErrorMsg()
-    {
-        $errorMsg = null;
-
-        if (isset($_GET['message'])) {
-            $errorMsg = $_GET['message'];
-        }
-
-        return $errorMsg;
-    }
+    
 
     public function showProfileInfo()
     {
@@ -119,7 +128,7 @@ class UserController
                 require_once(VIEWS_PATH . "profile.php");
             }
         } else {
-            require_once(VIEWS_PATH . "login.php");
+            header("location:" . FRONT_ROOT . "Auth");
         }
     }
 
@@ -218,7 +227,7 @@ class UserController
                 require_once(VIEWS_PATH . "landingPageOwner.php");
             }
         } else {
-            require_once(VIEWS_PATH . "login.php");
+            header("location:" . FRONT_ROOT . "Auth");
         }
     }
 
@@ -237,7 +246,7 @@ class UserController
                 require_once(VIEWS_PATH . "landingPageOwner.php");
             }
         } else {
-            require_once(VIEWS_PATH . "login.php");
+            header("location:" . FRONT_ROOT . "Auth");
         }
     }
 
@@ -254,7 +263,24 @@ class UserController
                 require_once(VIEWS_PATH . "landingPageOwner.php");
             }
         } else {
-            require_once(VIEWS_PATH . "login.php");
+            header("location:" . FRONT_ROOT . "Auth");
+        }
+    }
+
+    public function addScore($idGuardian, $score, $idBooking/*, $review*/)
+    {
+        if (isset($_SESSION['loggeduser'])) {
+            if ($_SESSION['type'] == 'O') {
+            $this->guardianDAO->addScore($idGuardian,$score/*, $review*/);
+                $bookingDAO = new BookingDAO();
+                
+                $bookingDAO->updateStatus($idBooking,"7");
+                header("location:" . FRONT_ROOT . "Booking/showMyBookings");
+            } else {
+                require_once(VIEWS_PATH . "landingPageGuardian.php");
+            }
+        } else {
+            header("location:" . FRONT_ROOT . "Auth");
         }
     }
 }

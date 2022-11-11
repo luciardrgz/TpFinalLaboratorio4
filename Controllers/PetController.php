@@ -45,7 +45,7 @@ class PetController
                 require_once(VIEWS_PATH . "landingPageGuardian.php");
             }
         } else {
-            require_once(VIEWS_PATH . "login.php");
+            header("location:" . FRONT_ROOT . "Auth");
         }
     }
 
@@ -62,7 +62,7 @@ class PetController
                 require_once(VIEWS_PATH . "landingPageOwner.php");
             }
         } else {
-            require_once(VIEWS_PATH . "login.php");
+            header("location:" . FRONT_ROOT . "Auth");
         }
     }
 
@@ -92,7 +92,7 @@ class PetController
                 require_once(VIEWS_PATH . "landingPageOwner.php");
             }
         } else {
-            require_once(VIEWS_PATH . "login.php");
+            header("location:" . FRONT_ROOT . "Auth");
         }
     }
 
@@ -105,7 +105,7 @@ class PetController
                 require_once(VIEWS_PATH . "landingPageGuardian.php");
             }
         } else {
-            require_once(VIEWS_PATH . "login.php");
+            header("location:" . FRONT_ROOT . "Auth");
         }
     }
 }

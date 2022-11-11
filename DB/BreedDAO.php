@@ -13,45 +13,6 @@ class BreedDAO
     private $connection;
     private $tableName = "PetBreeds";
 
-    // Se le pasa una breed completa y nos retorna su nombre
-    public function getBreedName($breed)
-    {
-        $foundBreed = new Breed();
-        $foundBreed = $this->getBreedByID($breed);
-
-        return $foundBreed->getBreed();
-    }
-
-    // Trae un objeto breed completo según un ID
-    public function getBreedByID($passedId)
-    {
-        try {
-
-            $breedList = array();
-
-            $query = "SELECT * FROM " . $this->tableName . " WHERE id = :passedId;";
-
-            # Parameters lleva el nombre de la variable PHP
-            $parameters['passedId'] = $passedId;
-
-            $this->connection = Connection::GetInstance();
-
-            $resultSet = $this->connection->Execute($query, $parameters);
-
-            foreach ($resultSet as $row) {
-
-                $breed = new Breed($row["breed"], $row["id_pet_type"]);
-                $breed->setId($row["id"]);
-                array_push($breedList, $breed);
-            }
-
-            return (count($breedList) > 0) ? $breedList[0] : null;
-        } catch (Exception $ex) {
-            //throw $ex;
-            echo " excepcion en getbreedbyID";
-        }
-    }
-
     function getAllDogBreeds()
     {
         try {

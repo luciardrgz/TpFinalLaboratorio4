@@ -54,7 +54,7 @@ class BookingController
                 header("location:" . FRONT_ROOT . "User/showLandingPage?message");
             }
         } else {
-            require_once(VIEWS_PATH . "login.php");
+            header("location:" . FRONT_ROOT . "Auth");
         }
     }
 
@@ -110,22 +110,22 @@ class BookingController
                                 require_once(VIEWS_PATH . "bookingConfirmation.php");
                             } else {
                                 $message = "There are no guardians available on the dates you've selected";
-                                header("location:" . FRONT_ROOT . "User/filterGuardianList?message=" .$message."&firstDay=" .$firstDay."&lastDay=" .$lastDay);
+                                header("location:" . FRONT_ROOT . "User/filterGuardianList?firstDay=" .$firstDay."&lastDay=" .$lastDay."&message=" .$message);
                             }
                         } else {
                             $message = "The size you've selected isn't the same as the guardian's size preference";
-                            header("location:" . FRONT_ROOT . "User/filterGuardianList?message=" . $message."&firstDay=" .$firstDay."&lastDay=" .$lastDay);
+                            header("location:" . FRONT_ROOT . "User/filterGuardianList?firstDay=" .$firstDay."&lastDay=" .$lastDay . "&message=" . $message);
                         }
                     } else {
                         $message = "You must select pets of the same breed";
-                        header("location:" . FRONT_ROOT . "User/filterGuardianList?message=" . $message."&firstDay=" .$firstDay."&lastDay=" .$lastDay); 
+                        header("location:" . FRONT_ROOT . "User/filterGuardianList?firstDay=" .$firstDay."&lastDay=" .$lastDay . "&message=" . $message); 
                     }
                 }
             } else {
                 $userController->showLandingPage($_SESSION['type']);
             }
         } else {
-            require_once(VIEWS_PATH . "login.php");
+            header("location:" . FRONT_ROOT . "Auth");
         }
     }
 
@@ -212,13 +212,14 @@ class BookingController
         return $petsObjects;
     }
 
-    public function showGuardianRequests()
+    public function showGuardianRequests($message)
     {
         if (isset($_SESSION['loggeduser'])) {
 
             if ($_SESSION['type'] == 'G') {
 
                 $bookingDAO = new BookingDAO();
+                $bookingDAO->updatePastWaitingBookings($_SESSION['id']);
                 $arrayRequests = $bookingDAO->getRequests($_SESSION['id']);
 
                 
@@ -234,10 +235,12 @@ class BookingController
 
                 require_once(VIEWS_PATH . "requests.php");
             } else {
+                $message = "restricted access";
                 require_once(VIEWS_PATH . "landingPageOwner.php");
             }
         } else {
-            require_once(VIEWS_PATH . "login.php");
+            $message = "restricted access";
+            header("location:" . FRONT_ROOT . "Auth");
         }
     }
 
@@ -246,6 +249,10 @@ class BookingController
         if (isset($_SESSION['loggeduser'])) {
             if ($_SESSION['type'] == 'G') {
                 $bookingDAO = new BookingDAO();
+
+                $bookingDAO->updatePastAcceptedBookings($_SESSION['id']);
+                $bookingDAO->updatePastConfirmedBookings($_SESSION['id']);
+                
                 $arrayRequests = $bookingDAO->getByIdGuardian($_SESSION['id']);
 
                 $arrayNickname = array();
@@ -263,7 +270,33 @@ class BookingController
                 require_once(VIEWS_PATH . "landingPageOwner.php");
             }
         } else {
-            require_once(VIEWS_PATH . "login.php");
+            header("location:" . FRONT_ROOT . "Auth");
+        }
+    }
+
+    function showMyBookings(){
+        if (isset($_SESSION['loggeduser'])) {
+            if ($_SESSION['type'] == 'O') {
+
+                $bookingDAO = new BookingDAO();
+                $guardianDAO = new GuardianDAO();
+                $myBookings = $bookingDAO->getByIdOwner($_SESSION['id']);
+                $arrayNicknamesGuardian = array();
+
+                foreach($myBookings as $booking){
+                    
+                    $nicknameGuardian = ($guardianDAO->getById($booking->getGuardianId()))->getNickName();
+                    array_push($arrayNicknamesGuardian, $nicknameGuardian);
+                }
+                
+                require_once(VIEWS_PATH . "bookingHistoryOwner.php");
+            }
+            else {
+                require_once(VIEWS_PATH . "landingPageGuardian.php");
+            }
+        }
+        else {
+            header("location:" . FRONT_ROOT . "Auth");
         }
     }
 
@@ -272,6 +305,7 @@ class BookingController
         if (isset($_SESSION['loggeduser'])) {
             if ($_SESSION['type'] == 'G') {
                 $bookingDAO = new BookingDAO();
+                $message = null;
 
                 if($statusId == '2'){
 
@@ -289,13 +323,13 @@ class BookingController
                     $message = 'Booking successfully Rejected';
                 }
 
-                $this->showGuardianRequests();
+                $this->showGuardianRequests($message);
 
             } else {
                 require_once(VIEWS_PATH . "Home");
             }
         } else {
-            require_once(VIEWS_PATH . "login.php");
+            header("location:" . FRONT_ROOT . "Auth");
         }
     }
 
@@ -324,7 +358,7 @@ class BookingController
                 require_once(VIEWS_PATH . "landingPageOwner.php");
             }
         } else {
-            require_once(VIEWS_PATH . "login.php");
+            header("location:" . FRONT_ROOT . "Auth");
         }
     }
 
