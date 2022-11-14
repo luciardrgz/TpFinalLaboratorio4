@@ -16,6 +16,7 @@ use DB\GuardianDAO as GuardianDAO;
 use DB\OwnerDAO as OwnerDAO;
 //use JSON\BookingDAO as BookingDAO;
 
+
 class BookingController
 {
 
@@ -90,7 +91,7 @@ class BookingController
                     $ArrayPets = array();
                     $ArrayPets = $this->passArrayIDTOArrayPets($selectedPet);
                     $breed = $this->getBreedBetweenDates($id, $firstDay, $lastDay);
-                    if ($this->verifyPetBreed($ArrayPets, $breed)) { // Agregar $breed como parametro para comparar con el array de Pets
+                    if ($this->verifyPetBreed($ArrayPets, $breed)) {
 
                         if ($this->verifyPetSize($ArrayPets, $id)) {
 
@@ -301,10 +302,25 @@ class BookingController
         }
     }
 
+    function showPaymentView($idBooking, $price){
+        if (isset($_SESSION['loggeduser'])) {
+            if ($_SESSION['type'] == 'O') {
+                $price = ($price / 2);
+                require_once(VIEWS_PATH . "payment.php");
+            }
+            else {
+                require_once(VIEWS_PATH . "landingPageGuardian.php");
+            }
+        }
+        else {
+            header("location:" . FRONT_ROOT . "Auth");
+        }
+    }
+
+
     public function updateStatus($statusId, $idBooking)
     {
         if (isset($_SESSION['loggeduser'])) {
-            if ($_SESSION['type'] == 'G') {
                 $bookingDAO = new BookingDAO();
                 $message = null;
 
@@ -325,11 +341,7 @@ class BookingController
                 }
 
                 $this->showGuardianRequests($message);
-
-            } else {
-                require_once(VIEWS_PATH . "Home");
-            }
-        } else {
+            }else {
             header("location:" . FRONT_ROOT . "Auth");
         }
     }

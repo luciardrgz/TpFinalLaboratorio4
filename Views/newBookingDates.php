@@ -39,12 +39,12 @@ include("navOwner.php");
                     <div class="title-div">
                         <h3 class="list-title">Select a date!</h3>
                     </div>
-
+                    <div class="dates">
                     <form action="<?php echo FRONT_ROOT . "User/filterGuardianList" ?>" method="POST">
                         <div class="row">
                             <div class="col-md-6 col-lg-3 my-3">
                                 <div class="dates-div">
-                                    <label>From:</label>
+                                    <label>&nbsp;&nbsp;From:</label>
                                     <input type="date" name="firstDay" class="dateSelection" required>
                                 </div>
                             </div>
@@ -60,6 +60,7 @@ include("navOwner.php");
                             </div>
                         </div>
                     </form>
+                    </div>
                 </div>
 
             </div>

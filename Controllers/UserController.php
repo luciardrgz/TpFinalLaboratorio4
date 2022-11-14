@@ -28,13 +28,11 @@ class UserController
 {
     private $guardianDAO;
     private $ownerDAO;
-    //private $bookingDAO;
 
     public function __construct()
     {
         $this->guardianDAO = new GuardianDAO();
         $this->ownerDAO = new OwnerDAO();
-        //$this->$bookingDAO = new BookingDAO();
     }
 
     public function Index()
@@ -55,35 +53,6 @@ class UserController
         }
     }
 
-   /* public function showGuardianList()
-    {
-        if (isset($_SESSION['loggeduser'])) {
-            if ($_SESSION['type'] == 'O') {
-                $guardianList = array();
-                $guardianList = $this->guardianDAO->getGuardiansByDate();
-
-                $message = $this->getErrorMsg();
-
-                require_once(VIEWS_PATH . "guardianList.php");
-            } else {
-                require_once(VIEWS_PATH . "landingPageGuardian.php");
-            }
-        } else {
-            require_once(VIEWS_PATH . "login.php");
-        }
-        
-        public function getErrorMsg()
-    {
-        $errorMsg = null;
-
-        if (isset($_GET['message'])) {
-            $errorMsg = $_GET['message'];
-        }
-
-        return $errorMsg;
-    }
-    }*/
-
     public function filterGuardianList($firstDay, $lastDay, $message = '')
     {
         if (isset($_SESSION['loggeduser'])) {
@@ -97,8 +66,6 @@ class UserController
                     }
                     $firstDay;
                     $lastDay;    
-                   // echo 'firstday: ' .$firstDay;
-                   // echo 'lastDay: ' .$lastDay;
 
                     require_once(VIEWS_PATH . "guardianList.php");
                 } else {
@@ -267,11 +234,11 @@ class UserController
         }
     }
 
-    public function addScore($idGuardian, $score, $idBooking/*, $review*/)
+    public function addScore($idGuardian, $score, $idBooking)
     {
         if (isset($_SESSION['loggeduser'])) {
             if ($_SESSION['type'] == 'O') {
-            $this->guardianDAO->addScore($idGuardian,$score/*, $review*/);
+            $this->guardianDAO->addScore($idGuardian,$score);
                 $bookingDAO = new BookingDAO();
                 
                 $bookingDAO->updateStatus($idBooking,"7");

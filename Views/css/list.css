@@ -353,3 +353,9 @@ button {
   z-index: 0;
   border-radius: 10px;
 }
+
+.dates{
+  margin-top: 100px;
+  background-color: #12236e96;
+  border-radius: 5px;
+}

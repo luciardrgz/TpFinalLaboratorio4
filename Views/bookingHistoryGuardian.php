@@ -57,16 +57,24 @@ include("navGuardian.php");
                                                 echo $arrayNickname[$i] . "'s Request | ";
 
                                                 if ($status == 'Accepted') { ?>
-                                        <img src="https://i.ibb.co/31jPdqD/accepted.png" />
-                                        <?php echo $status;
-                                                } else if ($status == 'Rejected') { ?>
-                                        <img src="https://i.ibb.co/3WPbhrj/rejected.png" />
-                                        <?php echo $status;
-                                                }
-                                             else if ($status == 'Finished') { ?>
-                                                <img src="https://i.ibb.co/GVx5TxH/finished.png"/>
+                                                <img src="<?php echo  FRONT_ROOT . IMG_PATH . "accepted.png" ?>" />
                                                 <?php echo $status;
-                                                        }
+                                                } else if ($status == 'Rejected') { ?>
+                                                 <img src="<?php echo  FRONT_ROOT . IMG_PATH . "rejected.png" ?>" />
+                                                 <?php echo $status;
+                                                } else if ($status == 'Finished') { ?>
+                                                <img src="<?php echo  FRONT_ROOT . IMG_PATH . "finished.png" ?>"/>
+                                                <?php echo $status;
+                                                } else if ($status == 'Confirmed') { ?>
+                                                     <img src="<?php echo  FRONT_ROOT . IMG_PATH . "Confirmed.png" ?>" />
+                                                    <?php echo $status;
+                                                }else if ($status == 'Timed Out') { ?>
+                                                    <img src="<?php echo  FRONT_ROOT . IMG_PATH . "TimedOut.png" ?>" />
+                                                   <?php echo $status;
+                                               }else if ($status == 'Rated') { ?>
+                                                <img src="<?php echo  FRONT_ROOT . IMG_PATH . "Rated.png" ?>" />
+                                               <?php echo $status;
+                                                }
                                                 ?>
                                     </h5>
 

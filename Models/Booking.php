@@ -48,8 +48,14 @@ class Booking
             return "Accepted";
         } elseif ($this->status == 3) {
             return "Rejected";
-        } else {
+        }elseif ($this->status == 4) {
             return "Finished";
+        }elseif ($this->status == 5) {
+            return "Confirmed";
+        }elseif ($this->status == 6) {
+            return "Timed Out";
+        } else {
+            return "Rated";
         }
     }
 

@@ -59,17 +59,17 @@ include("navOwner.php");
                                                 $status = $myBookings[$i]->getStatusText();
 
                                                 if ($status == 'Accepted') { ?>
-                                        <img src="https://i.ibb.co/31jPdqD/accepted.png" />
+                                        <img src="<?php echo  FRONT_ROOT . IMG_PATH . "accepted.png" ?>" />
                                         <?php echo $status . " | " . $arrayNicknamesGuardian[$i]; ?>
                                         
                                         <div class="job-right my-4 flex-shrink-0">
-                                            <a href="#" class="btn d-block w-100 d-sm-inline-block btn-success">
+                                            <a href="<?php echo FRONT_ROOT . "Booking/showPaymentView/" . $myBookings[$i]->getId() . "/" . $myBookings[$i]->getPrice()?>" class="btn d-block w-100 d-sm-inline-block btn-success">
                                              Pay</a>
                                         </div>
                                         
                                                <?php } 
                                                 else if ($status == 'Finished') { ?>
-                                                <img src="https://i.ibb.co/GVx5TxH/finished.png"/>
+                                                <img src="<?php echo  FRONT_ROOT . IMG_PATH . "finished.png" ?>"/>
                                                 <?php echo $status . " | " . $arrayNicknamesGuardian[$i]; ?>
 
                                        

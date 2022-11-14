@@ -47,9 +47,9 @@ if ($_SESSION["type"] == "O") {
                 </div>
             </div>
 
-            <div class=" col-md-2">
+            <!--<div class=" col-md-2">
                 <input type="submit" class="profile-btns" value="Edit profile" />
-            </div>
+            </div> -->
 
         </div>
         <div class="row">
