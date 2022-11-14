@@ -13,13 +13,17 @@ include("navOwner.php");
     <title></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+        
+        <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css"
+        integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
+
+
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH . "list.css" ?>">
 </head>
 
 <body>
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css"
-        integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
+    
 
     <div class="container">
         <div class="row">
@@ -68,50 +72,50 @@ include("navOwner.php");
                                                 <img src="https://i.ibb.co/GVx5TxH/finished.png"/>
                                                 <?php echo $status . " | " . $arrayNicknamesGuardian[$i]; ?>
 
-                                            <form action="<?php echo FRONT_ROOT ."User/addScore/"?>" method="POST">
+                                       
+                                        <form action="<?php echo FRONT_ROOT ."User/addScore/"?>" method="POST">
                                             <div class="BoxRate">
                                             <div class="info">
                                                 <div class="emoji"></div>
                                                 <div class="status"></div>
-                                                <input name="idGuardian" value="<?php echo $myBookings[$i]->getGuardianId() ?>" hidden>
+                                                <input name="idGuardian" value="<?php  echo $myBookings[$i]->getGuardianId() ?>" hidden>
                                             </div>
                                             
                                             <div class="stars">
-                                                <span class="star-rating">
-                                                <input type="radio" class="star" name="score" data-rate="1"  value='1'><!--<i></i> -->
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">   
+                                                
+                                                <input type="radio" class="star" name="score" data-rate="5"  value='5'>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">   
                                                 </svg>
                                                 
                                                 
-                                                <input type="radio" class="star" name="score" data-rate="2" value= '2'><!--<i></i>-->
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
-                                                </svg>
-                                                
-
-                                                <input type="radio" class="star" name="score" data-rate="3" value= '3'><!--<i></i>-->
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">  
+                                                <input type="radio" class="star" name="score" data-rate="4" value= '4'>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                                 </svg>
                                                 
 
-                                                <input type="radio" class="star" name="score" data-rate="4" value= '4'><!--<i></i>-->
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
+                                                <input type="radio" class="star" name="score" data-rate="3" value= '3'>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">  
                                                 </svg>
                                                 
 
-                                                <input type="radio" class="star" name="score" data-rate="5" value= '5'><!--<i></i>-->
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
+                                                <input type="radio" class="star" name="score" data-rate="2" value= '2'>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                                 </svg>
-                                                </span>
                                                 
+
+                                                <input type="radio" class="star" name="score" data-rate="1" value= '1'>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                </svg>
                                             </div>
+
                                             <input name="idBooking" value="<?php echo $myBookings[$i]->getId() ?>" hidden>
 
                                             <div class="job-right my-4 flex-shrink-0">
-                                            <button name="submit" type="submit" class="signup-btn">Rate</button>
+                                            <button name="submit" type="submit" class="rate-btn">Rate</button>
                                             </div>
                                             
                                             </div>
-                                            </form>
+                                          </form>
                                                 <?php
                                                     }
                                                 ?>
@@ -236,3 +240,6 @@ document.addEventListener("DOMContentLoaded", function () {
   setRating(defaultRatingIndex);
 });
 </script>
+
+
+

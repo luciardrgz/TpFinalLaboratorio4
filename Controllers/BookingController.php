@@ -283,12 +283,13 @@ class BookingController
                 $myBookings = $bookingDAO->getByIdOwner($_SESSION['id']);
                 $arrayNicknamesGuardian = array();
 
-                foreach($myBookings as $booking){
+                if($myBookings !=null){
+                    foreach($myBookings as $booking){
                     
                     $nicknameGuardian = ($guardianDAO->getById($booking->getGuardianId()))->getNickName();
                     array_push($arrayNicknamesGuardian, $nicknameGuardian);
+                    }
                 }
-                
                 require_once(VIEWS_PATH . "bookingHistoryOwner.php");
             }
             else {

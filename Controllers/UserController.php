@@ -97,8 +97,8 @@ class UserController
                     }
                     $firstDay;
                     $lastDay;    
-                    echo 'firstday: ' .$firstDay;
-                    echo 'lastDay: ' .$lastDay;
+                   // echo 'firstday: ' .$firstDay;
+                   // echo 'lastDay: ' .$lastDay;
 
                     require_once(VIEWS_PATH . "guardianList.php");
                 } else {

@@ -56,9 +56,9 @@ include("navOwner.php");
                                     <ul>
                                         <li class="mr-md-4">
                                             <?php
-                                                    if ($pets->getType() == "1") {
-                                                        echo $pets->getSizeText() . " ";
-                                                    }
+                                                    
+                                                    echo $pets->getSizeText() . " ";
+                                                    
                                                     echo $pets->getBreed();
 
                                                     if ($pets->getVideo() != null) {
