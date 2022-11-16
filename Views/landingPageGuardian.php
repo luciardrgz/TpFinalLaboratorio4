@@ -57,10 +57,9 @@ include("navGuardian.php");
     <div class="container">
         <!-- Cards -->
         <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col">
+            <div class="guardianCol">
                 <div class="card">
-                    <img src="https://gumlet.assettype.com/mimorelia%2F2022-07%2Fe2b6c575-cb38-4633-8282-b98f4dcbd734%2Fperrito_gordito_unam.jpg?auto=format%2Ccompress&fit=max&w=1200"
-                        class="card-img-top" />
+                    <img src="<?php echo  FRONT_ROOT . IMG_PATH . "card1.png" ?>" class="card-img-top" />
                     <div class="card-body">
                         <h5 align='center'><b>Find pets to care for</b></h5>
                         <h6 align='center'>If you enjoy <b>spending time with other people's pets</b>, you're in the
@@ -70,10 +69,9 @@ include("navGuardian.php");
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <div class="guardianCol">
                 <div class="card">
-                    <img src="https://entrenatuperro.online/wp-content/uploads/2021/05/socializar-a-mi-cachorro.jpg"
-                        class="card-img-top" />
+                    <img src="<?php echo  FRONT_ROOT . IMG_PATH . "card2.jpg" ?>" class="card-img-top" />
                     <div class="card-body">
                         <h5 align='center'><b>Give love and receive it back</b></h5>
                         <h6 align='center'>Not only will you be able to take care of pets, but you will also <b>get
@@ -82,10 +80,9 @@ include("navGuardian.php");
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <div class="guardianCol">
                 <div class="card">
-                    <img src="https://unamglobal.unam.mx/wp-content/uploads/2020/11/perros-sonr%C3%ADen-1024x576.jpg"
-                        class="card-img-top" />
+                    <img src="<?php echo  FRONT_ROOT . IMG_PATH . "card3.jpg" ?>" class="card-img-top" />
                     <div class="card-body">
                         <h5 align='center'><b>One Rule: make them happy</b></h5>
                         <h6 align='center'>Pet Hero has many other guardians like you who want to make sure <b>pets

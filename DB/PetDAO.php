@@ -24,7 +24,7 @@ class PetDAO /*implements IPetDAO*/
             VALUES (:ownerId,:breed,:size,:name,:picture,:video,:vaccination,:type);";
 
             $parameters["ownerId"] = $pet->getOwnerId();
-            $parameters["breed"] = $pet->getBreed(); 
+            $parameters["breed"] = $pet->getBreed();
             $parameters["size"] = $pet->getSize();
             $parameters["name"] = $pet->getName();
             $parameters["picture"] = $pet->getPicture();
@@ -35,9 +35,8 @@ class PetDAO /*implements IPetDAO*/
             $this->connection = Connection::GetInstance();
 
             $this->connection->ExecuteNonQuery($query, $parameters);
-        } catch (Exception $insertExc) {
-            throw $insertExc;
-            echo " excepcion en add de ownerdao";
+        } catch (Exception $e) {
+            throw $e;
         }
     }
 
@@ -75,9 +74,8 @@ class PetDAO /*implements IPetDAO*/
             }
 
             return (count($petList) > 0) ? $petList[0] : null;
-        } catch (Exception $ex) {
-            //throw $ex;
-            echo " excepcion en getpetsbyownerid";
+        } catch (Exception $e) {
+            throw $e;
         }
     }
 
@@ -117,9 +115,8 @@ class PetDAO /*implements IPetDAO*/
             }
 
             return (count($petList) > 0) ? $petList : null;
-        } catch (Exception $ex) {
-            //throw $ex;
-            echo " excepcion en getpetsbyownerid";
+        } catch (Exception $e) {
+            throw $e;
         }
     }
 
@@ -154,8 +151,8 @@ class PetDAO /*implements IPetDAO*/
             }
 
             return $catsList;
-        } catch (Exception $ex) {
-            echo ' excepcion en getCatsByOwnerEmail';
+        } catch (Exception $e) {
+            throw $e;
         }
     }
 
@@ -190,8 +187,8 @@ class PetDAO /*implements IPetDAO*/
             }
 
             return $dogsList;
-        } catch (Exception $ex) {
-            echo ' excepcion en getDogsByOwnerEmail';
+        } catch (Exception $e) {
+            throw $e;
         }
     }
 
@@ -204,8 +201,8 @@ class PetDAO /*implements IPetDAO*/
 
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query, $parameters);
-        } catch (Exception $ex) {
-            echo ' excepcion en remove de PetDAO';
+        } catch (Exception $e) {
+            throw $e;
         }
     }
 }

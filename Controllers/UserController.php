@@ -28,7 +28,7 @@ class UserController
 {
     private $guardianDAO;
     private $ownerDAO;
-    
+
     public function __construct()
     {
         $this->guardianDAO = new GuardianDAO();
@@ -38,6 +38,11 @@ class UserController
     public function Index()
     {
         if (isset($_SESSION["loggeduser"])) {
+
+            if (isset($_GET['message'])) {
+                $message = $_GET['message'];
+            }
+
             $this->showLandingPage($_SESSION["type"]);
         } else {
             header("location:" . FRONT_ROOT . "Auth");
@@ -46,45 +51,59 @@ class UserController
 
     function showLandingPage($type)
     {
-        if ($type == 'G') {
-            require_once(VIEWS_PATH . "landingPageGuardian.php");
-        } else {
-            require_once(VIEWS_PATH . "landingPageOwner.php");
-        }
-    }
-
-    public function filterGuardianList($firstDay, $lastDay, $message = '')
-    {
         if (isset($_SESSION['loggeduser'])) {
-            if ($_SESSION['type'] == 'O') {
-                if ($firstDay <= $lastDay) {
-                    $guardianList = array();
-                    $guardianList = $this->guardianDAO->getGuardiansByDate($firstDay, $lastDay);
 
-                    if($message == ''){
-                        $message = null;
-                    }
-                    $firstDay;
-                    $lastDay;    
-
-                    require_once(VIEWS_PATH . "guardianList.php");
-                } else {
-                    $message = "Enter a valid date range";
-                    require_once(VIEWS_PATH . "newBookingDates.php");
-                }
-            } else {
+            if (isset($_GET['message'])) {
+                $message = $_GET['message'];
+            }
+            if ($type == 'G') {
                 require_once(VIEWS_PATH . "landingPageGuardian.php");
+            } else {
+                require_once(VIEWS_PATH . "landingPageOwner.php");
             }
         } else {
             header("location:" . FRONT_ROOT . "Auth");
         }
     }
 
-    
+    public function filterGuardianList($firstDay, $lastDay, $message = '')
+    {
+        $message = null;
+        try {
+
+            if (isset($_SESSION['loggeduser'])) {
+                if ($_SESSION['type'] == 'O') {
+                    if ($firstDay <= $lastDay) {
+                        $guardianList = array();
+                        $guardianList = $this->guardianDAO->getGuardiansByDate($firstDay, $lastDay);
+
+                        if ($message == '') {
+                            $message = null;
+                        }
+                        $firstDay;
+                        $lastDay;
+
+                        require_once(VIEWS_PATH . "guardianList.php");
+                    } else {
+                        $message = "Enter a valid date range";
+                        require_once(VIEWS_PATH . "newBookingDates.php");
+                    }
+                } else {
+                    require_once(VIEWS_PATH . "landingPageGuardian.php");
+                }
+            } else {
+                header("location:" . FRONT_ROOT . "Auth");
+            }
+        } catch (Exception $e) {
+            $message = "DATABASE ERROR";
+        }
+    }
+
+
 
     public function showProfileInfo()
     {
-        $message =null;
+        $message = null;
         try {
             if (isset($_SESSION['loggeduser'])) {
                 if ($_SESSION['type'] == 'O') {
@@ -100,7 +119,7 @@ class UserController
                 header("location:" . FRONT_ROOT . "Auth");
             }
         } catch (Exception $ex) {
-            $message="DATA ERROR";
+            $message = "DATABASE ERROR";
         }
     }
 
@@ -139,9 +158,8 @@ class UserController
             } else {
                 require_once(VIEWS_PATH . "signUp.php");
             }
-        } catch (Exception $exc) {
-            $message = $exc->getMessage();
-            require_once(VIEWS_PATH . "signUp.php");
+        } catch (Exception $ex) {
+            $message = "DATABASE ERROR";
         }
     }
 
@@ -163,8 +181,7 @@ class UserController
 
             return $validation;
         } catch (Exception $ex) {
-            throw $ex;
-            echo "excepcion en validateuser de usercontroller";
+            $message = "DATABASE ERROR";
         }
     }
 
@@ -180,68 +197,71 @@ class UserController
             }
 
             return $validation;
-        } catch (Exception $exc) {
-            throw $exc;
-            echo "excepcion en validateage de usercontroller";
+        } catch (Exception $ex) {
+            $message = "DATABASE ERROR";
         }
     }
 
     public function updatePetSizePreference($petSize)
     {
-        $message =null;
-        if (isset($_SESSION['loggeduser'])) {
-            if ($_SESSION['type'] == 'G') {
-                $user = new Guardian();
-                $this->guardianDAO->update($_SESSION['id'], $petSize);
-                $user = $this->guardianDAO->getByEmail($_SESSION['email']);
+        $message = null;
 
-                require_once(VIEWS_PATH . "profile.php");
+        try {
+
+            if (isset($_SESSION['loggeduser'])) {
+                if ($_SESSION['type'] == 'G') {
+                    $user = new Guardian();
+                    $this->guardianDAO->update($_SESSION['id'], $petSize);
+                    $user = $this->guardianDAO->getByEmail($_SESSION['email']);
+
+                    require_once(VIEWS_PATH . "profile.php");
+                } else {
+                    require_once(VIEWS_PATH . "landingPageOwner.php");
+                }
             } else {
-                require_once(VIEWS_PATH . "landingPageOwner.php");
+                header("location:" . FRONT_ROOT . "Auth");
             }
-        } else {
-            header("location:" . FRONT_ROOT . "Auth");
+        } catch (Exception $e) {
+            $message = "DATABASE ERROR";
         }
     }
 
     public function updateDate($firstDay, $lastDay)
     {
-        $message=null;
+        $message = null;
         try {
             if (isset($_SESSION['loggeduser'])) {
                 if ($_SESSION['type'] == 'G') {
                     $user = new Guardian();
 
                     if ($firstDay > $lastDay || $firstDay >= strtotime(date("Y-m-d"))) {
-                        $message="The date you've entered is invalid";
-                    } else 
-                    {
+                        $message = "The date you've entered is invalid";
+                    } else {
                         $this->guardianDAO->updateDate($_SESSION['id'], $firstDay, $lastDay);
-                        $message="Successful availability date update";
-                    }                  
+                        $message = "Successful availability date update";
+                    }
                     $user = $this->guardianDAO->getByEmail($_SESSION['email']);
-                    require_once(VIEWS_PATH . "profile.php");           
+                    require_once(VIEWS_PATH . "profile.php");
                 } else {
-                    $message="This feature is only available for guardians";
+                    $message = "This feature is only available for guardians";
                     require_once(VIEWS_PATH . "landingPageOwner.php");
                 }
             } else {
                 header("location:" . FRONT_ROOT . "Auth");
             }
         } catch (Exception $ex) {
-            $message = "failed data";
+            $message = "DATABASE ERROR";
         }
-        
     }
 
     public function updatePrice($price)
     {
-        $message=null;
+        $message = null;
         try {
             if (isset($_SESSION['loggeduser'])) {
                 if ($_SESSION['type'] == 'G') {
                     $user = new Guardian();
-    
+
                     $this->guardianDAO->updatePrice($_SESSION['id'], $price);
                     $user = $this->guardianDAO->getByEmail($_SESSION['email']);
                     require_once(VIEWS_PATH . "profile.php");
@@ -251,26 +271,31 @@ class UserController
             } else {
                 header("location:" . FRONT_ROOT . "Auth");
             }
-        } catch (Ecxeption $ex) {
-            $message="";
+        } catch (Exception $ex) {
+            $message = "DATABASE ERROR";
         }
-        
     }
 
     public function addScore($idGuardian, $score, $idBooking)
     {
-        if (isset($_SESSION['loggeduser'])) {
-            if ($_SESSION['type'] == 'O') {
-            $this->guardianDAO->addScore($idGuardian,$score);
-                $bookingDAO = new BookingDAO();
-                
-                $bookingDAO->updateStatus($idBooking,"7");
-                header("location:" . FRONT_ROOT . "Booking/showMyBookings");
+        $message = null;
+        try {
+            if (isset($_SESSION['loggeduser'])) {
+                if ($_SESSION['type'] == 'O') {
+                    $this->guardianDAO->addScore($idGuardian, $score);
+                    $bookingDAO = new BookingDAO();
+
+                    $bookingDAO->updateStatus($idBooking, "7");
+                    $message = "You've rated this guardian succesfully";
+                    header("location:" . FRONT_ROOT . "Booking/showMyBookings?message=" . $message);
+                } else {
+                    require_once(VIEWS_PATH . "landingPageGuardian.php");
+                }
             } else {
-                require_once(VIEWS_PATH . "landingPageGuardian.php");
+                header("location:" . FRONT_ROOT . "Auth");
             }
-        } else {
-            header("location:" . FRONT_ROOT . "Auth");
+        } catch (Exception $ex) {
+            $message = "DATABASE ERROR";
         }
     }
 }

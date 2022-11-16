@@ -10,6 +10,7 @@ use DB\OwnerDAO as OwnerDAO;
 use DB\BreedDAO as BreedDAO;
 //use JSON\PetDAO as PetDAO;
 use Controllers\AuthController as AuthController;
+use Exception as Exception;
 
 class PetController
 {
@@ -26,60 +27,80 @@ class PetController
 
     public function addPet($petName = " ", $size = " ", $type = " ", $breed = " ", $pictureURL = " ", $vaccination = " ", $video = " ")
     {
-        if (isset($_SESSION['loggeduser'])) {
-            if ($_SESSION['type'] == 'O') {
-                if ($petName != " " || $pictureURL != " " || $breed != " " || $video != " " || $vaccination != " " || $type != " ") {
+        $message = null;
+        try {
+            if (isset($_SESSION['loggeduser'])) {
+                if ($_SESSION['type'] == 'O') {
+                    if ($petName != " " || $pictureURL != " " || $breed != " " || $video != " " || $vaccination != " " || $type != " ") {
 
-                    $pet = new Pet($_SESSION['id'], $petName, $pictureURL, $breed, $video, $vaccination, $type, $size);
-                    $this->petDAO->add($pet);
+                        $pet = new Pet($_SESSION['id'], $petName, $pictureURL, $breed, $video, $vaccination, $type, $size);
 
-                    header("Location:" . FRONT_ROOT . "User");
+                        try {
+                            $this->petDAO->add($pet);
+                            $message = "You've added a pet successfully!";
+                        } catch (Exception $e) {
+                            $message = "Picture or vaccination URL you've entered is duplicated";
+                        }
+
+                        header("Location:" . FRONT_ROOT . "User?message=" . $message);
+                    } else {
+
+                        $catBreedsList = $this->breedDAO->getAllCatBreeds();
+                        $dogBreedsList = $this->breedDAO->getAllDogBreeds();
+                        require_once(VIEWS_PATH . "addPet.php");
+                    }
                 } else {
-
-                    $catBreedsList = $this->breedDAO->getAllCatBreeds();
-                    $dogBreedsList = $this->breedDAO->getAllDogBreeds();
-
-                    require_once(VIEWS_PATH . "addPet.php");
+                    require_once(VIEWS_PATH . "landingPageGuardian.php");
                 }
             } else {
-                require_once(VIEWS_PATH . "landingPageGuardian.php");
+                header("location:" . FRONT_ROOT . "Auth");
             }
-        } else {
-            header("location:" . FRONT_ROOT . "Auth");
+        } catch (Exception $ex) {
+            $message = "DATABASE ERROR";
         }
     }
 
     public function listPets()
     {
-        if (isset($_SESSION['loggeduser'])) {
-            if ($_SESSION['type'] == 'O') {
+        try {
+            if (isset($_SESSION['loggeduser'])) {
+                if ($_SESSION['type'] == 'O') {
 
-                $petList = array();
-                $petList = $this->petDAO->getPetsByOwnerId();
+                    $petList = array();
+                    $petList = $this->petDAO->getPetsByOwnerId();
 
-                require_once(VIEWS_PATH . "petList.php");
+                    require_once(VIEWS_PATH . "petList.php");
+                } else {
+                    require_once(VIEWS_PATH . "landingPageOwner.php");
+                }
             } else {
-                require_once(VIEWS_PATH . "landingPageOwner.php");
+                header("location:" . FRONT_ROOT . "Auth");
             }
-        } else {
-            header("location:" . FRONT_ROOT . "Auth");
+        } catch (Exception $ex) {
+            $message = "DATABASE ERROR";
         }
     }
 
     public function listDogs()
     {
-        $dogsList = array();
-        $dogsList = $this->petDAO->getDogsByOwnerEmail($_SESSION['email']);
-
-        return $dogsList;
+        try {
+            $dogsList = array();
+            $dogsList = $this->petDAO->getDogsByOwnerEmail($_SESSION['email']);
+            return $dogsList;
+        } catch (Exception $ex) {
+            $message = "DATABASE ERROR";
+        }
     }
 
     public function listCats()
     {
-        $catsList = array();
-        $catsList = $this->petDAO->getCatsByOwnerEmail($_SESSION['email']);
-
-        return $catsList;
+        try {
+            $catsList = array();
+            $catsList = $this->petDAO->getCatsByOwnerEmail($_SESSION['email']);
+            return $catsList;
+        } catch (Exception $ex) {
+            $message = "DATABASE ERROR";
+        }
     }
 
     /*function remove($id)

@@ -192,4 +192,5 @@ SELECT * FROM Guardians;
 SELECT * FROM OwnerXBooking;
 SELECT * FROM BookingXPet;
 SELECT * FROM scores;
-
+SELECT * FROM cupones;
+SELECT * FROM scores;

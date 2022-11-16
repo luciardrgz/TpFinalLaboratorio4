@@ -9,6 +9,7 @@ use DB\OwnerDAO as OwnerDAO;
 //use JSON\OwnerDAO as OwnerDAO;
 use DB\GuardianDAO as GuardianDAO;
 //use JSON\GuardianDAO as GuardianDAO;
+use Exception as Exception;
 
 class AuthController
 {
@@ -24,7 +25,7 @@ class AuthController
     public function login($email = "", $password = "")
     {
         $message = null;
-        try { 
+        try {
             if ($email == "" || $password == "") {
                 $message = "Please fill all the fields";
                 require_once(VIEWS_PATH . "login.php");
@@ -32,15 +33,15 @@ class AuthController
                 $guardianDAO = new GuardianDAO();
                 $guardian = new Guardian();
                 $guardian = $this->guardianDAO->getByEmail($email);
-    
+
                 $ownerDAO = new OwnerDAO();
                 $owner = new Owner();
                 $owner = $this->ownerDAO->getByEmail($email);
-    
+
                 if ($guardian != null) {
-    
+
                     if ($guardian->getPassword() == $password) {
-    
+
                         $_SESSION['loggeduser'] = $guardian;
                         $_SESSION['id'] = $guardian->getId();
                         $_SESSION['nickname'] = $guardian->getNickname();
@@ -52,9 +53,9 @@ class AuthController
                         require_once(VIEWS_PATH . "login.php");
                     }
                 } else if ($owner != null) {
-    
+
                     if ($owner->getPassword() == $password) {
-    
+
                         $_SESSION['loggeduser'] = $owner;
                         $_SESSION['email'] = $owner->getEmail();
                         $_SESSION['nickname'] = $owner->getNickname();
@@ -67,13 +68,12 @@ class AuthController
                     }
                 } else {
                     $message = "Wrong email or password";
-                    require_once(VIEWS_PATH . "login.php"); 
+                    require_once(VIEWS_PATH . "login.php");
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $ex) {
             $message = "Data mismatch";
         }
-        
     }
 
     public function showLandingPage($type)

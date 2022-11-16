@@ -137,11 +137,11 @@ class BookingDAO
             $bookingList = array();
 
             $query =
-            "SELECT b.id, b.id_status, b.start_date, b.end_date, b.totalAmount, b.id_guardian, ob.id_owner 
+                "SELECT b.id, b.id_status, b.start_date, b.end_date, b.totalAmount, b.id_guardian, ob.id_owner 
             FROM bookings as b 
             JOIN ownerxbooking as ob
             ON b.id = ob.id_booking 
-            WHERE ob.id_owner = :idOwner AND (b.id_status = '2' OR b.id_status = '4');";
+            WHERE ob.id_owner = :idOwner AND (b.id_status = '1' OR b.id_status = '2' OR b.id_status = '4');";
 
             $parameters["idOwner"] = $idOwner;
 
@@ -165,7 +165,7 @@ class BookingDAO
         }
     }
 
-    function getBookingsBetweenDates($idGuardian,$firstDay,$lastDay)
+    function getBookingsBetweenDates($idGuardian, $firstDay, $lastDay)
     {
         try {
             $bookingList = array();
@@ -310,10 +310,11 @@ class BookingDAO
         }
     }
 
-    function updatePastConfirmedBookings($idGuardian){
+    function updatePastConfirmedBookings($idGuardian)
+    {
 
-        $query = "UPDATE ". $this->tableName . " SET id_status = 4 WHERE id_status = 5 AND id_guardian = :idGuardian AND (end_date < now());";
-            
+        $query = "UPDATE " . $this->tableName . " SET id_status = 4 WHERE id_status = 5 AND id_guardian = :idGuardian AND (end_date < now());";
+
         $parameters["idGuardian"] = $idGuardian;
 
         $this->connection = Connection::GetInstance();
@@ -321,10 +322,11 @@ class BookingDAO
         $resultSet = $this->connection->ExecuteNonQuery($query, $parameters);
     }
 
-    function updatePastAcceptedBookings($idGuardian){
+    function updatePastAcceptedBookings($idGuardian)
+    {
 
-        $query = "UPDATE ". $this->tableName . " SET id_status = 3 WHERE id_status = 2 AND id_guardian = :idGuardian AND (start_date < now());";
-            
+        $query = "UPDATE " . $this->tableName . " SET id_status = 3 WHERE id_status = 2 AND id_guardian = :idGuardian AND (start_date < now());";
+
         $parameters["idGuardian"] = $idGuardian;
 
         $this->connection = Connection::GetInstance();
@@ -333,10 +335,11 @@ class BookingDAO
     }
 
 
-    function updatePastWaitingBookings($idGuardian){
+    function updatePastWaitingBookings($idGuardian)
+    {
 
-        $query = "UPDATE ". $this->tableName . " SET id_status = 3 WHERE id_status = 1 AND id_guardian = :idGuardian AND (start_date < now());";
-            
+        $query = "UPDATE " . $this->tableName . " SET id_status = 3 WHERE id_status = 1 AND id_guardian = :idGuardian AND (start_date < now());";
+
         $parameters["idGuardian"] = $idGuardian;
 
         $this->connection = Connection::GetInstance();
@@ -344,4 +347,3 @@ class BookingDAO
         $resultSet = $this->connection->ExecuteNonQuery($query, $parameters);
     }
 }
-    

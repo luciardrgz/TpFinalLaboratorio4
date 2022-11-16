@@ -32,7 +32,6 @@ body {
 }
 
 .col {
-  margin-top: 400px;
   align-content: center;
   margin-bottom: 100px;
 }
@@ -58,4 +57,16 @@ body {
   height: 50px;
   background-color: rgb(14, 59, 80);
   padding-top: 12px;
+}
+
+.error-msg {
+  margin-left: 600px;
+  margin-top: 400px;
+  width: 700px;
+  background-color: greenyellow;
+}
+
+.guardianCol {
+  align-content: center;
+  margin-top: 450px;
 }

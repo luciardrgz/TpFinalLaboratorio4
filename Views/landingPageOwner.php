@@ -54,13 +54,21 @@ include("navOwner.php");
         </div>
     </div>
 
+    <div class="error-msg">
+        <?php if (isset($_GET['message'])) { ?>
+        <div class="alert alert-danger">
+            <?php echo $_GET['message']; ?>
+        </div>
+        <?php } ?>
+    </div>
+
+
     <div class="container">
         <!-- Cards -->
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <div class="col">
                 <div class="card">
-                    <img src="https://gumlet.assettype.com/mimorelia%2F2022-07%2Fe2b6c575-cb38-4633-8282-b98f4dcbd734%2Fperrito_gordito_unam.jpg?auto=format%2Ccompress&fit=max&w=1200"
-                        class="card-img-top" />
+                    <img src="<?php echo  FRONT_ROOT . IMG_PATH . "card1.png" ?>" class="card-img-top" />
                     <div class="card-body">
                         <h5 align='center'><b>Don't leave your pet alone!</b></h5>
                         <h6 align='center'>Away from home for a few days and can't take your pet with you? Pet Hero
@@ -71,8 +79,7 @@ include("navOwner.php");
             </div>
             <div class="col">
                 <div class="card">
-                    <img src="https://entrenatuperro.online/wp-content/uploads/2021/05/socializar-a-mi-cachorro.jpg"
-                        class="card-img-top" />
+                    <img src="<?php echo  FRONT_ROOT . IMG_PATH . "card2.jpg" ?>" class="card-img-top" />
                     <div class="card-body">
                         <h5 align='center'><b>An exceptional experience</b></h5>
                         <h6 align='center'>Pet Hero guardians are rated by <b>owners who trusted them</b>, so
@@ -83,8 +90,7 @@ include("navOwner.php");
             </div>
             <div class="col">
                 <div class="card">
-                    <img src="https://unamglobal.unam.mx/wp-content/uploads/2020/11/perros-sonr%C3%ADen-1024x576.jpg"
-                        class="card-img-top" />
+                    <img src="<?php echo  FRONT_ROOT . IMG_PATH . "card3.jpg" ?>" class="card-img-top" />
                     <div class="card-body">
                         <h5 align='center'><b>They'll have a wonderful time</b></h5>
                         <h6 align='center'>Our guardians will not only provide food and water for your pet, they'll
@@ -106,6 +112,8 @@ include("navOwner.php");
                     </div>
                 </div>
             </div>
+
+
 
             <!-- Carousel Script -->
             <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"

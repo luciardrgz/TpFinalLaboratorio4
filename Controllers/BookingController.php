@@ -15,7 +15,7 @@ use DB\BreedDAO as BreedDAO;
 use DB\GuardianDAO as GuardianDAO;
 use DB\OwnerDAO as OwnerDAO;
 //use JSON\BookingDAO as BookingDAO;
-
+use \Exception as Exception;
 
 class BookingController
 {
@@ -45,14 +45,14 @@ class BookingController
                     $bookingDAO->add($booking);
 
                     $message = "You've made a booking with success!";
-                    header("location:" . FRONT_ROOT . "User/showLandingPage?message");
+                    header("location:" . FRONT_ROOT . "User/showLandingPage?message=" . $message);
                 } else {
                     $message = "Data loading failed";
                     require_once(VIEWS_PATH . "guardianList.php");
                 }
             } else {
                 $message = "You have insufficient permits to make a booking";
-                header("location:" . FRONT_ROOT . "User/showLandingPage?message");
+                header("location:" . FRONT_ROOT . "User/showLandingPage?message=" . $message);
             }
         } else {
             header("location:" . FRONT_ROOT . "Auth");
@@ -77,15 +77,14 @@ class BookingController
                     $petList = $petDAO->getPetsByOwnerId();
                     $breed = $this->getBreedBetweenDates($id, $firstDay, $lastDay);
 
-                    if($breed == 'EmptyOpt'){
+                    if ($breed == 'EmptyOpt') {
                         $breed = null;
                         require_once(VIEWS_PATH . "petSelection.php");
-                    }elseif($breed == 'DiffBreedsOpt'){
+                    } elseif ($breed == 'DiffBreedsOpt') {
                         $this->showNewBookingDates();
-                    }else{
+                    } else {
                         require_once(VIEWS_PATH . "petSelection.php");
                     }
-
                 } elseif ($id != '' && $selectedPet != '') {
 
                     $ArrayPets = array();
@@ -111,15 +110,15 @@ class BookingController
                                 require_once(VIEWS_PATH . "bookingConfirmation.php");
                             } else {
                                 $message = "There are no guardians available on the dates you've selected";
-                                header("location:" . FRONT_ROOT . "User/filterGuardianList?firstDay=" .$firstDay."&lastDay=" .$lastDay."&message=" .$message);
+                                header("location:" . FRONT_ROOT . "User/filterGuardianList?firstDay=" . $firstDay . "&lastDay=" . $lastDay . "&message=" . $message);
                             }
                         } else {
                             $message = "The size you've selected isn't the same as the guardian's size preference";
-                            header("location:" . FRONT_ROOT . "User/filterGuardianList?firstDay=" .$firstDay."&lastDay=" .$lastDay . "&message=" . $message);
+                            header("location:" . FRONT_ROOT . "User/filterGuardianList?firstDay=" . $firstDay . "&lastDay=" . $lastDay . "&message=" . $message);
                         }
                     } else {
                         $message = "You must select pets of the same breed";
-                        header("location:" . FRONT_ROOT . "User/filterGuardianList?firstDay=" .$firstDay."&lastDay=" .$lastDay . "&message=" . $message); 
+                        header("location:" . FRONT_ROOT . "User/filterGuardianList?firstDay=" . $firstDay . "&lastDay=" . $lastDay . "&message=" . $message);
                     }
                 }
             } else {
@@ -134,32 +133,32 @@ class BookingController
     {
         $verification = true;
 
-        if($breed != 'EmptyOpt'){  
-            
-        $petbreed = $pets[0]->getBreed();
-        $i = 0;
+        if ($breed != 'EmptyOpt') {
 
-        while ($verification == true && count($pets) > $i) {
-            
-            if ($petbreed != $pets[$i]->getBreed() || $breed != $pets[$i]->getBreed()) {
-                $verification = false;
-            }
-            $i++;
-        }
-        }else{
-            
             $petbreed = $pets[0]->getBreed();
-            
+            $i = 0;
+
+            while ($verification == true && count($pets) > $i) {
+
+                if ($petbreed != $pets[$i]->getBreed() || $breed != $pets[$i]->getBreed()) {
+                    $verification = false;
+                }
+                $i++;
+            }
+        } else {
+
+            $petbreed = $pets[0]->getBreed();
+
             $i = 0;
             while ($verification == true && count($pets) > $i) {
-                
+
                 if ($petbreed != $pets[$i]->getBreed()) {
                     $verification = false;
                 }
                 $i++;
             }
         }
-        
+
         return $verification;
     }
 
@@ -213,28 +212,28 @@ class BookingController
         return $petsObjects;
     }
 
-    public function showGuardianRequests($message="")
+    public function showGuardianRequests($message = "")
     {
         try {
             if (isset($_SESSION['loggeduser'])) {
 
                 if ($_SESSION['type'] == 'G') {
-    
+
                     $bookingDAO = new BookingDAO();
                     $bookingDAO->updatePastWaitingBookings($_SESSION['id']);
                     $arrayRequests = $bookingDAO->getRequests($_SESSION['id']);
-    
-                    
+
+
                     $arrayNickname = array();
                     $ownerDAO =  new OwnerDAO();
-    
+
                     if ($arrayRequests != null) {
                         foreach ($arrayRequests as $booking) {
                             $nickname = $ownerDAO->getNicknameById($booking->getOwnerId());
                             array_push($arrayNickname, $nickname);
                         }
                     }
-    
+
                     require_once(VIEWS_PATH . "requests.php");
                 } else {
                     $message = "restricted access";
@@ -245,9 +244,8 @@ class BookingController
                 header("location:" . FRONT_ROOT . "Auth");
             }
         } catch (Exception $ex) {
-            $message="DATA ERROR";
+            $message = "DATA ERROR";
         }
-        
     }
 
     function showBookingHistory()
@@ -258,7 +256,7 @@ class BookingController
 
                 $bookingDAO->updatePastAcceptedBookings($_SESSION['id']);
                 $bookingDAO->updatePastConfirmedBookings($_SESSION['id']);
-                
+
                 $arrayRequests = $bookingDAO->getByIdGuardian($_SESSION['id']);
 
                 $arrayNickname = array();
@@ -280,7 +278,8 @@ class BookingController
         }
     }
 
-    function showMyBookings(){
+    function showMyBookings()
+    {
         if (isset($_SESSION['loggeduser'])) {
             if ($_SESSION['type'] == 'O') {
 
@@ -289,35 +288,33 @@ class BookingController
                 $myBookings = $bookingDAO->getByIdOwner($_SESSION['id']);
                 $arrayNicknamesGuardian = array();
 
-                if($myBookings !=null){
-                    foreach($myBookings as $booking){
-                    
-                    $nicknameGuardian = ($guardianDAO->getById($booking->getGuardianId()))->getNickName();
-                    array_push($arrayNicknamesGuardian, $nicknameGuardian);
+                if ($myBookings != null) {
+                    foreach ($myBookings as $booking) {
+
+                        $nicknameGuardian = ($guardianDAO->getById($booking->getGuardianId()))->getNickName();
+                        array_push($arrayNicknamesGuardian, $nicknameGuardian);
                     }
                 }
+
                 require_once(VIEWS_PATH . "bookingHistoryOwner.php");
-            }
-            else {
+            } else {
                 require_once(VIEWS_PATH . "landingPageGuardian.php");
             }
-        }
-        else {
+        } else {
             header("location:" . FRONT_ROOT . "Auth");
         }
     }
 
-    function showPaymentView($idBooking, $price){
+    function showPaymentView($idBooking, $price)
+    {
         if (isset($_SESSION['loggeduser'])) {
             if ($_SESSION['type'] == 'O') {
                 $price = ($price / 2);
                 require_once(VIEWS_PATH . "payment.php");
-            }
-            else {
+            } else {
                 require_once(VIEWS_PATH . "landingPageGuardian.php");
             }
-        }
-        else {
+        } else {
             header("location:" . FRONT_ROOT . "Auth");
         }
     }
@@ -330,44 +327,43 @@ class BookingController
             if (isset($_SESSION['loggeduser'])) {
 
                 $bookingDAO = new BookingDAO();
-                
-                if($statusId == '2'){
 
-                    $flag=$this->verifyBookingsRequest($idBooking);
+                if ($statusId == '2') {
 
-                    if($flag){
+                    $flag = $this->verifyBookingsRequest($idBooking);
+
+                    if ($flag) {
                         $bookingDAO->updateStatus($idBooking, $statusId);
                         $message = 'Booking successfully accepted';
-                    }else{
+                    } else {
                         $message = "Request's breed doesn't match with the bookings you've already accepted";
                     }
-
-                }else{
+                } else {
                     $bookingDAO->updateStatus($idBooking, $statusId);
                     $message = 'Booking rejected';
                 }
 
                 $this->showGuardianRequests($message);
-            }else {
-            header("location:" . FRONT_ROOT . "Auth");
-        }
+            } else {
+                header("location:" . FRONT_ROOT . "Auth");
+            }
         } catch (Exception $ex) {
-            $message="DATA ERROR";
-        } 
+            $message = "DATA ERROR";
+        }
     }
 
-    function verifyBookingsRequest($idBooking){
-        $flag=true;
+    function verifyBookingsRequest($idBooking)
+    {
+        $flag = true;
         $bookingDAO = new BookingDAO();
         $booking = $bookingDAO->getById($idBooking);
 
-        $breed=$this->getBreedBetweenDates($_SESSION['id'],$booking->getStartDate(),$booking->getEndDate());
-        
-        if($breed != 'EmptyOpt')
-        {
-           $flag = $this->verifyPetBreed($booking->getPet(), $breed); 
+        $breed = $this->getBreedBetweenDates($_SESSION['id'], $booking->getStartDate(), $booking->getEndDate());
+
+        if ($breed != 'EmptyOpt') {
+            $flag = $this->verifyPetBreed($booking->getPet(), $breed);
         }
-        
+
         return $flag;
     }
 
@@ -385,41 +381,41 @@ class BookingController
         }
     }
 
-    function getBreedBetweenDates($idGuardian, $firstDay, $lastDay){
+    function getBreedBetweenDates($idGuardian, $firstDay, $lastDay)
+    {
 
         $bookingDAO = new BookingDAO();
-        $arrayBookings =array();
+        $arrayBookings = array();
         $arrayBookings = $bookingDAO->getBookingsBetweenDates($idGuardian, $firstDay, $lastDay);
-        $flag =true;
+        $flag = true;
         $toReturn = null;
 
         $petsArray = array();
         $breedArray = array();
 
-        if($arrayBookings != null){
+        if ($arrayBookings != null) {
 
-            foreach ($arrayBookings as $booking){
+            foreach ($arrayBookings as $booking) {
                 $petsArray = $booking->getPet();
-                array_push($breedArray,$petsArray[0]->getBreed());  
+                array_push($breedArray, $petsArray[0]->getBreed());
             }
 
             $breedCompare = $breedArray[0];
-            foreach($breedArray as $breed){
-                if($breedCompare != $breed){
+            foreach ($breedArray as $breed) {
+                if ($breedCompare != $breed) {
                     $flag = false;
                 }
             }
 
-            if($flag == true){
+            if ($flag == true) {
                 $toReturn = $breedCompare;
-            }else{
-                $toReturn = 'DiffBreedsOpt';     
+            } else {
+                $toReturn = 'DiffBreedsOpt';
             }
-
-        }else{
-            $toReturn='EmptyOpt';
+        } else {
+            $toReturn = 'EmptyOpt';
         }
-        
+
         return $toReturn;
     }
 }
