@@ -23,49 +23,57 @@ class AuthController
 
     public function login($email = "", $password = "")
     {
-        if ($email == "" || $password == "") {
-            require_once(VIEWS_PATH . "login.php");
-        } else {
-
-
-            $guardianDAO = new GuardianDAO();
-            $guardian = new Guardian();
-            $guardian = $this->guardianDAO->getByEmail($email);
-
-            $ownerDAO = new OwnerDAO();
-            $owner = new Owner();
-            $owner = $this->ownerDAO->getByEmail($email);
-
-            if ($guardian != null) {
-
-                if ($guardian->getPassword() == $password) {
-
-                    $_SESSION['loggeduser'] = $guardian;
-                    $_SESSION['id'] = $guardian->getId();
-                    $_SESSION['nickname'] = $guardian->getNickname();
-                    $_SESSION['email'] = $guardian->getEmail();
-                    $_SESSION['type'] = $guardian->getType();
-                    header("Location:" . FRONT_ROOT . "Auth");
-                } else {
-                    require_once(VIEWS_PATH . "login.php");
-                }
-            } else if ($owner != null) {
-
-                if ($owner->getPassword() == $password) {
-
-                    $_SESSION['loggeduser'] = $owner;
-                    $_SESSION['email'] = $owner->getEmail();
-                    $_SESSION['nickname'] = $owner->getNickname();
-                    $_SESSION['type'] = $owner->getType();
-                    $_SESSION['id'] = $owner->getId();
-                    header("Location:" . FRONT_ROOT . "Auth");
-                } else {
-                    require_once(VIEWS_PATH . "login.php");
-                }
-            } else {
+        $message = null;
+        try { 
+            if ($email == "" || $password == "") {
+                $message = "Please fill all the fields";
                 require_once(VIEWS_PATH . "login.php");
+            } else {
+                $guardianDAO = new GuardianDAO();
+                $guardian = new Guardian();
+                $guardian = $this->guardianDAO->getByEmail($email);
+    
+                $ownerDAO = new OwnerDAO();
+                $owner = new Owner();
+                $owner = $this->ownerDAO->getByEmail($email);
+    
+                if ($guardian != null) {
+    
+                    if ($guardian->getPassword() == $password) {
+    
+                        $_SESSION['loggeduser'] = $guardian;
+                        $_SESSION['id'] = $guardian->getId();
+                        $_SESSION['nickname'] = $guardian->getNickname();
+                        $_SESSION['email'] = $guardian->getEmail();
+                        $_SESSION['type'] = $guardian->getType();
+                        header("Location:" . FRONT_ROOT . "Auth");
+                    } else {
+                        $message = "Wrong email or password";
+                        require_once(VIEWS_PATH . "login.php");
+                    }
+                } else if ($owner != null) {
+    
+                    if ($owner->getPassword() == $password) {
+    
+                        $_SESSION['loggeduser'] = $owner;
+                        $_SESSION['email'] = $owner->getEmail();
+                        $_SESSION['nickname'] = $owner->getNickname();
+                        $_SESSION['type'] = $owner->getType();
+                        $_SESSION['id'] = $owner->getId();
+                        header("Location:" . FRONT_ROOT . "Auth");
+                    } else {
+                        $message = "Wrong email or password";
+                        require_once(VIEWS_PATH . "login.php");
+                    }
+                } else {
+                    $message = "Wrong email or password";
+                    require_once(VIEWS_PATH . "login.php"); 
+                }
             }
+        } catch (Exception $e) {
+            $message = "Data mismatch";
         }
+        
     }
 
     public function showLandingPage($type)
@@ -80,6 +88,7 @@ class AuthController
     public function Logout()
     {
         session_destroy();
+        $message = null;
         require_once(VIEWS_PATH . "login.php");
     }
 

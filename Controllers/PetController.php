@@ -82,19 +82,25 @@ class PetController
         return $catsList;
     }
 
-    function remove($id)
+    /*function remove($id)
     {
-        if (isset($_SESSION['loggeduser'])) {
-            if ($_SESSION['type'] == 'O') {
-                $this->petDAO->remove($id);
-                header("location:" . FRONT_ROOT . "Pet/listPets");
+        $message=null;
+        try {
+            if (isset($_SESSION['loggeduser'])) {
+                if ($_SESSION['type'] == 'O') {
+                    $this->petDAO->remove($id);
+                    header("location:" . FRONT_ROOT . "Pet/listPets");
+                } else {
+                    require_once(VIEWS_PATH . "landingPageOwner.php");
+                }
             } else {
-                require_once(VIEWS_PATH . "landingPageOwner.php");
+                header("location:" . FRONT_ROOT . "Auth");
             }
-        } else {
-            header("location:" . FRONT_ROOT . "Auth");
+        } catch (Exception $ex) {
+            $message="DATA ERROR";
         }
-    }
+        
+    }*/
 
     public function Index()
     {

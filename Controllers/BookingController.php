@@ -213,36 +213,41 @@ class BookingController
         return $petsObjects;
     }
 
-    public function showGuardianRequests($message)
+    public function showGuardianRequests($message="")
     {
-        if (isset($_SESSION['loggeduser'])) {
+        try {
+            if (isset($_SESSION['loggeduser'])) {
 
-            if ($_SESSION['type'] == 'G') {
-
-                $bookingDAO = new BookingDAO();
-                $bookingDAO->updatePastWaitingBookings($_SESSION['id']);
-                $arrayRequests = $bookingDAO->getRequests($_SESSION['id']);
-
-                
-                $arrayNickname = array();
-                $ownerDAO =  new OwnerDAO();
-
-                if ($arrayRequests != null) {
-                    foreach ($arrayRequests as $booking) {
-                        $nickname = $ownerDAO->getNicknameById($booking->getOwnerId());
-                        array_push($arrayNickname, $nickname);
+                if ($_SESSION['type'] == 'G') {
+    
+                    $bookingDAO = new BookingDAO();
+                    $bookingDAO->updatePastWaitingBookings($_SESSION['id']);
+                    $arrayRequests = $bookingDAO->getRequests($_SESSION['id']);
+    
+                    
+                    $arrayNickname = array();
+                    $ownerDAO =  new OwnerDAO();
+    
+                    if ($arrayRequests != null) {
+                        foreach ($arrayRequests as $booking) {
+                            $nickname = $ownerDAO->getNicknameById($booking->getOwnerId());
+                            array_push($arrayNickname, $nickname);
+                        }
                     }
+    
+                    require_once(VIEWS_PATH . "requests.php");
+                } else {
+                    $message = "restricted access";
+                    require_once(VIEWS_PATH . "landingPageOwner.php");
                 }
-
-                require_once(VIEWS_PATH . "requests.php");
             } else {
                 $message = "restricted access";
-                require_once(VIEWS_PATH . "landingPageOwner.php");
+                header("location:" . FRONT_ROOT . "Auth");
             }
-        } else {
-            $message = "restricted access";
-            header("location:" . FRONT_ROOT . "Auth");
+        } catch (Exception $ex) {
+            $message="DATA ERROR";
         }
+        
     }
 
     function showBookingHistory()
@@ -320,10 +325,12 @@ class BookingController
 
     public function updateStatus($statusId, $idBooking)
     {
-        if (isset($_SESSION['loggeduser'])) {
-                $bookingDAO = new BookingDAO();
-                $message = null;
+        $message = null;
+        try {
+            if (isset($_SESSION['loggeduser'])) {
 
+                $bookingDAO = new BookingDAO();
+                
                 if($statusId == '2'){
 
                     $flag=$this->verifyBookingsRequest($idBooking);
@@ -337,13 +344,16 @@ class BookingController
 
                 }else{
                     $bookingDAO->updateStatus($idBooking, $statusId);
-                    $message = 'Booking successfully Rejected';
+                    $message = 'Booking rejected';
                 }
 
                 $this->showGuardianRequests($message);
             }else {
             header("location:" . FRONT_ROOT . "Auth");
         }
+        } catch (Exception $ex) {
+            $message="DATA ERROR";
+        } 
     }
 
     function verifyBookingsRequest($idBooking){

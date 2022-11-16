@@ -21,14 +21,10 @@ include("navGuardian.php");
         href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css"
         integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
 
-        <?php if ($message != 'null') { ?>
-            <br>
-            <?php }?>
-
     <div class="container">
         <div class="row">
 
-            <?php if ($message != 'null') { ?>
+            <?php if ($message != null) { ?>
             <div class="alert alert-danger">
                 <?php echo $message; ?>
             </div>

@@ -28,7 +28,7 @@ class UserController
 {
     private $guardianDAO;
     private $ownerDAO;
-
+    
     public function __construct()
     {
         $this->guardianDAO = new GuardianDAO();
@@ -69,7 +69,7 @@ class UserController
 
                     require_once(VIEWS_PATH . "guardianList.php");
                 } else {
-                    $message = "Ingrese un rango de fechas valido";
+                    $message = "Enter a valid date range";
                     require_once(VIEWS_PATH . "newBookingDates.php");
                 }
             } else {
@@ -84,18 +84,23 @@ class UserController
 
     public function showProfileInfo()
     {
-        if (isset($_SESSION['loggeduser'])) {
-            if ($_SESSION['type'] == 'O') {
-                $user = new Owner();
-                $user = $this->ownerDAO->getByEmail($_SESSION['email']);
-                require_once(VIEWS_PATH . "profile.php");
-            } else if ($_SESSION['type'] == 'G') {
-                $user = new Guardian();
-                $user = $this->guardianDAO->getByEmail($_SESSION['email']);
-                require_once(VIEWS_PATH . "profile.php");
+        $message =null;
+        try {
+            if (isset($_SESSION['loggeduser'])) {
+                if ($_SESSION['type'] == 'O') {
+                    $user = new Owner();
+                    $user = $this->ownerDAO->getByEmail($_SESSION['email']);
+                    require_once(VIEWS_PATH . "profile.php");
+                } else if ($_SESSION['type'] == 'G') {
+                    $user = new Guardian();
+                    $user = $this->guardianDAO->getByEmail($_SESSION['email']);
+                    require_once(VIEWS_PATH . "profile.php");
+                }
+            } else {
+                header("location:" . FRONT_ROOT . "Auth");
             }
-        } else {
-            header("location:" . FRONT_ROOT . "Auth");
+        } catch (Exception $ex) {
+            $message="DATA ERROR";
         }
     }
 
@@ -183,6 +188,7 @@ class UserController
 
     public function updatePetSizePreference($petSize)
     {
+        $message =null;
         if (isset($_SESSION['loggeduser'])) {
             if ($_SESSION['type'] == 'G') {
                 $user = new Guardian();
@@ -200,38 +206,55 @@ class UserController
 
     public function updateDate($firstDay, $lastDay)
     {
-        if (isset($_SESSION['loggeduser'])) {
-            if ($_SESSION['type'] == 'G') {
-                $user = new Guardian();
-                if ($firstDay > $lastDay) {
+        $message=null;
+        try {
+            if (isset($_SESSION['loggeduser'])) {
+                if ($_SESSION['type'] == 'G') {
+                    $user = new Guardian();
+
+                    if ($firstDay > $lastDay || $firstDay >= strtotime(date("Y-m-d"))) {
+                        $message="The date you've entered is invalid";
+                    } else 
+                    {
+                        $this->guardianDAO->updateDate($_SESSION['id'], $firstDay, $lastDay);
+                        $message="Successful availability date update";
+                    }                  
+                    $user = $this->guardianDAO->getByEmail($_SESSION['email']);
+                    require_once(VIEWS_PATH . "profile.php");           
                 } else {
-                    $this->guardianDAO->updateDate($_SESSION['id'], $firstDay, $lastDay);
+                    $message="This feature is only available for guardians";
+                    require_once(VIEWS_PATH . "landingPageOwner.php");
                 }
-                $user = $this->guardianDAO->getByEmail($_SESSION['email']);
-                require_once(VIEWS_PATH . "profile.php");
             } else {
-                require_once(VIEWS_PATH . "landingPageOwner.php");
+                header("location:" . FRONT_ROOT . "Auth");
             }
-        } else {
-            header("location:" . FRONT_ROOT . "Auth");
+        } catch (Exception $ex) {
+            $message = "failed data";
         }
+        
     }
 
     public function updatePrice($price)
     {
-        if (isset($_SESSION['loggeduser'])) {
-            if ($_SESSION['type'] == 'G') {
-                $user = new Guardian();
-
-                $this->guardianDAO->updatePrice($_SESSION['id'], $price);
-                $user = $this->guardianDAO->getByEmail($_SESSION['email']);
-                require_once(VIEWS_PATH . "profile.php");
+        $message=null;
+        try {
+            if (isset($_SESSION['loggeduser'])) {
+                if ($_SESSION['type'] == 'G') {
+                    $user = new Guardian();
+    
+                    $this->guardianDAO->updatePrice($_SESSION['id'], $price);
+                    $user = $this->guardianDAO->getByEmail($_SESSION['email']);
+                    require_once(VIEWS_PATH . "profile.php");
+                } else {
+                    require_once(VIEWS_PATH . "landingPageOwner.php");
+                }
             } else {
-                require_once(VIEWS_PATH . "landingPageOwner.php");
+                header("location:" . FRONT_ROOT . "Auth");
             }
-        } else {
-            header("location:" . FRONT_ROOT . "Auth");
+        } catch (Ecxeption $ex) {
+            $message="";
         }
+        
     }
 
     public function addScore($idGuardian, $score, $idBooking)

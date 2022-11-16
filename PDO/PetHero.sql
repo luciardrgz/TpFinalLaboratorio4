@@ -193,7 +193,3 @@ SELECT * FROM OwnerXBooking;
 SELECT * FROM BookingXPet;
 SELECT * FROM scores;
 
-Update guardians SET score = (select avg(score)
-from scores
-where id_guardian = 1) 
-where id = 1;

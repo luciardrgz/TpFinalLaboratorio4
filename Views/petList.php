@@ -79,11 +79,11 @@ include("navOwner.php");
                                     </ul>
                                 </div>
                             </div>
-                            <div class="job-right my-4 flex-shrink-0">
+                           <!-- <div class="job-right my-4 flex-shrink-0">
                                 <a href="<?php echo FRONT_ROOT . "Pet/remove/" . $pets->getId(); ?>"
                                     class="btn d-block w-100 d-sm-inline-block btn-light"
                                     onclick="return confirm('Are you sure that you want to remove that pet?')">Remove</a>
-                            </div>
+                            </div> -->
                         </div>
                         <?php
                         }

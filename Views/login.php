@@ -57,13 +57,19 @@ namespace Views;
 
                     </form>
                 </div>
-
+                
                 <div class="card-footer">
                     <div class="d-flex justify-content-center links">
                         Don't have an account?
                         <a href="<?php echo FRONT_ROOT . "Home/signUp" ?>">Sign Up </a>
                     </div>
                 </div>
+                <?php 
+                    if ($message != null) { ?>
+                    <div class="alert alert-danger">
+                        <?php echo $message;?>
+                    </div>
+                    <?php }?>
 
             </div>
         </div>

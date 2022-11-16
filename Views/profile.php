@@ -47,10 +47,6 @@ if ($_SESSION["type"] == "O") {
                 </div>
             </div>
 
-            <!--<div class=" col-md-2">
-                <input type="submit" class="profile-btns" value="Edit profile" />
-            </div> -->
-
         </div>
         <div class="row">
 
@@ -214,6 +210,12 @@ if ($_SESSION["type"] == "O") {
 
 
                         <?php } ?>
+                        <?php 
+                    if ($message != null) { ?>
+                    <div class="alert alert-danger">
+                        <?php echo $message;?>
+                    </div>
+                    <?php }?>
 
                     </div>
                 </div>

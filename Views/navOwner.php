@@ -1,6 +1,7 @@
 <?php
 
 namespace Views;
+
 ?>
 
 <!DOCTYPE html>

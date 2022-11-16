@@ -5,6 +5,9 @@ use Controllers\BookingController as BookingController;
 use PHPMailer\PHPMailer\PHPMailer as PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception as Exception;
+use Models\Coupon as Coupon;
+use DB\CouponDAO as CouponDAO;
+
 
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
@@ -18,21 +21,17 @@ function sendMail($statusId,$idBooking, $price){
         try {
             // Ajustes del servidor
             //$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-            $mail->isSMTP();                                            //Send using SMTP
-            $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
-            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            $mail->Username   = 'lab4pethero@gmail.com';                     //SMTP username
-            $mail->Password   = 'oqhldwdadwmoqvze';                               //SMTP password
+            $mail->isSMTP();                                              //Send using SMTP
+            $mail->Host       = 'smtp.gmail.com';                         //Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                     //Enable SMTP authentication
+            $mail->Username   = 'lab4pethero@gmail.com';                  //SMTP username
+            $mail->Password   = 'oqhldwdadwmoqvze';                      //SMTP password
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
             $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
             // Receptor
             $mail->setFrom('lab4pethero@gmail.com', 'Pet Hero');
             $mail->addAddress($_SESSION['email'], $_SESSION['nickname']);     //Add a recipient
-
-            // Archivos adjuntos (podriamos ver si agregar el logo de PetHero)
-            //$mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
-            //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
 
             // Contenido del mail
             $mail->isHTML(true);                                  //Set email format to HTML
@@ -49,6 +48,11 @@ function sendMail($statusId,$idBooking, $price){
 
             $bookingController = new BookingController();
             $bookingController->updateStatus($statusId, $idBooking);
+            
+            
+            $coupon = new Coupon($price,$idBooking);
+            $couponDAO = new CouponDAO();
+            $couponDAO->add($coupon);
 
         } catch (Exception $e) {
             $message = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
