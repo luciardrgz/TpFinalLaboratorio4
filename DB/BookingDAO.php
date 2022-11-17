@@ -127,7 +127,7 @@ class BookingDAO
             return count($bookingList) > 0 ? $bookingList : null;
         } catch (Exception $ex) {
             throw $ex;
-            echo "excepcion en getByIdGuardian";
+            
         }
     }
 
@@ -141,7 +141,7 @@ class BookingDAO
             FROM bookings as b 
             JOIN ownerxbooking as ob
             ON b.id = ob.id_booking 
-            WHERE ob.id_owner = :idOwner AND (b.id_status = '1' OR b.id_status = '2' OR b.id_status = '4');";
+            WHERE ob.id_owner = :idOwner AND (b.id_status = '1' OR b.id_status = '2' OR b.id_status = '3' OR b.id_status = '4');";
 
             $parameters["idOwner"] = $idOwner;
 
@@ -161,7 +161,7 @@ class BookingDAO
             return count($bookingList) > 0 ? $bookingList : null;
         } catch (Exception $ex) {
             throw $ex;
-            echo "excepcion en getByIdOwner";
+           
         }
     }
 
@@ -199,7 +199,7 @@ class BookingDAO
             return count($bookingList) > 0 ? $bookingList : null;
         } catch (Exception $ex) {
             throw $ex;
-            echo "excepcion en getBookingsBetweenDates";
+            
         }
     }
 
@@ -230,7 +230,7 @@ class BookingDAO
             return count($requestsList) > 0 ? $requestsList : null;
         } catch (Exception $ex) {
             throw $ex;
-            echo "excepcion en getRequests";
+            
         }
     }
 
@@ -257,7 +257,6 @@ class BookingDAO
             return $arrayPets;
         } catch (Exception $ex) {
             throw $ex;
-            echo " excepcion en getPets bookingDAO";
         }
     }
 
@@ -274,8 +273,8 @@ class BookingDAO
 
             $this->connection->Execute($query, $parameters);
         } catch (Exception $ex) {
-            // throw $ex;
-            echo ' exc en updateStatus() de BookingDAO';
+            throw $ex;
+
         }
     }
 
@@ -306,13 +305,12 @@ class BookingDAO
             return count($bookingList) > 0 ? $bookingList[0] : null;
         } catch (Exception $ex) {
             throw $ex;
-            echo "excepcion en getById";
         }
     }
 
+    // Update booking status from confirmed to finished
     function updatePastConfirmedBookings($idGuardian)
     {
-
         $query = "UPDATE " . $this->tableName . " SET id_status = 4 WHERE id_status = 5 AND id_guardian = :idGuardian AND (end_date < now());";
 
         $parameters["idGuardian"] = $idGuardian;
@@ -322,9 +320,9 @@ class BookingDAO
         $resultSet = $this->connection->ExecuteNonQuery($query, $parameters);
     }
 
+    // Update booking status from accepted to rejected (for when guardian accepts the request and owner doesn't pay for it)
     function updatePastAcceptedBookings($idGuardian)
     {
-
         $query = "UPDATE " . $this->tableName . " SET id_status = 3 WHERE id_status = 2 AND id_guardian = :idGuardian AND (start_date < now());";
 
         $parameters["idGuardian"] = $idGuardian;
@@ -334,11 +332,10 @@ class BookingDAO
         $resultSet = $this->connection->ExecuteNonQuery($query, $parameters);
     }
 
-
+    // Update booking status from waiting to timed out (for when guardian doesn't accept/reject the request)
     function updatePastWaitingBookings($idGuardian)
     {
-
-        $query = "UPDATE " . $this->tableName . " SET id_status = 3 WHERE id_status = 1 AND id_guardian = :idGuardian AND (start_date < now());";
+        $query = "UPDATE " . $this->tableName . " SET id_status = 6 WHERE id_status = 1 AND id_guardian = :idGuardian AND (start_date < now());";
 
         $parameters["idGuardian"] = $idGuardian;
 

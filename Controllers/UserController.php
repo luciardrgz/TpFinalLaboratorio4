@@ -146,13 +146,12 @@ class UserController
                             $this->ownerDAO->add($owner);
                             $auth->login($email, $password);
                         }
-                        $message = "Usuario ingresado correctamente";
                     } else {
-                        $message = "El usuario es menor a 16 años";
+                        $message = "You must be 16 or more to sign up";
                         require_once(VIEWS_PATH . "signUp.php");
                     }
                 } else {
-                    $message = "Este usuario ya existe";
+                    $message = "This user already exists";
                     require_once(VIEWS_PATH . "signUp.php");
                 }
             } else {

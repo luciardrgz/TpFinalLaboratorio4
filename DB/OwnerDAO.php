@@ -31,7 +31,7 @@ class OwnerDAO implements IOwnerDAO
             $this->connection->ExecuteNonQuery($query, $parameters);
         } catch (Exception $insertExc) {
             throw $insertExc;
-            echo " excepcion en add de ownerdao";
+            
         }
     }
 
@@ -56,7 +56,7 @@ class OwnerDAO implements IOwnerDAO
             return count($ownerList) > 0 ? $ownerList : $ownerList['0'];
         } catch (Exception $ex) {
             throw $ex;
-            echo "excepcion en getAll";
+            
         }
     }
 
@@ -82,8 +82,7 @@ class OwnerDAO implements IOwnerDAO
             }
             return (count($ownerList) > 0) ? $ownerList[0] : null;
         } catch (Exception $ex) {
-            //throw $ex;
-            echo "excepcion en getbyemail owner";
+            throw $ex;
         }
     }
 
@@ -133,8 +132,7 @@ class OwnerDAO implements IOwnerDAO
 
             return (count($ownerList) > 0) ? $ownerList[0] : null;
         } catch (Exception $ex) {
-            //throw $ex;
-            echo "excepcion en getbynickname owner";
+            throw $ex;
         }
     }
 }

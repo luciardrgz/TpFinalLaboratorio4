@@ -65,7 +65,7 @@ include("navOwner.php");
 
     <div class="error-msg">
         <?php if (isset($_GET['message'])) { ?>
-        <div class="alert alert-danger">
+        <div class="alert alert-success">
             <?php echo $_GET['message']; ?>
         </div>
         <?php } ?>

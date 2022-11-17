@@ -27,7 +27,6 @@ class AuthController
         $message = null;
         try {
             if ($email == "" || $password == "") {
-                $message = "Please fill all the fields";
                 require_once(VIEWS_PATH . "login.php");
             } else {
                 $guardianDAO = new GuardianDAO();

@@ -349,7 +349,7 @@ button {
   background-color: rgb(10, 48, 65);
   border: none;
   color: white;
-  height: 35px;
+  height: 70px;
   line-height: 0px;
   border-radius: 5px;
   font-size: 18px;
@@ -364,7 +364,7 @@ button {
 
 .dateSelection {
   align-items: center;
-  background-color: #f2c459ec;
+  background-color: #ffffffec;
   padding: 5px;
   color: black;
   font-size: 15px;

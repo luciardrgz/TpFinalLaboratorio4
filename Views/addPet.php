@@ -134,6 +134,13 @@ include("navOwner.php");
                                 <div class="submit-pet-btn">
                                     <button name="submit" type="submit" class="btn btn-warning">Submit</button>
                                 </div>
+                                <div class="error-msg">
+                                <?php if ($message!= null) { ?>
+                                <div class="alert alert-danger">
+                                    <?php echo $message; ?>
+                                </div>
+                                <?php } ?>
+                                </div>
                             </div>
                         </form>
 

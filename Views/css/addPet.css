@@ -3,6 +3,9 @@
 * {
   font-family: "Montserrat", sans-serif;
 }
+.container{
+  margin-top: 120px;
+}
 
 html,
 body {
@@ -53,4 +56,10 @@ select {
 .add-title {
   font-weight: bold;
   margin-bottom: 20px;
+}
+
+.error-msg {
+  margin-left: 40px;
+  margin-bottom: -40px;
+  text-align: center;
 }

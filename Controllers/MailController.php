@@ -56,7 +56,7 @@ class MailController
                 $coupon = new Coupon($price, $idBooking);
                 $couponDAO = new CouponDAO();
                 $couponDAO->add($coupon);
-                echo "Payment details were sent to your email. Check it out!";
+                //echo "Payment details were sent to your email. Check it out!";
             } catch (Exception $e) {
                 echo 'Error while sending Payment details';
             }

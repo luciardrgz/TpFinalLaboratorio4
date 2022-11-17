@@ -38,11 +38,14 @@ class PetController
                         try {
                             $this->petDAO->add($pet);
                             $message = "You've added a pet successfully!";
+                            header("Location:" . FRONT_ROOT . "User?message=" . $message);
                         } catch (Exception $e) {
                             $message = "Picture or vaccination URL you've entered is duplicated";
+                            $catBreedsList = $this->breedDAO->getAllCatBreeds();
+                            $dogBreedsList = $this->breedDAO->getAllDogBreeds();
+                            //header("Location:" . FRONT_ROOT . "Pet/addPet?message=" . $message);
+                            require_once(VIEWS_PATH . "addPet.php");
                         }
-
-                        header("Location:" . FRONT_ROOT . "User?message=" . $message);
                     } else {
 
                         $catBreedsList = $this->breedDAO->getAllCatBreeds();

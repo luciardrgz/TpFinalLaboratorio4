@@ -131,8 +131,13 @@ include("navOwner.php");
 
                                     <img src="<?php echo  FRONT_ROOT . IMG_PATH . "waiting.png" ?>" />
 
-                                    <?php echo $status . " | " . $arrayNicknamesGuardian[$i];
-                      } ?>
+                                    <?php echo $status . " for " . $arrayNicknamesGuardian[$i] . "'s response";
+                      }else if ($status == 'Rejected') { ?>
+
+                        <img src="<?php echo  FRONT_ROOT . IMG_PATH . "rejected.png" ?>" />
+
+                        <?php echo $status . " for " . $arrayNicknamesGuardian[$i] . "'s response";
+                    } ?>
                                 </h5>
 
                                 <ul>

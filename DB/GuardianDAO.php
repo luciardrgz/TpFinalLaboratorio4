@@ -32,7 +32,6 @@ class GuardianDAO implements IGuardianDAO
             $this->connection->ExecuteNonQuery($query, $parameters);
         } catch (Exception $exc) {
             throw $exc;
-            //echo "excepcion en add guardian";
         }
     }
 
@@ -78,7 +77,7 @@ class GuardianDAO implements IGuardianDAO
             return count($guardianList) > 0 ? $guardianList : null;
         } catch (Exception $ex) {
             throw $ex;
-            echo "excepcion en getAll";
+            
         }
     }
     public function getById($id)
@@ -124,8 +123,7 @@ class GuardianDAO implements IGuardianDAO
 
             return $guardian;
         } catch (Exception $ex) {
-            //throw $ex;
-            echo "excepcion en getbyemail guardian";
+            throw $ex;
         }
     }
 
@@ -156,8 +154,7 @@ class GuardianDAO implements IGuardianDAO
             }
             return (count($guardianList) > 0) ? $guardianList[0] : null;
         } catch (Exception $ex) {
-            //throw $ex;
-            echo "excepcion en getbyemail guardian";
+            throw $ex;
         }
     }
 
@@ -188,11 +185,10 @@ class GuardianDAO implements IGuardianDAO
                 $guardianList = array();
                 array_push($guardianList, $guardian);
             }
-            ///return the array in position 0
+
             return (count($guardianList) > 0) ? $guardianList[0] : null;
         } catch (Exception $ex) {
-            //throw $ex;
-            echo "excepcion en getbynickname guardian";
+            throw $ex;
         }
     }
 
@@ -214,8 +210,7 @@ class GuardianDAO implements IGuardianDAO
                 return true;
             }
         } catch (Exception $ex) {
-            // throw $ex;
-            echo " exc en validateGuardianxSize";
+             throw $ex;
         }
     }
 
@@ -242,8 +237,7 @@ class GuardianDAO implements IGuardianDAO
                 $this->connection->Execute($query, $parameters);
             }
         } catch (Exception $ex) {
-            // throw $ex;
-            echo ' exc en update() de GuardianDAO';
+             throw $ex;
         }
     }
 
@@ -261,8 +255,8 @@ class GuardianDAO implements IGuardianDAO
 
             $this->connection->Execute($query, $parameters);
         } catch (Exception $ex) {
-            // throw $ex;
-            echo ' exc en update() de GuardianDAO';
+             throw $ex;
+           
         }
     }
 
@@ -278,8 +272,8 @@ class GuardianDAO implements IGuardianDAO
 
             $this->connection->Execute($query, $parameters);
         } catch (Exception $ex) {
-            // throw $ex;
-            echo ' exc en updatePRICE() de GuardianDAO';
+             throw $ex;
+           
         }
     }
 
@@ -311,8 +305,8 @@ class GuardianDAO implements IGuardianDAO
             }
             return (count($guardianList) > 0) ? $guardianList : null;
         } catch (Exception $ex) {
-            // throw $ex;
-            echo " exc en getGuardiansByDate";
+             throw $ex;
+           
         }
     }
 
@@ -333,8 +327,8 @@ class GuardianDAO implements IGuardianDAO
             $this->updateScore($idGuardian);
             
         } catch (Exception $ex) {
-           // throw $ex;
-           echo " exc en addScore";
+            throw $ex;
+           
         } 
     }
 
@@ -353,8 +347,7 @@ class GuardianDAO implements IGuardianDAO
         $resultSet = $this->connection->ExecuteNonQuery($query, $parameters);
         }
         catch (Exception $ex){
-            // throw $ex;
-           echo " exc en updateScore";
+            throw $ex;
         }
     }
 }

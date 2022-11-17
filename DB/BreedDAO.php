@@ -34,8 +34,8 @@ class BreedDAO
             }
             return $breedList;
         } catch (Exception $ex) {
-            //throw $ex;
-            echo "excepcion en getalldogbreeds";
+            throw $ex;
+            
         }
     }
 
@@ -61,8 +61,8 @@ class BreedDAO
 
             return $breedList;
         } catch (Exception $ex) {
-            //throw $ex;
-            echo " excepcion getallcatbreeds";
+            throw $ex;
+            
         }
     }
 }
