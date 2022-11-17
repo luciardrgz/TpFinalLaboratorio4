@@ -29,15 +29,15 @@ class MailController
             $mail->SMTPAuth   = true;                                     //Enable SMTP authentication
             $mail->Username   = 'lab4pethero@gmail.com';                  //SMTP username
             $mail->Password   = 'oqhldwdadwmoqvze';                      //SMTP password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-            $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;             //Enable implicit TLS encryption
+            $mail->Port       = 465;                                     //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
             // Receptor
             $mail->setFrom('lab4pethero@gmail.com', 'Pet Hero');
             $mail->addAddress($_SESSION['email'], $_SESSION['nickname']);     //Add a recipient
 
             // Contenido del mail
-            $mail->isHTML(true);                                  //Set email format to HTML
+            $mail->isHTML(true);                                              //Set email format to HTML
             $mail->Subject = "Your Pet Hero payment details";
 
             $value_to_add = "To pay: $" . $price;

@@ -3,7 +3,7 @@ namespace JSON;
 use DAOInterfaces\IOwnerDAO as IOwnerDAO;
 use Models\Owner as Owner;
 
-class OwnerDAO implements IOwnerDAO
+class OwnerDAO
 {
     private $ownerList = array();
     private $fileName = ROOT . "Data/Owners.json";

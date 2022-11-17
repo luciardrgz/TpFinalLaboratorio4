@@ -3,7 +3,7 @@ namespace JSON;
 use DAOInterfaces\IGuardianDao as IGuardianDao;
 use Models\Guardian as Guardian;
 
-class GuardianDAO implements IGuardianDAO
+class GuardianDAO 
 {
     private $guardianList = array();
     private $fileName = ROOT . "Data/Guardians.json";
@@ -97,18 +97,7 @@ class GuardianDAO implements IGuardianDAO
         }  
     }
 
-    /*
-        function remove($code)
-        {
-            $this->loadData();
-
-            $this->guardianList = array_filter($this->guardianList, function($guardian) use($code){
-                return $guardian->getCode() != $code;
-            });
-
-            $this->saveData();
-        }
-        */
+  
 
     private function loadData()
     {

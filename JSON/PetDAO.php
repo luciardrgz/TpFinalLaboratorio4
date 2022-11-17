@@ -3,7 +3,7 @@ namespace JSON;
 use DAOInterfaces\IPetDAO as IPetDAO;
 use Models\Pet as Pet;
 
-class PetDAO implements IPetDAO{
+class PetDAO {
     private $petList = array();
     private $fileName = ROOT . "Data/Pets.json";
     private $maxId;
@@ -81,20 +81,6 @@ class PetDAO implements IPetDAO{
        }
      
     
-        /*    
-        function remove($id)
-        {
-            $this->loadData();
-
-            $pets = array_filter($this->petList, function ($pet) use ($petName) {
-                return $pet->getId() == $id;
-            });
-
-            $this->saveData();
-        }
-        
-        */
-
     private function loadData()
     {
         $this->petList = array();

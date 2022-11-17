@@ -80,6 +80,7 @@ class UserController
                         if ($message == '') {
                             $message = null;
                         }
+                        
                         $firstDay;
                         $lastDay;
 
@@ -98,8 +99,6 @@ class UserController
             $message = "DATABASE ERROR";
         }
     }
-
-
 
     public function showProfileInfo()
     {
@@ -220,7 +219,7 @@ class UserController
             } else {
                 header("location:" . FRONT_ROOT . "Auth");
             }
-        } catch (Exception $e) {
+        } catch (Exception $ex) {
             $message = "DATABASE ERROR";
         }
     }

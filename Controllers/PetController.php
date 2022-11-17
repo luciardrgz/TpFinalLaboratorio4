@@ -6,9 +6,9 @@ use Models\Pet as Pet;
 use Models\Dog as Dog;
 use Models\Cat as Cat;
 use DB\PetDAO as PetDAO;
+//use JSON\PetDAO as PetDAO;
 use DB\OwnerDAO as OwnerDAO;
 use DB\BreedDAO as BreedDAO;
-//use JSON\PetDAO as PetDAO;
 use Controllers\AuthController as AuthController;
 use Exception as Exception;
 
@@ -39,11 +39,13 @@ class PetController
                             $this->petDAO->add($pet);
                             $message = "You've added a pet successfully!";
                             header("Location:" . FRONT_ROOT . "User?message=" . $message);
+
                         } catch (Exception $e) {
+
                             $message = "Picture or vaccination URL you've entered is duplicated";
                             $catBreedsList = $this->breedDAO->getAllCatBreeds();
                             $dogBreedsList = $this->breedDAO->getAllDogBreeds();
-                            //header("Location:" . FRONT_ROOT . "Pet/addPet?message=" . $message);
+
                             require_once(VIEWS_PATH . "addPet.php");
                         }
                     } else {
@@ -106,25 +108,6 @@ class PetController
         }
     }
 
-    /*function remove($id)
-    {
-        $message=null;
-        try {
-            if (isset($_SESSION['loggeduser'])) {
-                if ($_SESSION['type'] == 'O') {
-                    $this->petDAO->remove($id);
-                    header("location:" . FRONT_ROOT . "Pet/listPets");
-                } else {
-                    require_once(VIEWS_PATH . "landingPageOwner.php");
-                }
-            } else {
-                header("location:" . FRONT_ROOT . "Auth");
-            }
-        } catch (Exception $ex) {
-            $message="DATA ERROR";
-        }
-        
-    }*/
 
     public function Index()
     {

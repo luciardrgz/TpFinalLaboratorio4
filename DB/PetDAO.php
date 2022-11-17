@@ -2,7 +2,6 @@
 
 namespace DB;
 
-use DAOInterfaces\IPetDAO as IPetDAO;
 use Models\Pet as Pet;
 use Models\Breed as Breed;
 use DB\Connection as Connection;
@@ -11,7 +10,7 @@ use DB\BreedDAO as BreedDAO;
 use \Exception as Exception;
 use Models\Owner;
 
-class PetDAO /*implements IPetDAO*/
+class PetDAO 
 {
     private $connection;
     private $tableName = "Pets";
@@ -192,17 +191,4 @@ class PetDAO /*implements IPetDAO*/
         }
     }
 
-    public function remove($id)
-    {
-        try {
-            $query = "DELETE FROM " . $this->tableName . " WHERE id = :id;";
-
-            $parameters["id"] = $id;
-
-            $this->connection = Connection::GetInstance();
-            $this->connection->ExecuteNonQuery($query, $parameters);
-        } catch (Exception $e) {
-            throw $e;
-        }
-    }
 }

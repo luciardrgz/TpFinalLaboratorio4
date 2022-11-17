@@ -36,8 +36,8 @@ class BookingController
             if ($_SESSION['type'] == 'O') {
                 if ($idPetsArray != "" && $firstDay != "" && $lastDay != "" && $guardianId != "" && $totalAmount != "") {
 
-                    $myPets = explode(",", $idPetsArray);
-                    $allPets = $this->passArrayIDTOArrayPets($myPets);
+                    $myPets = explode(",", $idPetsArray); //transforma un string de ids en array de ids
+                    $allPets = $this->passArrayIDTOArrayPets($myPets);// el array de id se convierte a un array de mascotas
 
                     $booking =  new Booking($allPets, $firstDay, $lastDay, $_SESSION["id"], $guardianId, $totalAmount);
 
@@ -59,7 +59,7 @@ class BookingController
         }
     }
 
-    public function bookDate($id = '', $firstDay = '', $lastDay = '', $selectedPet = '')
+    public function bookDate($id = '', $firstDay = '', $lastDay = '', $selectedPet = '') // Crea una nueva reserva y hace las respectivas verificaciones
     {
         if (isset($_SESSION['loggeduser'])) {
 
@@ -70,7 +70,7 @@ class BookingController
             $guardian = $guardianDAO->getById($id);
             $guardianName = $guardian->getFirstName();
 
-            if ($_SESSION['type'] == 'O') {
+            if ($_SESSION['type'] == 'O') {         // Verifica el tipo de usuario
                 if ($id != '' && $selectedPet == '') {
 
                     $petList = array();
@@ -90,6 +90,7 @@ class BookingController
                     $ArrayPets = array();
                     $ArrayPets = $this->passArrayIDTOArrayPets($selectedPet);
                     $breed = $this->getBreedBetweenDates($id, $firstDay, $lastDay);
+
                     if ($this->verifyPetBreed($ArrayPets, $breed)) {
 
                         if ($this->verifyPetSize($ArrayPets, $id)) {
@@ -102,7 +103,7 @@ class BookingController
 
                                 $idPetsArray = implode(",", $selectedPet);
 
-                                $substraction = date_diff(date_create($firstDay), date_create($lastDay));
+                                $substraction = date_diff(date_create($firstDay), date_create($lastDay)); // Obtiene los dias que durará el booking
                                 $bookingDays = $substraction->format('%a');
 
                                 $totalAmount = $bookingDays * $guardian->getPrice();
@@ -129,7 +130,7 @@ class BookingController
         }
     }
 
-    function verifyPetBreed($pets, $breed)
+    function verifyPetBreed($pets, $breed) 
     {
         $verification = true;
 
@@ -236,11 +237,11 @@ class BookingController
 
                     require_once(VIEWS_PATH . "requests.php");
                 } else {
-                    $message = "restricted access";
+                    $message = "Restricted access";
                     require_once(VIEWS_PATH . "landingPageOwner.php");
                 }
             } else {
-                $message = "restricted access";
+                $message = "Restricted access";
                 header("location:" . FRONT_ROOT . "Auth");
             }
         } catch (Exception $ex) {
@@ -268,7 +269,6 @@ class BookingController
                         array_push($arrayNickname, $nickname);
                     }
                 }
-
                 require_once(VIEWS_PATH . "bookingHistoryGuardian.php");
             } else {
                 require_once(VIEWS_PATH . "landingPageOwner.php");
@@ -408,12 +408,12 @@ class BookingController
             }
 
             if ($flag == true) {
-                $toReturn = $breedCompare;
+                $toReturn = $breedCompare; // Si hay una raza dentro de las fechas, es asignada al retorno
             } else {
-                $toReturn = 'DiffBreedsOpt';
+                $toReturn = 'DiffBreedsOpt'; // Si se intenta agregar una raza distinta a las existentes en los bookings de esas fechas
             }
         } else {
-            $toReturn = 'EmptyOpt';
+            $toReturn = 'EmptyOpt'; // Si la fecha no esta ocupada por ninguna raza
         }
 
         return $toReturn;

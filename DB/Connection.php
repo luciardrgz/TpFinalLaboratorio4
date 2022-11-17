@@ -21,7 +21,6 @@ namespace DB;
             catch(Exception $ex)
             {
                 throw $ex;
-                echo "excepcion en constructor connection";
             }
         }
 
@@ -48,7 +47,6 @@ namespace DB;
             catch(Exception $ex)
             {
                 throw $ex;  
-                echo "excepcion en execute connection";
             }
         }
         
@@ -67,7 +65,6 @@ namespace DB;
             catch(Exception $ex)
             {
                 throw $ex;
-                echo "excepcion en executenonquery connection";
             }        	    	
         }
         
@@ -80,7 +77,6 @@ namespace DB;
             catch(Exception $ex)
             {
                 throw $ex;
-                echo "excepcion en prepare connection";
             }
         }
         

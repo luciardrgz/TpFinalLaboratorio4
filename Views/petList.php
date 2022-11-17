@@ -10,7 +10,7 @@ include("navOwner.php");
 <html>
 
 <head>
-    <title></title>
+<title>Pet Hero</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH . "list.css" ?>">
@@ -79,11 +79,7 @@ include("navOwner.php");
                                     </ul>
                                 </div>
                             </div>
-                           <!-- <div class="job-right my-4 flex-shrink-0">
-                                <a href="<?php echo FRONT_ROOT . "Pet/remove/" . $pets->getId(); ?>"
-                                    class="btn d-block w-100 d-sm-inline-block btn-light"
-                                    onclick="return confirm('Are you sure that you want to remove that pet?')">Remove</a>
-                            </div> -->
+                  
                         </div>
                         <?php
                         }
