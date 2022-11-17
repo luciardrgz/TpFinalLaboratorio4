@@ -34,37 +34,30 @@ include("navOwner.php");
 
         <div class="row">
             <div class="col-lg-10 mx-auto">
-                <div class="career-search mb-60">
 
-                    <div class="title-div">
-                        <h3 class="list-title">Select a date!</h3>
-                    </div>
-                    <div class="dates">
-                    <form action="<?php echo FRONT_ROOT . "User/filterGuardianList" ?>" method="POST">
-                        <div class="row">
-                            <div class="col-md-6 col-lg-3 my-3">
-                                <div class="dates-div">
-                                    <label>&nbsp;&nbsp;From:</label>
-                                    <input type="date" name="firstDay" class="dateSelection" required>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-3 my-3">
-                                <div class="dates-div">
-                                    <label>To:</label>
-                                    <input type="date" name="lastDay" class="dateSelection" required>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-3 my-3">
-                                <button type="submit" name="submit"
-                                    class="btn btn-lg btn-block btn-light btn-custom">Search </button>
-                            </div>
-                        </div>
-                    </form>
-                    </div>
+                <div class="title-div">
+                    <h3 class="list-title">When do you need your pets to be cared for?</h3>
                 </div>
 
+                <div class="dates">
+                    <form action="<?php echo FRONT_ROOT . "User/filterGuardianList" ?>" method="POST">
+
+
+                        <div class="dates-box">
+                            <label>&nbsp;&nbsp;From:</label>
+                            <input type="date" name="firstDay" class="dateSelection" required>
+                            <label>To:</label>
+                            <input type="date" name="lastDay" class="dateSelection" required>
+                        </div>
+
+                        <button type="submit" name="submit" class="btn btn-lg btn-block btn-light btn-custom">Search
+                        </button>
+                    </form>
+                </div>
             </div>
+
         </div>
+    </div>
 </body>
 
 </html>

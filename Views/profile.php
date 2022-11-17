@@ -41,7 +41,23 @@ if ($_SESSION["type"] == "O") {
                     <h6><i><?php echo "Pet Owner"; ?></i></h6>
                     <?php } else { ?>
                     <h6><i><?php echo " Pet Guardian"; ?></i></h6>
-                    <p class="profile-rating">Your guardian score: <span><?php if($user->getScore() != null){echo $user->getScore() . "/5";}else{echo 'empty';}?></span></p>
+                    <p class="profile-rating">Your guardian score: <span>
+
+                            <?php if ($user->getScore() != null) {
+                                    if ($user->getScore() == 1) { ?>
+                            <img src="<?php echo  FRONT_ROOT . IMG_PATH . "bone.png" ?>" />
+                            <?php } elseif ($user->getScore() == 2) { ?>
+                            <img src="<?php echo  FRONT_ROOT . IMG_PATH . "2bones.png" ?>" />
+                            <?php } elseif ($user->getScore() == 3) { ?>
+                            <img src="<?php echo  FRONT_ROOT . IMG_PATH . "3bones.png" ?>" />
+                            <?php } elseif ($user->getScore() == 4) { ?>
+                            <img src="<?php echo  FRONT_ROOT . IMG_PATH . "4bones.png" ?>" />
+                            <?php } elseif ($user->getScore() == 5) { ?>
+                            <img src="<?php echo  FRONT_ROOT . IMG_PATH . "5bones.png" ?>" />
+                            <?php }
+                                } else {
+                                    echo 'Empty score';
+                                } ?></span></p>
                     <?php } ?>
 
                 </div>
@@ -210,12 +226,12 @@ if ($_SESSION["type"] == "O") {
 
 
                         <?php } ?>
-                        <?php 
-                    if ($message != null) { ?>
-                    <div class="alert alert-danger">
-                        <?php echo $message;?>
-                    </div>
-                    <?php }?>
+                        <?php
+                        if ($message != null) { ?>
+                        <div class="alert alert-danger">
+                            <?php echo $message; ?>
+                        </div>
+                        <?php } ?>
 
                     </div>
                 </div>

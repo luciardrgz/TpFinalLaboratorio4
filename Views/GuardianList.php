@@ -24,16 +24,16 @@ include("navOwner.php");
     <div class="container">
         <div class="row">
 
-            <?php 
-            if(isset($_GET['message'])){
-                    $message = $_GET['message'];
-                }
-                if ($message != null) { ?>
+            <?php
+            if (isset($_GET['message'])) {
+                $message = $_GET['message'];
+            }
+            if ($message != null) { ?>
             <div class="alert alert-danger">
-                <?php echo $message;?>
+                <?php echo $message; ?>
             </div>
             <?php } ?>
- 
+
         </div>
 
         <div class="row">
@@ -42,20 +42,20 @@ include("navOwner.php");
 
 
                     <div class="title-div">
-                        <h3 class="list-title">Guardians available from 
-                            <?php 
-                            if (!isset($firstDay)){
-                                if(isset($_GET['firstDay'])){
-                                     $firstDay = $_GET['firstDay'];
-                                 }
-                            }
-                             echo $firstDay; ?> to <?php 
-                            if (!isset($lastDay)){
-                                if(isset($_GET['lastDay'])){
-                                    $lastDay = $_GET['lastDay'];
+                        <h3 class="list-title">Guardians available from
+                            <?php
+                            if (!isset($firstDay)) {
+                                if (isset($_GET['firstDay'])) {
+                                    $firstDay = $_GET['firstDay'];
                                 }
                             }
-                             echo $lastDay ?> </h3>
+                            echo $firstDay; ?> to <?php
+                                                    if (!isset($lastDay)) {
+                                                        if (isset($_GET['lastDay'])) {
+                                                            $lastDay = $_GET['lastDay'];
+                                                        }
+                                                    }
+                                                    echo $lastDay ?> </h3>
                     </div>
 
 
@@ -107,12 +107,12 @@ include("navOwner.php");
                                             <br>
 
                                             <?php if ($guardian->getScore() != null) {
-                                                        ?>
-                                            <img src="https://img.icons8.com/material/24/null/dog-bone.png" />
+                                                    ?>
+                                            <img src="<?php echo  FRONT_ROOT . IMG_PATH . "bone.png" ?>" />
                                             <?php
-                                                            echo "Score: " . $guardian->getScore() . "<br>";
-                                                        }
-                                                        ?>
+                                                        echo "Score: " . $guardian->getScore() . "<br>";
+                                                    }
+                                                    ?>
 
                                             <img src="https://img.icons8.com/material/24/null/banknotes--v1.png" />
                                             <?php echo "Price per day: " . "$" . $guardian->getPrice(); ?>
@@ -125,7 +125,7 @@ include("navOwner.php");
                                     class="btn d-block w-100 d-sm-inline-block btn-light">Hire</a>
                             </div>
                         </div>
-                        <?php 
+                        <?php
                         }
                     } else { ?>
                         <div class="title-div">

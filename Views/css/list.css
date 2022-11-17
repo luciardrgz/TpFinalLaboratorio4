@@ -182,25 +182,6 @@ button {
   color: rgb(51, 83, 98);
 }
 
-.dates-div {
-  height: 20px;
-  margin-bottom: 32px;
-  font-weight: bold;
-  color: white;
-}
-
-.dateSelection {
-  align-items: center;
-  background-color: #efa908;
-  padding: 5px;
-  color: black;
-  font-size: 15px;
-  border: none;
-  outline: none;
-  border-radius: 5px;
-  margin: 0px 30px 0px 10px;
-}
-
 button {
   margin-left: 400px;
 }
@@ -235,7 +216,6 @@ button {
 }
 
 .request-content {
-  background-color: blue;
   margin-left: 200px;
 }
 
@@ -341,7 +321,7 @@ button {
   fill: gold;
 }
 
-.rate-btn{
+.rate-btn {
   padding: 0.6em 2em;
   border: none;
   outline: none;
@@ -354,8 +334,42 @@ button {
   border-radius: 10px;
 }
 
-.dates{
-  margin-top: 100px;
-  background-color: #12236e96;
+.dates {
+  background-color: rgb(51, 83, 98);
   border-radius: 5px;
+  padding: 15px;
+}
+
+.dates label {
+  color: white;
+  font-weight: bold;
+}
+
+.dates button {
+  background-color: rgb(10, 48, 65);
+  border: none;
+  color: white;
+  height: 35px;
+  line-height: 0px;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.dates-box {
+  font-size: 18px;
+  display: inline;
+  margin-left: 200px;
+  margin-right: -400px;
+}
+
+.dateSelection {
+  align-items: center;
+  background-color: #f2c459ec;
+  padding: 5px;
+  color: black;
+  font-size: 15px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  margin: 0px 30px 0px 10px;
 }

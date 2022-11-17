@@ -29,8 +29,7 @@ namespace Views;
             <div class="card">
 
                 <div class="card-header">
-                    <img src="https://cdn.shopify.com/s/files/1/0552/1244/1789/files/LOGOTIPO_PET_HERO_1200x1200.png?v=1629479663"
-                        width="30%">
+                    <img src="<?php echo  FRONT_ROOT . IMG_PATH . "logo.png" ?>" width="30%">
                 </div>
 
                 <div class="card-body">
@@ -57,19 +56,19 @@ namespace Views;
 
                     </form>
                 </div>
-                
+
                 <div class="card-footer">
                     <div class="d-flex justify-content-center links">
                         Don't have an account?
                         <a href="<?php echo FRONT_ROOT . "Home/signUp" ?>">Sign Up </a>
                     </div>
                 </div>
-                <?php 
-                    if ($message != null) { ?>
-                    <div class="alert alert-danger">
-                        <?php echo $message;?>
-                    </div>
-                    <?php }?>
+                <?php
+                if ($message != null) { ?>
+                <div class="alert alert-danger">
+                    <?php echo $message; ?>
+                </div>
+                <?php } ?>
 
             </div>
         </div>

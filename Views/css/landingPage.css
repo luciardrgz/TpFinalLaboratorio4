@@ -7,56 +7,16 @@
 body {
   background-image: url("https://cdn.discordapp.com/attachments/1022513613375807644/1032661379414491146/unknown.png");
   background-repeat: repeat;
-  height: 1000px;
-}
-
-.carousel {
-  height: 100px;
-  width: 100%;
 }
 
 .carousel-control-prev {
   background-color: rgba(0, 0, 0, 0.6);
   width: 50px;
-  height: 380px;
 }
 
 .carousel-control-next {
   background-color: rgba(0, 0, 0, 0.6);
   width: 50px;
-  height: 380px;
-}
-
-.carousel-indicators {
-  margin-bottom: -270px;
-}
-
-.col {
-  align-content: center;
-  margin-bottom: 100px;
-}
-
-.card {
-  width: 400px;
-  height: 350px;
-  border: 5px solid rgb(255, 255, 255);
-}
-
-.col2 {
-  width: 100%;
-  align-content: center;
-  color: white;
-}
-
-.card2 {
-  align-items: center;
-  text-align: center;
-
-  margin-left: -130px;
-  width: 1525px;
-  height: 50px;
-  background-color: rgb(14, 59, 80);
-  padding-top: 12px;
 }
 
 .error-msg {
@@ -66,7 +26,30 @@ body {
   background-color: greenyellow;
 }
 
-.guardianCol {
+.ownerCol {
+  margin-top: -370px;
   align-content: center;
-  margin-top: 450px;
+  margin-bottom: 50px;
+}
+
+.guardianCol {
+  margin-top: 40px;
+  align-content: center;
+  margin-bottom: 50px;
+}
+
+.card {
+  margin-top: 30px;
+  width: 400px;
+  height: 350px;
+  border: 5px solid rgb(255, 255, 255);
+}
+
+.home-footer {
+  text-align: center;
+  height: 50px;
+  padding-top: 12px;
+  color: white;
+  border-radius: 5px;
+  background-color: rgb(14, 59, 80);
 }
