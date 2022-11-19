@@ -10,16 +10,13 @@ include("navOwner.php");
 <html>
 
 <head>
-<title>Pet Hero</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <title>Pet Hero</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH . "list.css" ?>">
 </head>
 
 <body>
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css"
-        integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
 
     <div class="container">
         <div class="row">
@@ -34,63 +31,63 @@ include("navOwner.php");
                     if ($petList != null) {
                     ?>
 
-                    <div class="title-div">
-                        <h3 class="list-title">Your lovely pets</h3>
-                    </div>
+                        <div class="title-div">
+                            <h3 class="list-title">Your lovely pets</h3>
+                        </div>
 
-                    <?php foreach ($petList as $pets) { ?>
+                        <?php foreach ($petList as $pets) { ?>
 
-                    <div class="filter-result">
+                            <div class="filter-result">
 
-                        <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
-                            <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
+                                <div class="info-box d-md-flex align-items-center justify-content-between mb-30">
+                                    <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
 
-                                <div class="pl-img-holder">
-                                    <img src="<?php echo $pets->getPicture(); ?>" />
-                                </div>
+                                        <div class="pl-img-holder">
+                                            <img src="<?php echo $pets->getPicture(); ?>" />
+                                        </div>
 
-                                <div class="job-content">
+                                        <div class="job-content">
 
-                                    <h5 class="h5-pets"><?php echo $pets->getName(); ?></h5> <br>
+                                            <h5 class="h5-pets"><?php echo $pets->getName(); ?></h5> <br>
 
-                                    <ul>
-                                        <li class="mr-md-4">
-                                            <?php
-                                                    
+                                            <ul>
+                                                <li class="mr-md-4">
+                                                    <?php
+
                                                     echo $pets->getSizeText() . " ";
-                                                    
+
                                                     echo $pets->getBreed();
 
                                                     if ($pets->getVideo() != null) {
                                                     ?> <br>
-                                            <a href="<?php echo $pets->getVideo(); ?>" target="_BLANK">
-                                                <?php echo $pets->getName(); ?>'s video</a>
-                                            <?php
+                                                        <a href="<?php echo $pets->getVideo(); ?>" target="_BLANK">
+                                                            <?php echo $pets->getName(); ?>'s video</a>
+                                                    <?php
                                                     } else {
                                                         echo "<br>No video available";
                                                     } ?>
 
-                                            <br><label>Vaccines: </label>
-                                            <div class="pl-vacc-pic">
-                                                <img src="<?php echo $pets->getVaccination(); ?>" />
-                                            </div>
+                                                    <br><label>Vaccines: </label>
+                                                    <div class="pl-vacc-pic">
+                                                        <img src="<?php echo $pets->getVaccination(); ?>" />
+                                                    </div>
 
-                                        </li>
-                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
                                 </div>
-                            </div>
-                  
-                        </div>
-                        <?php
+                            <?php
                         }
                     } else { ?>
-                        <div class="title-div">
-                            <h3 class="list-title">You haven't added any pets yet :(</h3>
-                        </div>
+                            <div class="title-div">
+                                <h3 class="list-title">You haven't added any pets yet :(</h3>
+                            </div>
                         <?php
                     } ?>
 
-                    </div>
+                            </div>
                 </div>
 
             </div>

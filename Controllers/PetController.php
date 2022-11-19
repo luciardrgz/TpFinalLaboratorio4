@@ -3,13 +3,10 @@
 namespace Controllers;
 
 use Models\Pet as Pet;
-use Models\Dog as Dog;
-use Models\Cat as Cat;
 use DB\PetDAO as PetDAO;
 //use JSON\PetDAO as PetDAO;
 use DB\OwnerDAO as OwnerDAO;
 use DB\BreedDAO as BreedDAO;
-use Controllers\AuthController as AuthController;
 use Exception as Exception;
 
 class PetController
@@ -39,7 +36,6 @@ class PetController
                             $this->petDAO->add($pet);
                             $message = "You've added a pet successfully!";
                             header("Location:" . FRONT_ROOT . "User?message=" . $message);
-
                         } catch (Exception $e) {
 
                             $message = "Picture or vaccination URL you've entered is duplicated";
@@ -61,7 +57,7 @@ class PetController
                 header("location:" . FRONT_ROOT . "Auth");
             }
         } catch (Exception $ex) {
-            $message = "DATABASE ERROR";
+            $message = "DATABASE ERROR WHILE ADDING A NEW PET";
         }
     }
 
@@ -82,7 +78,7 @@ class PetController
                 header("location:" . FRONT_ROOT . "Auth");
             }
         } catch (Exception $ex) {
-            $message = "DATABASE ERROR";
+            $message = "listPets DATABASE ERROR";
         }
     }
 
@@ -93,7 +89,7 @@ class PetController
             $dogsList = $this->petDAO->getDogsByOwnerEmail($_SESSION['email']);
             return $dogsList;
         } catch (Exception $ex) {
-            $message = "DATABASE ERROR";
+            $message = "listDogs DATABASE ERROR";
         }
     }
 
@@ -104,7 +100,7 @@ class PetController
             $catsList = $this->petDAO->getCatsByOwnerEmail($_SESSION['email']);
             return $catsList;
         } catch (Exception $ex) {
-            $message = "DATABASE ERROR";
+            $message = "listCats DATABASE ERROR";
         }
     }
 

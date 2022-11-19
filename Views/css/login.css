@@ -30,28 +30,44 @@ body {
   text-align: center;
 }
 
+.email-pass-box {
+  margin-left: 5px;
+  width: 500px;
+}
+
+.email-pass-box input {
+  height: 40px;
+  width: 310px;
+  margin-bottom: 20px;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+}
+
+.login-btn-box button {
+  width: 80px;
+  padding: 5px;
+  margin-left: 275px;
+  background-color: #ffc312;
+  color: black;
+  cursor: pointer;
+  border: 0 !important;
+  border-radius: 5px;
+  outline: none;
+}
+
+.card-footer {
+  margin-top: -30px;
+}
+
 .input-group-prepend span {
-  width: 50px;
+  width: 40px;
+  height: 40px;
   text-align: center;
   background-color: #ffc312;
   color: black;
   border: 0 !important;
-}
-
-input:focus {
-  outline: 0 0 0 0 !important;
-  box-shadow: 0 0 0 0 !important;
-}
-
-.login_btn {
-  margin-top: 10px;
-  color: black;
-  background-color: #ffc312;
-  width: 100px;
-}
-
-.login_btn:hover {
-  background-color: #e9b312;
 }
 
 .links a {
@@ -60,4 +76,13 @@ input:focus {
 
 .d-flex {
   color: black;
+}
+
+#pass-container {
+  display: flex;
+}
+
+#pass-container > svg {
+  margin-top: -20px;
+  margin-left: -35px;
 }

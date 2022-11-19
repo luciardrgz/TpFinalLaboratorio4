@@ -2,13 +2,9 @@
 
 namespace Controllers;
 
-use Controllers\BookingController as BookingController;
 use PHPMailer\PHPMailer\PHPMailer as PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception as Exception;
-use Models\Coupon as Coupon;
-use DB\CouponDAO as CouponDAO;
-
 
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
@@ -17,7 +13,7 @@ require 'PHPMailer/src/SMTP.php';
 class MailController
 {
 
-    function sendMail($statusId, $idBooking, $price)
+    function sendMail($price)
     {
         $mail = new PHPMailer(true); //Create an instance; passing `true` enables exceptions
 
@@ -48,18 +44,6 @@ class MailController
 
             $mail->CharSet = 'UTF-8';
             $mail->send();
-
-            $bookingController = new BookingController();
-            $bookingController->updateStatus($statusId, $idBooking);
-
-            try {
-                $coupon = new Coupon($price, $idBooking);
-                $couponDAO = new CouponDAO();
-                $couponDAO->add($coupon);
-                //echo "Payment details were sent to your email. Check it out!";
-            } catch (Exception $e) {
-                echo 'Error while sending Payment details';
-            }
         } catch (Exception $e) {
             $message = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }

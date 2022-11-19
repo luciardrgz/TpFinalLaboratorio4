@@ -9,7 +9,7 @@ class Pet
     private $picture;
     private $breed;
     private $video;
-    private $vaccination; // URL Image
+    private $vaccination;
     private $type;
     private $size;
     private $id;

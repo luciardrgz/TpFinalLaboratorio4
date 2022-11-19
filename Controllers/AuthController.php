@@ -2,7 +2,6 @@
 
 namespace Controllers;
 
-use models\User as User;
 use models\Owner as Owner;
 use models\Guardian as Guardian;
 use DB\OwnerDAO as OwnerDAO;
@@ -71,7 +70,7 @@ class AuthController
                 }
             }
         } catch (Exception $ex) {
-            $message = "Data mismatch";
+            $message = "login DATA ERROR";
         }
     }
 

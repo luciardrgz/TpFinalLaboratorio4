@@ -8,17 +8,12 @@ use DB\GuardianDAO as GuardianDAO;
 use DB\OwnerDAO as OwnerDAO;
 //use JSON\OwnerDAO as OwnerDAO;
 
-use DB\PetDAO as PetDAO;
-//use JSON\PetDAO as PetDAO;
-
 use DB\BookingDAO as BookingDAO;
 //use JSON\BookingDAO as BookingDAO;
 
 use Models\Guardian as Guardian;
 use Models\Owner as Owner;
-use Models\Pet as Pet;
-use Models\Alert as Alert;
-use Models\Booking as Booking;
+
 use \Exception as Exception;
 
 use Controllers\AuthController as AuthController;
@@ -46,79 +41,6 @@ class UserController
             $this->showLandingPage($_SESSION["type"]);
         } else {
             header("location:" . FRONT_ROOT . "Auth");
-        }
-    }
-
-    function showLandingPage($type)
-    {
-        if (isset($_SESSION['loggeduser'])) {
-
-            if (isset($_GET['message'])) {
-                $message = $_GET['message'];
-            }
-            if ($type == 'G') {
-                require_once(VIEWS_PATH . "landingPageGuardian.php");
-            } else {
-                require_once(VIEWS_PATH . "landingPageOwner.php");
-            }
-        } else {
-            header("location:" . FRONT_ROOT . "Auth");
-        }
-    }
-
-    public function filterGuardianList($firstDay, $lastDay, $message = '')
-    {
-        $message = null;
-        try {
-
-            if (isset($_SESSION['loggeduser'])) {
-                if ($_SESSION['type'] == 'O') {
-                    if ($firstDay <= $lastDay) {
-                        $guardianList = array();
-                        $guardianList = $this->guardianDAO->getGuardiansByDate($firstDay, $lastDay);
-
-                        if ($message == '') {
-                            $message = null;
-                        }
-                        
-                        $firstDay;
-                        $lastDay;
-
-                        require_once(VIEWS_PATH . "guardianList.php");
-                    } else {
-                        $message = "Enter a valid date range";
-                        require_once(VIEWS_PATH . "newBookingDates.php");
-                    }
-                } else {
-                    require_once(VIEWS_PATH . "landingPageGuardian.php");
-                }
-            } else {
-                header("location:" . FRONT_ROOT . "Auth");
-            }
-        } catch (Exception $e) {
-            $message = "DATABASE ERROR";
-        }
-    }
-
-    public function showProfileInfo()
-    {
-        $message = null;
-        try {
-            if (isset($_SESSION['loggeduser'])) {
-                if ($_SESSION['type'] == 'O') {
-                    $user = new Owner();
-                    $user = $this->ownerDAO->getByEmail($_SESSION['email']);
-                    require_once(VIEWS_PATH . "profile.php");
-                } else if ($_SESSION['type'] == 'G') {
-                    $user = new Guardian();
-                    $user = $this->guardianDAO->getByEmail($_SESSION['email']);
-                    require_once(VIEWS_PATH . "profile.php");
-                }
-            } else {
-                header("location:" . FRONT_ROOT . "Auth");
-            }
-        } catch (Exception $ex) {
-            $message = "DATABASE ERROR";
         }
     }
 
@@ -157,7 +79,7 @@ class UserController
                 require_once(VIEWS_PATH . "signUp.php");
             }
         } catch (Exception $ex) {
-            $message = "DATABASE ERROR";
+            $message = "DATABASE ERROR WHILE ADDING A NEW USER";
         }
     }
 
@@ -179,7 +101,7 @@ class UserController
 
             return $validation;
         } catch (Exception $ex) {
-            $message = "DATABASE ERROR";
+            $message = "validateUser DATABASE ERROR";
         }
     }
 
@@ -196,7 +118,84 @@ class UserController
 
             return $validation;
         } catch (Exception $ex) {
-            $message = "DATABASE ERROR";
+            $message = "validateAge DATABASE ERROR";
+        }
+    }
+
+    function showLandingPage($type)
+    {
+        if (isset($_SESSION['loggeduser'])) {
+
+            if (isset($_GET['message'])) {
+                $message = $_GET['message'];
+            }
+            if ($type == 'G') {
+                require_once(VIEWS_PATH . "landingPageGuardian.php");
+            } else {
+                require_once(VIEWS_PATH . "landingPageOwner.php");
+            }
+        } else {
+            header("location:" . FRONT_ROOT . "Auth");
+        }
+    }
+
+    public function showProfileInfo()
+    {
+        $message = null;
+        try {
+            if (isset($_SESSION['loggeduser'])) {
+
+                if ($_SESSION['type'] == 'O') {
+                    $user = new Owner();
+                    $user = $this->ownerDAO->getByEmail($_SESSION['email']);
+                    require_once(VIEWS_PATH . "profile.php");
+                } else if ($_SESSION['type'] == 'G') {
+                    $user = new Guardian();
+                    $user = $this->guardianDAO->getByEmail($_SESSION['email']);
+                    require_once(VIEWS_PATH . "profile.php");
+                }
+            } else {
+                header("location:" . FRONT_ROOT . "Auth");
+            }
+        } catch (Exception $ex) {
+            $message = "showProfileInfo DATABASE ERROR";
+        }
+    }
+
+    public function filterGuardianList($firstDay, $lastDay, $message = '')
+    {
+        $message = null;
+
+        try {
+            if (isset($_SESSION['loggeduser'])) {
+                if ($_SESSION['type'] == 'O') {
+
+                    $today = date("Y-m-d");
+
+                    if ($firstDay <= $lastDay && $firstDay >= $today) {
+                        $guardianList = array();
+                        $guardianList = $this->guardianDAO->getGuardiansByDate($firstDay, $lastDay);
+
+                        if ($message == '') {
+                            $message = null;
+                        }
+
+                        $firstDay;
+                        $lastDay;
+
+                        require_once(VIEWS_PATH . "guardianList.php");
+                    } else {
+                        $message = "Please enter a valid date range";
+                        require_once(VIEWS_PATH . "newBookingDates.php");
+                    }
+                } else {
+                    require_once(VIEWS_PATH . "landingPageGuardian.php");
+                }
+            } else {
+                header("location:" . FRONT_ROOT . "Auth");
+            }
+        } catch (Exception $e) {
+            $message = "filterGuardianList DATABASE ERROR";
         }
     }
 
@@ -220,7 +219,7 @@ class UserController
                 header("location:" . FRONT_ROOT . "Auth");
             }
         } catch (Exception $ex) {
-            $message = "DATABASE ERROR";
+            $message = "updatePetSizePreference DATABASE ERROR";
         }
     }
 
@@ -232,11 +231,11 @@ class UserController
                 if ($_SESSION['type'] == 'G') {
                     $user = new Guardian();
 
-                    if ($firstDay > $lastDay || $firstDay >= strtotime(date("Y-m-d"))) {
+                    if ($firstDay > $lastDay || $firstDay < date("Y-m-d") || $lastDay < date("Y-m-d")) {
                         $message = "The date you've entered is invalid";
                     } else {
                         $this->guardianDAO->updateDate($_SESSION['id'], $firstDay, $lastDay);
-                        $message = "Successful availability date update";
+                        $message = "Availability date updated successfully";
                     }
                     $user = $this->guardianDAO->getByEmail($_SESSION['email']);
                     require_once(VIEWS_PATH . "profile.php");
@@ -248,7 +247,7 @@ class UserController
                 header("location:" . FRONT_ROOT . "Auth");
             }
         } catch (Exception $ex) {
-            $message = "DATABASE ERROR";
+            $message = "updateDate DATABASE ERROR";
         }
     }
 
@@ -270,7 +269,7 @@ class UserController
                 header("location:" . FRONT_ROOT . "Auth");
             }
         } catch (Exception $ex) {
-            $message = "DATABASE ERROR";
+            $message = "updatePrice DATABASE ERROR";
         }
     }
 
@@ -293,7 +292,7 @@ class UserController
                 header("location:" . FRONT_ROOT . "Auth");
             }
         } catch (Exception $ex) {
-            $message = "DATABASE ERROR";
+            $message = "addScore DATABASE ERROR";
         }
     }
 }

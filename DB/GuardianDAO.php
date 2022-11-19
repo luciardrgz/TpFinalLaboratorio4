@@ -35,10 +35,54 @@ class GuardianDAO implements IGuardianDAO
         }
     }
 
+    function addScore($idGuardian, $score)
+    {
+        try {
+            $query = "INSERT INTO scores (id_guardian, id_owner, score) VALUES (:idGuardian, :idOwner, :score);";
+
+            $parameters['idGuardian'] = $idGuardian;
+            $parameters['idOwner'] = $_SESSION['id'];
+            $parameters['score'] = $score;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->ExecuteNonQuery($query, $parameters);
+
+            $this->updateScore($idGuardian);
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    function newGuardian($resultSet)
+    {
+        $guardianList = array();
+
+        foreach ($resultSet as $row) {
+
+            $guardian = new Guardian(
+                $row["first_name"],
+                $row["last_name"],
+                $row["email"],
+                $row["phone"],
+                $row["birth_date"],
+                $row["nickname"],
+                $row["pass"],
+                $row["score"],
+                $row["size"],
+                $row["price"],
+                $row["first_available_day"],
+                $row["last_available_day"]
+            );
+            $guardian->setId($row["id"]);
+            array_push($guardianList, $guardian);
+        }
+        return $guardianList;
+    }
+
     function getAllVisible()
     {
         try {
-            $guardianList = array();
 
             $query = "SELECT g.id, g.email, g.pass, g.first_name, g.last_name, 
             g.phone, g.birth_date, g.nickname, g.score, g.first_available_day, g.last_available_day, g.price, ps.size  
@@ -53,37 +97,42 @@ class GuardianDAO implements IGuardianDAO
 
             $resultSet = $this->connection->Execute($query);
 
-            foreach ($resultSet as $row) {
-                $guardian = new Guardian(
-                    $row["first_name"],
-                    $row["last_name"],
-                    $row["email"],
-                    $row["phone"],
-                    $row["birth_date"],
-                    $row["nickname"],
-                    $row["pass"],
-                    $row["score"],
-                    $row["size"],
-                    $row["price"],
-                    $row["first_available_day"],
-                    $row["last_available_day"]
-                );
-
-                $guardian->setId($row["id"]);
-
-                array_push($guardianList, $guardian);
-            }
-
+            $guardianList = $this->newGuardian($resultSet);
             return count($guardianList) > 0 ? $guardianList : null;
         } catch (Exception $ex) {
             throw $ex;
-            
         }
     }
+
+    public function getGuardiansByDate($firstDay, $lastDay)
+    {
+        try {
+            $query = "SELECT g.id, g.email, g.pass, g.first_name, g.last_name, g.phone, g.birth_date, g.nickname, g.score, g.first_available_day, g.last_available_day, g.price, ps.size
+            FROM " . $this->tableName . " AS g 
+            JOIN guardianxsize as gxs 
+            ON g.id = gxs.id_guardian 
+            LEFT JOIN petsizes AS ps 
+            ON gxs.id_petsize = ps.id 
+            WHERE (g.first_available_day <= :firstDay AND g.last_available_day >= :lastDay);";
+
+            $parameters['firstDay'] = $firstDay;
+            $parameters['lastDay'] = $lastDay;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            $guardianList = $this->newGuardian($resultSet);
+            return (count($guardianList) > 0) ? $guardianList : null;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
     public function getById($id)
     {
         try {
-            $guardianList = array();
+
             $query = "SELECT g.id, g.email, g.pass, g.first_name, g.last_name, g.phone, g.birth_date, 
             g.nickname, g.score, g.first_available_day, g.last_available_day, g.price, ps.size  
             FROM " . $this->tableName  . " AS g 
@@ -99,29 +148,8 @@ class GuardianDAO implements IGuardianDAO
 
             $resultSet = $this->connection->Execute($query, $parameters);
 
-            foreach ($resultSet as $row) {
-                $guardian = new Guardian(
-                    $row["first_name"],
-                    $row["last_name"],
-                    $row["email"],
-                    $row["phone"],
-                    $row["birth_date"],
-                    $row["nickname"],
-                    $row["pass"],
-                    $row["score"],
-                    $row["size"],
-                    $row["price"],
-                    $row["first_available_day"],
-                    $row["last_available_day"]
-                );
-                $guardian->setId($row["id"]);
-
-                array_push($guardianList, $guardian);
-            }
-
-            return (count($guardianList) > 0) ? $guardianList[0] : null;
-
-            return $guardian;
+            $guardianList = $this->newGuardian($resultSet);
+            return count($guardianList) > 0 ? $guardianList[0] : null;
         } catch (Exception $ex) {
             throw $ex;
         }
@@ -130,7 +158,6 @@ class GuardianDAO implements IGuardianDAO
     public function getByEmail($email)
     {
         try {
-            $guardianList = array();
 
             $query = "SELECT g.id, g.email, g.pass, g.first_name, g.last_name, g.phone, g.birth_date, g.nickname, g.score, g.first_available_day, g.last_available_day, g.price, ps.size  
             FROM " . $this->tableName  . " AS g 
@@ -146,12 +173,7 @@ class GuardianDAO implements IGuardianDAO
 
             $resultSet = $this->connection->Execute($query, $parameters);
 
-            foreach ($resultSet as $row) {
-                $guardian = new Guardian($row["first_name"], $row["last_name"], $row["email"], $row["phone"], $row["birth_date"], $row["nickname"], $row["pass"], $row["score"], $row["size"], $row["price"], $row["first_available_day"], $row["last_available_day"]);
-                $guardian->setId($row["id"]);
-
-                array_push($guardianList, $guardian);
-            }
+            $guardianList = $this->newGuardian($resultSet);
             return (count($guardianList) > 0) ? $guardianList[0] : null;
         } catch (Exception $ex) {
             throw $ex;
@@ -162,7 +184,6 @@ class GuardianDAO implements IGuardianDAO
     public function getByNickName($nickname)
     {
         try {
-            $guardianList = array();
 
             $query = "SELECT g.id, g.email, g.pass, g.first_name, g.last_name, g.phone, g.birth_date, g.nickname, g.score, g.first_available_day, g.last_available_day, g.price, ps.size  
             FROM " . $this->tableName  . " AS g 
@@ -178,19 +199,14 @@ class GuardianDAO implements IGuardianDAO
 
             $resultSet = $this->connection->Execute($query, $parameters);
 
-            foreach ($resultSet as $row) {
-                $guardian = new Guardian($row["first_name"], $row["last_name"], $row["email"], $row["phone"], $row["birth_date"], $row["nickname"], $row["pass"], $row["score"], $row["size"], $row["price"], $row["first_available_day"], $row["last_available_day"]);
-                $guardian->setId($row["id"]);
-
-                $guardianList = array();
-                array_push($guardianList, $guardian);
-            }
-
+            $guardianList = $this->newGuardian($resultSet);
             return (count($guardianList) > 0) ? $guardianList[0] : null;
         } catch (Exception $ex) {
             throw $ex;
         }
     }
+
+
 
     function validateGuardianxSize($id)
     {
@@ -210,9 +226,10 @@ class GuardianDAO implements IGuardianDAO
                 return true;
             }
         } catch (Exception $ex) {
-             throw $ex;
+            throw $ex;
         }
     }
+
 
     function update($id, $petSize)
     {
@@ -237,7 +254,7 @@ class GuardianDAO implements IGuardianDAO
                 $this->connection->Execute($query, $parameters);
             }
         } catch (Exception $ex) {
-             throw $ex;
+            throw $ex;
         }
     }
 
@@ -255,8 +272,7 @@ class GuardianDAO implements IGuardianDAO
 
             $this->connection->Execute($query, $parameters);
         } catch (Exception $ex) {
-             throw $ex;
-           
+            throw $ex;
         }
     }
 
@@ -272,81 +288,24 @@ class GuardianDAO implements IGuardianDAO
 
             $this->connection->Execute($query, $parameters);
         } catch (Exception $ex) {
-             throw $ex;
-           
-        }
-    }
-
-    public function getGuardiansByDate($firstDay, $lastDay)
-    {
-        try {
-            $guardianList = array();
-
-            $query = "SELECT g.id, g.email, g.pass, g.first_name, g.last_name, g.phone, g.birth_date, g.nickname, g.score, g.first_available_day, g.last_available_day, g.price, ps.size
-            FROM " . $this->tableName . " AS g 
-            JOIN guardianxsize as gxs 
-            ON g.id = gxs.id_guardian 
-            LEFT JOIN petsizes AS ps 
-            ON gxs.id_petsize = ps.id 
-            WHERE (g.first_available_day <= :firstDay AND g.last_available_day >= :lastDay);";
-
-            $parameters['firstDay'] = $firstDay;
-            $parameters['lastDay'] = $lastDay;
-
-            $this->connection = Connection::GetInstance();
-
-            $resultSet = $this->connection->Execute($query, $parameters);
-
-            foreach ($resultSet as $row) {
-                $guardian = new Guardian($row["first_name"], $row["last_name"], $row["email"], $row["phone"], $row["birth_date"], $row["nickname"], $row["pass"], $row["score"], $row["size"], $row["price"], $row["first_available_day"], $row["last_available_day"]);
-                $guardian->setId($row["id"]);
-
-                array_push($guardianList, $guardian);
-            }
-            return (count($guardianList) > 0) ? $guardianList : null;
-        } catch (Exception $ex) {
-             throw $ex;
-           
-        }
-    }
-
-
-    function addScore($idGuardian, $score/*, $review*/){
-        try {
-            $query = "INSERT INTO scores (id_guardian, id_owner, score) VALUES (:idGuardian, :idOwner, :score);";
-
-            $parameters['idGuardian'] = $idGuardian;
-            $parameters['idOwner'] = $_SESSION['id'];
-            $parameters['score'] = $score;
-            /*$parameters['review'] = $review;*/
-            
-            $this->connection = Connection::GetInstance();
-    
-            $resultSet = $this->connection->ExecuteNonQuery($query, $parameters);
-
-            $this->updateScore($idGuardian);
-            
-        } catch (Exception $ex) {
             throw $ex;
-           
-        } 
+        }
     }
 
     function updateScore($idGuardian)
     {
-        try{
-        $query = "UPDATE guardians SET score = (SELECT avg(score)
+        try {
+            $query = "UPDATE guardians SET score = (SELECT avg(score)
         FROM scores
         WHERE id_guardian = :idGuardian) 
         WHERE id = :idGuardian;";
 
-        $parameters['idGuardian'] = $idGuardian;
+            $parameters['idGuardian'] = $idGuardian;
 
-        $this->connection = Connection::GetInstance();
-            
-        $resultSet = $this->connection->ExecuteNonQuery($query, $parameters);
-        }
-        catch (Exception $ex){
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->ExecuteNonQuery($query, $parameters);
+        } catch (Exception $ex) {
             throw $ex;
         }
     }

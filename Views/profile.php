@@ -13,7 +13,7 @@ if ($_SESSION["type"] == "O") {
 <html>
 
 <head>
-<title>Pet Hero</title>
+    <title>Pet Hero</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -21,6 +21,7 @@ if ($_SESSION["type"] == "O") {
 </head>
 
 <body>
+
 
     <div class="container emp-profile">
         <div class="row">
@@ -41,6 +42,16 @@ if ($_SESSION["type"] == "O") {
                     <h6><i><?php echo "Pet Owner"; ?></i></h6>
                     <?php } else { ?>
                     <h6><i><?php echo " Pet Guardian"; ?></i></h6>
+
+                    <div class="error-msg">
+                        <?php
+                            if ($message != null) { ?>
+                        <div class="alert alert-warning">
+                            <?php echo $message; ?>
+                        </div>
+                        <?php } ?>
+                    </div>
+
                     <p class="profile-rating">Your guardian score: <span>
 
                             <?php if ($user->getScore() != null) {
@@ -226,13 +237,6 @@ if ($_SESSION["type"] == "O") {
 
 
                         <?php } ?>
-                        <?php
-                        if ($message != null) { ?>
-                        <div class="alert alert-danger">
-                            <?php echo $message; ?>
-                        </div>
-                        <?php } ?>
-
                     </div>
                 </div>
             </div>

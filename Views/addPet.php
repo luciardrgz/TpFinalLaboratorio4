@@ -13,7 +13,7 @@ include("navOwner.php");
 <html>
 
 <head>
-<title>Pet Hero</title>
+    <title>Pet Hero</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -134,13 +134,15 @@ include("navOwner.php");
                                 <div class="submit-pet-btn">
                                     <button name="submit" type="submit" class="btn btn-warning">Submit</button>
                                 </div>
+
                                 <div class="error-msg">
-                                <?php if ($message!= null) { ?>
-                                <div class="alert alert-danger">
-                                    <?php echo $message; ?>
+                                    <?php if ($message != null) { ?>
+                                    <div class="alert alert-danger">
+                                        <?php echo $message; ?>
+                                    </div>
+                                    <?php } ?>
                                 </div>
-                                <?php } ?>
-                                </div>
+
                             </div>
                         </form>
 

@@ -3,7 +3,6 @@
 namespace Controllers;
 
 use Controllers\AuthController as AuthController;
-use Models\Alert as Alert;
 
 class HomeController
 {
@@ -16,7 +15,6 @@ class HomeController
             $auth->login();
         }
     }
-
 
     public function signUp()
     {

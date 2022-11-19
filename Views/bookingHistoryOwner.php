@@ -10,7 +10,7 @@ include("navOwner.php");
 <html>
 
 <head>
-<title>Pet Hero</title>
+    <title>Pet Hero</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 
@@ -24,7 +24,6 @@ include("navOwner.php");
 
 <body>
 
-
     <div class="error-msg">
         <?php if (isset($_GET['message'])) { ?>
         <div class="alert alert-danger">
@@ -33,167 +32,174 @@ include("navOwner.php");
         <?php } ?>
     </div>
 
-    <div class="row">
-        <div class="col-lg-10 mx-auto">
-            <div class="career-search mb-60">
+    <div class="listing">
 
-                <?php if ($myBookings != null) { ?>
+        <?php if ($myBookings != null) { ?>
 
-                <div class="title-div">
-                    <h3 class="list-title">Booking History</h3>
-                </div>
+        <div class="title-div">
+            <h3 class="list-title">Booking History</h3>
+        </div>
 
-                <?php for ($i = 0; $i < count($myBookings); $i++) { ?>
+        <?php for ($i = 0; $i < count($myBookings); $i++) { ?>
 
-                <div class="filter-result">
+        <div class="filter-result">
+            <div class="info-box d-md-flex align-items-center justify-content-between mb-30">
 
-                    <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
-                        <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
-                            <div class="booking-content">
+                <div class="booking-content">
 
-                                <h5 class="h5-guardians">
-                                    <?php
-                      $status = $myBookings[$i]->getStatusText();
+                    <div class="booking-content-left">
 
-                      if ($status == 'Accepted') { ?>
-                                    <img src="<?php echo  FRONT_ROOT . IMG_PATH . "accepted.png" ?>" />
-                                    <?php echo $status . " | " . $arrayNicknamesGuardian[$i]; ?>
+                        <h5 class="h5-guardians">
+                            <?php
+                                    $status = $myBookings[$i]->getStatusText();
 
-                                    <div class="job-right my-4 flex-shrink-0">
-                                        <a href="<?php echo FRONT_ROOT . "Booking/showPaymentView/" . $myBookings[$i]->getId() . "/" . $myBookings[$i]->getPrice() ?>"
-                                            class="btn d-block w-100 d-sm-inline-block btn-success">
-                                            Pay</a>
+                                    if ($status == 'Accepted') { ?>
+                            <img src="<?php echo  FRONT_ROOT . IMG_PATH . "accepted.png" ?>" />
+                            <?php echo $status . " | " . $arrayNicknamesGuardian[$i]; ?>
+
+                            <div class="job-right my-4 flex-shrink-0">
+                                <a href="<?php echo FRONT_ROOT . "Booking/showPaymentView/" . $myBookings[$i]->getId() . "/" . $myBookings[$i]->getPrice() ?>"
+                                    class="btn d-block w-100 d-sm-inline-block btn-success">
+                                    Pay</a>
+                            </div>
+                            <?php
+                                    } else if ($status == 'Waiting') { ?>
+
+                            <img src="<?php echo  FRONT_ROOT . IMG_PATH . "waiting.png" ?>" />
+
+                            <?php echo $status . " for " . $arrayNicknamesGuardian[$i] . "'s response";
+                                    } else if ($status == 'Rejected') { ?>
+
+                            <img src="<?php echo  FRONT_ROOT . IMG_PATH . "rejected.png" ?>" />
+
+                            <?php echo $status . " | " . $arrayNicknamesGuardian[$i];
+                                    } else if ($status == 'Finished') { ?>
+
+                            <img src="<?php echo  FRONT_ROOT . IMG_PATH . "finished.png" ?>" />
+
+                            <?php echo $status . " | " . $arrayNicknamesGuardian[$i];
+                                    } ?>
+                        </h5>
+
+                        <ul>
+                            <li>
+                                <img src="https://img.icons8.com/material/24/null/calendar-plus.png" />
+                                <b><?php echo "From " . $myBookings[$i]->getStartDate() . " to " . $myBookings[$i]->getEndDate(); ?></b>
+
+                                <br>
+
+
+                                <img src="https://img.icons8.com/material/24/null/dog-paw-print.png" />
+                                <b><?php
+                                            $arrayPets = $myBookings[$i]->getPet();
+
+                                            echo "Pets to take care of: <br>";
+                                            ?></b>
+
+                                <?php foreach ($arrayPets as $pet) { ?>
+
+                                <div class="bh-pet-profile">
+                                    <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
+                                        <img src="<?php echo $pet->getPicture() ?>" />
                                     </div>
 
-                                    <?php } else if ($status == 'Finished') { ?>
-                                    <img src="<?php echo  FRONT_ROOT . IMG_PATH . "finished.png" ?>" />
-                                    <?php echo $status . " | " . $arrayNicknamesGuardian[$i]; ?>
+                                    <label><?php echo $pet->getName(); ?></label> &nbsp;
+
+                                </div>
+
+                                <?php
+                                        } ?>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <?php if ($status == 'Finished') { ?>
+
+                    <div class="booking-content-right">
+                        <form action="<?php echo FRONT_ROOT . "User/addScore/" ?>" method="POST">
+
+                            <div class="BoxRate">
+
+                                <div class="info">
+                                    <label>1: Very Bad | 2: Bad | 3: Good | 4: Very Good | 5: Excellent</label>
+                                    <div class="emoji"></div>
+                                    <div class="status"></div>
+                                    <input name="idGuardian" value="<?php echo $myBookings[$i]->getGuardianId() ?>"
+                                        hidden>
+                                </div>
+
+                                <div class="stars">
+
+                                    <input type="radio" class="star" name="score" data-rate="5" value='5'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                    </svg>
 
 
-                                    <form action="<?php echo FRONT_ROOT . "User/addScore/" ?>" method="POST">
-                                        <div class="BoxRate">
-                                            <div class="info">
-                                                <div class="emoji"></div>
-                                                <div class="status"></div>
-                                                <input name="idGuardian"
-                                                    value="<?php echo $myBookings[$i]->getGuardianId() ?>" hidden>
-                                            </div>
-
-                                            <div class="stars">
-
-                                                <input type="radio" class="star" name="score" data-rate="5" value='5'>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
-                                                    stroke-linecap="round" stroke-linejoin="round">
-                                                </svg>
+                                    <input type="radio" class="star" name="score" data-rate="4" value='4'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                    </svg>
 
 
-                                                <input type="radio" class="star" name="score" data-rate="4" value='4'>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
-                                                    stroke-linecap="round" stroke-linejoin="round">
-                                                </svg>
+                                    <input type="radio" class="star" name="score" data-rate="3" value='3'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                    </svg>
 
 
-                                                <input type="radio" class="star" name="score" data-rate="3" value='3'>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
-                                                    stroke-linecap="round" stroke-linejoin="round">
-                                                </svg>
+                                    <input type="radio" class="star" name="score" data-rate="2" value='2'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                    </svg>
 
 
-                                                <input type="radio" class="star" name="score" data-rate="2" value='2'>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
-                                                    stroke-linecap="round" stroke-linejoin="round">
-                                                </svg>
+                                    <input type="radio" class="star" name="score" data-rate="1" value='1'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                    </svg>
+                                </div>
 
+                                <input name="idBooking" value="<?php echo $myBookings[$i]->getId() ?>" hidden>
 
-                                                <input type="radio" class="star" name="score" data-rate="1" value='1'>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
-                                                    stroke-linecap="round" stroke-linejoin="round">
-                                                </svg>
-                                            </div>
+                                <div class="rate-btn-box">
+                                    <button name="submit" type="submit">Rate</button>
+                                </div>
 
-                                            <input name="idBooking" value="<?php echo $myBookings[$i]->getId() ?>"
-                                                hidden>
-
-                                            <div class="job-right my-4 flex-shrink-0">
-                                                <button name="submit" type="submit" class="rate-btn">Rate</button>
-                                            </div>
-
-                                        </div>
-                                    </form>
-                                    <?php
-
-                      } else if ($status == 'Waiting') { ?>
-
-                                    <img src="<?php echo  FRONT_ROOT . IMG_PATH . "waiting.png" ?>" />
-
-                                    <?php echo $status . " for " . $arrayNicknamesGuardian[$i] . "'s response";
-                      }else if ($status == 'Rejected') { ?>
-
-                        <img src="<?php echo  FRONT_ROOT . IMG_PATH . "rejected.png" ?>" />
-
-                        <?php echo $status . " for " . $arrayNicknamesGuardian[$i] . "'s response";
-                    } ?>
-                                </h5>
-
-                                <ul>
-                                    <li>
-                                        <img src="https://img.icons8.com/material/24/null/calendar-plus.png" />
-                                        <b><?php echo "From " . $myBookings[$i]->getStartDate() . " to " . $myBookings[$i]->getEndDate(); ?></b>
-
-                                        <br>
-
-
-                                        <img src="https://img.icons8.com/material/24/null/dog-paw-print.png" />
-                                        <b><?php
-                            $arrayPets = $myBookings[$i]->getPet();
-
-                            echo "Pets to take care of: <br>";
-                            ?></b>
-
-                                        <?php foreach ($arrayPets as $pet) { ?>
-
-                                        <div class="bh-pet-profile">
-                                            <div
-                                                class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
-                                                <img src="<?php echo $pet->getPicture() ?>" />
-                                            </div>
-
-                                            <label><?php echo $pet->getName(); ?></label> &nbsp;
-
-                                        </div>
-
-                                        <?php
-                        } ?>
-                                    </li>
-                                </ul>
                             </div>
-                        </div>
+                        </form>
                     </div>
-
-                    <?php
-
-          }
-        } else { ?>
-
-                    <div class="title-div">
-                        <h3 class="list-title">Your history is empty :(</h3>
-                    </div>
-
                     <?php } ?>
 
                 </div>
+
             </div>
 
+            <?php
+            }
+        } else { ?>
+
+            <div class="title-div">
+                <h3 class="list-title">Your history is empty :(</h3>
+            </div>
+
+            <?php } ?>
+
         </div>
+
+
+    </div>
 </body>
 
 </html>
+
 <script>
+// JavaScript para el Rating de un Guardian
 const stars = document.querySelectorAll(".star");
 const emojiEl = document.querySelector(".emoji");
 const statusEl = document.querySelector(".status");

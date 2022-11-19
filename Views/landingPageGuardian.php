@@ -104,12 +104,15 @@ include("navGuardian.php");
             </div>
 
         </div>
+    </div>
+
+    <!-- Us  -->
+    <div class="home-footer">
+        Lab 4 2022 - <b>Alemán Tomás, Lalli Brian, Rodriguez Lucía</b>
+    </div>
 
 
-        <!-- Us  -->
-        <div class="home-footer">
-            Lab 4 2022 - <b>Alemán Tomás, Lalli Brian, Rodriguez Lucía</b>
-        </div>
+
 
 </body>
 

@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat");
-/*@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");*/
 
 * {
   font-family: "Montserrat", sans-serif;
@@ -9,53 +8,10 @@ body {
   background-image: url("https://cdn.discordapp.com/attachments/1022513613375807644/1032661379414491146/unknown.png");
 }
 
-/* Rectángulo de búsquedas */
-.career-form {
-  background-color: rgb(51, 83, 98);
-  border-radius: 5px;
-  padding: 0 16px;
-}
-
 /* Booking History */
 h3 {
   color: #f2c459e1;
   font-weight: 800;
-}
-
-/* Rectángulo Enter a Pet's Name + Date*/
-.career-form .form-control {
-  background-color: rgba(255, 255, 255, 0.2);
-  border: none;
-  height: 45px;
-  padding: 12px 15px;
-  color: rgb(255, 255, 255);
-}
-
-/* Texto Enter a Pet's Name*/
-.career-form .form-control::-webkit-input-placeholder {
-  color: rgb(255, 255, 255);
-}
-
-/* Select Pet Type*/
-.career-form .custom-select {
-  background-color: rgba(255, 255, 255, 0.2);
-  border: 0;
-  padding: 12px 15px;
-  color: rgb(255, 255, 255);
-  width: 100%;
-  border-radius: 5px;
-  text-align: left;
-}
-
-/* Cuando se hace click en el select*/
-.career-form .custom-select:focus {
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  color: rgb(5, 0, 0);
-}
-
-.career-form .select-container {
-  position: relative;
 }
 
 .h5-guardians {
@@ -69,13 +25,33 @@ h3 {
   margin-bottom: -20px;
 }
 
+.booking-content {
+  width: 100%;
+}
+
+.booking-content-left {
+  padding: 35px 0px 35px 0px;
+  float: left;
+}
+
+.booking-content-right {
+  float: right;
+  padding: 45px 0px 35px 0px;
+}
+
 /* Cada cajita con info */
-.filter-result .job-box {
+.filter-result .info-box {
   -webkit-box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
   box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.2);
   background-color: #f2c459e1;
   border-radius: 10px;
   padding: 10px 35px;
+  display: inline-block;
+}
+
+.listing {
+  width: 1500px;
+  margin: auto;
 }
 
 /* Evita que muestre el punto por default de las ul*/
@@ -85,7 +61,7 @@ ul {
 }
 
 /* Pet pic */
-.job-box .img-holder,
+.info-box .img-holder,
 .img-holder img {
   height: 65px;
   width: 65px;
@@ -97,7 +73,7 @@ ul {
 /* Vaccination pic */
 .vacc-pic,
 .vacc-pic img {
-  margin-top: 10px;
+  margin-bottom: 30px;
   margin-left: 25px;
   width: 100px;
   height: 100px;
@@ -146,7 +122,7 @@ button {
   height: 45px;
 }
 
-.job-box .guardian-id {
+.info-box .guardian-id {
   height: 65px;
   width: 65px;
   background-image: linear-gradient(
@@ -169,6 +145,7 @@ button {
   border-radius: 65px;
 }
 
+/* ----------- All lists  ----------- */
 .title-div {
   text-align: center;
   background-color: #f2c459ec;
@@ -186,12 +163,14 @@ button {
   margin-left: 400px;
 }
 
+/* ----------- bookingHistory ----------- */
 .bh-pet-profile {
   -webkit-box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
   box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   padding: 10px 0px 10px 10px;
   display: flex;
+  width: 500px;
 }
 
 /* Pet's name*/
@@ -219,6 +198,7 @@ button {
   margin-left: 200px;
 }
 
+/* ----------- requests  ----------- */
 .req-pet-profile {
   display: inline;
   -webkit-box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
@@ -253,26 +233,35 @@ button {
   height: 40px;
 }
 
+/* ----------- bookingHistoryOwner  ----------- */
 .BoxRate {
-  display: grid;
   place-content: center;
   padding: 2rem;
   text-align: center;
-  min-height: 200px;
   border-radius: 12px;
   position: relative;
   overflow: hidden;
 }
 
-.BoxRate::after {
-  z-index: -1;
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: url(https://images.unsplash.com/photo-1553356084-58ef4a67b2a7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80)
-    no-repeat center center / cover;
-  filter: blur(50px) brightness(30%);
+.BoxRate label {
+  font-weight: bold;
+  color: black;
+}
+
+.rate-btn-box {
+  margin-top: 30px;
+}
+
+.rate-btn-box button {
+  margin-left: 20px;
+  padding: 0.6em 2em;
+  border: none;
+  outline: none;
+  color: black;
+  font-weight: bold;
+  background: #ffac07;
+  cursor: pointer;
+  border-radius: 10px;
 }
 
 .info {
@@ -321,19 +310,7 @@ button {
   fill: gold;
 }
 
-.rate-btn {
-  padding: 0.6em 2em;
-  border: none;
-  outline: none;
-  color: black;
-  font-weight: bold;
-  background: #ffc107;
-  cursor: pointer;
-  position: relative;
-  z-index: 0;
-  border-radius: 10px;
-}
-
+/* ----------- newBookingDates  ----------- */
 .dates {
   background-color: rgb(51, 83, 98);
   border-radius: 5px;
@@ -349,7 +326,7 @@ button {
   background-color: rgb(10, 48, 65);
   border: none;
   color: white;
-  height: 70px;
+  height: 35px;
   line-height: 0px;
   border-radius: 5px;
   font-size: 18px;
@@ -372,4 +349,14 @@ button {
   outline: none;
   border-radius: 5px;
   margin: 0px 30px 0px 10px;
+}
+
+/* ----------- filterGuardianList ----------- */
+
+.error-msg {
+  margin: auto;
+  margin-bottom: -15px;
+  margin-top: 20px;
+  font-weight: bold;
+  text-align: center;
 }

@@ -10,7 +10,7 @@ include("navGuardian.php");
 <html>
 
 <head>
-<title>Pet Hero</title>
+    <title>Pet Hero</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH . "list.css" ?>">
@@ -22,20 +22,19 @@ include("navGuardian.php");
         integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
 
     <div class="container">
-        <div class="row">
 
+        <div class="error-msg">
             <?php if ($message != null) { ?>
-            <div class="alert alert-danger">
+            <div class="alert alert-info">
                 <?php echo $message; ?>
             </div>
-            <?php }?>
-
+            <?php } ?>
         </div>
 
         <div class="row">
             <div class="col-lg-10 mx-auto">
                 <div class="career-search mb-60">
-              
+
                     <?php if ($arrayRequests != null) { ?>
 
                     <div class="title-div">
@@ -45,11 +44,12 @@ include("navGuardian.php");
                     <?php foreach ($arrayRequests as $request) { ?>
 
                     <div class="filter-result">
-                        <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
+                        <div class="info-box d-md-flex align-items-center justify-content-between mb-30">
                             <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
 
 
-                                <h5 class="h5-guardians"><?php //echo $arrayNickname[$i]; ?></h5>
+                                <h5 class="h5-guardians"><?php //echo $arrayNickname[$i]; 
+                                                                    ?></h5>
                                 <ul>
                                     <li>
                                         <img src="https://img.icons8.com/material/24/null/clock--v1.png" />

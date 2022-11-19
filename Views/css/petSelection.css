@@ -8,57 +8,14 @@ body {
   background-image: url("https://cdn.discordapp.com/attachments/1022513613375807644/1032661379414491146/unknown.png");
 }
 
-/* Rectángulo de búsquedas */
-.career-form {
-  background-color: rgb(51, 83, 98);
-  border-radius: 5px;
-  padding: 0 16px;
-}
-
 /* Titulo principal */
 h3 {
   color: rgb(51, 83, 98);
   font-weight: 800;
 }
 
-/* Rectángulo Enter a Pet's Name + Date*/
-.career-form .form-control {
-  background-color: rgba(255, 255, 255, 0.2);
-  border: none;
-  height: 45px;
-  padding: 12px 15px;
-  color: rgb(255, 255, 255);
-}
-
-/* Texto Enter a Pet's Name*/
-.career-form .form-control::-webkit-input-placeholder {
-  color: rgb(255, 255, 255);
-}
-
-/* Select Pet Type*/
-.career-form .custom-select {
-  background-color: rgba(255, 255, 255, 0.2);
-  border: 0;
-  padding: 12px 15px;
-  color: rgb(255, 255, 255);
-  width: 100%;
-  border-radius: 5px;
-  text-align: left;
-}
-
-/* Cuando se hace click en el select*/
-.career-form .custom-select:focus {
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  color: rgb(5, 0, 0);
-}
-
-.career-form .select-container {
-  position: relative;
-}
-
 /* Cada cajita de info */
-.filter-result .job-box {
+.filter-result .info-box {
   -webkit-box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
   box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.2);
   background-color: #f2c459e1;
@@ -79,7 +36,7 @@ ul {
 }
 
 /*Contenedor de imagen*/
-.job-box .img-holder,
+.info-box .img-holder,
 .img-holder img {
   height: 65px;
   width: 65px;

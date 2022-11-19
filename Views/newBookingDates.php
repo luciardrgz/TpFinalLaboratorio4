@@ -10,7 +10,7 @@ include("navOwner.php");
 <html>
 
 <head>
-<title>Pet Hero</title>
+    <title>Pet Hero</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH . "list.css" ?>">
@@ -22,14 +22,13 @@ include("navOwner.php");
         integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
 
     <div class="container">
-        <div class="row">
 
+        <div class="error-msg">
             <?php if ($message != null) { ?>
             <div class="alert alert-danger">
                 <?php echo $message; ?>
             </div>
             <?php } ?>
-
         </div>
 
         <div class="row">
