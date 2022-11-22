@@ -17,14 +17,28 @@ use \Exception as Exception;
 
 class BookingController
 {
+    private $bookingDAO;
+    private $petDAO;
+    private $couponDAO;
+    private $guardianDAO;
+    private $ownerDAO;
+    private $auth;
+
+    function __construct (){
+        $this->bookingDAO = new BookingDAO();
+        $this->PetDAO = new PetDAO();
+        $this->couponDAO = new CouponDAO();
+        $this->guardianDAO = new GuardianDAO();
+        $this->ownerDAO = new OwnerDAO();
+        $this->auth = new AuthController();
+    }
 
     public function Index()
     {
-        $auth = new AuthController();
         if (isset($_SESSION["loggeduser"])) {
-            $auth->showLandingPage($_SESSION["type"]);
+            $this->auth->showLandingPage($_SESSION["type"]);
         } else {
-            $auth->login();
+            $this->auth->login();
         }
     }
 
@@ -39,10 +53,9 @@ class BookingController
                         $allPets = $this->passArrayIDTOArrayPets($myPets); // El array de ids se convierte a un array de mascotas
 
                         $booking =  new Booking($allPets, $firstDay, $lastDay, $_SESSION["id"], $guardianId, $totalAmount);
-
-                        $bookingDAO = new BookingDAO();
-                        $bookingDAO->add($booking);
-
+                        echo "llega";
+                        $this->bookingDAO->add($booking);
+                        echo "llegawwwww";
                         $message = "You've made a booking with success!";
                         header("location:" . FRONT_ROOT . "User/showLandingPage?message=" . $message);
                     } else {
@@ -58,7 +71,8 @@ class BookingController
                 header("location:" . FRONT_ROOT . "Auth");
             }
         } catch (Exception $ex) {
-            $message = "DATA ERROR WHILE ADDING A PET";
+            $message = "DATA ERROR WHILE ADDING A BOOKING";
+            $this->auth->Logout($message);
         }
     }
 
@@ -66,11 +80,8 @@ class BookingController
     {
         try {
             if (isset($_SESSION['loggeduser'])) {
-
-                $petDAO = new PetDAO();
-                $guardianDAO = new GuardianDAO();
                 $guardian = new Guardian();
-                $guardian = $guardianDAO->getById($id);
+                $guardian = $this->guardianDAO->getById($id);
                 $guardianName = $guardian->getFirstName();
                 $size = $guardian->getPetsize();
 
@@ -79,7 +90,7 @@ class BookingController
                     if ($id != '' && $selectedPet == '') {
 
                         $petList = array();
-                        $petList = $petDAO->getPetsByOwnerId();
+                        $petList = $this->PetDAO->getPetsByOwnerId();
                         $breed = $this->getBreedBetweenDates($id, $firstDay, $lastDay);
 
                         if ($breed == 'EmptyOpt') {
@@ -106,8 +117,7 @@ class BookingController
                                 if ($this->verifyGuardianAvailability($id, $firstDay, $lastDay)) {
 
                                     $guardian = new Guardian();
-                                    $guardianDao = new GuardianDAO();
-                                    $guardian = $guardianDao->getById($id);
+                                    $guardian = $this->guardianDAO->getById($id);
 
                                     $idPetsArray = implode(",", $selectedPet); // Transforma el array de las pets seleccionadas en un string de sus ids
 
@@ -139,19 +149,19 @@ class BookingController
             }
         } catch (Exception $ex) {
             $message = "DATA ERROR WHILE MAKING A NEW BOOKING";
+            $this->auth->Logout($message);
         }
     }
 
     function verifyPetBreed($pets, $breed)
     {
         $verification = true;
-
+        
+        $petbreed = $pets[0]->getBreed(); // Se obtiene la raza de la 1° que haya en los bookings del guardian en las fechas seleccionadas
+        $i = 0;
+        
         // Si en las fechas seleccionadas el guardian ya cuida una raza de pet
         if ($breed != 'EmptyOpt') {
-
-            $petbreed = $pets[0]->getBreed(); // Se obtiene la raza de la 1° que haya en los bookings del guardian en las fechas seleccionadas
-            $i = 0;
-
             while ($verification == true && count($pets) > $i) {
 
                 // Si una de las pets seleccionadas no condice con la raza que cuida el guardian en esas fechas
@@ -161,15 +171,11 @@ class BookingController
                 $i++;
             }
         }
-
         // Si en las fechas seleccionadas el guardian no tiene una raza de pet asignada para cuidar
         else {
-
-            $petbreed = $pets[0]->getBreed(); // TODO: sacar estas dos lineas afuera para evitar repetir código
-            $i = 0;
-
             while ($verification == true && count($pets) > $i) {
 
+                // Si las pets seleccionadas entre sí no condicen en cuanto a sus razas
                 if ($petbreed != $pets[$i]->getBreed()) {
                     $verification = false;
                 }
@@ -184,10 +190,9 @@ class BookingController
     {
         try {
             $guardian = new Guardian();
-            $guardianDAO = new GuardianDAO();
             $verification = true;
 
-            $guardian = $guardianDAO->getById($idGuardian);
+            $guardian = $this->guardianDAO->getById($idGuardian);
             $i = 0;
 
             while ($verification == true && count($pets) > $i) {
@@ -200,7 +205,7 @@ class BookingController
             }
             return $verification;
         } catch (Exception $ex) {
-            $message = "verifyPetSize DATA ERROR";
+            throw $ex;
         }
     }
 
@@ -210,11 +215,9 @@ class BookingController
             $flag = false;
 
             $guardian = new Guardian();
-            $guardianDao = new GuardianDAO();
-            $guardian = $guardianDao->getById($id);
+            $guardian = $this->guardianDAO->getById($id);
 
             if ($guardian != null) {
-
                 // Si las fechas de disponibilidad del guardian coinciden con dias seleccionados 
                 if ($guardian->getFirstAvailableDay() <= $firstDay && $guardian->getLastAvailableDay() >= $lastDay) {
                     $flag = true;
@@ -222,7 +225,7 @@ class BookingController
             }
             return $flag;
         } catch (Exception $ex) {
-            $message = "verifyGuardianAvailability DATA ERROR";
+            throw $ex;
         }
     }
 
@@ -231,8 +234,7 @@ class BookingController
     {
         try {
             $flag = true;
-            $bookingDAO = new BookingDAO();
-            $booking = $bookingDAO->getById($idBooking);
+            $booking = $this->bookingDAO->getById($idBooking);
 
             $breed = $this->getBreedBetweenDates($_SESSION['id'], $booking->getStartDate(), $booking->getEndDate());
 
@@ -241,26 +243,25 @@ class BookingController
             }
             return $flag;
         } catch (Exception $ex) {
-            $message = "verifyBookingsRequest DATA ERROR";
+            throw $ex;
         }
     }
 
     function passArrayIDTOArrayPets($idArray)
     {
         try {
-            $petDAO = new PetDAO();
             $pet = new Pet();
             $petsObjects = array();
             $verification = true;
 
             foreach ($idArray as $id) {
-                $pet = $petDAO->getPetById($id);
+                $pet = $this->PetDAO->getPetById($id);
                 array_push($petsObjects, $pet);
             }
 
             return $petsObjects;
         } catch (Exception $ex) {
-            $message = "passArrayIDTOArrayPets DATA ERROR";
+            throw $ex;
         }
     }
 
@@ -271,17 +272,14 @@ class BookingController
 
                 if ($_SESSION['type'] == 'G') {
 
-                    $bookingDAO = new BookingDAO();
-                    $bookingDAO->updatePastWaitingBookings($_SESSION['id']);
-                    $arrayRequests = $bookingDAO->getRequests($_SESSION['id']);
-
+                    $this->bookingDAO->updatePastWaitingBookings($_SESSION['id']);
+                    $arrayRequests = $this->bookingDAO->getRequests($_SESSION['id']);
 
                     $arrayNickname = array();
-                    $ownerDAO =  new OwnerDAO();
 
                     if ($arrayRequests != null) {
                         foreach ($arrayRequests as $booking) {
-                            $nickname = $ownerDAO->getNicknameById($booking->getOwnerId());
+                            $nickname = $this->ownerDAO->getNicknameById($booking->getOwnerId());
                             array_push($arrayNickname, $nickname);
                         }
                     }
@@ -297,6 +295,7 @@ class BookingController
             }
         } catch (Exception $ex) {
             $message = "showGuardianRequests DATA ERROR";
+            $this->auth->Logout($message);    
         }
     }
 
@@ -306,20 +305,17 @@ class BookingController
         try {
             if (isset($_SESSION['loggeduser'])) {
                 if ($_SESSION['type'] == 'G') {
-                    $bookingDAO = new BookingDAO();
-
                     // Cada vez que el guardian quiera ver su history, se actualiza el status cualquier booking pasado
-                    $bookingDAO->updatePastAcceptedBookings($_SESSION['id']);
-                    $bookingDAO->updatePastConfirmedBookings($_SESSION['id']);
+                    $this->bookingDAO->updatePastAcceptedBookings($_SESSION['id']);
+                    $this->bookingDAO->updatePastConfirmedBookings($_SESSION['id']);
 
-                    $arrayRequests = $bookingDAO->getByIdGuardian($_SESSION['id']);
+                    $arrayRequests =  $this->bookingDAO->getByIdGuardian($_SESSION['id']);
 
                     $arrayNickname = array();
-                    $ownerDAO =  new OwnerDAO();
 
                     if ($arrayRequests != null) {
                         foreach ($arrayRequests as $booking) {
-                            $nickname = $ownerDAO->getNicknameById($booking->getOwnerId());
+                            $nickname = $this->ownerDAO->getNicknameById($booking->getOwnerId());
                             array_push($arrayNickname, $nickname);
                         }
                     }
@@ -332,6 +328,7 @@ class BookingController
             }
         } catch (Exception $ex) {
             $message = "showBookingHistory DATA ERROR";
+            $this->auth->Logout($message);        
         }
     }
 
@@ -342,14 +339,12 @@ class BookingController
             if (isset($_SESSION['loggeduser'])) {
                 if ($_SESSION['type'] == 'O') {
 
-                    $bookingDAO = new BookingDAO();
-                    $guardianDAO = new GuardianDAO();
-                    $myBookings = $bookingDAO->getByIdOwner($_SESSION['id']);
+                    $myBookings = $this->bookingDAO->getByIdOwner($_SESSION['id']);
                     $arrayNicknamesGuardian = array();
 
                     if ($myBookings != null) {
                         foreach ($myBookings as $booking) {
-                            $nicknameGuardian = ($guardianDAO->getById($booking->getGuardianId()))->getNickName();
+                            $nicknameGuardian = ($this->guardianDAO->getById($booking->getGuardianId()))->getNickName();
                             array_push($arrayNicknamesGuardian, $nicknameGuardian);
                         }
                     }
@@ -363,6 +358,7 @@ class BookingController
             }
         } catch (Exception $ex) {
             $message = "showMyBookings DATA ERROR";
+            $this->auth->Logout($message);
         }
     }
 
@@ -394,45 +390,46 @@ class BookingController
         }
     }
 
-    public function updateStatus($statusId, $idBooking)
+    public function updateStatus($statusId, $idBooking, $message="")
     {
-        $message = null;
         try {
             if (isset($_SESSION['loggeduser'])) {
-
-                $bookingDAO = new BookingDAO();
-
+                if($_SESSION['type'] == 'G') {
                 if ($statusId == '2') {
 
                     $flag = $this->verifyBookingsRequest($idBooking);
 
                     // Las razas del booking que el guardian quiere aceptar coinciden con las que ya cuida en esas fechas / El guardian no cuidaba de una raza en esas fechas 
                     if ($flag) {
-                        $bookingDAO->updateStatus($idBooking, $statusId);
+                        $this->bookingDAO->updateStatus($idBooking, $statusId);
                         $message = 'Booking successfully accepted';
                     } else {
                         $message = "Request's breed doesn't match with the bookings you've already accepted";
                     }
                 } else {
-                    $bookingDAO->updateStatus($idBooking, $statusId);
+                    $this->bookingDAO->updateStatus($idBooking, $statusId);
                     $message = 'Booking rejected';
                 }
 
                 $this->showGuardianRequests($message);
+            }else{
+                $this->bookingDAO->updateStatus($idBooking, $statusId);
+                require_once(VIEWS_PATH . "landingPageOwner.php");
+            }
             } else {
                 header("location:" . FRONT_ROOT . "Auth");
             }
         } catch (Exception $ex) {
-            $message = "DATA ERROR";
+            $message = "DATA ERROR TO UPDATE STATUS";
+            $this->auth->Logout($message);
         }
     }
 
     function getBreedBetweenDates($idGuardian, $firstDay, $lastDay)
     {
         try {
-            $bookingDAO = new BookingDAO();
             $arrayBookings = array();
-            $arrayBookings = $bookingDAO->getBookingsBetweenDates($idGuardian, $firstDay, $lastDay);
+            $arrayBookings = $this->bookingDAO->getBookingsBetweenDates($idGuardian, $firstDay, $lastDay);
             $flag = true;
             $toReturn = null;
 
@@ -468,26 +465,26 @@ class BookingController
 
             return $toReturn;
         } catch (Exception $ex) {
-            $message = "getBreedBetweenDates DATA ERROR";
+            throw $ex;
+            
         }
     }
 
     function confirmBooking($statusId, $idBooking, $price)
     {
         try {
-            $bookingController = new BookingController();
-            $bookingController->updateStatus($statusId, $idBooking);
-
             $coupon = new Coupon($price, $idBooking);
-            $couponDAO = new CouponDAO();
-            $couponDAO->add($coupon);
+            $this->couponDAO->add($coupon);
 
             $mailController = new MailController();
             $mailController->sendMail($price);
 
             $message = "Payment details were sent to your email. Check it out!";
+            $this->updateStatus($statusId, $idBooking,$message);
+            
         } catch (Exception $ex) {
-            $message = "confirmBooking DATA ERROR";
+            $message = "DATA ERROR while trying to pay";
+            $this->auth->Logout($message);
         }
     }
 }

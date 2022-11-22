@@ -13,6 +13,15 @@ class BreedDAO
     private $connection;
     private $tableName = "PetBreeds";
 
+    function newBreed($row)
+    {
+        $breed = new Breed($row["breed"], 
+        $row["id_pet_type"]);
+        $breed->setId($row["id"]);
+            
+        return $breed;
+    }
+
     function getAllDogBreeds()
     {
         try {
@@ -27,12 +36,10 @@ class BreedDAO
             $resultSet = $this->connection->Execute($query, $parameters);
 
             foreach ($resultSet as $row) {
-                $breed = new Breed($row["breed"], $row["id_pet_type"]);
-                $breed->setId($row["id"]);
-
+                $breed = $this->newBreed($row);
                 array_push($breedList, $breed);
             }
-            return $breedList;
+            return count($breedList) > 0 ? $breedList : null;
         } catch (Exception $ex) {
             throw $ex;
             
@@ -53,16 +60,13 @@ class BreedDAO
             $resultSet = $this->connection->Execute($query, $parameters);
 
             foreach ($resultSet as $row) {
-                $breed = new Breed($row["breed"], $row["id_pet_type"]);
-                $breed->setId($row["id"]);
-
+                $breed = $this->newBreed($row);
                 array_push($breedList, $breed);
             }
 
-            return $breedList;
+            return count($breedList) > 0 ? $breedList : null;
         } catch (Exception $ex) {
             throw $ex;
-            
         }
     }
 }

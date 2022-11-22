@@ -7,19 +7,23 @@ use DB\PetDAO as PetDAO;
 //use JSON\PetDAO as PetDAO;
 use DB\OwnerDAO as OwnerDAO;
 use DB\BreedDAO as BreedDAO;
+use Exceptions\DuplicatedValueException as DuplicatedValueException;
 use Exception as Exception;
+use PDOException as PDOException;
 
 class PetController
 {
     private $petDAO;
     private $ownerDAO;
     private $breedDAO;
+    private $auth;
 
     public function __construct()
     {
         $this->petDAO = new PetDAO();
         $this->ownerDAO = new OwnerDAO();
         $this->breedDAO = new BreedDAO();
+        $this->auth = new AuthController();
     }
 
     public function addPet($petName = " ", $size = " ", $type = " ", $breed = " ", $pictureURL = " ", $vaccination = " ", $video = " ")
@@ -28,26 +32,18 @@ class PetController
         try {
             if (isset($_SESSION['loggeduser'])) {
                 if ($_SESSION['type'] == 'O') {
+
+                    $catBreedsList = $this->breedDAO->getAllCatBreeds();
+                    $dogBreedsList = $this->breedDAO->getAllDogBreeds();
+                    
                     if ($petName != " " || $pictureURL != " " || $breed != " " || $video != " " || $vaccination != " " || $type != " ") {
 
                         $pet = new Pet($_SESSION['id'], $petName, $pictureURL, $breed, $video, $vaccination, $type, $size);
-
-                        try {
-                            $this->petDAO->add($pet);
-                            $message = "You've added a pet successfully!";
-                            header("Location:" . FRONT_ROOT . "User?message=" . $message);
-                        } catch (Exception $e) {
-
-                            $message = "Picture or vaccination URL you've entered is duplicated";
-                            $catBreedsList = $this->breedDAO->getAllCatBreeds();
-                            $dogBreedsList = $this->breedDAO->getAllDogBreeds();
-
-                            require_once(VIEWS_PATH . "addPet.php");
-                        }
+                        $this->petDAO->add($pet);
+                        $message = "You've added a pet successfully!";
+                        header("Location:" . FRONT_ROOT . "User?message=" . $message);
+                        
                     } else {
-
-                        $catBreedsList = $this->breedDAO->getAllCatBreeds();
-                        $dogBreedsList = $this->breedDAO->getAllDogBreeds();
                         require_once(VIEWS_PATH . "addPet.php");
                     }
                 } else {
@@ -56,8 +52,13 @@ class PetController
             } else {
                 header("location:" . FRONT_ROOT . "Auth");
             }
+            
+        } catch(DuplicatedValueException $ex){
+            $message = $ex->getMsg();
+            require_once(VIEWS_PATH . "addPet.php");
         } catch (Exception $ex) {
-            $message = "DATABASE ERROR WHILE ADDING A NEW PET";
+                $message = "DATABASE ERROR WHILE ADDING A NEW PET";
+                $this->auth->Logout($message);
         }
     }
 
@@ -78,33 +79,11 @@ class PetController
                 header("location:" . FRONT_ROOT . "Auth");
             }
         } catch (Exception $ex) {
-            $message = "listPets DATABASE ERROR";
+            $message = "DATABASE ERROR WHILE LISTING PETS";
+            $this->auth->Logout($message);
         }
     }
-
-    public function listDogs()
-    {
-        try {
-            $dogsList = array();
-            $dogsList = $this->petDAO->getDogsByOwnerEmail($_SESSION['email']);
-            return $dogsList;
-        } catch (Exception $ex) {
-            $message = "listDogs DATABASE ERROR";
-        }
-    }
-
-    public function listCats()
-    {
-        try {
-            $catsList = array();
-            $catsList = $this->petDAO->getCatsByOwnerEmail($_SESSION['email']);
-            return $catsList;
-        } catch (Exception $ex) {
-            $message = "listCats DATABASE ERROR";
-        }
-    }
-
-
+    
     public function Index()
     {
         if (isset($_SESSION["loggeduser"])) {

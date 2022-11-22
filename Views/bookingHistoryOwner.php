@@ -198,8 +198,8 @@ include("navOwner.php");
 
 </html>
 
+<!-- JavaScript para mostrar emojis al ratear un guardian -->
 <script>
-// JavaScript para el Rating de un Guardian
 const stars = document.querySelectorAll(".star");
 const emojiEl = document.querySelector(".emoji");
 const statusEl = document.querySelector(".status");

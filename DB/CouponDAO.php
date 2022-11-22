@@ -24,8 +24,8 @@ class CouponDAO
 
             $this->connection->ExecuteNonQuery($query, $parameters);
           
-        }catch(Exception $exc) {
-            throw $exc;
+        }catch(Exception $ex) {
+            throw $ex;
         }
     
     }

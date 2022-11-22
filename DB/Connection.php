@@ -18,7 +18,7 @@ class Connection
             $this->pdo = new PDO("mysql:host=" . DB_HOST . "; dbname=" . DB_NAME, DB_USER, DB_PASS);
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (Exception $ex) {
-            echo "<h3 style='color:red;'> Internal Error: Wrong Database HOST or NAME</h3>";
+            throw $ex;
         }
     }
 
@@ -41,7 +41,7 @@ class Connection
 
             return $this->pdoStatement->fetchAll();
         } catch (Exception $ex) {
-            echo "<h3 style='color:red;'> Internal Error: Query couldn't be executed</h3>";
+            throw $ex;
         }
     }
 
@@ -56,7 +56,7 @@ class Connection
 
             return $this->pdoStatement->rowCount();
         } catch (Exception $ex) {
-            echo "<h3 style='color:red;'> Internal Error: ExecuteNonQuery couldn't be executed</h3>";
+            throw $ex;
         }
     }
 
@@ -65,7 +65,7 @@ class Connection
         try {
             $this->pdoStatement = $this->pdo->prepare($query);
         } catch (Exception $ex) {
-            echo "<h3 style='color:red;'> Internal Error: Query couldn't be prepared</h3>";
+            throw $ex;
         }
     }
 

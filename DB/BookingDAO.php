@@ -42,23 +42,20 @@ class BookingDAO
         }
     }
 
-    function getMaxIdBooking()
+    function newBooking($row)
     {
-        try {
-            $query =  "SELECT max(id) as 'id' FROM " . $this->tableName;
-
-            $this->connection = Connection::GetInstance();
-
-            $result = $this->connection->Execute($query);
-
-            foreach ($result as $row) {
-                $idBooking = $row["id"];
-            }
-
-            return $idBooking;
-        } catch (Exception $exc) {
-            throw $exc;
-        }
+        $booking = new Booking(
+        $this->getPets($row['id']), 
+        ($row["start_date"]), 
+        ($row["end_date"]), 
+        ($row["id_owner"]), 
+        ($row["id_guardian"]), 
+        ($row["totalAmount"])
+    );
+        $booking->setId($row["id"]);
+        $booking->setStatus($row["id_status"]);
+        
+        return $booking;
     }
 
     function addOwnerXBooking($idOwner, $idBooking)
@@ -96,6 +93,28 @@ class BookingDAO
             throw $exc;
         }
     }
+    
+    function getMaxIdBooking()
+    {
+        try {
+            $query =  "SELECT max(id) as 'id' FROM " . $this->tableName;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query);
+            
+            $idBooking = null;
+            
+            if(!empty($resultSet)){
+                $row = $resultSet[0];
+                $idBooking = $row["id"];
+            }
+                 
+            return $idBooking;
+        } catch (Exception $exc) {
+            throw $exc;
+        }
+    }
 
     function getByIdGuardian($idGuardian)
     {
@@ -116,11 +135,7 @@ class BookingDAO
             $resultSet = $this->connection->Execute($query, $parameters);
 
             foreach ($resultSet as $row) {
-                $booking = new Booking($this->getPets($row['id']), ($row["start_date"]), ($row["end_date"]), ($row["id_owner"]), ($row["id_guardian"]), ($row["totalAmount"]));
-
-                $booking->setId($row["id"]);
-                $booking->setStatus($row["id_status"]);
-
+                $booking = $this->newBooking($row);
                 array_push($bookingList, $booking);
             }
 
@@ -150,11 +165,7 @@ class BookingDAO
             $resultSet = $this->connection->Execute($query, $parameters);
 
             foreach ($resultSet as $row) {
-                $booking = new Booking($this->getPets($row['id']), ($row["start_date"]), ($row["end_date"]), ($row["id_owner"]), ($row["id_guardian"]), ($row["totalAmount"]));
-
-                $booking->setId($row["id"]);
-                $booking->setStatus($row["id_status"]);
-
+                $booking = $this->newBooking($row);
                 array_push($bookingList, $booking);
             }
 
@@ -189,17 +200,13 @@ class BookingDAO
             $resultSet = $this->connection->Execute($query, $parameters);
 
             foreach ($resultSet as $row) {
-                $booking = new Booking($this->getPets($row['id']), ($row["start_date"]), ($row["end_date"]), ($row["id_owner"]), ($row["id_guardian"]), ($row["totalAmount"]));
-                $booking->setId($row["id"]);
-                $booking->setStatus($row["id_status"]);
-
+                $booking = $this->newBooking($row);
                 array_push($bookingList, $booking);
             }
 
             return count($bookingList) > 0 ? $bookingList : null;
         } catch (Exception $ex) {
             throw $ex;
-            
         }
     }
 
@@ -220,10 +227,7 @@ class BookingDAO
 
             $resultSet = $this->connection->Execute($query, $parameters);
             foreach ($resultSet as $row) {
-                $booking = new Booking($this->getPets($row['id']), ($row["start_date"]), ($row["end_date"]), ($row["id_owner"]), ($row["id_guardian"]), ($row["totalAmount"]));
-
-                $booking->setId($row["id"]);
-                $booking->setStatus($row["id_status"]);
+                $booking = $this->newBooking($row);
                 array_push($requestsList, $booking);
             }
 
@@ -234,6 +238,7 @@ class BookingDAO
         }
     }
 
+    // Obtiene las pets del booking según un array de ids
     function getPets($idBooking)
     {
         try {
@@ -254,12 +259,42 @@ class BookingDAO
                 array_push($arrayPets, $petDAO->getPetById($row['id_pet']));
             }
 
-            return $arrayPets;
+            return count($arrayPets) > 0 ? $arrayPets : null;
+            
         } catch (Exception $ex) {
             throw $ex;
         }
     }
 
+    function getById($id)
+    {
+        try {
+
+            $query = "SELECT b.id, b.id_status, b.start_date, b.end_date, b.totalAmount, b.id_guardian, ob.id_owner 
+            FROM bookings as b 
+            JOIN ownerxbooking as ob 
+            ON b.id = ob.id_booking 
+            WHERE b.id = :id AND id_status = '1';";
+
+            $parameters["id"] = $id;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
+            
+            $booking = null;
+
+            if(!empty($resultSet)){
+                $row = $resultSet[0];
+                $booking = $this->newBooking($row);
+            }
+            
+            return $booking;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+    
     public function updateStatus($id, $status)
     {
         try {
@@ -274,73 +309,54 @@ class BookingDAO
             $this->connection->Execute($query, $parameters);
         } catch (Exception $ex) {
             throw $ex;
-
-        }
-    }
-
-    function getById($id)
-    {
-        try {
-            $bookingList = array();
-
-            $query = "SELECT b.id, b.id_status, b.start_date, b.end_date, b.totalAmount, b.id_guardian, ob.id_owner 
-            FROM bookings as b 
-            JOIN ownerxbooking as ob 
-            ON b.id = ob.id_booking 
-            WHERE b.id = :id AND id_status = '1';";
-
-            $parameters["id"] = $id;
-
-            $this->connection = Connection::GetInstance();
-
-            $resultSet = $this->connection->Execute($query, $parameters);
-            foreach ($resultSet as $row) {
-                $booking = new Booking($this->getPets($row['id']), ($row["start_date"]), ($row["end_date"]), ($row["id_owner"]), ($row["id_guardian"]), ($row["totalAmount"]));
-
-                $booking->setId($row["id"]);
-                $booking->setStatus($row["id_status"]);
-                array_push($bookingList, $booking);
-            }
-
-            return count($bookingList) > 0 ? $bookingList[0] : null;
-        } catch (Exception $ex) {
-            throw $ex;
         }
     }
 
     // Update booking status from confirmed to finished
     function updatePastConfirmedBookings($idGuardian)
     {
-        $query = "UPDATE " . $this->tableName . " SET id_status = 4 WHERE id_status = 5 AND id_guardian = :idGuardian AND (end_date < now());";
+        try {
+            $query = "UPDATE " . $this->tableName . " SET id_status = 4 WHERE id_status = 5 AND id_guardian = :idGuardian AND (end_date < now());";
 
-        $parameters["idGuardian"] = $idGuardian;
+            $parameters["idGuardian"] = $idGuardian;
 
-        $this->connection = Connection::GetInstance();
+            $this->connection = Connection::GetInstance();
 
-        $resultSet = $this->connection->ExecuteNonQuery($query, $parameters);
+            $resultSet = $this->connection->ExecuteNonQuery($query, $parameters);
+        } catch (Exception $ex) {
+            throw $ex;
+        }   
     }
 
     // Update booking status from accepted to rejected (for when guardian accepts the request and owner doesn't pay for it)
     function updatePastAcceptedBookings($idGuardian)
     {
-        $query = "UPDATE " . $this->tableName . " SET id_status = 3 WHERE id_status = 2 AND id_guardian = :idGuardian AND (start_date < now());";
+        try {
+            $query = "UPDATE " . $this->tableName . " SET id_status = 3 WHERE id_status = 2 AND id_guardian = :idGuardian AND (start_date < now());";
 
-        $parameters["idGuardian"] = $idGuardian;
+            $parameters["idGuardian"] = $idGuardian;
 
-        $this->connection = Connection::GetInstance();
+            $this->connection = Connection::GetInstance();
 
-        $resultSet = $this->connection->ExecuteNonQuery($query, $parameters);
+            $resultSet = $this->connection->ExecuteNonQuery($query, $parameters);
+        } catch (Exception $ex) {
+            throw $ex;
+        } 
     }
 
     // Update booking status from waiting to timed out (for when guardian doesn't accept/reject the request)
     function updatePastWaitingBookings($idGuardian)
     {
-        $query = "UPDATE " . $this->tableName . " SET id_status = 6 WHERE id_status = 1 AND id_guardian = :idGuardian AND (start_date < now());";
+        try {
+            $query = "UPDATE " . $this->tableName . " SET id_status = 6 WHERE id_status = 1 AND id_guardian = :idGuardian AND (start_date < now());";
 
-        $parameters["idGuardian"] = $idGuardian;
+            $parameters["idGuardian"] = $idGuardian;
 
-        $this->connection = Connection::GetInstance();
+            $this->connection = Connection::GetInstance();
 
-        $resultSet = $this->connection->ExecuteNonQuery($query, $parameters);
+            $resultSet = $this->connection->ExecuteNonQuery($query, $parameters);
+        } catch (Exception $ex) {
+            throw $ex;
+        }
     }
 }

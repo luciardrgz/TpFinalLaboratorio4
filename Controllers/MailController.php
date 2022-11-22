@@ -38,14 +38,14 @@ class MailController
 
             $value_to_add = "To pay: $" . $price;
             $mail->Body = file_get_contents('PHPMailer/email.html');
-            $mail->Body = str_replace("Pet Hero Team", "$value_to_add", $mail->Body);
+            $mail->Body = str_replace("Price", "$value_to_add", $mail->Body);
 
             $mail->AltBody = 'Plain text';
 
             $mail->CharSet = 'UTF-8';
             $mail->send();
         } catch (Exception $e) {
-            $message = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+           throw $e;
         }
     }
 }

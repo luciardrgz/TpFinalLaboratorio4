@@ -78,8 +78,7 @@ if ($_SESSION["type"] == "O") {
         <div class="row">
 
             <div class="col-md-4">
-                <div class="profile-work">
-
+               
                     <?php if ($_SESSION['type'] == 'G') { ?>
                     <form action="<?php echo FRONT_ROOT . "User/updatePetSizePreference/" ?>" method="POST">
                         <label class="edit-subtitle"><br> <b>My pet size preference</b> </label><br>
@@ -118,7 +117,6 @@ if ($_SESSION["type"] == "O") {
                         <input type="submit" name="submit" class="profile-btns" value="Save price" />
                     </form>
                     <?php } ?>
-                </div>
             </div>
 
 

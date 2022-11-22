@@ -59,6 +59,7 @@ body {
 
 .card-footer {
   margin-top: -30px;
+  /* TODO: MARGIN BOTTOM */
 }
 
 .input-group-prepend span {

@@ -76,8 +76,11 @@ namespace Views;
                         Don't have an account?
                         <a href="<?php echo FRONT_ROOT . "Home/signUp" ?>">Sign Up </a>
                     </div>
+                    <div class="d-flex justify-content-center">
+					<a href="#">Forgot your password?</a>
+				    </div>
                 </div>
-
+           
                 <?php
                 if ($message != null) { ?>
                 <div class="alert alert-danger">
@@ -92,7 +95,7 @@ namespace Views;
 
 </html>
 
-
+<!-- JavaScript para el toggle de ver/e see/hide the password-->
 <script>
 const x = document.getElementById("login-form-pass"); // Input
 const s = document.getElementById("openEye"); // Show pass

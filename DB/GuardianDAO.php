@@ -30,8 +30,8 @@ class GuardianDAO implements IGuardianDAO
             $this->connection = Connection::GetInstance();
 
             $this->connection->ExecuteNonQuery($query, $parameters);
-        } catch (Exception $exc) {
-            throw $exc;
+        } catch (Exception $ex) {
+            throw $ex;
         }
     }
 
@@ -54,12 +54,8 @@ class GuardianDAO implements IGuardianDAO
         }
     }
 
-    function newGuardian($resultSet)
+    function newGuardian($row)
     {
-        $guardianList = array();
-
-        foreach ($resultSet as $row) {
-
             $guardian = new Guardian(
                 $row["first_name"],
                 $row["last_name"],
@@ -75,14 +71,13 @@ class GuardianDAO implements IGuardianDAO
                 $row["last_available_day"]
             );
             $guardian->setId($row["id"]);
-            array_push($guardianList, $guardian);
-        }
-        return $guardianList;
+        return $guardian;
     }
 
     function getAllVisible()
     {
         try {
+            $guardianList = array();
 
             $query = "SELECT g.id, g.email, g.pass, g.first_name, g.last_name, 
             g.phone, g.birth_date, g.nickname, g.score, g.first_available_day, g.last_available_day, g.price, ps.size  
@@ -97,7 +92,11 @@ class GuardianDAO implements IGuardianDAO
 
             $resultSet = $this->connection->Execute($query);
 
-            $guardianList = $this->newGuardian($resultSet);
+            foreach($resultSet as $row){
+                $guardian = $this->newGuardian($row);
+                array_push($guardianList, $guardian);
+            }
+
             return count($guardianList) > 0 ? $guardianList : null;
         } catch (Exception $ex) {
             throw $ex;
@@ -107,6 +106,8 @@ class GuardianDAO implements IGuardianDAO
     public function getGuardiansByDate($firstDay, $lastDay)
     {
         try {
+            $guardianList = array();
+
             $query = "SELECT g.id, g.email, g.pass, g.first_name, g.last_name, g.phone, g.birth_date, g.nickname, g.score, g.first_available_day, g.last_available_day, g.price, ps.size
             FROM " . $this->tableName . " AS g 
             JOIN guardianxsize as gxs 
@@ -122,7 +123,10 @@ class GuardianDAO implements IGuardianDAO
 
             $resultSet = $this->connection->Execute($query, $parameters);
 
-            $guardianList = $this->newGuardian($resultSet);
+             foreach($resultSet as $row){
+                $guardian = $this->newGuardian($row);
+                array_push($guardianList, $guardian);
+            }
             return (count($guardianList) > 0) ? $guardianList : null;
         } catch (Exception $ex) {
             throw $ex;
@@ -148,8 +152,14 @@ class GuardianDAO implements IGuardianDAO
 
             $resultSet = $this->connection->Execute($query, $parameters);
 
-            $guardianList = $this->newGuardian($resultSet);
-            return count($guardianList) > 0 ? $guardianList[0] : null;
+            $guardian = null;
+
+            if(!empty($resultSet)){
+                $row = $resultSet[0];
+                $guardian= $this->newGuardian($row);
+            }
+            
+            return $guardian;
         } catch (Exception $ex) {
             throw $ex;
         }
@@ -173,8 +183,14 @@ class GuardianDAO implements IGuardianDAO
 
             $resultSet = $this->connection->Execute($query, $parameters);
 
-            $guardianList = $this->newGuardian($resultSet);
-            return (count($guardianList) > 0) ? $guardianList[0] : null;
+            $guardian = null;
+
+            if(!empty($resultSet)){
+                $row = $resultSet[0];
+                $guardian= $this->newGuardian($row);
+            }
+            
+            return $guardian;
         } catch (Exception $ex) {
             throw $ex;
         }
@@ -199,8 +215,14 @@ class GuardianDAO implements IGuardianDAO
 
             $resultSet = $this->connection->Execute($query, $parameters);
 
-            $guardianList = $this->newGuardian($resultSet);
-            return (count($guardianList) > 0) ? $guardianList[0] : null;
+            $guardian = null;
+
+            if(!empty($resultSet)){
+                $row = $resultSet[0];
+                $guardian= $this->newGuardian($row);
+            }
+            
+            return $guardian;
         } catch (Exception $ex) {
             throw $ex;
         }

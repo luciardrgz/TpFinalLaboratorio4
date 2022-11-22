@@ -71,6 +71,7 @@ class AuthController
             }
         } catch (Exception $ex) {
             $message = "login DATA ERROR";
+            require_once(VIEWS_PATH . "login.php");
         }
     }
 
@@ -83,10 +84,9 @@ class AuthController
         }
     }
 
-    public function Logout()
+    public function Logout($message="")
     {
         session_destroy();
-        $message = null;
         require_once(VIEWS_PATH . "login.php");
     }
 

@@ -8,6 +8,7 @@ use DB\Connection as Connection;
 use DB\OwnerDAO as OwnerDAO;
 use DB\BreedDAO as BreedDAO;
 use \Exception as Exception;
+use Exceptions\DuplicatedValueException as DuplicatedValueException;
 use Models\Owner;
 
 class PetDAO
@@ -34,16 +35,17 @@ class PetDAO
             $this->connection = Connection::GetInstance();
 
             $this->connection->ExecuteNonQuery($query, $parameters);
-        } catch (Exception $e) {
-            throw $e;
+        }catch (Exception $ex) {
+            if($ex->errorInfo[0] == '23000' && $ex->errorInfo[1] == '1062'){
+                throw new DuplicatedValueException("Pet or Vaccine image already exists");
+            }else{
+                throw $ex;
+            }
         }
     }
 
-    function newPet($resultSet)
+    function newPet($row)
     {
-        $petList = array();
-
-        foreach ($resultSet as $row) {
             $pet = new Pet(
                 $row["id_pet_owner"],
                 $row["name"],
@@ -55,10 +57,8 @@ class PetDAO
                 $row["id_pet_size"]
             );
             $pet->setId($row["id"]);
-            array_push($petList, $pet);
-        }
 
-        return $petList;
+        return $pet;
     }
 
     function getPetById($id)
@@ -76,16 +76,25 @@ class PetDAO
 
             $resultSet = $this->connection->Execute($query, $parameters);
 
-            $petList = $this->newPet($resultSet);
-            return (count($petList) > 0) ? $petList[0] : null;
-        } catch (Exception $e) {
-            throw $e;
+            $pet = null;
+
+            if(!empty($resultSet)){
+                $row = $resultSet[0];
+                $pet = $this->newPet($row);
+            }
+            
+            return $pet;
+        } catch (Exception $ex) {
+            throw $ex;
         }
     }
 
     function getPetsByOwnerId()
     {
         try {
+
+            $petList = array();
+
             $query = "SELECT p.id, p.id_pet_owner, p.name, p.picture, pb.breed, p.video,p.vaccination, p.id_pet_type, p.id_pet_size 
             FROM " . $this->tableName . " as p
             JOIN petbreeds pb
@@ -100,18 +109,22 @@ class PetDAO
 
             $resultSet = $this->connection->Execute($query, $parameters);
 
-            $petList = $this->newPet($resultSet);
-            return (count($petList) > 0) ? $petList : null;
-        } catch (Exception $e) {
-            throw $e;
+            foreach($resultSet as $row){
+                $pet = $this->newPet($row);
+                array_push($petList, $pet);
+            }
+            return count($petList) > 0 ? $petList : null;
+        } catch (Exception $ex) {
+            throw $ex;
         }
     }
 
     public function getCatsByOwnerEmail($email)
     {
         try {
-            $catsList = array();
 
+            $catList = array();  
+            
             $query = "SELECT o.id as 'ownerId', p.id ,p.name,p.picture,p.vaccination,p.video,pb.breed, ps.size, pt.type_description
             FROM pets as p
             join owners as o
@@ -130,24 +143,22 @@ class PetDAO
 
             $resultSet = $this->connection->Execute($query, $parameters);
 
-            foreach ($resultSet as $row) {
-                $cat = new Pet($row["ownerId"], $row["name"], $row["picture"], $row["breed"], $row["video"], $row["vaccination"], $row["type_description"], $row["size"]);
-                $cat->setId($row["id"]);
-
-                array_push($catsList, $cat);
+            foreach($resultSet as $row){
+                $pet = $this->newPet($row);
+                array_push($catList, $pet);
             }
-
-            return $catsList;
-        } catch (Exception $e) {
-            throw $e;
+            return count($catList) > 0 ? $catList : null;
+            
+        } catch (Exception $ex) {
+            throw $ex;
         }
     }
 
     public function getDogsByOwnerEmail($email)
     {
         try {
-            $dogsList = array();
 
+            $dogList = array();
             $query = "SELECT o.id as 'ownerId', p.id ,p.name,p.picture,p.vaccination,p.video,pb.breed, ps.size, pt.type_description
             FROM pets as p
             join owners as o
@@ -166,16 +177,13 @@ class PetDAO
 
             $resultSet = $this->connection->Execute($query, $parameters);
 
-            foreach ($resultSet as $row) {
-                $dog = new Pet($row["ownerId"], $row["name"], $row["picture"], $row["breed"], $row["video"], $row["vaccination"], $row["type_description"], $row["size"]);
-                $dog->setId($row["id"]);
-
-                array_push($dogsList, $dog);
+            foreach($resultSet as $row){
+                $pet = $this->newPet($row);
+                array_push($dogList, $pet);
             }
-
-            return $dogsList;
-        } catch (Exception $e) {
-            throw $e;
+            return count($dogList) > 0 ? $dogList : null;
+        } catch (Exception $ex) {
+            throw $ex;
         }
     }
 }

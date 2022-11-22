@@ -29,16 +29,13 @@ class OwnerDAO implements IOwnerDAO
             $this->connection = Connection::GetInstance();
 
             $this->connection->ExecuteNonQuery($query, $parameters);
-        } catch (Exception $insertExc) {
-            throw $insertExc;
+        } catch (Exception $ex) {
+            throw $ex;
         }
     }
 
-    function newOwner($resultSet)
-    {
-        $ownerList = array();
-
-        foreach ($resultSet as $row) {
+    function newOwner($row)
+    {    
             $owner = new Owner(
                 $row["first_name"],
                 $row["last_name"],
@@ -49,22 +46,26 @@ class OwnerDAO implements IOwnerDAO
                 $row["pass"]
             );
             $owner->setId($row["id"]);
-            array_push($ownerList, $owner);
-        }
 
-        return $ownerList;
+        return $owner;
     }
 
     function getAll()
     {
         try {
+            
+            $ownerList = array();
+
             $query = "SELECT * FROM " . $this->tableName;
 
             $this->connection = Connection::GetInstance();
 
             $resultSet = $this->connection->Execute($query);
 
-            $ownerList = $this->newOwner($resultSet);
+            foreach($resultSet as $row){
+                $owner = $this->newOwner($row);
+                array_push($ownerList, $owner);
+            }
             return count($ownerList) > 0 ? $ownerList : null;
         } catch (Exception $ex) {
             throw $ex;
@@ -82,8 +83,14 @@ class OwnerDAO implements IOwnerDAO
 
             $resultSet = $this->connection->Execute($query, $parameters);
 
-            $ownerList = $this->newOwner($resultSet);
-            return (count($ownerList) > 0) ? $ownerList[0] : null;
+            $owner = null;
+
+            if(!empty($resultSet)){
+                $row = $resultSet[0];
+                $owner = $this->newOwner($row);
+            }
+            
+            return $owner;
         } catch (Exception $ex) {
             throw $ex;
         }
@@ -100,8 +107,14 @@ class OwnerDAO implements IOwnerDAO
 
             $resultSet = $this->connection->Execute($query, $parameters);
 
-            $ownerList = $this->newOwner($resultSet);
-            return (count($ownerList) > 0) ? $ownerList[0] : null;
+            $owner = null;
+
+            if(!empty($resultSet)){
+                $row = $resultSet[0];
+                $owner = $this->newOwner($row);
+            }
+            
+            return $owner;
         } catch (Exception $ex) {
             throw $ex;
         }
@@ -118,10 +131,13 @@ class OwnerDAO implements IOwnerDAO
 
             $resultSet = $this->connection->Execute($query, $parameters);
 
-            foreach ($resultSet as $row) {
-                $nickname = ($row['nickname']);
-            }
+            $nickname = null;
 
+            if(!empty($resultSet)){
+                $row = $resultSet[0];
+                $nickname = $row['nickname'];
+            }
+            
             return $nickname;
         } catch (Exception $ex) {
             throw $ex;

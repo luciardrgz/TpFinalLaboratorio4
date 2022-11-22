@@ -23,11 +23,13 @@ class UserController
 {
     private $guardianDAO;
     private $ownerDAO;
+    private $auth;
 
     public function __construct()
     {
         $this->guardianDAO = new GuardianDAO();
         $this->ownerDAO = new OwnerDAO();
+        $this->auth = new AuthController();
     }
 
     public function Index()
@@ -48,7 +50,6 @@ class UserController
     {
         try {
             if ($firstName != "" || $lastName != "" || $birthDate != "" || $email != "" || $phoneNumber != "" || $nickName != "" || $password != "" || $type != "") {
-                $auth = new AuthController();
 
                 if ($this->validateUser($email, $nickName) == true) {
 
@@ -59,13 +60,13 @@ class UserController
                             $guardian = new Guardian($firstName, $lastName, $email, $phoneNumber, $birthDate, $nickName, $password);
 
                             $this->guardianDAO->add($guardian);
-                            $auth->login($email, $password);
+                            $this->auth->login($email, $password);
                         } else {
 
                             $owner = new Owner($firstName, $lastName, $email, $phoneNumber, $birthDate, $nickName, $password);
 
                             $this->ownerDAO->add($owner);
-                            $auth->login($email, $password);
+                            $this->auth->login($email, $password);
                         }
                     } else {
                         $message = "You must be 16 or more to sign up";
@@ -80,6 +81,7 @@ class UserController
             }
         } catch (Exception $ex) {
             $message = "DATABASE ERROR WHILE ADDING A NEW USER";
+            require_once(VIEWS_PATH . "login.php");
         }
     }
 
@@ -101,7 +103,7 @@ class UserController
 
             return $validation;
         } catch (Exception $ex) {
-            $message = "validateUser DATABASE ERROR";
+            throw $ex;
         }
     }
 
@@ -118,7 +120,7 @@ class UserController
 
             return $validation;
         } catch (Exception $ex) {
-            $message = "validateAge DATABASE ERROR";
+            throw $ex;
         }
     }
 
@@ -157,8 +159,12 @@ class UserController
             } else {
                 header("location:" . FRONT_ROOT . "Auth");
             }
+
         } catch (Exception $ex) {
+            
             $message = "showProfileInfo DATABASE ERROR";
+            $this->auth->Logout($message);
+            
         }
     }
 
@@ -196,6 +202,7 @@ class UserController
             }
         } catch (Exception $e) {
             $message = "filterGuardianList DATABASE ERROR";
+            $this->auth->Logout($message);
         }
     }
 
@@ -220,6 +227,7 @@ class UserController
             }
         } catch (Exception $ex) {
             $message = "updatePetSizePreference DATABASE ERROR";
+            $this->auth->Logout($message);
         }
     }
 
@@ -247,7 +255,8 @@ class UserController
                 header("location:" . FRONT_ROOT . "Auth");
             }
         } catch (Exception $ex) {
-            $message = "updateDate DATABASE ERROR";
+            $message = "DATABASE ERROR WHILE UPDATING AVAILABILITY DATE";
+            $this->auth->Logout($message);
         }
     }
 
@@ -269,7 +278,8 @@ class UserController
                 header("location:" . FRONT_ROOT . "Auth");
             }
         } catch (Exception $ex) {
-            $message = "updatePrice DATABASE ERROR";
+            $message = "DATABASE ERROR WHILE UPDATING PRICE PER DAY";
+            $this->auth->Logout($message);
         }
     }
 
@@ -292,7 +302,8 @@ class UserController
                 header("location:" . FRONT_ROOT . "Auth");
             }
         } catch (Exception $ex) {
-            $message = "addScore DATABASE ERROR";
+            $message = "DATABASE ERROR WHILE ADDING A SCORE";
+            $this->auth->Logout($message);
         }
     }
 }
