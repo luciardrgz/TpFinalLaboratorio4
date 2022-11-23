@@ -306,4 +306,25 @@ class UserController
             $this->auth->Logout($message);
         }
     }
+
+    public function resetPassword($newPass, $email){
+        try {
+            $guardian = new Guardian();
+            $guardian = $this->guardianDAO->getByEmail($email);
+            $owner = new Owner();
+            $owner = $this->ownerDAO->getByEmail($email);
+
+            if($guardian != null){
+                $this->guardianDAO->changePassword($guardian, $newPass);
+            }else{
+                $this->ownerDAO->changePassword($owner, $newPass);
+            }
+
+            $message="Your password has been changed successfully";
+
+            require_once(VIEWS_PATH . "login.php");
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
 }

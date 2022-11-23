@@ -331,4 +331,24 @@ class GuardianDAO implements IGuardianDAO
             throw $ex;
         }
     }
+
+    function changePassword($guardian, $newPass){
+        try {
+            $query = "UPDATE " . $this->tableName . " SET pass = :newPass 
+            WHERE id = :idGuardian;";
+
+            $parameters['newPass'] = $newPass;
+            $parameters['idGuardian'] = $guardian->getId();
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->ExecuteNonQuery($query, $parameters);
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+
+
+
 }

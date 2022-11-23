@@ -143,4 +143,22 @@ class OwnerDAO implements IOwnerDAO
             throw $ex;
         }
     }
+
+    function changePassword($owner, $newPass){
+        try {
+            $query = "UPDATE ".$this->tableName. " SET pass = :newPass 
+            WHERE id = :idOwner;";
+
+            $parameters['newPass'] = $newPass;
+            $parameters['idOwner'] = $owner->getId();
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->ExecuteNonQuery($query, $parameters);
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    
 }

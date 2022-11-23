@@ -5,6 +5,7 @@ namespace Controllers;
 use PHPMailer\PHPMailer\PHPMailer as PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception as Exception;
+use Controllers\AuthController as AuthController;
 
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
@@ -12,8 +13,13 @@ require 'PHPMailer/src/SMTP.php';
 
 class MailController
 {
+    private $auth;
 
-    function sendMail($price)
+    function __construct(){
+        $this->auth = new AuthController();
+    }
+
+    function sendMail($subject, $body, $email, $nickname="")
     {
         $mail = new PHPMailer(true); //Create an instance; passing `true` enables exceptions
 
@@ -23,29 +29,49 @@ class MailController
             $mail->isSMTP();                                              //Send using SMTP
             $mail->Host       = 'smtp.gmail.com';                         //Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                     //Enable SMTP authentication
-            $mail->Username   = 'lab4pethero@gmail.com';                  //SMTP username
-            $mail->Password   = 'oqhldwdadwmoqvze';                      //SMTP password
+            $mail->Username   = 'lusideces@gmail.com';                  //SMTP username
+            $mail->Password   = 'ygepfuhqwvgsawkd';                      //SMTP password
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;             //Enable implicit TLS encryption
             $mail->Port       = 465;                                     //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
             // Receptor
-            $mail->setFrom('lab4pethero@gmail.com', 'Pet Hero');
-            $mail->addAddress($_SESSION['email'], $_SESSION['nickname']);     //Add a recipient
+            $mail->setFrom('lusideces@gmail.com', 'Pet Hero');
+            $mail->addAddress($email, $nickname);     //Add a recipient
 
             // Contenido del mail
             $mail->isHTML(true);                                              //Set email format to HTML
-            $mail->Subject = "Your Pet Hero payment details";
+            $mail->Subject = $subject;
 
-            $value_to_add = "To pay: $" . $price;
-            $mail->Body = file_get_contents('PHPMailer/email.html');
-            $mail->Body = str_replace("Price", "$value_to_add", $mail->Body);
+            $mail->Body = $body;
 
             $mail->AltBody = 'Plain text';
 
             $mail->CharSet = 'UTF-8';
             $mail->send();
-        } catch (Exception $e) {
-           throw $e;
+        } catch (Exception $ex) {
+           throw $ex;
         }
+    }
+    
+    function sendCouponMail($price){
+          
+        $subject = "Your Pet Hero payment details";
+
+        $value_to_add = "To pay: $" . $price;
+        $body = file_get_contents('PHPMailer/email.html');
+        $body = str_replace("Price", "$value_to_add", $body);
+
+        $this->sendMail($subject, $body, $_SESSION['email'], $_SESSION['nickname']);
+    }
+
+    function sendPassRecoveryMail($email){
+          
+        $subject = "Reset your Pet Hero password";
+        
+        $encryptedEmail = $this->auth->encrypt($email, "lubraAc0d3");
+        
+        $body = "Click on the link to reset your password: http://localhost/". FRONT_ROOT . "Auth/showResetPassword/".$encryptedEmail;
+
+        $this->sendMail($subject, $body, $email);
     }
 }

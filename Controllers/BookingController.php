@@ -475,16 +475,18 @@ class BookingController
         try {
             $coupon = new Coupon($price, $idBooking);
             $this->couponDAO->add($coupon);
-
+            
             $mailController = new MailController();
-            $mailController->sendMail($price);
+            $mailController->sendCouponMail($price);
 
             $message = "Payment details were sent to your email. Check it out!";
+
             $this->updateStatus($statusId, $idBooking,$message);
             
         } catch (Exception $ex) {
             $message = "DATA ERROR while trying to pay";
             $this->auth->Logout($message);
+            echo $ex->getMessage();
         }
     }
 }
