@@ -36,7 +36,7 @@ namespace Views;
 
                             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Sign up and join us!</h3>
 
-                            <form action="<?php echo FRONT_ROOT . "User/register/" ?>" method="POST">
+                            <form action="<?php echo FRONT_ROOT . "Auth/register/" ?>" method="POST">
 
                                 <div class="row">
                                     <div class="col-md-6 mb-4">

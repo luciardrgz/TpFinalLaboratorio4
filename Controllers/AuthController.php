@@ -113,12 +113,12 @@ class AuthController
 
                             $guardian = new Guardian($firstName, $lastName, $email, $phoneNumber, $birthDate, $nickName, $hashedPass);
                             $this->guardianDAO->add($guardian);
-                            $this->auth->login($email, $password);
+                            $this->login($email, $password);
                         } else {
 
                             $owner = new Owner($firstName, $lastName, $email, $phoneNumber, $birthDate, $nickName, $hashedPass);
                             $this->ownerDAO->add($owner);
-                            $this->auth->login($email, $password);
+                            $this->login($email, $password);
                         }
                     } else {
                         $message = "You must be 16 or more to sign up";

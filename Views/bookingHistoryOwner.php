@@ -55,9 +55,7 @@ include("navOwner.php");
 
                                     if ($status == 'Accepted') { ?>
                             <img src="<?php echo  FRONT_ROOT . IMG_PATH . "accepted.png" ?>" />
-                            <?php echo $status . " | " . $arrayNicknamesGuardian[$i];
-                                    } else if ($status == 'Waiting') { ?>
-                            <img src="<?php echo  FRONT_ROOT . IMG_PATH . "waiting.png" ?>" />
+                            <?php echo $status . " | " . $arrayNicknamesGuardian[$i]; ?>
 
                             <?php } else if ($status == 'Confirmed') { ?>
                             <img src="<?php echo  FRONT_ROOT . IMG_PATH . "Confirmed.png" ?>" />
@@ -67,8 +65,9 @@ include("navOwner.php");
                             <?php echo $status;
                                     } else if ($status == 'Rated') { ?>
                             <img src="<?php echo  FRONT_ROOT . IMG_PATH . "Rated.png" ?>" />
-                            <?php echo $status . " | " . $arrayNicknamesGuardian[$i];;
+                            <?php echo $status . " | " . $arrayNicknamesGuardian[$i];
                                     } else if ($status == 'Waiting') { ?>
+                            <img src="<?php echo  FRONT_ROOT . IMG_PATH . "waiting.png" ?>" />
                             <?php echo $status . " for " . $arrayNicknamesGuardian[$i] . "'s response";
                                     } else if ($status == 'Rejected') { ?>
                             <img src="<?php echo  FRONT_ROOT . IMG_PATH . "rejected.png" ?>" />

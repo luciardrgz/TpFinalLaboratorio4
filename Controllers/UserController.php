@@ -24,11 +24,12 @@ class UserController
     private $guardianDAO;
     private $ownerDAO;
     private $auth;
-
+    private $bookingDAO;
     public function __construct()
     {
         $this->guardianDAO = new GuardianDAO();
         $this->ownerDAO = new OwnerDAO();
+        $this->bookingDAO= new bookingDAO();
         $this->auth = new AuthController();
     }
 
@@ -248,10 +249,11 @@ class UserController
         try {
             if (isset($_SESSION['loggeduser'])) {
                 if ($_SESSION['type'] == 'O') {
+                    
                     $this->guardianDAO->addScore($idGuardian, $score);
-                    $bookingDAO = new BookingDAO();
 
-                    $bookingDAO->updateStatus($idBooking, "7");
+                    $this->bookingDAO->updateStatus($idBooking, "7");
+                    
                     $message = "You've rated this guardian succesfully";
                     header("location:" . FRONT_ROOT . "Booking/showMyBookings?message=" . $message);
                 } else {
@@ -287,7 +289,8 @@ class UserController
 
             require_once(VIEWS_PATH . "login.php");
         } catch (Exception $ex) {
-            throw $ex;
+            $message = "DATABASE ERROR WHILE RESET PASSWORD";
+            $this->auth->logout($message);
         }
     }
 }

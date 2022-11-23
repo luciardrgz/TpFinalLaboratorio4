@@ -46,9 +46,10 @@ class GuardianDAO implements IGuardianDAO
 
             $this->connection = Connection::GetInstance();
 
-            $resultSet = $this->connection->ExecuteNonQuery($query, $parameters);
-
+            $this->connection->ExecuteNonQuery($query, $parameters);
+           
             $this->updateScore($idGuardian);
+            
         } catch (Exception $ex) {
             throw $ex;
         }
@@ -317,16 +318,17 @@ class GuardianDAO implements IGuardianDAO
     function updateScore($idGuardian)
     {
         try {
-            $query = "UPDATE guardians SET score = (SELECT avg(score)
-        FROM scores
-        WHERE id_guardian = :idGuardian) 
-        WHERE id = :idGuardian;";
-
+            $query = "UPDATE "  . $this->tableName . " SET score = (SELECT avg(score)
+            FROM scores
+            WHERE id_guardian = :idGuardian) 
+            WHERE id = :idGuardian;";
+            
             $parameters['idGuardian'] = $idGuardian;
-
+            
             $this->connection = Connection::GetInstance();
-
+            
             $resultSet = $this->connection->ExecuteNonQuery($query, $parameters);
+            
         } catch (Exception $ex) {
             throw $ex;
         }
