@@ -77,10 +77,10 @@ namespace Views;
                         <a href="<?php echo FRONT_ROOT . "Home/signUp" ?>">Sign Up </a>
                     </div>
                     <div class="d-flex justify-content-center">
-					<a href="<?php echo FRONT_ROOT . "Auth/viewRecoverPass" ?>">Forgot your password?</a>
-				    </div>
+                        <a href="<?php echo FRONT_ROOT . "Auth/showRecoverPass" ?>">I forgot my password</a>
+                    </div>
                 </div>
-           
+
                 <?php
                 if ($message != null) { ?>
                 <div class="alert alert-danger">

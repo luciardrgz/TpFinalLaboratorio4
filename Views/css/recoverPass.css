@@ -1,3 +1,32 @@
-.container{
-    margin-top: 70px;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat");
+
+* {
+  font-family: "Montserrat", sans-serif;
+}
+
+body {
+  background-image: url("https://cdn.discordapp.com/attachments/1022513613375807644/1032661379414491146/unknown.png");
+}
+
+p {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+h2 {
+  font-weight: bold;
+}
+
+.container {
+  margin: 0 auto;
+  margin-top: 250px;
+  text-align: center;
+  width: 400px;
+  border-radius: 15px;
+  background-color: antiquewhite;
+}
+
+.error-msg {
+  font-weight: bold;
+  font-size: 16px;
 }

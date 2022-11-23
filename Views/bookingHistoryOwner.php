@@ -55,28 +55,26 @@ include("navOwner.php");
 
                                     if ($status == 'Accepted') { ?>
                             <img src="<?php echo  FRONT_ROOT . IMG_PATH . "accepted.png" ?>" />
-                            <?php echo $status . " | " . $arrayNicknamesGuardian[$i]; ?>
-
-                            <div class="job-right my-4 flex-shrink-0">
-                                <a href="<?php echo FRONT_ROOT . "Booking/showPaymentView/" . $myBookings[$i]->getId() . "/" . $myBookings[$i]->getPrice() ?>"
-                                    class="btn d-block w-100 d-sm-inline-block btn-success">
-                                    Pay</a>
-                            </div>
-                            <?php
+                            <?php echo $status . " | " . $arrayNicknamesGuardian[$i];
                                     } else if ($status == 'Waiting') { ?>
-
                             <img src="<?php echo  FRONT_ROOT . IMG_PATH . "waiting.png" ?>" />
 
+                            <?php } else if ($status == 'Confirmed') { ?>
+                            <img src="<?php echo  FRONT_ROOT . IMG_PATH . "Confirmed.png" ?>" />
+                            <?php echo $status . " | " . $arrayNicknamesGuardian[$i];
+                                    } else if ($status == 'Timed Out') { ?>
+                            <img src="<?php echo  FRONT_ROOT . IMG_PATH . "TimedOut.png" ?>" />
+                            <?php echo $status;
+                                    } else if ($status == 'Rated') { ?>
+                            <img src="<?php echo  FRONT_ROOT . IMG_PATH . "Rated.png" ?>" />
+                            <?php echo $status . " | " . $arrayNicknamesGuardian[$i];;
+                                    } else if ($status == 'Waiting') { ?>
                             <?php echo $status . " for " . $arrayNicknamesGuardian[$i] . "'s response";
                                     } else if ($status == 'Rejected') { ?>
-
                             <img src="<?php echo  FRONT_ROOT . IMG_PATH . "rejected.png" ?>" />
-
                             <?php echo $status . " | " . $arrayNicknamesGuardian[$i];
                                     } else if ($status == 'Finished') { ?>
-
                             <img src="<?php echo  FRONT_ROOT . IMG_PATH . "finished.png" ?>" />
-
                             <?php echo $status . " | " . $arrayNicknamesGuardian[$i];
                                     } ?>
                         </h5>
@@ -113,7 +111,17 @@ include("navOwner.php");
                         </ul>
                     </div>
 
-                    <?php if ($status == 'Finished') { ?>
+                    <?php if ($status == 'Accepted') { ?>
+
+                    <div class="booking-content-right">
+                        <div class="pay-btn-box">
+                            <a href="<?php echo FRONT_ROOT . "Booking/showPaymentView/" . $myBookings[$i]->getId() . "/" . $myBookings[$i]->getPrice() ?>"
+                                class="btn btn-success">
+                                Pay</a>
+                        </div>
+                    </div>
+
+                    <?php } elseif ($status == 'Finished') { ?>
 
                     <div class="booking-content-right">
                         <form action="<?php echo FRONT_ROOT . "User/addScore/" ?>" method="POST">
@@ -207,8 +215,8 @@ const defaultRatingIndex = 0;
 let currentRatingIndex = 0;
 
 const ratings = [{
-        emoji: "✨",
-        name: "Rating"
+        emoji: "🐾",
+        name: "Rate this Guardian"
     },
     {
         emoji: "😔",

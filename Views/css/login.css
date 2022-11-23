@@ -14,7 +14,7 @@ body {
 }
 
 .card {
-  height: 320px;
+  height: 350px;
   margin-top: auto;
   margin-bottom: auto;
   width: 400px;
@@ -30,9 +30,11 @@ body {
   text-align: center;
 }
 
+.card-footer {
+  margin-top: -30px;
+}
 .email-pass-box {
   margin-left: 5px;
-  width: 500px;
 }
 
 .email-pass-box input {
@@ -55,11 +57,6 @@ body {
   border: 0 !important;
   border-radius: 5px;
   outline: none;
-}
-
-.card-footer {
-  margin-top: -30px;
-  /* TODO: MARGIN BOTTOM */
 }
 
 .input-group-prepend span {

@@ -249,7 +249,7 @@ button {
 }
 
 .rate-btn-box {
-  margin-top: 30px;
+  margin-top: 40px;
 }
 
 .rate-btn-box button {
@@ -269,14 +269,16 @@ button {
 }
 
 .emoji {
-  font-size: 2rem;
+  font-size: 1.7rem;
   height: 20px;
   margin-bottom: 1rem;
+  margin-top: 20px;
 }
 
 .status {
-  font-size: 2rem;
-  color: honeydew;
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: black;
 }
 
 .stars {
@@ -308,6 +310,19 @@ button {
 .star:hover svg,
 .star:hover ~ .star svg {
   fill: gold;
+}
+
+.pay-btn-box {
+  width: 250px;
+  margin-left: -295px;
+  margin-top: 70px;
+}
+
+.pay-btn-box a {
+  padding: 0.6em;
+  width: 100px;
+  font-weight: bold;
+  border-radius: 10px;
 }
 
 /* ----------- newBookingDates  ----------- */

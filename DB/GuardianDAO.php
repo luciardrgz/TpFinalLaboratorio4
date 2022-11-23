@@ -56,21 +56,21 @@ class GuardianDAO implements IGuardianDAO
 
     function newGuardian($row)
     {
-            $guardian = new Guardian(
-                $row["first_name"],
-                $row["last_name"],
-                $row["email"],
-                $row["phone"],
-                $row["birth_date"],
-                $row["nickname"],
-                $row["pass"],
-                $row["score"],
-                $row["size"],
-                $row["price"],
-                $row["first_available_day"],
-                $row["last_available_day"]
-            );
-            $guardian->setId($row["id"]);
+        $guardian = new Guardian(
+            $row["first_name"],
+            $row["last_name"],
+            $row["email"],
+            $row["phone"],
+            $row["birth_date"],
+            $row["nickname"],
+            $row["pass"],
+            $row["score"],
+            $row["size"],
+            $row["price"],
+            $row["first_available_day"],
+            $row["last_available_day"]
+        );
+        $guardian->setId($row["id"]);
         return $guardian;
     }
 
@@ -92,7 +92,7 @@ class GuardianDAO implements IGuardianDAO
 
             $resultSet = $this->connection->Execute($query);
 
-            foreach($resultSet as $row){
+            foreach ($resultSet as $row) {
                 $guardian = $this->newGuardian($row);
                 array_push($guardianList, $guardian);
             }
@@ -123,7 +123,7 @@ class GuardianDAO implements IGuardianDAO
 
             $resultSet = $this->connection->Execute($query, $parameters);
 
-             foreach($resultSet as $row){
+            foreach ($resultSet as $row) {
                 $guardian = $this->newGuardian($row);
                 array_push($guardianList, $guardian);
             }
@@ -154,11 +154,11 @@ class GuardianDAO implements IGuardianDAO
 
             $guardian = null;
 
-            if(!empty($resultSet)){
+            if (!empty($resultSet)) {
                 $row = $resultSet[0];
-                $guardian= $this->newGuardian($row);
+                $guardian = $this->newGuardian($row);
             }
-            
+
             return $guardian;
         } catch (Exception $ex) {
             throw $ex;
@@ -185,11 +185,11 @@ class GuardianDAO implements IGuardianDAO
 
             $guardian = null;
 
-            if(!empty($resultSet)){
+            if (!empty($resultSet)) {
                 $row = $resultSet[0];
-                $guardian= $this->newGuardian($row);
+                $guardian = $this->newGuardian($row);
             }
-            
+
             return $guardian;
         } catch (Exception $ex) {
             throw $ex;
@@ -217,11 +217,11 @@ class GuardianDAO implements IGuardianDAO
 
             $guardian = null;
 
-            if(!empty($resultSet)){
+            if (!empty($resultSet)) {
                 $row = $resultSet[0];
-                $guardian= $this->newGuardian($row);
+                $guardian = $this->newGuardian($row);
             }
-            
+
             return $guardian;
         } catch (Exception $ex) {
             throw $ex;
@@ -332,7 +332,8 @@ class GuardianDAO implements IGuardianDAO
         }
     }
 
-    function changePassword($guardian, $newPass){
+    function changePassword($guardian, $newPass)
+    {
         try {
             $query = "UPDATE " . $this->tableName . " SET pass = :newPass 
             WHERE id = :idGuardian;";
@@ -347,8 +348,4 @@ class GuardianDAO implements IGuardianDAO
             throw $ex;
         }
     }
-
-
-
-
 }

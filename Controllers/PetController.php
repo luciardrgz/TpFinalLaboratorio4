@@ -35,14 +35,13 @@ class PetController
 
                     $catBreedsList = $this->breedDAO->getAllCatBreeds();
                     $dogBreedsList = $this->breedDAO->getAllDogBreeds();
-                    
+
                     if ($petName != " " || $pictureURL != " " || $breed != " " || $video != " " || $vaccination != " " || $type != " ") {
 
                         $pet = new Pet($_SESSION['id'], $petName, $pictureURL, $breed, $video, $vaccination, $type, $size);
                         $this->petDAO->add($pet);
                         $message = "You've added a pet successfully!";
                         header("Location:" . FRONT_ROOT . "User?message=" . $message);
-                        
                     } else {
                         require_once(VIEWS_PATH . "addPet.php");
                     }
@@ -52,13 +51,12 @@ class PetController
             } else {
                 header("location:" . FRONT_ROOT . "Auth");
             }
-            
-        } catch(DuplicatedValueException $ex){
+        } catch (DuplicatedValueException $ex) {
             $message = $ex->getMsg();
             require_once(VIEWS_PATH . "addPet.php");
         } catch (Exception $ex) {
-                $message = "DATABASE ERROR WHILE ADDING A NEW PET";
-                $this->auth->Logout($message);
+            $message = "DATABASE ERROR WHILE ADDING A NEW PET";
+            $this->auth->logout($message);
         }
     }
 
@@ -80,10 +78,10 @@ class PetController
             }
         } catch (Exception $ex) {
             $message = "DATABASE ERROR WHILE LISTING PETS";
-            $this->auth->Logout($message);
+            $this->auth->logout($message);
         }
     }
-    
+
     public function Index()
     {
         if (isset($_SESSION["loggeduser"])) {

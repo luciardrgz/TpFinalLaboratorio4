@@ -46,45 +46,6 @@ class UserController
         }
     }
 
-    public function add($firstName = "", $lastName = "", $birthDate = "", $email = "", $phoneNumber = "", $nickName = "", $password = "", $type = "")
-    {
-        try {
-            if ($firstName != "" || $lastName != "" || $birthDate != "" || $email != "" || $phoneNumber != "" || $nickName != "" || $password != "" || $type != "") {
-
-                if ($this->validateUser($email, $nickName) == true) {
-
-                    if ($this->validateAge($birthDate)) {
-
-                        if ($type == 'G') {
-
-                            $guardian = new Guardian($firstName, $lastName, $email, $phoneNumber, $birthDate, $nickName, $password);
-
-                            $this->guardianDAO->add($guardian);
-                            $this->auth->login($email, $password);
-                        } else {
-
-                            $owner = new Owner($firstName, $lastName, $email, $phoneNumber, $birthDate, $nickName, $password);
-
-                            $this->ownerDAO->add($owner);
-                            $this->auth->login($email, $password);
-                        }
-                    } else {
-                        $message = "You must be 16 or more to sign up";
-                        require_once(VIEWS_PATH . "signUp.php");
-                    }
-                } else {
-                    $message = "This user already exists";
-                    require_once(VIEWS_PATH . "signUp.php");
-                }
-            } else {
-                require_once(VIEWS_PATH . "signUp.php");
-            }
-        } catch (Exception $ex) {
-            $message = "DATABASE ERROR WHILE ADDING A NEW USER";
-            require_once(VIEWS_PATH . "login.php");
-        }
-    }
-
     public function validateUser($email, $nickName)
     {
         try {
@@ -159,12 +120,10 @@ class UserController
             } else {
                 header("location:" . FRONT_ROOT . "Auth");
             }
-
         } catch (Exception $ex) {
-            
+
             $message = "showProfileInfo DATABASE ERROR";
-            $this->auth->Logout($message);
-            
+            $this->auth->logout($message);
         }
     }
 
@@ -202,7 +161,7 @@ class UserController
             }
         } catch (Exception $e) {
             $message = "filterGuardianList DATABASE ERROR";
-            $this->auth->Logout($message);
+            $this->auth->logout($message);
         }
     }
 
@@ -227,7 +186,7 @@ class UserController
             }
         } catch (Exception $ex) {
             $message = "updatePetSizePreference DATABASE ERROR";
-            $this->auth->Logout($message);
+            $this->auth->logout($message);
         }
     }
 
@@ -256,7 +215,7 @@ class UserController
             }
         } catch (Exception $ex) {
             $message = "DATABASE ERROR WHILE UPDATING AVAILABILITY DATE";
-            $this->auth->Logout($message);
+            $this->auth->logout($message);
         }
     }
 
@@ -279,7 +238,7 @@ class UserController
             }
         } catch (Exception $ex) {
             $message = "DATABASE ERROR WHILE UPDATING PRICE PER DAY";
-            $this->auth->Logout($message);
+            $this->auth->logout($message);
         }
     }
 
@@ -303,24 +262,28 @@ class UserController
             }
         } catch (Exception $ex) {
             $message = "DATABASE ERROR WHILE ADDING A SCORE";
-            $this->auth->Logout($message);
+            $this->auth->logout($message);
         }
     }
 
-    public function resetPassword($newPass, $email){
+    public function resetPassword($newPass, $email)
+    {
         try {
             $guardian = new Guardian();
             $guardian = $this->guardianDAO->getByEmail($email);
+
             $owner = new Owner();
             $owner = $this->ownerDAO->getByEmail($email);
 
-            if($guardian != null){
-                $this->guardianDAO->changePassword($guardian, $newPass);
-            }else{
-                $this->ownerDAO->changePassword($owner, $newPass);
+            $encryptedNewPass = $this->auth->encryptPass($newPass);
+
+            if ($guardian != null) {
+                $this->guardianDAO->changePassword($guardian, $encryptedNewPass);
+            } else {
+                $this->ownerDAO->changePassword($owner, $encryptedNewPass);
             }
 
-            $message="Your password has been changed successfully";
+            $message = "Your password has been changed successfully";
 
             require_once(VIEWS_PATH . "login.php");
         } catch (Exception $ex) {

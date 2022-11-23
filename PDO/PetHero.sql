@@ -33,7 +33,7 @@ from petSizes;
 create table Owners(
 id int auto_increment,
 email varchar(100) unique not null,
-pass varchar(20) not null,
+pass varchar(100) not null,
 first_name varchar(30) not null,
 last_name varchar(30) not null,
 phone int not null,
@@ -182,15 +182,16 @@ insert into BookingStatus (booking_status) values ('Waiting'), ('Accepted'), ('R
 
 #Selects 
 SELECT * FROM PetTypes;
-SELECT * FROM BookingStatus;
-SELECT * FROM Owners;
-SELECT * FROM Bookings; 
-SELECT * FROM Pets;
 SELECT * FROM PetSizes;
 SELECT * FROM PetBreeds;
-SELECT * FROM Guardians;
+SELECT * FROM Pets;
+SELECT * FROM Owners;
 SELECT * FROM OwnerXBooking;
+SELECT * FROM BookingStatus;
+SELECT * FROM Bookings; 
 SELECT * FROM BookingXPet;
-SELECT * FROM scores;
-SELECT * FROM cupones;
+SELECT * FROM Guardians;
 SELECT * FROM GuardianXSize;
+SELECT * FROM Scores;
+SELECT * FROM Cupones;
+

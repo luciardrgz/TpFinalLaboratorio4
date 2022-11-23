@@ -45,16 +45,16 @@ class BookingDAO
     function newBooking($row)
     {
         $booking = new Booking(
-        $this->getPets($row['id']), 
-        ($row["start_date"]), 
-        ($row["end_date"]), 
-        ($row["id_owner"]), 
-        ($row["id_guardian"]), 
-        ($row["totalAmount"])
-    );
+            $this->getPets($row['id']),
+            ($row["start_date"]),
+            ($row["end_date"]),
+            ($row["id_owner"]),
+            ($row["id_guardian"]),
+            ($row["totalAmount"])
+        );
         $booking->setId($row["id"]);
         $booking->setStatus($row["id_status"]);
-        
+
         return $booking;
     }
 
@@ -93,7 +93,7 @@ class BookingDAO
             throw $exc;
         }
     }
-    
+
     function getMaxIdBooking()
     {
         try {
@@ -102,14 +102,14 @@ class BookingDAO
             $this->connection = Connection::GetInstance();
 
             $resultSet = $this->connection->Execute($query);
-            
+
             $idBooking = null;
-            
-            if(!empty($resultSet)){
+
+            if (!empty($resultSet)) {
                 $row = $resultSet[0];
                 $idBooking = $row["id"];
             }
-                 
+
             return $idBooking;
         } catch (Exception $exc) {
             throw $exc;
@@ -142,7 +142,6 @@ class BookingDAO
             return count($bookingList) > 0 ? $bookingList : null;
         } catch (Exception $ex) {
             throw $ex;
-            
         }
     }
 
@@ -156,7 +155,7 @@ class BookingDAO
             FROM bookings as b 
             JOIN ownerxbooking as ob
             ON b.id = ob.id_booking 
-            WHERE ob.id_owner = :idOwner AND (b.id_status = '1' OR b.id_status = '2' OR b.id_status = '3' OR b.id_status = '4');";
+            WHERE ob.id_owner = :idOwner";
 
             $parameters["idOwner"] = $idOwner;
 
@@ -172,7 +171,6 @@ class BookingDAO
             return count($bookingList) > 0 ? $bookingList : null;
         } catch (Exception $ex) {
             throw $ex;
-           
         }
     }
 
@@ -234,7 +232,6 @@ class BookingDAO
             return count($requestsList) > 0 ? $requestsList : null;
         } catch (Exception $ex) {
             throw $ex;
-            
         }
     }
 
@@ -260,7 +257,6 @@ class BookingDAO
             }
 
             return count($arrayPets) > 0 ? $arrayPets : null;
-            
         } catch (Exception $ex) {
             throw $ex;
         }
@@ -281,20 +277,20 @@ class BookingDAO
             $this->connection = Connection::GetInstance();
 
             $resultSet = $this->connection->Execute($query, $parameters);
-            
+
             $booking = null;
 
-            if(!empty($resultSet)){
+            if (!empty($resultSet)) {
                 $row = $resultSet[0];
                 $booking = $this->newBooking($row);
             }
-            
+
             return $booking;
         } catch (Exception $ex) {
             throw $ex;
         }
     }
-    
+
     public function updateStatus($id, $status)
     {
         try {
@@ -325,7 +321,7 @@ class BookingDAO
             $resultSet = $this->connection->ExecuteNonQuery($query, $parameters);
         } catch (Exception $ex) {
             throw $ex;
-        }   
+        }
     }
 
     // Update booking status from accepted to rejected (for when guardian accepts the request and owner doesn't pay for it)
@@ -341,7 +337,7 @@ class BookingDAO
             $resultSet = $this->connection->ExecuteNonQuery($query, $parameters);
         } catch (Exception $ex) {
             throw $ex;
-        } 
+        }
     }
 
     // Update booking status from waiting to timed out (for when guardian doesn't accept/reject the request)

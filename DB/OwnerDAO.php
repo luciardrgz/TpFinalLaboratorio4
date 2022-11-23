@@ -35,17 +35,17 @@ class OwnerDAO implements IOwnerDAO
     }
 
     function newOwner($row)
-    {    
-            $owner = new Owner(
-                $row["first_name"],
-                $row["last_name"],
-                $row["email"],
-                $row["phone"],
-                $row["birth_date"],
-                $row["nickname"],
-                $row["pass"]
-            );
-            $owner->setId($row["id"]);
+    {
+        $owner = new Owner(
+            $row["first_name"],
+            $row["last_name"],
+            $row["email"],
+            $row["phone"],
+            $row["birth_date"],
+            $row["nickname"],
+            $row["pass"]
+        );
+        $owner->setId($row["id"]);
 
         return $owner;
     }
@@ -53,7 +53,7 @@ class OwnerDAO implements IOwnerDAO
     function getAll()
     {
         try {
-            
+
             $ownerList = array();
 
             $query = "SELECT * FROM " . $this->tableName;
@@ -62,7 +62,7 @@ class OwnerDAO implements IOwnerDAO
 
             $resultSet = $this->connection->Execute($query);
 
-            foreach($resultSet as $row){
+            foreach ($resultSet as $row) {
                 $owner = $this->newOwner($row);
                 array_push($ownerList, $owner);
             }
@@ -85,11 +85,11 @@ class OwnerDAO implements IOwnerDAO
 
             $owner = null;
 
-            if(!empty($resultSet)){
+            if (!empty($resultSet)) {
                 $row = $resultSet[0];
                 $owner = $this->newOwner($row);
             }
-            
+
             return $owner;
         } catch (Exception $ex) {
             throw $ex;
@@ -109,11 +109,11 @@ class OwnerDAO implements IOwnerDAO
 
             $owner = null;
 
-            if(!empty($resultSet)){
+            if (!empty($resultSet)) {
                 $row = $resultSet[0];
                 $owner = $this->newOwner($row);
             }
-            
+
             return $owner;
         } catch (Exception $ex) {
             throw $ex;
@@ -133,20 +133,21 @@ class OwnerDAO implements IOwnerDAO
 
             $nickname = null;
 
-            if(!empty($resultSet)){
+            if (!empty($resultSet)) {
                 $row = $resultSet[0];
                 $nickname = $row['nickname'];
             }
-            
+
             return $nickname;
         } catch (Exception $ex) {
             throw $ex;
         }
     }
 
-    function changePassword($owner, $newPass){
+    function changePassword($owner, $newPass)
+    {
         try {
-            $query = "UPDATE ".$this->tableName. " SET pass = :newPass 
+            $query = "UPDATE " . $this->tableName . " SET pass = :newPass 
             WHERE id = :idOwner;";
 
             $parameters['newPass'] = $newPass;
@@ -159,6 +160,4 @@ class OwnerDAO implements IOwnerDAO
             throw $ex;
         }
     }
-
-    
 }

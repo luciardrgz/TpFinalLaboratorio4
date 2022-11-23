@@ -15,11 +15,12 @@ class MailController
 {
     private $auth;
 
-    function __construct(){
+    function __construct()
+    {
         $this->auth = new AuthController();
     }
 
-    function sendMail($subject, $body, $email, $nickname="")
+    function sendMail($subject, $body, $email, $nickname = "")
     {
         $mail = new PHPMailer(true); //Create an instance; passing `true` enables exceptions
 
@@ -49,12 +50,12 @@ class MailController
             $mail->CharSet = 'UTF-8';
             $mail->send();
         } catch (Exception $ex) {
-           throw $ex;
+            throw $ex;
         }
     }
-    
-    function sendCouponMail($price){
-          
+
+    function sendCouponMail($price)
+    {
         $subject = "Your Pet Hero payment details";
 
         $value_to_add = "To pay: $" . $price;
@@ -64,13 +65,14 @@ class MailController
         $this->sendMail($subject, $body, $_SESSION['email'], $_SESSION['nickname']);
     }
 
-    function sendPassRecoveryMail($email){
-          
+    function sendPassRecoveryMail($email)
+    {
+
         $subject = "Reset your Pet Hero password";
-        
-        $encryptedEmail = $this->auth->encrypt($email, "lubraAc0d3");
-        
-        $body = "Click on the link to reset your password: http://localhost/". FRONT_ROOT . "Auth/showResetPassword/".$encryptedEmail;
+
+        $encryptedEmail = $this->auth->urlsafe_b64encode($email);
+
+        $body = "Click on the link to reset your password: http://localhost" . FRONT_ROOT . "Auth/showResetPassword/" . $encryptedEmail;
 
         $this->sendMail($subject, $body, $email);
     }
