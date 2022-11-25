@@ -73,7 +73,7 @@ score int not null,
 review varchar(300),
 constraint pk_id_score primary key (id),
 constraint fk_id_guardian_score foreign key (id_guardian) references Guardians(id),
-constraint fk_id_owner_score foreign key (id_guardian) references owners(id),
+constraint fk_id_owner_score foreign key (id_owners) references owners(id),
 constraint check_score_table check (score <= 5 and score >= 0)
 )engine=InnoDB;
 
@@ -194,4 +194,3 @@ SELECT * FROM Guardians;
 SELECT * FROM GuardianXSize;
 SELECT * FROM Scores;
 SELECT * FROM Cupones;
-
