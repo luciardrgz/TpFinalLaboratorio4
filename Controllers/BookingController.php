@@ -24,7 +24,7 @@ class BookingController
     private $ownerDAO;
     private $auth;
 
-    function __construct()
+    public function __construct()
     {
         $this->bookingDAO = new BookingDAO();
         $this->PetDAO = new PetDAO();
@@ -154,7 +154,7 @@ class BookingController
         }
     }
 
-    function verifyPetBreed($pets, $breed)
+    public function verifyPetBreed($pets, $breed)
     {
         $verification = true;
 
@@ -187,7 +187,7 @@ class BookingController
         return $verification;
     }
 
-    function verifyPetSize($pets, $idGuardian)
+    public function verifyPetSize($pets, $idGuardian)
     {
         try {
             $guardian = new Guardian();
@@ -210,7 +210,7 @@ class BookingController
         }
     }
 
-    function verifyGuardianAvailability($id, $firstDay, $lastDay)
+    public function verifyGuardianAvailability($id, $firstDay, $lastDay)
     {
         try {
             $flag = false;
@@ -231,7 +231,7 @@ class BookingController
     }
 
     // Verifica que la raza de la booking que el guardian desea aceptar condiga con las que ya tiene en esas fechas (si es que tiene)
-    function verifyBookingsRequest($idBooking)
+    public function verifyBookingsRequest($idBooking)
     {
         try {
             $flag = true;
@@ -248,7 +248,7 @@ class BookingController
         }
     }
 
-    function passArrayIDTOArrayPets($idArray)
+    public function passArrayIDTOArrayPets($idArray)
     {
         try {
             $pet = new Pet();
@@ -301,7 +301,7 @@ class BookingController
     }
 
     // Muestra el booking history de un Guardian
-    function showBookingHistory()
+    public function showBookingHistory()
     {
         try {
             if (isset($_SESSION['loggeduser'])) {
@@ -334,7 +334,7 @@ class BookingController
     }
 
     // Muestra el booking history de un Owner
-    function showMyBookings()
+    public function showMyBookings()
     {
         try {
             if (isset($_SESSION['loggeduser'])) {
@@ -363,7 +363,7 @@ class BookingController
         }
     }
 
-    function showPaymentView($idBooking, $price)
+    public function showPaymentView($idBooking, $price)
     {
         if (isset($_SESSION['loggeduser'])) {
             if ($_SESSION['type'] == 'O') {
@@ -426,7 +426,7 @@ class BookingController
         }
     }
 
-    function getBreedBetweenDates($idGuardian, $firstDay, $lastDay)
+    public function getBreedBetweenDates($idGuardian, $firstDay, $lastDay)
     {
         try {
             $arrayBookings = array();
@@ -470,7 +470,7 @@ class BookingController
         }
     }
 
-    function confirmBooking($statusId, $idBooking, $price)
+    public function confirmBooking($statusId, $idBooking, $price)
     {
         try {
             $coupon = new Coupon($price, $idBooking);

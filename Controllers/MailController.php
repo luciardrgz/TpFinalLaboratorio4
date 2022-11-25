@@ -15,12 +15,12 @@ class MailController
 {
     private $auth;
 
-    function __construct()
+    public function __construct()
     {
         $this->auth = new AuthController();
     }
 
-    function sendMail($subject, $body, $email, $nickname = "")
+    public function sendMail($subject, $body, $email, $nickname = "")
     {
         $mail = new PHPMailer(true); //Create an instance; passing `true` enables exceptions
 
@@ -54,7 +54,7 @@ class MailController
         }
     }
 
-    function sendCouponMail($price)
+    public function sendCouponMail($price)
     {
         $subject = "Your Pet Hero payment details";
 
@@ -65,7 +65,7 @@ class MailController
         $this->sendMail($subject, $body, $_SESSION['email'], $_SESSION['nickname']);
     }
 
-    function sendPassRecoveryMail($email)
+    public function sendPassRecoveryMail($email)
     {
 
         $subject = "Reset your Pet Hero password";

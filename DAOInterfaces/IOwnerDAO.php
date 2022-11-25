@@ -1,10 +1,16 @@
-<?php 
+<?php
+
 namespace DAOInterfaces;
+
 use Models\Owner as Owner;
 
-interface IOwnerDAO{
-    function add(Owner $owner);
-    function getAll();
-    function getByNickname($nickname);
-    function getByEmail($email);
+interface IOwnerDAO
+{
+    public function add(Owner $owner);
+    public function newOwner($row);
+    public function getAll();
+    public function getByEmail($email);
+    public function getByNickName($nickname);
+    public function getNicknameById($id);
+    public function changePassword($owner, $newPass);
 }

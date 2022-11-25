@@ -25,11 +25,12 @@ class UserController
     private $ownerDAO;
     private $auth;
     private $bookingDAO;
+
     public function __construct()
     {
         $this->guardianDAO = new GuardianDAO();
         $this->ownerDAO = new OwnerDAO();
-        $this->bookingDAO= new bookingDAO();
+        $this->bookingDAO = new bookingDAO();
         $this->auth = new AuthController();
     }
 
@@ -86,7 +87,7 @@ class UserController
         }
     }
 
-    function showLandingPage($type)
+    public function showLandingPage($type)
     {
         if (isset($_SESSION['loggeduser'])) {
 
@@ -249,11 +250,11 @@ class UserController
         try {
             if (isset($_SESSION['loggeduser'])) {
                 if ($_SESSION['type'] == 'O') {
-                    
+
                     $this->guardianDAO->addScore($idGuardian, $score);
 
                     $this->bookingDAO->updateStatus($idBooking, "7");
-                    
+
                     $message = "You've rated this guardian succesfully";
                     header("location:" . FRONT_ROOT . "Booking/showMyBookings?message=" . $message);
                 } else {

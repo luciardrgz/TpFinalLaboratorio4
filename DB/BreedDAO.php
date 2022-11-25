@@ -3,26 +3,28 @@
 namespace DB;
 
 use Models\Breed as Breed;
+use DAOInterfaces\IBreedDAO as IBreedDAO;
 
-//use DAOInterfaces\IBreedDAO as IBreedDAO;
 use DB\Connection as Connection;
 use \Exception as Exception;
 
-class BreedDAO
+class BreedDAO implements IBreedDAO
 {
     private $connection;
     private $tableName = "PetBreeds";
 
-    function newBreed($row)
+    public function newBreed($row)
     {
-        $breed = new Breed($row["breed"], 
-        $row["id_pet_type"]);
+        $breed = new Breed(
+            $row["breed"],
+            $row["id_pet_type"]
+        );
         $breed->setId($row["id"]);
-            
+
         return $breed;
     }
 
-    function getAllDogBreeds()
+    public function getAllDogBreeds()
     {
         try {
             $breedList = array();
@@ -42,11 +44,10 @@ class BreedDAO
             return count($breedList) > 0 ? $breedList : null;
         } catch (Exception $ex) {
             throw $ex;
-            
         }
     }
 
-    function getAllCatBreeds()
+    public function getAllCatBreeds()
     {
         try {
             $breedList = array();

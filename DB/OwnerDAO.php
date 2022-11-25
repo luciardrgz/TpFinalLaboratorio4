@@ -13,7 +13,7 @@ class OwnerDAO implements IOwnerDAO
     private $connection;
     private $tableName = "Owners";
 
-    function add(Owner $owner)
+    public function add(Owner $owner)
     {
         try {
             $query = "INSERT INTO " . $this->tableName . " (email, pass, first_name, last_name, phone, birth_date, nickname) VALUES (:email,:password,:firstName,:lastName,:phoneNumber,:birthDate,:nickName);";
@@ -34,7 +34,7 @@ class OwnerDAO implements IOwnerDAO
         }
     }
 
-    function newOwner($row)
+    public function newOwner($row)
     {
         $owner = new Owner(
             $row["first_name"],
@@ -50,7 +50,7 @@ class OwnerDAO implements IOwnerDAO
         return $owner;
     }
 
-    function getAll()
+    public function getAll()
     {
         try {
 
@@ -144,7 +144,7 @@ class OwnerDAO implements IOwnerDAO
         }
     }
 
-    function changePassword($owner, $newPass)
+    public function changePassword($owner, $newPass)
     {
         try {
             $query = "UPDATE " . $this->tableName . " SET pass = :newPass 

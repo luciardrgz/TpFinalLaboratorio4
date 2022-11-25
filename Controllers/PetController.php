@@ -9,7 +9,6 @@ use DB\OwnerDAO as OwnerDAO;
 use DB\BreedDAO as BreedDAO;
 use Exceptions\DuplicatedValueException as DuplicatedValueException;
 use Exception as Exception;
-use PDOException as PDOException;
 
 class PetController
 {

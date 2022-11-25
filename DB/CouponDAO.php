@@ -1,16 +1,18 @@
 <?php
 
 namespace DB;
+
 use Models\Coupon as Coupon;
+use DAOInterfaces\ICouponDAO as ICouponDAO;
 use DB\Connection as Connection;
 use \Exception as Exception;
 
-class CouponDAO
+class CouponDAO implements ICouponDAO
 {
     private $connection;
     private $tableName = "cupones";
 
-    function add(Coupon $coupon)
+    public function add(Coupon $coupon)
     {
         try {
             $query = "INSERT INTO " . $this->tableName . " 
@@ -23,12 +25,8 @@ class CouponDAO
             $this->connection = Connection::GetInstance();
 
             $this->connection->ExecuteNonQuery($query, $parameters);
-          
-        }catch(Exception $ex) {
+        } catch (Exception $ex) {
             throw $ex;
         }
-    
     }
-        
-
 }

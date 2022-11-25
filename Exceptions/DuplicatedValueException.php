@@ -6,7 +6,7 @@ class DuplicatedValueException extends Exception{
     
     protected $msg;
 
-    function __construct($message){
+    public function __construct($message){
         $this->msg = $message;
     }
 
@@ -20,4 +20,3 @@ class DuplicatedValueException extends Exception{
         $this->msg = $message;
     }
 }
-?> 

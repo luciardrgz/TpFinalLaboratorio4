@@ -12,7 +12,7 @@ class GuardianDAO implements IGuardianDAO
     private $connection;
     private $tableName = "Guardians";
 
-    function add(Guardian $guardian)
+    public function add(Guardian $guardian)
     {
         try {
             $query = "INSERT INTO " . $this->tableName . " 
@@ -35,7 +35,7 @@ class GuardianDAO implements IGuardianDAO
         }
     }
 
-    function addScore($idGuardian, $score)
+    public function addScore($idGuardian, $score)
     {
         try {
             $query = "INSERT INTO scores (id_guardian, id_owner, score) VALUES (:idGuardian, :idOwner, :score);";
@@ -47,15 +47,14 @@ class GuardianDAO implements IGuardianDAO
             $this->connection = Connection::GetInstance();
 
             $this->connection->ExecuteNonQuery($query, $parameters);
-           
+
             $this->updateScore($idGuardian);
-            
         } catch (Exception $ex) {
             throw $ex;
         }
     }
 
-    function newGuardian($row)
+    public function newGuardian($row)
     {
         $guardian = new Guardian(
             $row["first_name"],
@@ -75,7 +74,7 @@ class GuardianDAO implements IGuardianDAO
         return $guardian;
     }
 
-    function getAllVisible()
+    public function getAllVisible()
     {
         try {
             $guardianList = array();
@@ -229,9 +228,7 @@ class GuardianDAO implements IGuardianDAO
         }
     }
 
-
-
-    function validateGuardianxSize($id)
+    public function validateGuardianxSize($id)
     {
         try {
 
@@ -253,8 +250,7 @@ class GuardianDAO implements IGuardianDAO
         }
     }
 
-
-    function update($id, $petSize)
+    public function update($id, $petSize)
     {
         try {
             if ($this->validateGuardianxSize($id)) {
@@ -281,7 +277,7 @@ class GuardianDAO implements IGuardianDAO
         }
     }
 
-    function updateDate($id, $firstDay, $lastDay)
+    public function updateDate($id, $firstDay, $lastDay)
     {
         try {
             $query = "UPDATE " . $this->tableName . " SET first_available_day = :firstDay, 
@@ -315,26 +311,25 @@ class GuardianDAO implements IGuardianDAO
         }
     }
 
-    function updateScore($idGuardian)
+    public function updateScore($idGuardian)
     {
         try {
             $query = "UPDATE "  . $this->tableName . " SET score = (SELECT avg(score)
             FROM scores
             WHERE id_guardian = :idGuardian) 
             WHERE id = :idGuardian;";
-            
+
             $parameters['idGuardian'] = $idGuardian;
-            
+
             $this->connection = Connection::GetInstance();
-            
+
             $resultSet = $this->connection->ExecuteNonQuery($query, $parameters);
-            
         } catch (Exception $ex) {
             throw $ex;
         }
     }
 
-    function changePassword($guardian, $newPass)
+    public function changePassword($guardian, $newPass)
     {
         try {
             $query = "UPDATE " . $this->tableName . " SET pass = :newPass 

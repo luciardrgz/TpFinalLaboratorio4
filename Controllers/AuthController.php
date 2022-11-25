@@ -18,7 +18,7 @@ class AuthController
     private $guardianDAO;
     private $ownerDAO;
 
-    function __construct()
+    public function __construct()
     {
         $this->guardianDAO = new GuardianDAO();
         $this->ownerDAO = new OwnerDAO();
@@ -195,7 +195,7 @@ class AuthController
         require_once(VIEWS_PATH . "resetPassword.php");
     }
 
-    function urlsafe_b64decode($string)
+    public function urlsafe_b64decode($string)
     {
         $data = str_replace(array('-', '_'), array('+', '/'), $string);
         $mod4 = strlen($data) % 4;
@@ -205,7 +205,7 @@ class AuthController
         return base64_decode($data);
     }
 
-    function urlsafe_b64encode($string)
+    public function urlsafe_b64encode($string)
     {
         $data = base64_encode($string);
         $data = str_replace(array('+', '/'), array('-', '_'), $data);
