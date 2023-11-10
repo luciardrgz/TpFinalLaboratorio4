@@ -27,7 +27,7 @@ class BookingController
     public function __construct()
     {
         $this->bookingDAO = new BookingDAO();
-        $this->PetDAO = new PetDAO();
+        $this->petDAO = new PetDAO();
         $this->couponDAO = new CouponDAO();
         $this->guardianDAO = new GuardianDAO();
         $this->ownerDAO = new OwnerDAO();
@@ -91,7 +91,7 @@ class BookingController
                     if ($id != '' && $selectedPet == '') {
 
                         $petList = array();
-                        $petList = $this->PetDAO->getPetsByOwnerId();
+                        $petList = $this->petDAO->getPetsByOwnerId();
                         $breed = $this->getBreedBetweenDates($id, $firstDay, $lastDay);
 
                         if ($breed == 'EmptyOpt') {
@@ -120,7 +120,7 @@ class BookingController
                                     $guardian = new Guardian();
                                     $guardian = $this->guardianDAO->getById($id);
 
-                                    $idPetsArray = implode(",", $selectedPet); // Transforma el array de las pets seleccionadas en un string de sus ids
+                                    $idPetsArray = implode(",", $selectedPet ?? ''); // Transforma el array de las pets seleccionadas en un string de sus ids
 
                                     $substraction = date_diff(date_create($firstDay), date_create($lastDay)); // Obtiene los dias que durará el booking
                                     $bookingDays = $substraction->format('%a');
@@ -256,7 +256,7 @@ class BookingController
             $verification = true;
 
             foreach ($idArray as $id) {
-                $pet = $this->PetDAO->getPetById($id);
+                $pet = $this->petDAO->getPetById($id);
                 array_push($petsObjects, $pet);
             }
 

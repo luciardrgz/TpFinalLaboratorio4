@@ -108,7 +108,7 @@ include("navGuardian.php");
 
     <!-- Us  -->
     <div class="home-footer">
-        Lab 4 2022 - <b>Alemán Tomás, Lalli Brian, Rodriguez Lucía</b>
+    Metodología de Sistemas 2023 - <b>Alemán Tomás y Rodriguez Lucía</b>
     </div>
 
 
